@@ -18,7 +18,7 @@ final class LoginViewHolder {
     
     let googleSignInButton = GIDSignInButton()
     let kakaoSignInButton = UIButton().then {
-        $0.setImage(UIImage(resource: .kakaoLoginMediumNarrow), for: .normal)
+        $0.setImage(UIImage(resource: .kakao), for: .normal)
     }
 }
 
