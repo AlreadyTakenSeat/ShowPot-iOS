@@ -20,8 +20,6 @@ class LoginCoordinator: Coordinator {
     
     func start() {
         let viewController: LoginViewController = LoginViewController(viewModel: LoginViewModel(coordinator: self))
-        viewController.view.backgroundColor = .yellow
-        
         self.navigationController.pushViewController(viewController, animated: true)
     }
 }
