@@ -43,32 +43,24 @@ final class LoginViewController: ViewController {
         
         // TODO: 최대건 - 애플 계정 추가 및 Google clientID, URL Schemes xcconfig로 빼기
         
-        viewHolder.googleSignInButton.rx.controlEvent(.touchUpInside)
+        viewHolder.googleSignInButton.rx.tap
             .subscribe(with: self) { owner, _ in
-                GIDSignIn.sharedInstance.signIn(withPresenting: owner) { result, error in
-                    guard error == nil else { return }
-                    
-                }
+                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.google))
+                _ = owner.viewModel.transform(input: input)
             }
             .disposed(by: disposeBag)
         
         viewHolder.kakaoSignInButton.rx.tap
             .subscribe(with: self) { owner, _ in
-                let loginClosure: (OAuthToken?, Error?) -> Void = { oauthToken, error in
-                    guard error == nil else {
-                        // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
-                        print(error!)
-                        return
-                    }
-                    
-                }
-                
-                if UserApi.isKakaoTalkLoginAvailable() {
-                    // 카카오톡 로그인 api 호출 결과를 클로저로 전달
-                    UserApi.shared.loginWithKakaoTalk(completion: loginClosure)
-                } else { // 웹으로 로그인 호출
-                    UserApi.shared.loginWithKakaoAccount(completion: loginClosure)
-                }
+                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.kakao))
+                _ = owner.viewModel.transform(input: input)
+            }
+            .disposed(by: disposeBag)
+        
+        viewHolder.appleSignInButton.rx.tap
+            .subscribe(with: self) { owner, _ in
+                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.apple))
+                _ = owner.viewModel.transform(input: input)
             }
             .disposed(by: disposeBag)
     }
