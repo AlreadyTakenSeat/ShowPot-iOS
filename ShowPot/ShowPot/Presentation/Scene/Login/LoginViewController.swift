@@ -43,25 +43,12 @@ final class LoginViewController: ViewController {
         
         // TODO: 최대건 - 애플 계정 추가 및 Google clientID, URL Schemes xcconfig로 빼기
         
-        viewHolder.googleSignInButton.rx.tap
-            .subscribe(with: self) { owner, _ in
-                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.google))
-                _ = owner.viewModel.transform(input: input)
-            }
-            .disposed(by: disposeBag)
+        let input = LoginViewModel.Input(
+            didTappedGoogleLoginButton: viewHolder.googleSignInButton.rx.tap.asObservable(),
+            didTappedAppleLoginButton: viewHolder.appleSignInButton.rx.tap.asObservable(),
+            didTappedKakaoLoginButton: viewHolder.kakaoSignInButton.rx.tap.asObservable(),
+            didTappedBackButton: viewHolder.backButton.rx.tap.asObservable()
+        )
         
-        viewHolder.kakaoSignInButton.rx.tap
-            .subscribe(with: self) { owner, _ in
-                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.kakao))
-                _ = owner.viewModel.transform(input: input)
-            }
-            .disposed(by: disposeBag)
-        
-        viewHolder.appleSignInButton.rx.tap
-            .subscribe(with: self) { owner, _ in
-                let input = LoginViewModel.Input(didTappedSocialLoginButton: .just(.apple))
-                _ = owner.viewModel.transform(input: input)
-            }
-            .disposed(by: disposeBag)
     }
 }

@@ -22,7 +22,10 @@ final class LoginViewModel: ViewModelType {
     }
     
     struct Input {
-        let didTappedSocialLoginButton: Observable<SocialLoginType>
+        let didTappedGoogleLoginButton: Observable<Void>
+        let didTappedAppleLoginButton: Observable<Void>
+        let didTappedKakaoLoginButton: Observable<Void>
+        let didTappedBackButton: Observable<Void>
     }
     
     struct Output {
@@ -31,16 +34,26 @@ final class LoginViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        input.didTappedSocialLoginButton
-            .subscribe(with: self) { owner, type in
-                switch type {
-                    case .apple:
-                        break
-                    case .google:
-                        owner.loginWithGoogle()
-                    case .kakao:
-                        owner.loginWithKakao()
-                }
+        Observable.merge(
+            input.didTappedGoogleLoginButton.map { SocialLoginType.google },
+            input.didTappedAppleLoginButton.map { SocialLoginType.apple },
+            input.didTappedKakaoLoginButton.map { SocialLoginType.kakao }
+        )
+        .subscribe(with: self) { owner, type in
+            switch type {
+            case .google:
+                owner.loginWithGoogle()
+            case .apple:
+                owner.loginWithApple()
+            case .kakao:
+                owner.loginWithKakao()
+            }
+        }
+        .disposed(by: disposeBag)
+        
+        input.didTappedBackButton
+            .subscribe(with: self) { owner, _ in
+                // TODO: - 이건준: 로그인화면 백버튼 클릭 시 coordinator로직 구현
             }
             .disposed(by: disposeBag)
         
