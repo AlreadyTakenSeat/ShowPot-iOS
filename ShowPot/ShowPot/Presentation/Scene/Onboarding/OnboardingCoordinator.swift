@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingCoordinator: Coordinator {
+final class OnboardingCoordinator: Coordinator {
     
     var rootViewController: UIViewController
     var parentCoordinator: Coordinator?
