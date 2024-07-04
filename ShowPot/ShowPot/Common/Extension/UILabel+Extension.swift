@@ -9,74 +9,13 @@ import UIKit
 
 extension UILabel {
     
-    /// UILabel의 줄 높이를 설정합니다.
+    /// UILabel의 자간 및 줄 높이에 대한 attributedText를 설정합니다.
     /// - Parameters:
-    ///   - lineHeightMultiple: UILabel의 줄 높이 배수 (예: 1.5 = 150%)
+    ///   - font: LanguageFont 프로토콜을 준수하는 타입
     ///   - string: UILabel에 설정할 텍스트
-    func setLineHeight(lineHeightMultiple: CGFloat, string: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = lineHeightMultiple
-        
-        let attributedString = NSAttributedString(
-            string: string,
-            attributes: [
-                .paragraphStyle: paragraphStyle
-            ]
-        )
-        
-        self.attributedText = attributedString
-    }
-    
-    /// UILabel의 자간을 설정합니다.
-    /// - Parameters:
-    ///   - letterSpacingPercent: UILabel의 자간 백분율 (예: -0.025 = -2.5%)
-    ///   - string: UILabel에 설정할 텍스트
-    func setLetterSpacing(letterSpacingPercent: CGFloat, string: String) {
-        // Calculate the actual letter spacing from the percentage
-        let letterSpacing = letterSpacingPercent * self.font.pointSize
-        
-        let attributedString = NSAttributedString(
-            string: string,
-            attributes: [
-                .kern: letterSpacing
-            ]
-        )
-        
-        self.attributedText = attributedString
-    }
-    
-    /// UILabel의 줄 높이와 자간을 폰트에 따라 설정합니다.
-    func setLineHeightAndLetterSpacingForFont() {
-        guard let currentText = self.text,
-              let fontName = self.font?.fontName.split(separator: "-")[0] else { return }
-        
-        var lineHeightMultiple: CGFloat = 0.0
-        var letterSpacing: CGFloat = 0.0
-        
-        switch fontName {
-        case CustomFont.pretendard.rawValue:
-            lineHeightMultiple = KRFont.lineHeight
-            letterSpacing = KRFont.letterSpacing * self.font.pointSize
-        case CustomFont.oswald.rawValue:
-            lineHeightMultiple = ENFont.lineHeight
-            letterSpacing = ENFont.letterSpacing * self.font.pointSize
-        default:
-            LogHelper.error("유효한 폰트종류가 아닙니다, 적용된 폰트이름을 확인해주세요.")
-            return
-        }
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = lineHeightMultiple
-        
-        let attributedString = NSAttributedString(
-            string: currentText,
-            attributes: [
-                .paragraphStyle: paragraphStyle,
-                .kern: letterSpacing,
-                .font: self.font as Any
-            ]
-        )
-        
-        self.attributedText = attributedString
+    func setAttributedText<T: LanguageFont>(font: T.Type, string: String) {
+        self.attributedText = NSMutableAttributedString(string: string)
+            .setLineHeight(lineHeightMultiple: font.lineHeight)
+            .setLetterSpacing(letterSpacingPercent: font.letterSpacing)
     }
 }
