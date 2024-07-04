@@ -20,9 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         self.window = window
         
-        let navigationController = UINavigationController()
-        window.rootViewController = navigationController
-        
         let coordinator = MainTabCoordinator(window: self.window)
         coordinator.start()
     }
