@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MainTabCoordinator: Coordinator {
+final class MainTabCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []

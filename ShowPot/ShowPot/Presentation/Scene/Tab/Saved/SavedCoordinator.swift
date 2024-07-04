@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SavedCoordinator: NavigationCoordinator {
+final class SavedCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
