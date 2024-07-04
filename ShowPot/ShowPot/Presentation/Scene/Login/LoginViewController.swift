@@ -5,6 +5,7 @@
 //  Created by Daegeon Choi on 6/1/24.
 //
 
+import AuthenticationServices
 import UIKit
 
 import GoogleSignIn
@@ -50,5 +51,34 @@ final class LoginViewController: ViewController {
             didTappedBackButton: viewHolder.backButton.rx.tap.asObservable()
         )
         
+        _ = viewModel.transform(input: input)
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+      switch authorization.credential {
+          case let credentials as ASAuthorizationAppleIDCredential:
+            let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
+            let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
+            
+          default:
+            break
+      }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+      // TODO: 이건준 - 애플 로그인 에러 Alert 띄우기
+        LogHelper.debug("Apple Login Failed!: \(error)")
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+      return view.window!
     }
 }

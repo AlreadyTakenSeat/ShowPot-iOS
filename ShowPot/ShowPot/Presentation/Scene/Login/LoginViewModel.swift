@@ -66,7 +66,8 @@ final class LoginViewModel: ViewModelType {
 extension LoginViewModel {
     private func loginWithGoogle() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let presentingViewController = windowScene.windows.first?.rootViewController as? LoginViewController else {
+              let rootViewController = windowScene.windows.first?.rootViewController as? UINavigationController,
+              let presentingViewController = rootViewController.topViewController as? LoginViewController else {
             return
         }
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { result, error in
@@ -95,6 +96,27 @@ extension LoginViewModel {
             UserApi.shared.loginWithKakaoAccount(completion: loginClosure)
         }
     }
+    
+    private func loginWithApple() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene.windows.first?.rootViewController as? UINavigationController,
+              let presentingViewController = rootViewController.topViewController as? LoginViewController else {
+            return
+        }
+    
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = presentingViewController
+        controller.presentationContextProvider = presentingViewController
+        controller.performRequests()
+    }
+}
+
+// MARK: - SocialLoginType
+
 extension LoginViewModel {
     
     /// 소셜로그인 종류
