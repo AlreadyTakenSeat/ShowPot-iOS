@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SavedViewController: ViewController {
+final class SavedViewController: ViewController {
     let viewHolder: SavedViewHolder = .init()
     let viewModel: SavedViewModel
     

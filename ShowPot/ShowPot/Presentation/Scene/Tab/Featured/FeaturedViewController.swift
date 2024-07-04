@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeaturedViewController: ViewController {
+final class FeaturedViewController: ViewController {
     let viewHolder: FeaturedViewHolder = .init()
     let viewModel: FeaturedViewModel
     

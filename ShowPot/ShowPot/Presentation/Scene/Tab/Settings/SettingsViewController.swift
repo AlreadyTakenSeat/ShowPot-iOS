@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SettingsViewController: ViewController {
+final class SettingsViewController: ViewController {
     let viewHolder: SettingsViewHolder = .init()
     let viewModel: SettingsViewModel
     

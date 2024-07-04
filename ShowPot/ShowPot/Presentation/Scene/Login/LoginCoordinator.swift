@@ -28,9 +28,6 @@ class LoginCoordinator: Coordinator {
 
 extension LoginCoordinator {
     func didLoggedIn() {
-        let coordinator = MainTabCoordinator(navigationController: navigationController)
-        coordinator.parentCoordinator = parentCoordinator
-        coordinator.start()
-        parentCoordinator?.removeChildCoordinator(child: self)
+        
     }
 }
