@@ -8,6 +8,13 @@
 
 "app_name" = "쇼팟";
 
+// 온보딩 화면
+"onboarding_title_1" = "티켓팅 알림받기";
+"onboarding_description_1" = "중요한 티켓팅, 잊어버리지 않게\n푸쉬 알림을 드릴게요!";
+"onboarding_title_2" = "장르/아티스트 구독하기";
+"onboarding_description_2" = "내가 관심 있는 장르/아티스트의\n내한 소식을 빠르게 받아볼 수 있어요!";
+"onboarding_button" = "쇼팟 시작하기";
+
 // 로그인 화면
 "socialLogin_description" = "잊지않고 내한공연 즐기러가요";
 "socialLogin_kakao_button" = "Kakao로 시작하기";
