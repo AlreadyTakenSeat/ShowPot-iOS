@@ -9,6 +9,8 @@ import UIKit
 
 final class MainTabController: UITabBarController {
     
+    let isFirstLaunch: Bool = true // TODO: [OMLK-17] 첫 실행 판단 로직 개발
+    
     override func viewDidLoad() {
         
         let tabCoordinators: [NavigationCoordinator] = [
@@ -28,5 +30,14 @@ final class MainTabController: UITabBarController {
         }
         
         self.viewControllers = viewControllers
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isFirstLaunch {
+            let onboardingCoordinator = OnboardingCoordinator(rootViewController: self)
+            onboardingCoordinator.start()
+        }
     }
 }
