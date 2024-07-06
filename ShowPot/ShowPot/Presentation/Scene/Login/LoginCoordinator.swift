@@ -28,4 +28,9 @@ extension LoginCoordinator {
     func didLoggedIn() {
         
     }
+    
+    func didTappedBackButton() {
+        navigationController.popViewController(animated: true)
+        parentCoordinator?.removeChildCoordinator(child: self)
+    }
 }

@@ -15,9 +15,9 @@ import RxSwift
 final class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
-    var coordinator: Coordinator
+    var coordinator: LoginCoordinator
     
-    init(coordinator: Coordinator) {
+    init(coordinator: LoginCoordinator) {
         self.coordinator = coordinator
     }
     
@@ -53,7 +53,7 @@ final class LoginViewModel: ViewModelType {
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
-                // TODO: - 이건준: 로그인화면 백버튼 클릭 시 coordinator로직 구현
+                owner.coordinator.didTappedBackButton()
             }
             .disposed(by: disposeBag)
         
