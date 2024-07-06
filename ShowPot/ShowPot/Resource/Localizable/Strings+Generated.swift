@@ -15,6 +15,8 @@ public enum Strings {
   /// 
   ///   Created by Daegeon Choi on 5/25/24.
   public static let appName = Strings.tr("Localizable", "app_name", fallback: "쇼팟")
+  /// 잊지않고 내한공연 즐기러가요
+  public static let socialLoginDescription = Strings.tr("Localizable", "socialLogin_description", fallback: "잊지않고 내한공연 즐기러가요")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

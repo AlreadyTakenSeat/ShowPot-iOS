@@ -7,3 +7,6 @@
 */
 
 "app_name" = "쇼팟";
+
+// 로그인 화면
+"socialLogin_description" = "잊지않고 내한공연 즐기러가요";

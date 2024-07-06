@@ -21,7 +21,7 @@ final class LoginViewHolder {
     }
     
     let alertLabel = UILabel().then {
-        $0.text = "잊지않고 내한공연 즐기러가요"
+        $0.text = Strings.socialLoginDescription
         $0.textColor = .white
         $0.font = KRFont.H2
         $0.textAlignment = .center
