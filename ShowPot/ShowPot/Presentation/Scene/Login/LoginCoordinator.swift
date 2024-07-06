@@ -5,7 +5,6 @@
 //  Created by Daegeon Choi on 6/1/24.
 //
 
-import Foundation
 import UIKit
 
 class LoginCoordinator: Coordinator {
