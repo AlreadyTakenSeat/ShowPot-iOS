@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginCoordinator: Coordinator {
+final class LoginCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
