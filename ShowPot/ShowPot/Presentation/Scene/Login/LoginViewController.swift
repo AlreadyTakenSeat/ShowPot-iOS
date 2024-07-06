@@ -42,7 +42,7 @@ final class LoginViewController: ViewController {
     
     override func bind() {
         
-        // TODO: 최대건 - 애플 계정 추가 및 Google clientID, URL Schemes xcconfig로 빼기
+        // TODO: 최대건 - 애플 계정 추가 및 xcconfig 설정값 gitignore처리, SignInApple 추가
         
         let input = LoginViewModel.Input(
             didTappedGoogleLoginButton: viewHolder.googleSignInButton.rx.tap.asObservable(),
