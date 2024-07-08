@@ -45,18 +45,23 @@ final class LoginViewHolder {
         $0.setImage(UIImage(resource: .kakao), for: .normal)
         $0.layer.cornerRadius = 2
         $0.layer.masksToBounds = true
+        $0.contentHorizontalAlignment = .fill
     }
     
     let googleSignInButton = UIButton().then {
         $0.setImage(UIImage(resource: .google), for: .normal)
         $0.layer.cornerRadius = 2
         $0.layer.masksToBounds = true
+        $0.contentHorizontalAlignment = .fill
     }
     
     let appleSignInButton = UIButton().then {
         $0.setImage(UIImage(resource: .apple), for: .normal)
+        $0.layer.borderColor = UIColor.gray100.cgColor
+        $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 2
         $0.layer.masksToBounds = true
+        $0.contentHorizontalAlignment = .fill
     }
 }
 
