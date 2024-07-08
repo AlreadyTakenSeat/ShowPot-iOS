@@ -38,7 +38,7 @@ final class LoginViewHolder {
         $0.axis = .vertical
         $0.spacing = 12
         $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = .init(top: .zero, left: 20, bottom: 56, right: 20)
+        $0.layoutMargins = .init(top: .zero, left: 16, bottom: 56, right: 16)
     }
     
     let kakaoSignInButton = UIButton().then {
