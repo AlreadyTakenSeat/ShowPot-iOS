@@ -117,12 +117,9 @@ extension LoginViewModel {
 
 // MARK: - SocialLoginType
 
-extension LoginViewModel {
-    
-    /// 소셜로그인 종류
-    enum SocialLoginType {
-        case google
-        case kakao
-        case apple
-    }
+/// 소셜로그인 종류
+enum SocialLoginType {
+    case google
+    case kakao
+    case apple
 }

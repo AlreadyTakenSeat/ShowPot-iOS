@@ -41,28 +41,11 @@ final class LoginViewHolder {
         $0.layoutMargins = .init(top: .zero, left: 16, bottom: 56, right: 16)
     }
     
-    let kakaoSignInButton = UIButton().then {
-        $0.setImage(UIImage(resource: .kakao), for: .normal)
-        $0.layer.cornerRadius = 2
-        $0.layer.masksToBounds = true
-        $0.contentHorizontalAlignment = .fill
-    }
+    let kakaoSignInButton = SocialLoginButton(type: .kakao)
     
-    let googleSignInButton = UIButton().then {
-        $0.setImage(UIImage(resource: .google), for: .normal)
-        $0.layer.cornerRadius = 2
-        $0.layer.masksToBounds = true
-        $0.contentHorizontalAlignment = .fill
-    }
+    let googleSignInButton = SocialLoginButton(type: .google)
     
-    let appleSignInButton = UIButton().then {
-        $0.setImage(UIImage(resource: .apple), for: .normal)
-        $0.layer.borderColor = UIColor.gray100.cgColor
-        $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 2
-        $0.layer.masksToBounds = true
-        $0.contentHorizontalAlignment = .fill
-    }
+    let appleSignInButton = SocialLoginButton(type: .apple)
 }
 
 extension LoginViewHolder: ViewHolderType {
@@ -103,17 +86,96 @@ extension LoginViewHolder: ViewHolderType {
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
         }
         
-        kakaoSignInButton.snp.makeConstraints {
-            $0.height.equalTo(55)
-        }
-        
-        googleSignInButton.snp.makeConstraints {
-            $0.height.equalTo(55)
-        }
-        
-        appleSignInButton.snp.makeConstraints {
-            $0.height.equalTo(55)
+        [kakaoSignInButton, googleSignInButton, appleSignInButton].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(55)
+            }
         }
     }
     
+}
+
+// MARK: - 소셜로그인버튼 UI
+
+extension LoginViewHolder {
+    final class SocialLoginButton: UIView {
+        
+        private let type: SocialLoginType
+        
+        let button = UIButton()
+        
+        private let containerView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.spacing = 12
+            $0.alignment = .center
+        }
+        
+        private let socialLoginImageView = UIImageView().then {
+            $0.contentMode = .scaleAspectFill
+        }
+        
+        private let socialLoginDescriptionLabel = UILabel().then {
+            $0.textAlignment = .left
+            $0.font = KRFont.H2
+        }
+        
+        init(type: SocialLoginType) {
+            self.type = type
+            super.init(frame: .zero)
+            setupLayouts()
+            setupConstraints()
+            setupStyles(type: type)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayouts() {
+            _ = [containerView, button].map { addSubview($0) }
+            _ = [socialLoginImageView, socialLoginDescriptionLabel].map { containerView.addArrangedSubview($0) }
+        }
+        
+        private func setupConstraints() {
+            containerView.snp.makeConstraints {
+                $0.center.equalToSuperview()
+            }
+            
+            button.snp.makeConstraints {
+                $0.directionalEdges.equalToSuperview()
+            }
+            
+            socialLoginImageView.snp.makeConstraints {
+                $0.size.equalTo(24)
+            }
+        }
+        
+        private func setupStyles(type: SocialLoginType) {
+            
+            layer.cornerRadius = 2
+            layer.masksToBounds = true
+            
+            switch type {
+                case .google:
+                    backgroundColor = .white
+                    socialLoginImageView.image = UIImage(resource: .google)
+                    socialLoginDescriptionLabel.textColor = .gray700
+                    socialLoginDescriptionLabel.text = "Google로 시작하기"
+                case .kakao:
+                    backgroundColor = .yellow
+                    socialLoginImageView.image = UIImage(resource: .kakao)
+                    socialLoginDescriptionLabel.textColor = .gray800
+                    socialLoginDescriptionLabel.text = "Kakao로 시작하기"
+                case .apple:
+                    backgroundColor = .gray800
+                    socialLoginImageView.image = UIImage(resource: .apple)
+                    socialLoginDescriptionLabel.textColor = .white
+                    socialLoginDescriptionLabel.text = "Apple로 시작하기"
+                    layer.borderColor = UIColor.gray100.cgColor
+                    layer.borderWidth = 1
+            }
+        }
+        
+    }
+
 }
