@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CTA_ON.png",
+      "filename" : "Apple Logo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CTA_ON@2x.png",
+      "filename" : "Apple Logo@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CTA_ON@3x.png",
+      "filename" : "Apple Logo@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
