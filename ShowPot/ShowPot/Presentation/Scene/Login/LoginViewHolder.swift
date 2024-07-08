@@ -93,7 +93,7 @@ extension LoginViewHolder: ViewHolderType {
         }
         
         loginImageView.snp.makeConstraints {
-            $0.top.equalTo(alertLabel.snp.bottom).offset(42)
+            $0.top.equalTo(alertLabel.snp.bottom).offset(21)
             $0.leading.equalToSuperview().inset(114)
             $0.trailing.equalToSuperview().inset(97.65)
         }
