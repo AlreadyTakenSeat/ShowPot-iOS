@@ -15,8 +15,14 @@ public enum Strings {
   /// 
   ///   Created by Daegeon Choi on 5/25/24.
   public static let appName = Strings.tr("Localizable", "app_name", fallback: "쇼팟")
+  /// Apple로 시작하기
+  public static let socialLoginAppleTitle = Strings.tr("Localizable", "socialLogin_apple_title", fallback: "Apple로 시작하기")
   /// 잊지않고 내한공연 즐기러가요
   public static let socialLoginDescription = Strings.tr("Localizable", "socialLogin_description", fallback: "잊지않고 내한공연 즐기러가요")
+  /// Google로 시작하기
+  public static let socialLoginGoogleTitle = Strings.tr("Localizable", "socialLogin_google_title", fallback: "Google로 시작하기")
+  /// Kakao로 시작하기
+  public static let socialLoginKakaoTitle = Strings.tr("Localizable", "socialLogin_kakao_title", fallback: "Kakao로 시작하기")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

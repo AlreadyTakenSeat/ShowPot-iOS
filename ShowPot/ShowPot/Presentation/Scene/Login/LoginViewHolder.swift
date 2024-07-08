@@ -160,17 +160,17 @@ extension LoginViewHolder {
                     backgroundColor = .white
                     socialLoginImageView.image = UIImage(resource: .google)
                     socialLoginDescriptionLabel.textColor = .gray700
-                    socialLoginDescriptionLabel.text = "Google로 시작하기"
+                    socialLoginDescriptionLabel.text = Strings.socialLoginGoogleTitle
                 case .kakao:
                     backgroundColor = .yellow
                     socialLoginImageView.image = UIImage(resource: .kakao)
                     socialLoginDescriptionLabel.textColor = .gray800
-                    socialLoginDescriptionLabel.text = "Kakao로 시작하기"
+                    socialLoginDescriptionLabel.text = Strings.socialLoginKakaoTitle
                 case .apple:
                     backgroundColor = .gray800
                     socialLoginImageView.image = UIImage(resource: .apple)
                     socialLoginDescriptionLabel.textColor = .white
-                    socialLoginDescriptionLabel.text = "Apple로 시작하기"
+                    socialLoginDescriptionLabel.text = Strings.socialLoginAppleTitle
                     layer.borderColor = UIColor.gray100.cgColor
                     layer.borderWidth = 1
             }
