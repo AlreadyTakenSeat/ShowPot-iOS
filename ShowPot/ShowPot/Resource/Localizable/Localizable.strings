@@ -10,6 +10,6 @@
 
 // 로그인 화면
 "socialLogin_description" = "잊지않고 내한공연 즐기러가요";
-"socialLogin_kakao_title" = "Kakao로 시작하기";
-"socialLogin_google_title" = "Google로 시작하기";
-"socialLogin_apple_title" = "Apple로 시작하기";
+"socialLogin_kakao_button" = "Kakao로 시작하기";
+"socialLogin_google_button" = "Google로 시작하기";
+"socialLogin_apple_button" = "Apple로 시작하기";
