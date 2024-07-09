@@ -70,7 +70,7 @@ final class SocialLoginButton: UIView {
         
         switch type {
             case .google:
-                backgroundColor = .white
+                backgroundColor = .googleWhite
                 socialLoginImageView.image = UIImage(resource: .google) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .gray700
                 socialLoginDescriptionLabel.text = Strings.socialLoginGoogleButton
