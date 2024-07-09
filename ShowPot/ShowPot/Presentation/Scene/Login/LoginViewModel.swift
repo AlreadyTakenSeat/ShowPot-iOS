@@ -34,20 +34,17 @@ final class LoginViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
+        let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.google }
+        let didTappedAppleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.apple }
+        let didTappedKakaoLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.kakao }
+        
         Observable.merge(
-            input.didTappedGoogleLoginButton.map { SocialLoginType.google },
-            input.didTappedAppleLoginButton.map { SocialLoginType.apple },
-            input.didTappedKakaoLoginButton.map { SocialLoginType.kakao }
+            didTappedGoogleLoginButton,
+            didTappedAppleLoginButton,
+            didTappedKakaoLoginButton
         )
         .subscribe(with: self) { owner, type in
-            switch type {
-            case .google:
-                owner.loginWithGoogle()
-            case .apple:
-                owner.loginWithApple()
-            case .kakao:
-                owner.loginWithKakao()
-            }
+            owner.requestSocialLogin(with: type)
         }
         .disposed(by: disposeBag)
         
@@ -64,6 +61,17 @@ final class LoginViewModel: ViewModelType {
 // MARK: - SocialLogin Logics
 
 extension LoginViewModel {
+    private func requestSocialLogin(with type: SocialLoginType) {
+        switch type {
+        case .google:
+            loginWithGoogle()
+        case .kakao:
+            loginWithKakao()
+        case .apple:
+            loginWithApple()
+        }
+    }
+    
     private func loginWithGoogle() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootViewController = windowScene.windows.first?.rootViewController as? UINavigationController,
