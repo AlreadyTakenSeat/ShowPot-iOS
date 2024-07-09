@@ -45,8 +45,8 @@ final class SocialLoginButton: UIView {
     }
     
     private func setupLayouts() {
-        _ = [containerView, button].map { addSubview($0) }
-        _ = [socialLoginImageView, socialLoginDescriptionLabel].map { containerView.addArrangedSubview($0) }
+        [containerView, button].forEach { addSubview($0) }
+        [socialLoginImageView, socialLoginDescriptionLabel].forEach { containerView.addArrangedSubview($0) }
     }
     
     private func setupConstraints() {

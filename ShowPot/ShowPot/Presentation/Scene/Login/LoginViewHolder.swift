@@ -51,8 +51,8 @@ final class LoginViewHolder {
 extension LoginViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        _ = [backButton, logoImageView, alertLabel, loginImageView, socialLoginStackView].map { view.addSubview($0) }
-        _ = [kakaoSignInButton, googleSignInButton, appleSignInButton].map { socialLoginStackView.addArrangedSubview($0) }
+        [backButton, logoImageView, alertLabel, loginImageView, socialLoginStackView].forEach { view.addSubview($0) }
+        [kakaoSignInButton, googleSignInButton, appleSignInButton].forEach { socialLoginStackView.addArrangedSubview($0) }
     }
     
     func configureConstraints(for view: UIView) {
