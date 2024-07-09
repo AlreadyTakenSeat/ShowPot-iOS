@@ -62,6 +62,10 @@ final class LoginViewModel: ViewModelType {
 // MARK: - SocialLogin Logics
 
 extension LoginViewModel {
+    
+    /// SocialLoginType을 가지고 해당 소셜로그인을 요청하는 함수입니다.
+    /// - Parameters:
+    ///   - type: 어떤 소셜로그인에 관련된 요청을 할지에 대한 타입
     private func requestSocialLogin(with type: SocialLoginType) {
         switch type {
         case .google:
