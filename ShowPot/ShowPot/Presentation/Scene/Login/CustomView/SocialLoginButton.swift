@@ -17,7 +17,7 @@ final class SocialLoginButton: UIView {
     
     let button = UIButton()
     
-    private let containerView = UIStackView().then {
+    private let containerStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 12
         $0.alignment = .center
@@ -45,12 +45,12 @@ final class SocialLoginButton: UIView {
     }
     
     private func setupLayouts() {
-        [containerView, button].forEach { addSubview($0) }
-        [socialLoginImageView, socialLoginDescriptionLabel].forEach { containerView.addArrangedSubview($0) }
+        [containerStackView, button].forEach { addSubview($0) }
+        [socialLoginImageView, socialLoginDescriptionLabel].forEach { containerStackView.addArrangedSubview($0) }
     }
     
     private func setupConstraints() {
-        containerView.snp.makeConstraints {
+        containerStackView.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
         
