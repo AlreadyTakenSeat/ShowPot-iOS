@@ -162,7 +162,7 @@ extension LoginViewHolder {
                     socialLoginDescriptionLabel.textColor = .gray700
                     socialLoginDescriptionLabel.text = Strings.socialLoginGoogleTitle
                 case .kakao:
-                    backgroundColor = .yellow
+                    backgroundColor = UIColor(resource: .kakaoYellow)
                     socialLoginImageView.image = UIImage(resource: .kakao)
                     socialLoginDescriptionLabel.textColor = .gray800
                     socialLoginDescriptionLabel.text = Strings.socialLoginKakaoTitle
