@@ -45,9 +45,9 @@ final class LoginViewController: ViewController {
         // TODO: 최대건 - 애플 계정 추가 및 xcconfig 설정값 gitignore처리, SignInApple 추가
         
         let input = LoginViewModel.Input(
-            didTappedGoogleLoginButton: viewHolder.googleSignInButton.button.rx.tap.asObservable(),
-            didTappedAppleLoginButton: viewHolder.appleSignInButton.button.rx.tap.asObservable(),
-            didTappedKakaoLoginButton: viewHolder.kakaoSignInButton.button.rx.tap.asObservable(),
+            didTappedGoogleLoginButton: viewHolder.googleSignInButton.rx.tap.asObservable(),
+            didTappedAppleLoginButton: viewHolder.appleSignInButton.rx.tap.asObservable(),
+            didTappedKakaoLoginButton: viewHolder.kakaoSignInButton.rx.tap.asObservable(),
             didTappedBackButton: viewHolder.backButton.rx.tap.asObservable()
         )
         
