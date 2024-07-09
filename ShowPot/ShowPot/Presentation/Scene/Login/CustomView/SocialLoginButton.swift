@@ -71,17 +71,17 @@ final class SocialLoginButton: UIView {
         switch type {
             case .google:
                 backgroundColor = .googleWhite
-                socialLoginImageView.image = UIImage(resource: .google) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                socialLoginImageView.image = .google // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .gray700
                 socialLoginDescriptionLabel.text = Strings.socialLoginGoogleButton
             case .kakao:
-                backgroundColor = UIColor(resource: .kakaoYellow)
-                socialLoginImageView.image = UIImage(resource: .kakao) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                backgroundColor = .kakaoYellow
+                socialLoginImageView.image = .kakao // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .gray800
                 socialLoginDescriptionLabel.text = Strings.socialLoginKakaoButton
             case .apple:
                 backgroundColor = .gray800
-                socialLoginImageView.image = UIImage(resource: .apple) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                socialLoginImageView.image = .apple // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .white
                 socialLoginDescriptionLabel.text = Strings.socialLoginAppleButton
                 layer.borderColor = UIColor.gray100.cgColor
