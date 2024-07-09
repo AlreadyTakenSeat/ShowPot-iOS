@@ -51,7 +51,7 @@ final class LoginViewController: ViewController {
             didTappedBackButton: viewHolder.backButton.rx.tap.asObservable()
         )
         
-        _ = viewModel.transform(input: input)
+        viewModel.transform(input: input)
     }
 }
 

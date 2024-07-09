@@ -32,6 +32,7 @@ final class LoginViewModel: ViewModelType {
         
     }
     
+    @discardableResult
     func transform(input: Input) -> Output {
         
         let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.google }
