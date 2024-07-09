@@ -36,8 +36,8 @@ final class LoginViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.google }
-        let didTappedAppleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.apple }
-        let didTappedKakaoLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.kakao }
+        let didTappedAppleLoginButton = input.didTappedAppleLoginButton.map { SocialLoginType.apple }
+        let didTappedKakaoLoginButton = input.didTappedKakaoLoginButton.map { SocialLoginType.kakao }
         
         Observable.merge(
             didTappedGoogleLoginButton,
