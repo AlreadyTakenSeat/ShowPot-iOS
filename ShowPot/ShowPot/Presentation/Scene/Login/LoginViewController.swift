@@ -58,8 +58,10 @@ final class LoginViewController: ViewController {
 // MARK: - ASAuthorizationControllerDelegate
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    /// Apple 인증 요청이 성공적으로 완료되었을 때 호출되는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-      switch authorization.credential {
+      switch authorization.credential { // Apple ID 인증 정보가 제공된 경우
           case let credentials as ASAuthorizationAppleIDCredential:
             let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
             let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
@@ -69,6 +71,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
       }
     }
     
+    /// Apple 로그인 인증 요청이 실패했을 때 호출되는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
       // TODO: 이건준 - 애플 로그인 에러 Alert 띄우기
         LogHelper.debug("Apple Login Failed!: \(error)")
@@ -78,6 +81,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 // MARK: - ASAuthorizationControllerPresentationContextProviding
 
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    
+    /// Apple ID 로그인 UI를 표시할 윈도우를 지정하는 함수
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
       return view.window!
     }

@@ -29,7 +29,7 @@ final class SocialLoginButton: UIView {
     
     private let socialLoginDescriptionLabel = UILabel().then {
         $0.textAlignment = .left
-        $0.font = KRFont.H2
+        $0.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
     }
     
     init(type: SocialLoginType) {
@@ -71,17 +71,17 @@ final class SocialLoginButton: UIView {
         switch type {
             case .google:
                 backgroundColor = .white
-                socialLoginImageView.image = UIImage(resource: .google)
+                socialLoginImageView.image = UIImage(resource: .google) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .gray700
                 socialLoginDescriptionLabel.text = Strings.socialLoginGoogleTitle
             case .kakao:
                 backgroundColor = UIColor(resource: .kakaoYellow)
-                socialLoginImageView.image = UIImage(resource: .kakao)
+                socialLoginImageView.image = UIImage(resource: .kakao) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .gray800
                 socialLoginDescriptionLabel.text = Strings.socialLoginKakaoTitle
             case .apple:
                 backgroundColor = .gray800
-                socialLoginImageView.image = UIImage(resource: .apple)
+                socialLoginImageView.image = UIImage(resource: .apple) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
                 socialLoginDescriptionLabel.textColor = .white
                 socialLoginDescriptionLabel.text = Strings.socialLoginAppleTitle
                 layer.borderColor = UIColor.gray100.cgColor

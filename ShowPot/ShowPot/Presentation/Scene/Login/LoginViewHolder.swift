@@ -13,23 +13,23 @@ import GoogleSignIn
 final class LoginViewHolder {
     
     let backButton = UIButton().then {
-        $0.setImage(UIImage(resource: .icArrow36Left).withTintColor(.white), for: .normal)
+        $0.setImage(UIImage(resource: .icArrow36Left).withTintColor(.white), for: .normal) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
     }
     
     let logoImageView = UIImageView().then {
-        $0.image = UIImage(resource: .showpot)
+        $0.image = UIImage(resource: .showpot) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
         $0.contentMode = .scaleAspectFit
     }
     
     let alertLabel = UILabel().then {
         $0.text = Strings.socialLoginDescription
         $0.textColor = .white
-        $0.font = KRFont.H2
+        $0.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
         $0.textAlignment = .center
     }
     
     let loginImageView = UIImageView().then {
-        $0.image = UIImage(resource: .group1171275072)
+        $0.image = UIImage(resource: .group1171275072) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
         $0.contentMode = .scaleAspectFit
     }
     
