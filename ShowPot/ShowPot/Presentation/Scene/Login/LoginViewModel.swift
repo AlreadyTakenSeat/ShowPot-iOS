@@ -35,19 +35,27 @@ final class LoginViewModel: ViewModelType {
     @discardableResult
     func transform(input: Input) -> Output {
         
-        let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton.map { SocialLoginType.google }
-        let didTappedAppleLoginButton = input.didTappedAppleLoginButton.map { SocialLoginType.apple }
-        let didTappedKakaoLoginButton = input.didTappedKakaoLoginButton.map { SocialLoginType.kakao }
+        let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton
+        let didTappedAppleLoginButton = input.didTappedAppleLoginButton
+        let didTappedKakaoLoginButton = input.didTappedKakaoLoginButton
         
-        Observable.merge(
-            didTappedGoogleLoginButton,
-            didTappedAppleLoginButton,
-            didTappedKakaoLoginButton
-        )
-        .subscribe(with: self) { owner, type in
-            owner.requestSocialLogin(with: type)
-        }
-        .disposed(by: disposeBag)
+        didTappedGoogleLoginButton
+            .subscribe(with: self) { owner, _ in
+                owner.loginWithGoogle()
+            }
+            .disposed(by: disposeBag)
+        
+        didTappedAppleLoginButton
+            .subscribe(with: self) { owner, _ in
+                owner.loginWithApple()
+            }
+            .disposed(by: disposeBag)
+        
+        didTappedKakaoLoginButton
+            .subscribe(with: self) { owner, _ in
+                owner.loginWithKakao()
+            }
+            .disposed(by: disposeBag)
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
@@ -62,20 +70,6 @@ final class LoginViewModel: ViewModelType {
 // MARK: - SocialLogin Logics
 
 extension LoginViewModel {
-    
-    /// SocialLoginType을 가지고 해당 소셜로그인을 요청하는 함수입니다.
-    /// - Parameters:
-    ///   - type: 어떤 소셜로그인에 관련된 요청을 할지에 대한 타입
-    private func requestSocialLogin(with type: SocialLoginType) {
-        switch type {
-        case .google:
-            loginWithGoogle()
-        case .kakao:
-            loginWithKakao()
-        case .apple:
-            loginWithApple()
-        }
-    }
     
     private func loginWithGoogle() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
