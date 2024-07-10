@@ -38,17 +38,16 @@ final class SocialLoginButton: UIButton {
             configuration.baseBackgroundColor = .googleWhite
             configuration.image = .google // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             configuration.baseForegroundColor = .gray700
-            attributedTitle = AttributedString(Strings.socialLoginGoogleButton)
+            attributedTitle = AttributedString(Strings.socialLoginGoogleButton) // TODO: #37 lineHeight + letterSpacing 적용
         case .kakao:
             configuration.baseBackgroundColor = .kakaoYellow
             configuration.image = .kakao // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             configuration.baseForegroundColor = .gray800
-            attributedTitle = AttributedString(Strings.socialLoginKakaoButton)
+            attributedTitle = AttributedString(Strings.socialLoginKakaoButton) // TODO: #37 lineHeight + letterSpacing 적용
         case .apple:
             configuration.baseBackgroundColor = .gray800
             configuration.image = .apple // TODO: #44 애셋 네이밍 변경 이후 작업 필요
-            configuration.baseForegroundColor = .white
-            attributedTitle = AttributedString(Strings.socialLoginAppleButton)
+            attributedTitle = AttributedString(Strings.socialLoginAppleButton) // TODO: #37 lineHeight + letterSpacing 적용
             configuration.baseForegroundColor = .white // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             layer.borderColor = UIColor.gray100.cgColor
             layer.borderWidth = 1
