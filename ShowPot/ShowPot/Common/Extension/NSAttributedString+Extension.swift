@@ -11,10 +11,11 @@ extension NSAttributedString {
     
     /// 줄 높이를 설정을 위한 attribute를 추가합니다.
     /// - Parameters:
-    ///   - lineHeightMultiple: UILabel의 줄 높이 배수 (예: 1.5 = 150%)
-    func setLineHeight(lineHeightMultiple: CGFloat) -> NSAttributedString {
+    ///   - lineHeight: UILabel의 줄 높이
+    func setLineHeight(lineHeight: CGFloat) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        paragraphStyle.maximumLineHeight = lineHeight
+        paragraphStyle.minimumLineHeight = lineHeight
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle
