@@ -38,7 +38,7 @@ final class LoginViewHolder {
         $0.axis = .vertical
         $0.spacing = 12
         $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = .init(top: .zero, left: 16, bottom: 56, right: 16)
+        $0.layoutMargins = .init(top: .zero, left: 16, bottom: .zero, right: 16)
     }
     
     let kakaoSignInButton = SocialLoginButton(type: .kakao)
@@ -83,7 +83,8 @@ extension LoginViewHolder: ViewHolderType {
         
         socialLoginStackView.snp.makeConstraints {
             $0.top.greaterThanOrEqualTo(loginImageView.snp.bottom)
-            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide).offset(-56)
         }
         
         [kakaoSignInButton, googleSignInButton, appleSignInButton].forEach {
