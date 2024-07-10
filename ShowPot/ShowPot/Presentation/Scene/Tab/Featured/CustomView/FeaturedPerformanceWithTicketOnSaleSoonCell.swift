@@ -2,7 +2,7 @@
 //  FeaturedPerformanceWithTicketOnSaleSoonCell.swift
 //  ShowPot
 //
-//  Created by 이건준 on 7/11/24.
+//  Created by 이건준 on 7/26/24.
 //
 
 import UIKit
@@ -10,13 +10,6 @@ import UIKit
 import Kingfisher
 import SnapKit
 import Then
-
-struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
-    let ticketingOpenTime: String
-    let performanceTitle: String
-    let performanceLocation: String
-    let performanceImageURL: URL?
-}
 
 final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, ReusableCell {
     
@@ -35,7 +28,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     private let performanceTitleLabel = UILabel().then {
         $0.font = ENFont.H3
         $0.textAlignment = .left
-        $0.textColor = .white // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+        $0.textColor = .white
     }
     
     private let performanceLocationLabel = UILabel().then {
@@ -44,9 +37,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.textColor = .gray300
     }
     
-    private let performanceBackgroundImageView = UIImageView().then { // TODO: Linear적용
-        $0.backgroundColor = .yellow
-    }
+    private let performanceBackgroundImageView = UIImageView() // TODO: Linear적용
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,12 +94,22 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     
 }
 
+struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
+    let ticketingOpenTime: String
+    let performanceTitle: String
+    let performanceLocation: String
+    let performanceImageURL: URL?
+}
+
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
         performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
         ticketingOpenTimeLabel.setAttributedText(font: ENFont.self, string: model.ticketingOpenTime)
         performanceTitleLabel.setAttributedText(font: ENFont.self, string: model.performanceTitle)
         performanceLocationLabel.setAttributedText(font: KRFont.self, string: model.performanceLocation)
+        ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        performanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        performanceLocationLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
     }
 }
 

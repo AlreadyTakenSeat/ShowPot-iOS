@@ -2,7 +2,7 @@
 //  FeaturedRecommendedPerformanceCell.swift
 //  ShowPot
 //
-//  Created by 이건준 on 7/11/24.
+//  Created by 이건준 on 7/26/24.
 //
 
 import UIKit
@@ -11,21 +11,17 @@ import Kingfisher
 import SnapKit
 import Then
 
-struct FeaturedRecommendedPerformanceCellModel {
-    let recommendedPerformanceThumbnailURL: URL?
-    let recommendedPerformanceTitle: String
-}
-
 final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCell {
     
     private let recommendedPerformanceThumbnailImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = true
     }
     
     private let recommendedPerformanceTitleLabel = PaddingLabel(withInsets: 11, 11, 14, 14).then {
         $0.font = ENFont.H4
         $0.textAlignment = .left
-        $0.textColor = .white // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+        $0.textColor = .white
         $0.backgroundColor = .gray500
         $0.numberOfLines = 1
         $0.lineBreakMode = .byTruncatingTail
@@ -39,6 +35,12 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        recommendedPerformanceThumbnailImageView.image = nil
+        recommendedPerformanceTitleLabel.text = nil
     }
     
     private func setupLayouts() {
@@ -58,10 +60,16 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
     }
 }
 
+struct FeaturedRecommendedPerformanceCellModel {
+    let recommendedPerformanceThumbnailURL: URL?
+    let recommendedPerformanceTitle: String
+}
+
 extension FeaturedRecommendedPerformanceCell {
     func configureUI(with model: FeaturedRecommendedPerformanceCellModel) {
         recommendedPerformanceThumbnailImageView.kf.setImage(with: model.recommendedPerformanceThumbnailURL)
         recommendedPerformanceTitleLabel.setAttributedText(font: ENFont.self, string: model.recommendedPerformanceTitle)
+        recommendedPerformanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
     }
 }
 

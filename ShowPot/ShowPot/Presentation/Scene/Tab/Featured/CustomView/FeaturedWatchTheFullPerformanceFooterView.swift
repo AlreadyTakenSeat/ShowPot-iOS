@@ -2,15 +2,22 @@
 //  FeaturedWatchTheFullPerformanceFooterView.swift
 //  ShowPot
 //
-//  Created by 이건준 on 7/11/24.
+//  Created by 이건준 on 7/26/24.
 //
 
 import UIKit
 
+import RxCocoa
 import SnapKit
 import Then
 
 final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView, ReusableCell {
+    
+    static let identifier = String(describing: FeaturedWatchTheFullPerformanceFooterView.self) // TODO: #46 identifier 지정코드로 변환
+    
+    var didTappedButton: ControlEvent<Void> {
+        watchTheFullPerformanceButton.rx.tap
+    }
     
     private let watchTheFullPerformanceButton = UIButton()
     
@@ -28,7 +35,7 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
     private func setupStyles() {
         var configuration = UIButton.Configuration.filled()
         configuration.imagePlacement = .trailing
-        configuration.image = .icArrowRight.withTintColor(.gray400) 
+        configuration.image = .icArrowRight.withTintColor(.gray400)
         configuration.attributedTitle = configureButtonAttributedString()
         configuration.baseBackgroundColor = .gray600
         configuration.baseForegroundColor = .gray100

@@ -7,30 +7,36 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
-struct FeaturedWithButtonHeaderViewModel {
-    let featureHeaderTitle: String
-}
-
-final class FeaturedWithButtonHeaderView: UICollectionReusableView {
+final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell {
     
-    static let identifier = String(describing: FeaturedWithButtonHeaderView.self) // TODO: #46 identifier 지정코드로 변환
+    private let disposeBag = DisposeBag()
+    static let identifier = String(describing: FeaturedWithButtonHeaderView.self) 
+    
+    var buttonTapped: ControlEvent<UITapGestureRecognizer> {
+        tapGesture.rx.event
+    }
     
     private let featuredHeaderTitleLabel = UILabel().then {
-        $0.font = KRFont.H1 // TODO: #37 lineHeight + letterSpacing 적용
+        $0.font = KRFont.H1 
         $0.textColor = .gray100
         $0.textAlignment = .left
-        $0.text = "장르 구독하기"
     }
     
-    private let featuredHeaderButton = UIButton().then {
-        $0.setImage(.icArrow36Right.withTintColor(.gray200), for: .normal) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+    private let featuredHeaderImageView = UIImageView().then {
+        $0.image = .icArrowRight.withTintColor(.gray200)
+        $0.contentMode = .scaleAspectFit
     }
+    
+    private let tapGesture = UITapGestureRecognizer(target: FeaturedWithButtonHeaderView.self, action: nil)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupStyles()
         setupLayouts()
         setupConstraints()
     }
@@ -39,29 +45,41 @@ final class FeaturedWithButtonHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupStyles() {
+        backgroundColor = .gray700
+    }
+    
     private func setupLayouts() {
-        [featuredHeaderTitleLabel, featuredHeaderButton].forEach { addSubview($0) }
+        addGestureRecognizer(tapGesture)
+        [featuredHeaderTitleLabel, featuredHeaderImageView].forEach { addSubview($0) }
     }
     
     private func setupConstraints() {
         
-        featuredHeaderButton.snp.makeConstraints {
+        featuredHeaderImageView.snp.makeConstraints {
             $0.size.equalTo(36)
-            $0.trailing.directionalVerticalEdges.equalToSuperview()
+            $0.directionalVerticalEdges.trailing.equalToSuperview()
         }
         
         featuredHeaderTitleLabel.snp.makeConstraints {
-            $0.trailing.equalTo(featuredHeaderButton)
+            $0.trailing.equalTo(featuredHeaderImageView)
             $0.leading.directionalVerticalEdges.equalToSuperview()
         }
     }
-    
 }
 
 // MARK: Data Configuration
 
+struct FeaturedWithButtonHeaderViewModel {
+    let headerTitle: String
+}
+
 extension FeaturedWithButtonHeaderView {
     func configureUI(with model: FeaturedWithButtonHeaderViewModel) {
-        featuredHeaderTitleLabel.text = model.featureHeaderTitle
+        featuredHeaderTitleLabel.setAttributedText(font: KRFont.self, string: model.headerTitle)
+    }
+    
+    func configureUI(headerTitle: String) {
+        featuredHeaderTitleLabel.setAttributedText(font: KRFont.self, string: headerTitle)
     }
 }

@@ -7,27 +7,36 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
-final class FeaturedSubscribeGenreCell: UICollectionViewCell {
-    
-    static let identifier = String(describing: FeaturedSubscribeGenreCell.self) // TODO: #46 identifier 지정코드로 변환
+final class FeaturedSubscribeGenreCell: UICollectionViewCell, ReusableCell {
     
     private let subscribeGenreImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(systemName: "heart.fill")
-        $0.backgroundColor = .red
+        $0.layer.masksToBounds = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupStyles()
         setupLayouts()
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        subscribeGenreImageView.image = nil
+    }
+    
+    private func setupStyles() {
+        contentView.backgroundColor = .gray700
+        contentView.layer.masksToBounds = true
     }
     
     private func setupLayouts() {
@@ -39,6 +48,20 @@ final class FeaturedSubscribeGenreCell: UICollectionViewCell {
             $0.directionalEdges.equalToSuperview()
         }
     }
-    
 }
 
+// MARK: Data Configuration
+
+struct FeaturedSubscribeGenreCellModel {
+    let subscribeGenreImageURL: URL?
+}
+
+extension FeaturedSubscribeGenreCell {
+    func configureUI(with model: FeaturedSubscribeGenreCellModel) {
+        subscribeGenreImageView.kf.setImage(with: model.subscribeGenreImageURL)
+    }
+    
+    func configureUI(subscribeGenreImageURL: URL?) {
+        subscribeGenreImageView.kf.setImage(with: subscribeGenreImageURL)
+    }
+}

@@ -2,7 +2,7 @@
 //  FeaturedOnlyTitleHeaderView.swift
 //  ShowPot
 //
-//  Created by 이건준 on 7/11/24.
+//  Created by 이건준 on 7/26/24.
 //
 
 import UIKit
@@ -11,6 +11,8 @@ import SnapKit
 import Then
 
 final class FeaturedOnlyTitleHeaderView: UICollectionReusableView, ReusableCell {
+    
+    static let identifier = String(describing: FeaturedOnlyTitleHeaderView.self) // TODO: #46 identifier 지정코드로 변환
     
     private let titleLabel = UILabel().then {
         $0.font = KRFont.H1

@@ -22,12 +22,17 @@ final class FeaturedSearchButton: UIButton {
     
     private func setupStyles() {
         
-        layer.masksToBounds = true
-        layer.cornerRadius = 2
         contentHorizontalAlignment = .fill
         
-        let attributedTitle = getAttributedString()
-        var configuration = getButtonConfiguration()
+        let attributedTitle = createButtonAttributedString(string: Strings.homeSearchbarPlaceholder)
+        var configuration = createButtonConfiguration(
+            image: .icMagnifier.withTintColor(.white),
+            baseBackgroundColor: .gray600,
+            baseForegroundColor: .gray400,
+            cornerRadius: 2,
+            contentInsets: NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5),
+            with: attributedTitle
+        )
         configuration.attributedTitle = attributedTitle
         self.configuration = configuration
     }
@@ -36,22 +41,38 @@ final class FeaturedSearchButton: UIButton {
 // MARK: - FeaturedSearchButton Setup For UIButtonConfiguration
 
 extension FeaturedSearchButton {
-        var attributedTitle = AttributedString("관심 있는 공연과 가수를 검색해보세요")
-    private func getAttributedString() -> AttributedString {
-        attributedTitle.font = KRFont.B1_semibold // TODO: #37 lineHeight + letterSpacing 적용
-        return attributedTitle
+    
+    /// UIButton.Configuration에 사용될 AttributedString을 리턴하는 함수
+    private func createButtonAttributedString(string: String) -> AttributedString {
+        let labelWithAttributedText = UILabel().then {
+            $0.setAttributedText(font: KRFont.self, string: string) // TODO: #61 UIButton AttributedString에 대한 attribute적용 공통함수로 중복코드삭제
+        }
+        let attributedText = labelWithAttributedText.attributedText ?? NSAttributedString(string: string)
+        
+        var attributedString = AttributedString(attributedText)
+        attributedString.font = KRFont.B1_semibold
+        return attributedString
     }
     
-    private func getButtonConfiguration() -> UIButton.Configuration {
+    /// 버튼에서 사용할 Configuration을 생성하는 함수
+    private func createButtonConfiguration(
+        image: UIImage,
+        baseBackgroundColor: UIColor,
+        baseForegroundColor: UIColor,
+        cornerRadius: CGFloat,
+        contentInsets: NSDirectionalEdgeInsets,
+        with attributedTitle: AttributedString
+    ) -> UIButton.Configuration {
         var configuration = UIButton.Configuration.filled()
-        configuration.image = .icMagnifier36.withTintColor(.white) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
-        configuration.background.cornerRadius = 2
+        configuration.image = image
         configuration.imagePlacement = .trailing
-        configuration.baseBackgroundColor = .gray600
-        configuration.baseForegroundColor = .gray400
-        
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5)
+        configuration.baseBackgroundColor = baseBackgroundColor
+        configuration.baseForegroundColor = baseForegroundColor
+        configuration.cornerStyle = .fixed
+        configuration.background.cornerRadius = cornerRadius
+        configuration.contentInsets = contentInsets
         configuration.imagePadding = -configuration.contentInsets.trailing
+        configuration.attributedTitle = attributedTitle
         return configuration
     }
 }
