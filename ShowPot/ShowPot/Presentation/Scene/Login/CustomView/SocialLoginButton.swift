@@ -49,6 +49,7 @@ final class SocialLoginButton: UIButton {
             configuration.image = .apple // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             configuration.baseForegroundColor = .white
             attributedTitle = AttributedString(Strings.socialLoginAppleButton)
+            configuration.baseForegroundColor = .white // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             layer.borderColor = UIColor.gray100.cgColor
             layer.borderWidth = 1
         }
