@@ -17,5 +17,6 @@ extension UILabel {
         self.attributedText = NSMutableAttributedString(string: string)
             .setLineHeight(lineHeightMultiple: font.lineHeight)
             .setLetterSpacing(letterSpacingPercent: font.letterSpacing)
+            .setBaseLineOffset(baselineOffset: (font.lineHeight - self.font.lineHeight) / 4)
     }
 }

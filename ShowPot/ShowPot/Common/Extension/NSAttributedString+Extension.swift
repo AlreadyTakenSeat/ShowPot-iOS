@@ -37,4 +37,14 @@ extension NSAttributedString {
         mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
         return NSAttributedString(attributedString: mutableAttributedString)
     }
+    
+    func setBaseLineOffset(baselineOffset: CGFloat) -> NSAttributedString {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .baselineOffset: baselineOffset
+        ]
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: self)
+        mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
+        return NSAttributedString(attributedString: mutableAttributedString)
+    }
 }
