@@ -14,8 +14,8 @@ protocol LanguageFont {
     /// 폰트 이름
     static var font: CustomFont { get }
     
-    /// AttributedString에 사용할 lineHeight
-    static var lineHeight: CGFloat { get }
+    /// AttributedString에 사용할 lineHeight 배율
+    static var lineHeightMultiple: CGFloat { get }
     
     /// AttributedString에 사용할 letterSpacing
     static var letterSpacing: CGFloat { get }

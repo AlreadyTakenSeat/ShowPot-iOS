@@ -10,7 +10,7 @@ import UIKit
 /// 한국어 폰트 스타일
 enum KRFont: LanguageFont {
     static var font: CustomFont = .pretendard
-    static var lineHeight: CGFloat = 1.5
+    static var lineHeightMultiple: CGFloat = 1.5
     static var letterSpacing: CGFloat = -0.025
     
     // 디자인 시스템에 명시된 폰트

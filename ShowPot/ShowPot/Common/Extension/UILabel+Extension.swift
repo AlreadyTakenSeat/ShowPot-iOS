@@ -16,6 +16,7 @@ extension UILabel {
     func setAttributedText<T: LanguageFont>(font: T.Type, string: String) {
         self.attributedText = NSMutableAttributedString(string: string)
             .setLineHeight(lineHeightMultiple: font.lineHeight)
+            .setLineHeight(lineHeightMultiple: font.lineHeightMultiple)
             .setLetterSpacing(letterSpacingPercent: font.letterSpacing)
             .setBaseLineOffset(baselineOffset: (font.lineHeight - self.font.lineHeight) / 4)
     }
