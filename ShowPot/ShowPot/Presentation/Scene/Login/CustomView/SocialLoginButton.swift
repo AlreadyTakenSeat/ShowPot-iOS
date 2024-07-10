@@ -26,10 +26,18 @@ final class SocialLoginButton: UIButton {
     }
     
     private func setupStyles() {
-        
-        var configuration = UIButton.Configuration.filled()
+        var configuration = setButtonConfiguration(with: type)
+        var attributedTitle = setButtonAttributedString(with: type)
+        configuration.attributedTitle = attributedTitle
+        self.configuration = configuration
+    }
+}
 
-        var attributedTitle: AttributedString
+// MARK: - Helper For UIButton+Configuration
+
+extension SocialLoginButton {
+    private func setButtonConfiguration(with type: SocialLoginType) -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.filled()
         configuration.background.cornerRadius = 2
         configuration.imagePadding = 12
         
@@ -38,24 +46,33 @@ final class SocialLoginButton: UIButton {
             configuration.baseBackgroundColor = .googleWhite
             configuration.image = .google // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             configuration.baseForegroundColor = .gray700
-            attributedTitle = AttributedString(Strings.socialLoginGoogleButton) // TODO: #37 lineHeight + letterSpacing 적용
         case .kakao:
             configuration.baseBackgroundColor = .kakaoYellow
             configuration.image = .kakao // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             configuration.baseForegroundColor = .gray800
-            attributedTitle = AttributedString(Strings.socialLoginKakaoButton) // TODO: #37 lineHeight + letterSpacing 적용
         case .apple:
             configuration.baseBackgroundColor = .gray800
             configuration.image = .apple // TODO: #44 애셋 네이밍 변경 이후 작업 필요
-            attributedTitle = AttributedString(Strings.socialLoginAppleButton) // TODO: #37 lineHeight + letterSpacing 적용
             configuration.baseForegroundColor = .white // TODO: #44 애셋 네이밍 변경 이후 작업 필요
             layer.borderColor = UIColor.gray100.cgColor
             layer.borderWidth = 1
         }
-        
-        attributedTitle.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
-        configuration.attributedTitle = attributedTitle
-        self.configuration = configuration
+        return configuration
     }
     
+    private func setButtonAttributedString(with type: SocialLoginType) -> AttributedString {
+        var attributedTitle: AttributedString
+        
+        switch type {
+        case .google:
+            attributedTitle = AttributedString(Strings.socialLoginGoogleButton) // TODO: #37 lineHeight + letterSpacing 적용
+        case .kakao:
+            attributedTitle = AttributedString(Strings.socialLoginKakaoButton) // TODO: #37 lineHeight + letterSpacing 적용
+        case .apple:
+            attributedTitle = AttributedString(Strings.socialLoginAppleButton) // TODO: #37 lineHeight + letterSpacing 적용
+        }
+        
+        attributedTitle.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
+        return attributedTitle
+    }
 }
