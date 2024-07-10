@@ -41,6 +41,7 @@
 		70107B742C216A4200F32042 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B732C216A4200F32042 /* KakaoSDKUser */; };
 		70107B912C2E537E00F32042 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B902C2E537E00F32042 /* UILabel+Extension.swift */; };
 		70107BA12C36661200F32042 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */; };
+		7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */; };
 		7D1092262C26F36800498C87 /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092252C26F36800498C87 /* FlexLayout */; };
 		7D1092292C26F38800498C87 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092282C26F38800498C87 /* PinLayout */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
@@ -110,6 +111,7 @@
 		70107B2F2C1D58C500F32042 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		70107B902C2E537E00F32042 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -227,9 +229,18 @@
 			path = Pretendard;
 			sourceTree = "<group>";
 		};
+		701467192C3D8D1C00750A54 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				701467192C3D8D1C00750A54 /* CustomView */,
 				7D1E5FAC2C0A20950012504D /* LoginViewController.swift */,
 				7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */,
 				7D1E5FB52C0A23AB0012504D /* LoginCoordinator.swift */,
@@ -640,6 +651,7 @@
 				7D3E96282C061CD2003A6FA9 /* SampleUseCase.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,
+				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,
 				7D2981312C01F23C00A619FB /* SavedViewModel.swift in Sources */,

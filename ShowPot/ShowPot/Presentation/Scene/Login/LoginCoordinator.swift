@@ -5,10 +5,9 @@
 //  Created by Daegeon Choi on 6/1/24.
 //
 
-import Foundation
 import UIKit
 
-class LoginCoordinator: Coordinator {
+final class LoginCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -20,8 +19,6 @@ class LoginCoordinator: Coordinator {
     
     func start() {
         let viewController: LoginViewController = LoginViewController(viewModel: LoginViewModel(coordinator: self))
-        viewController.view.backgroundColor = .yellow
-        
         self.navigationController.pushViewController(viewController, animated: true)
     }
 }
@@ -29,5 +26,10 @@ class LoginCoordinator: Coordinator {
 extension LoginCoordinator {
     func didLoggedIn() {
         
+    }
+    
+    func didTappedBackButton() {
+        navigationController.popViewController(animated: true)
+        parentCoordinator?.removeChildCoordinator(child: self)
     }
 }

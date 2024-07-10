@@ -5,6 +5,7 @@
 //  Created by Daegeon Choi on 6/1/24.
 //
 
+import AuthenticationServices
 import UIKit
 
 import GoogleSignIn
@@ -41,35 +42,48 @@ final class LoginViewController: ViewController {
     
     override func bind() {
         
-        // TODO: 최대건 - 애플 계정 추가 및 Google clientID, URL Schemes xcconfig로 빼기
+        // TODO: 최대건 - 애플 계정 추가 및 xcconfig 설정값 gitignore처리, SignInApple 추가
         
-        viewHolder.googleSignInButton.rx.controlEvent(.touchUpInside)
-            .subscribe(with: self) { owner, _ in
-                GIDSignIn.sharedInstance.signIn(withPresenting: owner) { result, error in
-                    guard error == nil else { return }
-                    
-                }
-            }
-            .disposed(by: disposeBag)
+        let input = LoginViewModel.Input(
+            didTappedGoogleLoginButton: viewHolder.googleSignInButton.rx.tap.asObservable(),
+            didTappedAppleLoginButton: viewHolder.appleSignInButton.rx.tap.asObservable(),
+            didTappedKakaoLoginButton: viewHolder.kakaoSignInButton.rx.tap.asObservable(),
+            didTappedBackButton: viewHolder.backButton.rx.tap.asObservable()
+        )
         
-        viewHolder.kakaoSignInButton.rx.tap
-            .subscribe(with: self) { owner, _ in
-                let loginClosure: (OAuthToken?, Error?) -> Void = { oauthToken, error in
-                    guard error == nil else {
-                        // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
-                        print(error!)
-                        return
-                    }
-                    
-                }
-                
-                if UserApi.isKakaoTalkLoginAvailable() {
-                    // 카카오톡 로그인 api 호출 결과를 클로저로 전달
-                    UserApi.shared.loginWithKakaoTalk(completion: loginClosure)
-                } else { // 웹으로 로그인 호출
-                    UserApi.shared.loginWithKakaoAccount(completion: loginClosure)
-                }
-            }
-            .disposed(by: disposeBag)
+        viewModel.transform(input: input)
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    /// Apple 인증 요청이 성공적으로 완료되었을 때 호출되는 함수
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+      switch authorization.credential { // Apple ID 인증 정보가 제공된 경우
+          case let credentials as ASAuthorizationAppleIDCredential:
+            let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
+            let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
+            
+          default:
+            break
+      }
+    }
+    
+    /// Apple 로그인 인증 요청이 실패했을 때 호출되는 함수
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+      // TODO: 이건준 - 애플 로그인 에러 Alert 띄우기
+        LogHelper.debug("Apple Login Failed!: \(error)")
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    
+    /// Apple ID 로그인 UI를 표시할 윈도우를 지정하는 함수
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+      return view.window!
     }
 }
