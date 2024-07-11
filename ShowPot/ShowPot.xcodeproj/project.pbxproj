@@ -42,6 +42,7 @@
 		70107B912C2E537E00F32042 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B902C2E537E00F32042 /* UILabel+Extension.swift */; };
 		70107BA12C36661200F32042 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */; };
 		7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */; };
+		701467402C401C0C00750A54 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7014673F2C401C0C00750A54 /* Kingfisher */; };
 		7D1092262C26F36800498C87 /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092252C26F36800498C87 /* FlexLayout */; };
 		7D1092292C26F38800498C87 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092282C26F38800498C87 /* PinLayout */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
@@ -182,6 +183,7 @@
 				70107B682C216A4200F32042 /* KakaoSDKFriend in Frameworks */,
 				70107B6E2C216A4200F32042 /* KakaoSDKShare in Frameworks */,
 				70107B6A2C216A4200F32042 /* KakaoSDKFriendCore in Frameworks */,
+				701467402C401C0C00750A54 /* Kingfisher in Frameworks */,
 				70107B5E2C216A4200F32042 /* KakaoSDK in Frameworks */,
 				70107B622C216A4200F32042 /* KakaoSDKCert in Frameworks */,
 				70107B642C216A4200F32042 /* KakaoSDKCertCore in Frameworks */,
@@ -540,6 +542,7 @@
 				7D2DCAC22C269C2E00389FBF /* SnapKit */,
 				7D1092252C26F36800498C87 /* FlexLayout */,
 				7D1092282C26F38800498C87 /* PinLayout */,
+				7014673F2C401C0C00750A54 /* Kingfisher */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -578,6 +581,7 @@
 				7D2DCAC12C269C2E00389FBF /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7D1092242C26F36800498C87 /* XCRemoteSwiftPackageReference "FlexLayout" */,
 				7D1092272C26F38800498C87 /* XCRemoteSwiftPackageReference "PinLayout" */,
+				7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -912,6 +916,14 @@
 				minimumVersion = 2.22.2;
 			};
 		};
+		7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 		7D1092242C26F36800498C87 /* XCRemoteSwiftPackageReference "FlexLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/layoutBox/FlexLayout.git";
@@ -1029,6 +1041,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 70107B5C2C216A4200F32042 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		7014673F2C401C0C00750A54 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		7D1092252C26F36800498C87 /* FlexLayout */ = {
 			isa = XCSwiftPackageProductDependency;
