@@ -38,6 +38,7 @@ final class SocialLoginButton: UIButton {
 extension SocialLoginButton {
     private func setButtonConfiguration(with type: SocialLoginType) -> UIButton.Configuration {
         var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .fixed
         configuration.background.cornerRadius = 2
         configuration.imagePadding = 12
         
