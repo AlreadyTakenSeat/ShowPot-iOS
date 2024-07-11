@@ -27,7 +27,7 @@ final class SocialLoginButton: UIButton {
     
     private func setupStyles() {
         var configuration = setButtonConfiguration(with: type)
-        var attributedTitle = setButtonAttributedString(with: type)
+        let attributedTitle = setButtonAttributedString(with: type)
         configuration.attributedTitle = attributedTitle
         self.configuration = configuration
     }
@@ -60,19 +60,23 @@ extension SocialLoginButton {
         return configuration
     }
     
-    private func setButtonAttributedString(with type: SocialLoginType) -> AttributedString {
-        var attributedTitle: AttributedString
+    private func setButtonAttributedString(with type: SocialLoginType) -> AttributedString? {
+        let buttonTitleLabel = UILabel()
         
         switch type {
         case .google:
-            attributedTitle = AttributedString(Strings.socialLoginGoogleButton) // TODO: #37 lineHeight + letterSpacing 적용
+            buttonTitleLabel.setAttributedText(font: KRFont.self, string: Strings.socialLoginGoogleButton)
         case .kakao:
-            attributedTitle = AttributedString(Strings.socialLoginKakaoButton) // TODO: #37 lineHeight + letterSpacing 적용
+            buttonTitleLabel.setAttributedText(font: KRFont.self, string: Strings.socialLoginKakaoButton)
         case .apple:
-            attributedTitle = AttributedString(Strings.socialLoginAppleButton) // TODO: #37 lineHeight + letterSpacing 적용
+            buttonTitleLabel.setAttributedText(font: KRFont.self, string: Strings.socialLoginAppleButton)
         }
         
-        attributedTitle.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
-        return attributedTitle
+        if let attributedText = buttonTitleLabel.attributedText {
+            var attributedString = AttributedString(attributedText)
+            attributedString.font = KRFont.H2
+            return attributedString
+        }
+        return nil
     }
 }
