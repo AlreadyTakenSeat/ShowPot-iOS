@@ -11,10 +11,11 @@ extension NSAttributedString {
     
     /// 줄 높이를 설정을 위한 attribute를 추가합니다.
     /// - Parameters:
-    ///   - lineHeightMultiple: UILabel의 줄 높이 배수 (예: 1.5 = 150%)
-    func setLineHeight(lineHeightMultiple: CGFloat) -> NSAttributedString {
+    ///   - lineHeight: UILabel의 줄 높이
+    func setLineHeight(lineHeight: CGFloat) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        paragraphStyle.maximumLineHeight = lineHeight
+        paragraphStyle.minimumLineHeight = lineHeight
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle
@@ -31,6 +32,16 @@ extension NSAttributedString {
     func setLetterSpacing(letterSpacingPercent: CGFloat) -> NSAttributedString {
         let attributes: [NSAttributedString.Key: Any] = [
             .kern: letterSpacingPercent
+        ]
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: self)
+        mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
+        return NSAttributedString(attributedString: mutableAttributedString)
+    }
+    
+    func setBaseLineOffset(baselineOffset: CGFloat) -> NSAttributedString {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .baselineOffset: baselineOffset
         ]
         
         let mutableAttributedString = NSMutableAttributedString(attributedString: self)
