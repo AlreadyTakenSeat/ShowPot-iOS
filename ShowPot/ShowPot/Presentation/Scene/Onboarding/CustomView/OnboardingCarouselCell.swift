@@ -19,13 +19,13 @@ final class OnboardingCarouselCell: UICollectionViewCell {
     }
     
     private lazy var titleLabel = UILabel().then { label in
-        label.font = KRFont.H0  // TODO: #37 lineHeight + letterSpacing 적용
+        label.font = KRFont.H0
         label.textAlignment = .center
         label.numberOfLines = 0
     }
     
     private lazy var descriptionLabel = UILabel().then { label in
-        label.font = KRFont.H2  // TODO: #37 lineHeight + letterSpacing 적용
+        label.font = KRFont.H2
         label.textAlignment = .center
         label.numberOfLines = 0
     }
@@ -77,9 +77,9 @@ extension OnboardingCarouselCell {
 // MARK: Data Configuration
 extension OnboardingCarouselCell {
     
-    public func configure(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
+    public func configure(image: UIImage? = nil, title: String, description: String) {
         self.imageView.image = image
-        self.titleLabel.text = title
-        self.descriptionLabel.text = description
+        self.titleLabel.setAttributedText(font: KRFont.self, string: title, alignment: .center)
+        self.descriptionLabel.setAttributedText(font: KRFont.self, string: description, alignment: .center)
     }
 }

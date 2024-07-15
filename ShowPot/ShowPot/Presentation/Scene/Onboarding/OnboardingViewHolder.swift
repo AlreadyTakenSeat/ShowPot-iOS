@@ -13,7 +13,7 @@ final class OnboardingViewHolder {
         carouselLayout.scrollDirection = .horizontal
         carouselLayout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         carouselLayout.minimumLineSpacing = 0
-        carouselLayout.itemSize = .init(width: UIScreen.main.bounds.width, height: 470)
+        carouselLayout.itemSize = .init(width: UIScreen.main.bounds.width, height: 500)
     }
     
     lazy var carouselCollectionView = UICollectionView(frame: .zero, collectionViewLayout: carouselLayout).then { view in
@@ -49,7 +49,7 @@ extension OnboardingViewHolder: ViewHolderType {
     func configureConstraints(for view: UIView) {
         
         carouselCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(85)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(55)
             make.leading.trailing.equalToSuperview()
         }
         
