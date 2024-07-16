@@ -26,15 +26,15 @@ final class OnboardingViewHolder {
     
     lazy var pageControl = UIPageControl().then { pageControl in
         pageControl.pageIndicatorTintColor = .gray300
-        pageControl.currentPageIndicatorTintColor = .white  // TODO: #44 커스텀 색상 추가 후 수정
+        pageControl.currentPageIndicatorTintColor = .gray000
         pageControl.currentPage = 0
     }
     
     lazy var bottomButton = UIButton().then { button in
-        button.backgroundColor = .black
+        button.backgroundColor = .gray700
         button.setTitle(Strings.onboardingButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = KRFont.H2 // TODO: #37 lineHeight + letterSpacing 적용
+        button.titleLabel?.font = KRFont.H2
     }
     
 }

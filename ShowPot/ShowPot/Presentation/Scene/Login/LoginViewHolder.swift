@@ -13,7 +13,7 @@ import GoogleSignIn
 final class LoginViewHolder {
     
     let backButton = UIButton().then {
-        $0.setImage(.icArrow36Left.withTintColor(.white), for: .normal) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+        $0.setImage(.icArrow36Left.withTintColor(.gray000), for: .normal) // TODO: #44 애셋 네이밍 변경 이후 작업 필요
     }
     
     let logoImageView = UIImageView().then {
@@ -22,7 +22,7 @@ final class LoginViewHolder {
     }
     
     let alertLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = .gray000
         $0.font = KRFont.H2
         $0.setAttributedText(font: KRFont.self, string: Strings.socialLoginDescription)
         $0.textAlignment = .center
