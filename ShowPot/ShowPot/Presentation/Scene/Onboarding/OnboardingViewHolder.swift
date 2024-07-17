@@ -17,7 +17,7 @@ final class OnboardingViewHolder {
     }
     
     lazy var carouselCollectionView = UICollectionView(frame: .zero, collectionViewLayout: carouselLayout).then { view in
-        view.register(OnboardingCarouselCell.self, forCellWithReuseIdentifier: OnboardingCarouselCell.reuseIdentifier)
+        view.register(OnboardingCarouselCell.self)
         view.showsHorizontalScrollIndicator = false
         view.isPagingEnabled = true
         view.bounces = false
