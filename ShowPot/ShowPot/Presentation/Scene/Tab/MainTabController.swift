@@ -9,7 +9,7 @@ import UIKit
 
 final class MainTabController: UITabBarController {
     
-    let isFirstLaunch: Bool = true // TODO: #49 첫 실행 판단 로직 개발
+    let isFirstLaunch: Bool = false // TODO: #49 첫 실행 판단 로직 개발
     
     override func viewDidLoad() {
         
