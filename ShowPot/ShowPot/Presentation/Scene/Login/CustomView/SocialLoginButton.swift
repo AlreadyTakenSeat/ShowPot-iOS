@@ -42,21 +42,21 @@ extension SocialLoginButton {
         switch type {
         case .google:
             configuration = createButtonConfiguration(
-                baseBackgroundColor: .googleWhite,
+                baseBackgroundColor: .btnBgSocialGoogle,
                 baseForegroundColor: .gray700,
-                image: .google // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                image: .icGoogle
             )
         case .kakao:
             configuration = createButtonConfiguration(
-                baseBackgroundColor: .kakaoYellow,
+                baseBackgroundColor: .btnBgSocialKakao,
                 baseForegroundColor: .gray800,
-                image: .kakao // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                image: .icKakao
             )
         case .apple:
             configuration = createButtonConfiguration(
                 baseBackgroundColor: .gray800,
-                baseForegroundColor: .white, // TODO: #44 애셋 네이밍 변경 이후 작업 필요
-                image: .apple, // TODO: #44 애셋 네이밍 변경 이후 작업 필요
+                baseForegroundColor: .gray000,
+                image: .icApple,
                 strokeWidth: 1,
                 strokeColor: .gray100
             )
