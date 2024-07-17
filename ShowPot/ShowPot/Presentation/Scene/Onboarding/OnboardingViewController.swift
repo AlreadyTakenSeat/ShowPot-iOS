@@ -72,10 +72,6 @@ final class OnboardingViewController: ViewController {
             didTapBottomButton: viewHolder.bottomButton.rx.tap.asObservable()
         )
         viewModel.transform(input: input)
-        
-        self.viewHolder.bottomButton.rx.tap.subscribe { _ in
-            self.dismiss(animated: true)
-        }
     }
 }
 
