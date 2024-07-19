@@ -72,10 +72,6 @@ final class OnboardingViewController: ViewController {
             didTapBottomButton: viewHolder.bottomButton.rx.tap.asObservable()
         )
         viewModel.transform(input: input)
-        
-        self.viewHolder.bottomButton.rx.tap.subscribe { _ in
-            self.dismiss(animated: true)
-        }
     }
 }
 
@@ -89,7 +85,9 @@ extension OnboardingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCarouselCell.reuseIdentifier, for: indexPath) as? OnboardingCarouselCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(OnboardingCarouselCell.self, for: indexPath) else {
+            return UICollectionViewCell()
+        }
         
         let data = carouselData[indexPath.row]
         cell.configure(image: data.image, title: data.title, description: data.description)

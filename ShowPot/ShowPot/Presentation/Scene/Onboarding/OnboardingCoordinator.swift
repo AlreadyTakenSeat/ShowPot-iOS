@@ -10,6 +10,7 @@ import UIKit
 final class OnboardingCoordinator: Coordinator {
     
     var rootViewController: UIViewController
+    var modalViewController: UIViewController?
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -21,13 +22,15 @@ final class OnboardingCoordinator: Coordinator {
         let modalViewController = OnboardingViewController(viewModel: OnboardingViewModel(coordinator: self))
         modalViewController.modalPresentationStyle = .fullScreen
         self.rootViewController.present(modalViewController, animated: true)
+        self.modalViewController = modalViewController
     }
 }
 
 extension OnboardingCoordinator {
     func dismiss() {
-        let currentVC = self.rootViewController.navigationController?.topViewController
-        currentVC?.dismiss(animated: true)
-        parentCoordinator?.removeChildCoordinator(child: self)
+        if let modal = modalViewController {
+            modal.dismiss(animated: true)
+            parentCoordinator?.removeChildCoordinator(child: self)
+        }
     }
 }

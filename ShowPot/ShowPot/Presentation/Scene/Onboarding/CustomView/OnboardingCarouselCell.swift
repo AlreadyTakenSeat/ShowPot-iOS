@@ -8,10 +8,7 @@
 import UIKit
 import SnapKit
 
-final class OnboardingCarouselCell: UICollectionViewCell {
-    
-    // MARK: - Property
-    static let reuseIdentifier = String(describing: OnboardingCarouselCell.self)    // TODO: #46 reuseIdentifier 자동화
+final class OnboardingCarouselCell: UICollectionViewCell, ReusableCell {
     
     // MARK: - UI Component
     private lazy var imageView = UIImageView().then { imageView in
