@@ -34,8 +34,31 @@ extension UserDefaultsManager {
         return result
     }
     
-    func getObject(for key: UserDefaultsKey) -> Any? {
-        let result = self.userDefaults?.object(forKey: key.value)
-        return result
+}
+
+// MARK: 커스텀 객체 I/O
+extension UserDefaultsManager {
+    
+    func set<T>(_ value: T?, forKey key: UserDefaultsKey) where T: Encodable {
+        guard let tempValue = value else {
+            userDefaults?.set(nil, forKey: key.value)
+            return
+        }
+        
+        let jsonEncoder = JSONEncoder()
+        guard let jsonData = try? jsonEncoder.encode(tempValue) else {
+            userDefaults?.set(nil, forKey: key.value)
+            return
+        }
+        
+        let json = String(data: jsonData, encoding: .utf8)
+        userDefaults?.set(json, forKey: key.value)
+    }
+    
+    func get<T: Decodable>(objectForkey key: UserDefaultsKey, type: T.Type) -> T? {
+        let jsonString = userDefaults?.object(forKey: key.value) as? String
+        let jsonData = jsonString?.data(using: .utf8)
+        let decoder = JSONDecoder()
+        return try? decoder.decode(type, from: jsonData ?? Data())
     }
 }
