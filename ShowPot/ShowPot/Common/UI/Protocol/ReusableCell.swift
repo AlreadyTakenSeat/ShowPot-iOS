@@ -26,6 +26,10 @@ extension UICollectionView {
     func register<T: UICollectionViewCell>(_: T.Type) where T: ReusableCell {
         register(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
+    
+    func register<T: UICollectionReusableView>(_: T.Type, of kind: String) where T: ReusableCell {
+        register(T.self, forSupplementaryViewOfKind: kind, withReuseIdentifier: T.reuseIdentifier)
+    }
 
     /// Get dequeueReusableCell of UICollectionViewCell that conforms ReusableCell using reuseIdentifier
     func dequeueReusableCell<T: UICollectionViewCell>(_: T.Type, for indexPath: IndexPath) -> T? where T: ReusableCell {
