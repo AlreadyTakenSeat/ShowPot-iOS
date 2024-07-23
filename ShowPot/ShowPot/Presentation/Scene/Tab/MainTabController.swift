@@ -9,8 +9,6 @@ import UIKit
 
 final class MainTabController: UITabBarController {
     
-    let isFirstLaunch: Bool = false // TODO: #49 첫 실행 판단 로직 개발
-    
     override func viewDidLoad() {
         
         let tabCoordinators: [NavigationCoordinator] = [
@@ -35,9 +33,20 @@ final class MainTabController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isFirstLaunch {
+        if isFirstLaunch() {
             let onboardingCoordinator = OnboardingCoordinator(rootViewController: self)
             onboardingCoordinator.start()
         }
+    }
+}
+
+extension MainTabController {
+    private func isFirstLaunch() -> Bool {
+        
+        if let isFirstLaunch: Bool = UserDefaultsManager.shared.get(for: .firstLaunch) {
+            return isFirstLaunch
+        }
+        
+        return true // 저장된 값이 없으면 최초 실행
     }
 }

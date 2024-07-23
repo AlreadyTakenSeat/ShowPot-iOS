@@ -31,6 +31,8 @@ extension OnboardingCoordinator {
         if let modal = modalViewController {
             modal.dismiss(animated: true)
             parentCoordinator?.removeChildCoordinator(child: self)
+            
+            UserDefaultsManager.shared.set(false, for: .firstLaunch)
         }
     }
 }
