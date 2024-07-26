@@ -64,6 +64,7 @@ final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
         super.prepareForReuse()
         artistImageView.image = nil
         artistNameLabel.text = nil
+        state = .availableSubscription
     }
     
     private func setupLayouts() {

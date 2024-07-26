@@ -69,7 +69,7 @@ struct FeaturedRecentSearchCellModel {
 
 extension FeaturedRecentSearchCell {
     func configureUI(with model: FeaturedRecentSearchCellModel) {
-        recentSearchQueryLabel.setAttributedText(font: KRFont.self, string: model.recentSearchQuery) // TODO: - 한글, 영어에 따라 다르게 적용되는지 확인필요
+        recentSearchQueryLabel.setAttributedText(font: KRFont.self, string: model.recentSearchQuery) 
         recentSearchQueryLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용 이후 lineBreakMode적용안되는 문제 해결 필요
     }
 }
