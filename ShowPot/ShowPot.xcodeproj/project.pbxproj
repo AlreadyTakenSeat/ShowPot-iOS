@@ -400,6 +400,7 @@
 			children = (
 				7D2981402C01F29D00A619FB /* SampleUI.swift */,
 				7DF7118A2C4810B3001406F0 /* Protocol */,
+				701467792C534F7700750A54 /* PaddingLabel.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -754,6 +755,7 @@
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
+				7014677A2C534F7700750A54 /* PaddingLabel.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
 				7D3E96282C061CD2003A6FA9 /* SampleUseCase.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
