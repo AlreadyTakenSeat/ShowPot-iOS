@@ -15,6 +15,16 @@ public enum Strings {
   /// 
   ///   Created by Daegeon Choi on 5/25/24.
   public static let appName = Strings.tr("Localizable", "app_name", fallback: "쇼팟")
+  /// 관심 있는 공연과 가수를 검색해보세요
+  public static let homeSearchbarPlaceholder = Strings.tr("Localizable", "home_searchbar_placeholder", fallback: "관심 있는 공연과 가수를 검색해보세요")
+  /// 아티스트 구독하기
+  public static let homeSubscribeArtistTitle = Strings.tr("Localizable", "home_subscribe_artist_title", fallback: "아티스트 구독하기")
+  /// 장르 구독하기
+  public static let homeSubscribeGenreTitle = Strings.tr("Localizable", "home_subscribe_genre_title", fallback: "장르 구독하기")
+  /// 전체공연 보러가기
+  public static let homeTicketingPerformanceButtonTitle = Strings.tr("Localizable", "home_ticketing_performance_buttonTitle", fallback: "전체공연 보러가기")
+  /// 티켓팅이 얼마 남지 않은 공연
+  public static let homeTicketingPerformanceTitle = Strings.tr("Localizable", "home_ticketing_performance_title", fallback: "티켓팅이 얼마 남지 않은 공연")
   /// 쇼팟 시작하기
   public static let onboardingButton = Strings.tr("Localizable", "onboarding_button", fallback: "쇼팟 시작하기")
   /// 중요한 티켓팅, 잊어버리지 않게
