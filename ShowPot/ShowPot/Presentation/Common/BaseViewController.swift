@@ -24,7 +24,7 @@ extension BaseViewControllerPorotocol {
     }
 }
 
-class BaseViewController: UIViewController  {
+class BaseViewController: UIViewController {
     
     /// A dispose bag. 각 ViewController에 종속적이다.
     final let disposeBag = DisposeBag()

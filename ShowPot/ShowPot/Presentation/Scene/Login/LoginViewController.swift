@@ -62,12 +62,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     /// Apple 인증 요청이 성공적으로 완료되었을 때 호출되는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
       switch authorization.credential { // Apple ID 인증 정보가 제공된 경우
-          case let credentials as ASAuthorizationAppleIDCredential:
-            let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
-            let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
-            
-          default:
-            break
+      case let credentials as ASAuthorizationAppleIDCredential:
+        let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
+        let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
+        
+      default:
+        break
       }
     }
     

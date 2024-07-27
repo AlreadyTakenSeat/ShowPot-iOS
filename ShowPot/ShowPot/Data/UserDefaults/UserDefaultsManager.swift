@@ -51,7 +51,7 @@ extension UserDefaultsManager {
             return
         }
         
-        let json = String(data: jsonData, encoding: .utf8)
+        let json = String(decoding: jsonData, as: UTF8.self)
         userDefaults?.set(json, forKey: key.value)
     }
     

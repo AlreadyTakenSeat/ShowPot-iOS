@@ -76,5 +76,3 @@ extension FeaturedWatchTheFullPerformanceFooterView {
         return attributedString
     }
 }
-
-

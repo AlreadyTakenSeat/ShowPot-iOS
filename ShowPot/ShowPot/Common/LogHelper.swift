@@ -27,12 +27,12 @@ enum LogHelper {
         let fileIDAndLine = "[\(fileID):\(line)]"
         
         switch privacy {
-            case .privacy:
-                logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
-            case .public:
-                logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
-            case .auto:
-                logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
+        case .privacy:
+            logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
+        case .public:
+            logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
+        case .auto:
+            logger.debug("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
         }
     }
     
@@ -52,12 +52,12 @@ enum LogHelper {
         let fileIDAndLine = "[\(fileID):\(line)]"
         
         switch privacy {
-            case .privacy:
-                logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
-            case .public:
-                logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
-            case .auto:
-                logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
+        case .privacy:
+            logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
+        case .public:
+            logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
+        case .auto:
+            logger.info("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
         }
     }
     
@@ -77,12 +77,12 @@ enum LogHelper {
         let fileIDAndLine = "[\(fileID):\(line)]"
         
         switch privacy {
-            case .privacy:
-                logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
-            case .public:
-                logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
-            case .auto:
-                logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
+        case .privacy:
+            logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
+        case .public:
+            logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
+        case .auto:
+            logger.error("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
         }
     }
     
@@ -102,12 +102,12 @@ enum LogHelper {
         let fileIDAndLine = "[\(fileID):\(line)]"
         
         switch privacy {
-            case .privacy:
-                logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
-            case .public:
-                logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
-            case .auto:
-                logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
+        case .privacy:
+            logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .private)")
+        case .public:
+            logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .public)")
+        case .auto:
+            logger.notice("\(fileIDAndLine, align: .left(columns: 30)) \(function, align: .left(columns: 50)) \(logMessage, privacy: .auto)")
         }
     }
 }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
+
 /// 한국어 폰트 스타일
 enum KRFont: LanguageFont {
     static var font: CustomFont = .pretendard

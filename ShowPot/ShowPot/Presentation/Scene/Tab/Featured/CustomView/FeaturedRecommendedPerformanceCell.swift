@@ -72,5 +72,3 @@ extension FeaturedRecommendedPerformanceCell {
         recommendedPerformanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
     }
 }
-
-
