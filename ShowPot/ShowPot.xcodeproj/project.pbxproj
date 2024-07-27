@@ -186,6 +186,7 @@
 		7DD2CB842C2ED5A60052ECCD /* SavedViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewHolder.swift; sourceTree = "<group>"; };
 		7DD2CB862C2ED63E0052ECCD /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		7DD2CB882C2ED6550052ECCD /* SettingsViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewHolder.swift; sourceTree = "<group>"; };
+		7DE569ED2C552D8F006724EF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7DEACE4B2C1ECC5200F37DA3 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		7DEACE4D2C1ED00100F37DA3 /* LanguageFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFont.swift; sourceTree = "<group>"; };
 		7DEACE502C1ED95E00F37DA3 /* KRFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRFont.swift; sourceTree = "<group>"; };
@@ -315,6 +316,7 @@
 		7D2980F32C01E1D000A619FB = {
 			isa = PBXGroup;
 			children = (
+				7DE569ED2C552D8F006724EF /* .swiftlint.yml */,
 				7D8255A42C295DF100D104BE /* swiftgen.yml */,
 				7D2980FE2C01E1D000A619FB /* ShowPot */,
 				7D2980FD2C01E1D000A619FB /* Products */,
@@ -604,6 +606,7 @@
 				7D2980F82C01E1D000A619FB /* Sources */,
 				7D2980F92C01E1D000A619FB /* Frameworks */,
 				7D2980FA2C01E1D000A619FB /* Resources */,
+				7DE569EE2C552DB4006724EF /* SwiftLint Script */,
 			);
 			buildRules = (
 			);
@@ -673,6 +676,7 @@
 				7D1092242C26F36800498C87 /* XCRemoteSwiftPackageReference "FlexLayout" */,
 				7D1092272C26F38800498C87 /* XCRemoteSwiftPackageReference "PinLayout" */,
 				7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -711,6 +715,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7DE569EE2C552DB4006724EF /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7D2980F82C01E1D000A619FB /* Sources */ = {
@@ -1070,6 +1095,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
+			};
+		};
+		7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.55.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

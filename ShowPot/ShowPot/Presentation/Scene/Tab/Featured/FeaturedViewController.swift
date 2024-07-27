@@ -112,7 +112,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
             return headerView
         case .ticketingPerformance, .recommendedPerformance:
             if kind == UICollectionView.elementKindSectionHeader {
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedOnlyTitleHeaderView.identifier, for: indexPath) as? FeaturedOnlyTitleHeaderView ?? FeaturedOnlyTitleHeaderView()
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedOnlyTitleHeaderView.reuseIdentifier, for: indexPath) as? FeaturedOnlyTitleHeaderView ?? FeaturedOnlyTitleHeaderView()
                 headerView.configureUI(with: type.headerTitle)
                 return headerView
             }

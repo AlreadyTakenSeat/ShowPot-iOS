@@ -7,6 +7,8 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
+
 /// 영어 폰트 스타일
 enum ENFont: LanguageFont {
     static var font: CustomFont = .oswald

@@ -11,7 +11,6 @@ import Kingfisher
 import SnapKit
 import Then
 
-
 /// 아티스트구독버튼에 대한 상태값
 enum FeaturedSubscribeArtistCellState {
     

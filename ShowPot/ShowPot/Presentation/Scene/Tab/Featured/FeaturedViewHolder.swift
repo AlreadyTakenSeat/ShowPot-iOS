@@ -69,7 +69,7 @@ extension FeaturedViewHolder {
         }
     }
     
-    private func subscribeArtistLayoutSection() ->  NSCollectionLayoutSection {
+    private func subscribeArtistLayoutSection() -> NSCollectionLayoutSection {
         let groupLayoutSize = NSCollectionLayoutSize(
             widthDimension: .absolute(100),
             heightDimension: .absolute(100)
@@ -105,7 +105,7 @@ extension FeaturedViewHolder {
         return section
     }
     
-    private func subscribeGenreLayoutSection() ->  NSCollectionLayoutSection {
+    private func subscribeGenreLayoutSection() -> NSCollectionLayoutSection {
         let groupLayoutSize = NSCollectionLayoutSize(
             widthDimension: .absolute(100),
             heightDimension: .absolute(100)

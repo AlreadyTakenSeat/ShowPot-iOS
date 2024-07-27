@@ -107,9 +107,10 @@ extension FeaturedPerformanceWithTicketOnSaleSoonCell {
         ticketingOpenTimeLabel.setAttributedText(font: ENFont.self, string: model.ticketingOpenTime)
         performanceTitleLabel.setAttributedText(font: ENFont.self, string: model.performanceTitle)
         performanceLocationLabel.setAttributedText(font: KRFont.self, string: model.performanceLocation)
-        ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
-        performanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
-        performanceLocationLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        
+        // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail
+        performanceTitleLabel.lineBreakMode = .byTruncatingTail
+        performanceLocationLabel.lineBreakMode = .byTruncatingTail
     }
 }
-
