@@ -8,6 +8,17 @@
 
 "app_name" = "쇼팟";
 
+/* Common */
+
+// 스낵바
+"snackbar_description_subscribe" = "구독 설정이 완료되었습니다";
+"snackbar_description_alarm" = "알림 설정이 완료되었습니다";
+"snackbar_action_title" = "보러가기";
+
+// ------------------------------------------------------------------------------------
+
+/* Scene */
+
 // 온보딩 화면
 "onboarding_title_1" = "티켓팅 알림받기";
 "onboarding_description_1" = "중요한 티켓팅, 잊어버리지 않게\n푸쉬 알림을 드릴게요!";
