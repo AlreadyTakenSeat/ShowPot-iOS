@@ -57,6 +57,8 @@
 		701467912C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467902C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift */; };
 		701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467922C53C15800750A54 /* FeaturedSearchViewController.swift */; };
 		701467952C53C16900750A54 /* FeaturedSearchViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */; };
+		701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */; };
+		701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */; };
 		7D1092262C26F36800498C87 /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092252C26F36800498C87 /* FlexLayout */; };
 		7D1092292C26F38800498C87 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092282C26F38800498C87 /* PinLayout */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
@@ -156,6 +158,8 @@
 		701467902C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		701467922C53C15800750A54 /* FeaturedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewController.swift; sourceTree = "<group>"; };
 		701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewHolder.swift; sourceTree = "<group>"; };
+		701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewModel.swift; sourceTree = "<group>"; };
+		701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchCoordinator.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -327,6 +331,8 @@
 				701467892C53C10600750A54 /* CustomView */,
 				701467922C53C15800750A54 /* FeaturedSearchViewController.swift */,
 				701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */,
+				701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */,
+				701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

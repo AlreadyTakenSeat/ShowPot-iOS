@@ -71,6 +71,7 @@ final class FeaturedSearchTextField: UITextField {
             .subscribe(with: self) { owner, _ in
                 owner.text?.removeAll()
                 owner.updateReturnKey(type: .default)
+                owner.searchTextFieldDelegate?.didTappedXButton()
             }
             .disposed(by: disposeBag)
         

@@ -132,10 +132,16 @@ extension FeaturedSubscribeArtistCell {
 
 // MARK: Data Configuration
 
-struct FeaturedSubscribeArtistCellModel {
+struct FeaturedSubscribeArtistCellModel: Hashable {
     var state: FeaturedSubscribeArtistCellState
     let artistImageURL: URL?
     let artistName: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    private let identifier = UUID() // TODO: - 추후 아티스트 정보에 대한 아이디로 대체
 }
 
 extension FeaturedSubscribeArtistCell {
