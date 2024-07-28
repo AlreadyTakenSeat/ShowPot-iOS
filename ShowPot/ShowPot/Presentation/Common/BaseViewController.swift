@@ -48,7 +48,9 @@ class BaseViewController: UIViewController {
     /// 현재 ViewController의 view 관련 설정 코드
     ///
     /// ***i.e.*** self.title = "title"
-    func setupStyles() { }
+    func setupStyles() {
+        self.view.backgroundColor = .gray700
+    }
     
     /// ViewModel 바인딩에 필요한 코드
     func bind() { }

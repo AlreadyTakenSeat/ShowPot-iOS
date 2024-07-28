@@ -34,7 +34,7 @@ final class FeaturedViewController: ViewController {
     }
     
     override func setupStyles() {
-        view.backgroundColor = .gray700 // TODO: - 추후 BaseViewController로 공통 백그라운드 색상 적용
+        super.setupStyles()
         viewHolder.featuredCollectionView.delegate = self
         viewHolder.featuredCollectionView.dataSource = self
     }
