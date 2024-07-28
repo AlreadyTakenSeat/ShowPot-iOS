@@ -106,10 +106,6 @@ class SnackBar: UIView {
             make.size.equalTo(36)
         }
         
-        [iconImage, descriptionLabel].forEach {
-            contentStackView.addArrangedSubview($0)
-        }
-        
         contentStackView.setCustomSpacing(16, after: descriptionLabel)  // 버튼 왼쪽 최소간격 16
     }
 
