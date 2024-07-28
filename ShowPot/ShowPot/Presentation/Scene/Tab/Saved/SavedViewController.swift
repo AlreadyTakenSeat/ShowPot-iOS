@@ -26,10 +26,6 @@ final class SavedViewController: ViewController {
         viewHolderConfigure()
     }
     
-    override func setupStyles() {
-        
-    }
-    
     override func bind() {
         
     }

@@ -26,10 +26,6 @@ final class SettingsViewController: ViewController {
         viewHolderConfigure()
     }
     
-    override func setupStyles() {
-        
-    }
-    
     override func bind() {
         
     }

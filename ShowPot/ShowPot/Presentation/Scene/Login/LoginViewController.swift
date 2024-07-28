@@ -37,7 +37,7 @@ final class LoginViewController: ViewController {
     }
     
     override func setupStyles() {
-        
+        super.setupStyles()
     }
     
     override func bind() {

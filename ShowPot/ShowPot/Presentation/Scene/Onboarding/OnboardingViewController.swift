@@ -64,6 +64,7 @@ final class OnboardingViewController: ViewController {
     }
     
     override func setupStyles() {
+        super.setupStyles()
         self.view.backgroundColor = carouselData[0].backgroundColor
     }
     
