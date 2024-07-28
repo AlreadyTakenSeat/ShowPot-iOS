@@ -43,6 +43,7 @@ class SnackBar: UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.image = style.icon
         imageView.backgroundColor = .clear
+        imageView.snp.makeConstraints { $0.size.equalTo(36) }
     }
     
     private lazy var descriptionLabel = UILabel().then { label in
@@ -94,17 +95,17 @@ class SnackBar: UIView {
         self.addSubview(contentStackView)
         contentStackView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.leading.equalToSuperview().inset(7)
-            make.trailing.equalToSuperview().inset(13)
+            make.leading.trailing.equalToSuperview().inset(13)
         }
         
-        [iconImage, descriptionLabel].forEach {
-            contentStackView.addArrangedSubview($0)
+        // 아이콘 이미지 있는경우, 이미지뷰 추가 & leading 간격 조절
+        if style.icon != nil {
+            contentStackView.addArrangedSubview(iconImage)
+            contentStackView.snp.updateConstraints { make in
+                make.leading.equalToSuperview().inset(7)
+            }
         }
-        
-        iconImage.snp.makeConstraints { make in
-            make.size.equalTo(36)
-        }
+        contentStackView.addArrangedSubview(descriptionLabel)
         
         contentStackView.setCustomSpacing(16, after: descriptionLabel)  // 버튼 왼쪽 최소간격 16
     }

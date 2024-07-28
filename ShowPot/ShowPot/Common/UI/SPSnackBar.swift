@@ -8,7 +8,7 @@
 import UIKit
 
 /// 지정된 Snackbar 유형
-enum SPSnackbarType {
+enum SPSnackBarType {
     /// 구독 설정 완료
     case subscribe
     /// 알림 설정 완료
@@ -39,7 +39,7 @@ enum SPSnackbarType {
 /// ShowPot 앱 전용 SnackBar
 final class SPSnackBar: SnackBar {
 
-    init(contextView: UIView, type: SPSnackbarType) {
+    init(contextView: UIView, type: SPSnackBarType) {
         
         let snackBarStyle = SnackBarStyle(
             icon: type.icon,
