@@ -12,6 +12,9 @@ enum UserDefaultsKey: String {
     /// 최초 실행 여부
     case firstLaunch
     
+    /// 최근 검색어 리스트
+    case recentSearchQueryList
+    
     var value: String {
         return self.rawValue
     }

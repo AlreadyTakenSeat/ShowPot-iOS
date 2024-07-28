@@ -15,6 +15,13 @@ final class FeaturedSearchViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     var coordinator: FeaturedSearchCoordinator
     
+    private var recentSearchQueryList: [String] {
+        if let recentSearchQueryList: [String] = UserDefaultsManager.shared.get(for: .recentSearchQueryList) {
+            return recentSearchQueryList
+        }
+        return []
+    }
+    
     /// 현재 가장 상단에 보이는 화면
     private var currentSearchScreen: CurrentSearchScreen = .recentSearchList
     
