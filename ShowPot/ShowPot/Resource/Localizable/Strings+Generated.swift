@@ -33,10 +33,16 @@ public enum Strings {
   /// 내가 관심 있는 장르/아티스트의
   /// 내한 소식을 빠르게 받아볼 수 있어요!
   public static let onboardingDescription2 = Strings.tr("Localizable", "onboarding_description_2", fallback: "내가 관심 있는 장르/아티스트의\n내한 소식을 빠르게 받아볼 수 있어요!")
-  /// 티켓팅 알림받기
+  /// Scene
   public static let onboardingTitle1 = Strings.tr("Localizable", "onboarding_title_1", fallback: "티켓팅 알림받기")
   /// 장르/아티스트 구독하기
   public static let onboardingTitle2 = Strings.tr("Localizable", "onboarding_title_2", fallback: "장르/아티스트 구독하기")
+  /// 보러가기
+  public static let snackbarActionTitle = Strings.tr("Localizable", "snackbar_action_title", fallback: "보러가기")
+  /// 알림 설정이 완료되었습니다
+  public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
+  /// Common
+  public static let snackbarDescriptionSubscribe = Strings.tr("Localizable", "snackbar_description_subscribe", fallback: "구독 설정이 완료되었습니다")
   /// Apple로 시작하기
   public static let socialLoginAppleButton = Strings.tr("Localizable", "socialLogin_apple_button", fallback: "Apple로 시작하기")
   /// 잊지않고 내한공연 즐기러가요
