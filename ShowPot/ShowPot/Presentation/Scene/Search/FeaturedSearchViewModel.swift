@@ -278,9 +278,9 @@ extension FeaturedSearchViewModel {
         var headerTitle: String {
             switch self {
             case .artistList:
-                return "아티스트"
+                return Strings.searchArtistTitle
             case .performanceInfo:
-                return "공연 정보"
+                return Strings.searchPerformanceTitle
             }
         }
     }

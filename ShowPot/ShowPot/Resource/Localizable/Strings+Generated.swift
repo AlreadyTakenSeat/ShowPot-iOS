@@ -43,6 +43,16 @@ public enum Strings {
   public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
   /// Common
   public static let snackbarDescriptionSubscribe = Strings.tr("Localizable", "snackbar_description_subscribe", fallback: "구독 설정이 완료되었습니다")
+  /// 아티스트
+  public static let searchArtistTitle = Strings.tr("Localizable", "search_artist_title", fallback: "아티스트")
+  /// 검색 기록이 없어요
+  public static let searchEmptyTitle = Strings.tr("Localizable", "search_empty_title", fallback: "검색 기록이 없어요")
+  /// 공연 정보
+  public static let searchPerformanceTitle = Strings.tr("Localizable", "search_performance_title", fallback: "공연 정보")
+  /// 모두삭제
+  public static let searchQueryButtonTitle = Strings.tr("Localizable", "search_query_button_title", fallback: "모두삭제")
+  /// 최근검색어
+  public static let searchQueryTitle = Strings.tr("Localizable", "search_query_title", fallback: "최근검색어")
   /// Apple로 시작하기
   public static let socialLoginAppleButton = Strings.tr("Localizable", "socialLogin_apple_button", fallback: "Apple로 시작하기")
   /// 잊지않고 내한공연 즐기러가요

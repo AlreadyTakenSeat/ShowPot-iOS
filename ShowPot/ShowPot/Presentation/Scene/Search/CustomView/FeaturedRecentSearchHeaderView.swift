@@ -21,14 +21,14 @@ final class FeaturedRecentSearchHeaderView: UICollectionReusableView {
     }
     
     private let recentSearchLabel = UILabel().then {
-        $0.text = "최근검색어"
+        $0.text = Strings.searchQueryTitle
         $0.textColor = .gray100
         $0.textAlignment = .left
         $0.font = KRFont.H2
     }
     
     private let removeAllButton = UIButton().then {
-        $0.setTitle("모두삭제", for: .normal)
+        $0.setTitle(Strings.searchQueryButtonTitle, for: .normal)
         $0.setTitleColor(.gray400, for: .normal)
         $0.titleLabel?.font = KRFont.B1_regular
     }

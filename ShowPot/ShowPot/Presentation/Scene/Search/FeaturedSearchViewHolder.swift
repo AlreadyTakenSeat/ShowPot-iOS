@@ -49,7 +49,7 @@ final class FeaturedSearchViewHolder {
         $0.font = KRFont.B1_semibold
         $0.textColor = .gray400
         $0.textAlignment = .center
-        $0.setAttributedText(font: KRFont.self, string: "검색 기록이 없어요")
+        $0.setAttributedText(font: KRFont.self, string: Strings.searchEmptyTitle)
     }
     
     lazy var indicatorView = UIActivityIndicatorView().then {
