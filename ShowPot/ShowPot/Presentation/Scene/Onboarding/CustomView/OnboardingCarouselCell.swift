@@ -17,12 +17,14 @@ final class OnboardingCarouselCell: UICollectionViewCell, ReusableCell {
     
     private lazy var titleLabel = UILabel().then { label in
         label.font = KRFont.H0
+        label.textColor = .gray800
         label.textAlignment = .center
         label.numberOfLines = 0
     }
     
     private lazy var descriptionLabel = UILabel().then { label in
         label.font = KRFont.H2
+        label.textColor = .gray800
         label.textAlignment = .center
         label.numberOfLines = 0
     }
