@@ -77,7 +77,7 @@ extension OnboardingCarouselCell {
     
     public func configure(image: UIImage? = nil, title: String, description: String) {
         self.imageView.image = image
-        self.titleLabel.setAttributedText(font: KRFont.self, string: title, alignment: .center)
-        self.descriptionLabel.setAttributedText(font: KRFont.self, string: description, alignment: .center)
+        self.titleLabel.setAttributedText(font: KRFont.H0, string: title, alignment: .center)
+        self.descriptionLabel.setAttributedText(font: KRFont.H2, string: description, alignment: .center)
     }
 }

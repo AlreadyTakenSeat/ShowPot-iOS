@@ -19,7 +19,7 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
     }
     
     private let recommendedPerformanceTitleLabel = PaddingLabel(withInsets: 11, 11, 14, 14).then {
-        $0.font = ENFont.H4
+        $0.font = ENFont.H4.font
         $0.textAlignment = .left
         $0.textColor = .white
         $0.backgroundColor = .gray500
@@ -68,7 +68,7 @@ struct FeaturedRecommendedPerformanceCellModel {
 extension FeaturedRecommendedPerformanceCell {
     func configureUI(with model: FeaturedRecommendedPerformanceCellModel) {
         recommendedPerformanceThumbnailImageView.kf.setImage(with: model.recommendedPerformanceThumbnailURL)
-        recommendedPerformanceTitleLabel.setAttributedText(font: ENFont.self, string: model.recommendedPerformanceTitle)
+        recommendedPerformanceTitleLabel.setAttributedText(font: ENFont.H4, string: model.recommendedPerformanceTitle)
         recommendedPerformanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
     }
 }

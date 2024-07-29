@@ -61,7 +61,7 @@ extension FeaturedWatchTheFullPerformanceFooterView {
     /// attributed가 적용된 라벨을 리턴하는 함수
     private func configureLabelAttributedText() -> UILabel { // TODO: #61 UIButton AttributedString에 대한 attribute적용 공통함수로 중복코드삭제
         let setAttributedButtonLabel = UILabel().then {
-            $0.setAttributedText(font: KRFont.self, string: Strings.homeTicketingPerformanceButtonTitle)
+            $0.setAttributedText(font: KRFont.B1_semibold, string: Strings.homeTicketingPerformanceButtonTitle)
         }
         return setAttributedButtonLabel
     }
@@ -72,7 +72,7 @@ extension FeaturedWatchTheFullPerformanceFooterView {
         guard let attributedText = labelWithAttributedText.attributedText else { return nil }
         
         var attributedString = AttributedString(attributedText)
-        attributedString.font = KRFont.B1_semibold
+        attributedString.font = KRFont.B1_semibold.font
         return attributedString
     }
 }

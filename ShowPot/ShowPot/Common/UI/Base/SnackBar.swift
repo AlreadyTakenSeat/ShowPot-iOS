@@ -47,15 +47,15 @@ class SnackBar: UIView {
     }
     
     private lazy var descriptionLabel = UILabel().then { label in
-        label.font = KRFont.B1_semibold
+        label.font = KRFont.B1_semibold.font
         label.textColor = .gray000
-        label.setAttributedText(font: KRFont.self, string: style.message, alignment: .left)
+        label.setAttributedText(font: KRFont.B1_semibold, string: style.message, alignment: .left)
     }
     
     private lazy var actionButton = UIButton().then { button in
         button.setTitle(style.actionTitle, for: .normal)
         button.setTitleColor(.mainOrange, for: .normal)
-        button.titleLabel?.font = KRFont.B1_semibold
+        button.titleLabel?.font = KRFont.B1_semibold.font
     }
     
     // MARK: - 내부 로직 프로퍼티

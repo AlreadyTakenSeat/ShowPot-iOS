@@ -22,7 +22,7 @@ final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell
     }
     
     private let featuredHeaderTitleLabel = UILabel().then {
-        $0.font = KRFont.H1 
+        $0.font = KRFont.H1.font
         $0.textColor = .gray100
         $0.textAlignment = .left
     }
@@ -76,10 +76,10 @@ struct FeaturedWithButtonHeaderViewModel {
 
 extension FeaturedWithButtonHeaderView {
     func configureUI(with model: FeaturedWithButtonHeaderViewModel) {
-        featuredHeaderTitleLabel.setAttributedText(font: KRFont.self, string: model.headerTitle)
+        featuredHeaderTitleLabel.setAttributedText(font: KRFont.H1, string: model.headerTitle)
     }
     
     func configureUI(headerTitle: String) {
-        featuredHeaderTitleLabel.setAttributedText(font: KRFont.self, string: headerTitle)
+        featuredHeaderTitleLabel.setAttributedText(font: KRFont.H1, string: headerTitle)
     }
 }

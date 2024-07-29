@@ -23,8 +23,8 @@ final class LoginViewHolder {
     
     let alertLabel = UILabel().then {
         $0.textColor = .gray000
-        $0.font = KRFont.H2
-        $0.setAttributedText(font: KRFont.self, string: Strings.socialLoginDescription)
+        $0.font = KRFont.H2.font
+        $0.setAttributedText(font: KRFont.H2, string: Strings.socialLoginDescription)
         $0.textAlignment = .center
     }
     

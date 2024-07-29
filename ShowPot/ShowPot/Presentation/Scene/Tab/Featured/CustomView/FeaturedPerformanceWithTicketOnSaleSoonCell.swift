@@ -21,18 +21,18 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     }
     
     private let ticketingOpenTimeLabel = UILabel().then {
-        $0.font = ENFont.H5
+        $0.font = ENFont.H5.font
         $0.textColor = .mainYellow
     }
     
     private let performanceTitleLabel = UILabel().then {
-        $0.font = ENFont.H3
+        $0.font = ENFont.H3.font
         $0.textAlignment = .left
         $0.textColor = .white
     }
     
     private let performanceLocationLabel = UILabel().then {
-        $0.font = KRFont.B2_regular
+        $0.font = KRFont.B2_regular.font
         $0.textAlignment = .left
         $0.textColor = .gray300
     }
@@ -121,9 +121,9 @@ struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
         performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
-        ticketingOpenTimeLabel.setAttributedText(font: ENFont.self, string: model.ticketingOpenTime)
-        performanceTitleLabel.setAttributedText(font: ENFont.self, string: model.performanceTitle)
-        performanceLocationLabel.setAttributedText(font: KRFont.self, string: model.performanceLocation)
+        ticketingOpenTimeLabel.setAttributedText(font: ENFont.H5, string: model.ticketingOpenTime)
+        performanceTitleLabel.setAttributedText(font: ENFont.H3, string: model.performanceTitle)
+        performanceLocationLabel.setAttributedText(font: KRFont.B2_regular, string: model.performanceLocation)
         
         // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
         ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail

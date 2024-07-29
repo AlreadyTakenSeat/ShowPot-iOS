@@ -85,11 +85,11 @@ extension SocialLoginButton {
         
         switch type {
         case .google:
-            attributedString = createButtonAttributedString(string: Strings.socialLoginGoogleButton, font: KRFont.H2)
+            attributedString = createButtonAttributedString(string: Strings.socialLoginGoogleButton, font: KRFont.H2.font)
         case .kakao:
-            attributedString = createButtonAttributedString(string: Strings.socialLoginKakaoButton, font: KRFont.H2)
+            attributedString = createButtonAttributedString(string: Strings.socialLoginKakaoButton, font: KRFont.H2.font)
         case .apple:
-            attributedString = createButtonAttributedString(string: Strings.socialLoginAppleButton, font: KRFont.H2)
+            attributedString = createButtonAttributedString(string: Strings.socialLoginAppleButton, font: KRFont.H2.font)
         }
         return attributedString
     }
@@ -97,7 +97,7 @@ extension SocialLoginButton {
     /// 버튼에 대한 AttributedString을 생성하는 함수
     private func createButtonAttributedString(string: String, font: UIFont) -> AttributedString {
         let buttonTitleLabel = UILabel()
-        buttonTitleLabel.setAttributedText(font: KRFont.self, string: string)
+        buttonTitleLabel.setAttributedText(font: KRFont.H2, string: string)
         
         guard let attributedText = buttonTitleLabel.attributedText else {
             fatalError("Attributed text should not be nil")

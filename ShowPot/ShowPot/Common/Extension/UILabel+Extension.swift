@@ -13,7 +13,7 @@ extension UILabel {
     /// - Parameters:
     ///   - font: LanguageFont 프로토콜을 준수하는 타입
     ///   - string: UILabel에 설정할 텍스트
-    func setAttributedText<T: LanguageFont>(font: T.Type, string: String, alignment: NSTextAlignment = .left) {
+    func setAttributedText(font: LanguageFont, string: String, alignment: NSTextAlignment = .left) {
         
         let lineHeight = self.font.lineHeight * font.lineHeightMultiple
         

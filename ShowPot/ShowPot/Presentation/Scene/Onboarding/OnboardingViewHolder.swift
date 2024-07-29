@@ -34,7 +34,7 @@ final class OnboardingViewHolder {
         button.backgroundColor = .gray700
         button.setTitle(Strings.onboardingButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = KRFont.H2
+        button.titleLabel?.font = KRFont.H2.font
     }
     
 }

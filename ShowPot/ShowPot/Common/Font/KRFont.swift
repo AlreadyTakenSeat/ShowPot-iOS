@@ -11,18 +11,44 @@ import UIKit
 
 /// 한국어 폰트 스타일
 enum KRFont: LanguageFont {
-    static var font: CustomFont = .pretendard
-    static var lineHeightMultiple: CGFloat = 1.26
-    static var letterSpacing: CGFloat = -0.03
     
-    // 디자인 시스템에 명시된 폰트
-    static let H0: UIFont = .customFont(font: font, style: .semiBold, size: 24)
-    static let H1: UIFont = .customFont(font: font, style: .semiBold, size: 20)
-    static let H2: UIFont = .customFont(font: font, style: .semiBold, size: 18)
-    static let B1_semibold: UIFont = .customFont(font: font, style: .semiBold, size: 16)
-    static let B1_regular: UIFont = .customFont(font: font, style: .regular, size: 16)
-    static let B2_semibold: UIFont = .customFont(font: font, style: .semiBold, size: 14)
-    static let B2_regular: UIFont = .customFont(font: font, style: .regular, size: 14)
-    static let B3_semibold: UIFont = .customFont(font: font, style: .semiBold, size: 12)
-    static let B3_regular: UIFont = .customFont(font: font, style: .regular, size: 12)
+    case H0, H1, H2
+    case B1_semibold, B1_regular, B2_semibold, B2_regular, B3_semibold, B3_regular
+    
+    var customFont: CustomFont {
+        return .pretendard
+    }
+    
+    var lineHeightMultiple: CGFloat {
+        return 1.26
+    }
+    
+    var letterSpacing: CGFloat {
+        return -0.03
+    }
+    
+    /// UIFont 반환
+    var font: UIFont {
+        let font = self.customFont
+        switch self {
+        case .H0:
+            return .customFont(font: font, style: .semiBold, size: 24)
+        case .H1:
+            return .customFont(font: font, style: .semiBold, size: 20)
+        case .H2:
+            return .customFont(font: font, style: .semiBold, size: 18)
+        case .B1_semibold:
+            return .customFont(font: font, style: .semiBold, size: 16)
+        case .B1_regular:
+            return .customFont(font: font, style: .regular, size: 16)
+        case .B2_semibold:
+            return .customFont(font: font, style: .semiBold, size: 14)
+        case .B2_regular:
+            return .customFont(font: font, style: .regular, size: 14)
+        case .B3_semibold:
+            return .customFont(font: font, style: .semiBold, size: 12)
+        case .B3_regular:
+            return .customFont(font: font, style: .regular, size: 12)
+        }
+    }
 }

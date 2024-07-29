@@ -11,15 +11,37 @@ import UIKit
 
 /// 영어 폰트 스타일
 enum ENFont: LanguageFont {
-    static var font: CustomFont = .oswald
-    static var lineHeightMultiple: CGFloat = 1.5
-    static var letterSpacing: CGFloat = 0.0
+    
+    case H0, H1, H2, H3, H4, H5
+    
+    var customFont: CustomFont {
+        return .oswald
+    }
+    
+    var lineHeightMultiple: CGFloat {
+        return 1.26
+    }
+    
+    var letterSpacing: CGFloat {
+        return 0.0
+    }
     
     // 디자인 시스템에 명시된 폰트
-    static let H0: UIFont = .customFont(font: font, style: .regular, size: 30)
-    static let H1: UIFont = .customFont(font: font, style: .regular, size: 24)
-    static let H2: UIFont = .customFont(font: font, style: .regular, size: 22)
-    static let H3: UIFont = .customFont(font: font, style: .regular, size: 20)
-    static let H4: UIFont = .customFont(font: font, style: .regular, size: 18)
-    static let H5: UIFont = .customFont(font: font, style: .regular, size: 16)
+    var font: UIFont {
+        let font = self.customFont
+        switch self {
+        case .H0:
+            return .customFont(font: font, style: .regular, size: 30)
+        case .H1:
+            return .customFont(font: font, style: .regular, size: 24)
+        case .H2:
+            return .customFont(font: font, style: .regular, size: 22)
+        case .H3:
+            return .customFont(font: font, style: .regular, size: 20)
+        case .H4:
+            return .customFont(font: font, style: .regular, size: 18)
+        case .H5:
+            return .customFont(font: font, style: .regular, size: 16)
+        }
+    }
 }
