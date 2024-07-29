@@ -2,7 +2,7 @@
 //  LeftAlignedCollectionViewFlowLayout.swift
 //  ShowPot
 //
-//  Created by 이건준 on 7/23/24.
+//  Created by 이건준 on 7/30/24.
 //
 
 import UIKit
