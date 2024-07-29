@@ -7,15 +7,37 @@
 
 import UIKit
 
+struct AttributeStyle {
+    let fontType: LanguageFont
+    let lineBreakMode: NSLineBreakMode
+    let alignment: NSTextAlignment
+    
+    init(
+        fontType: LanguageFont,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        alignment: NSTextAlignment = .left
+    ) {
+        self.fontType = fontType
+        self.lineBreakMode = lineBreakMode
+        self.alignment = alignment
+    }
+}
+
+// MARK: attributes 설정 메서드
 extension NSAttributedString {
     
     /// 줄 높이를 설정을 위한 attribute를 추가합니다.
     /// - Parameters:
     ///   - lineHeight: UILabel의 줄 높이
-    func setLineHeight(lineHeight: CGFloat, alignment: NSTextAlignment = .left) -> NSAttributedString {
+    func setParagraphStyle(
+        lineHeightMultiple: CGFloat = 0,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        alignment: NSTextAlignment = .left
+    ) -> NSAttributedString {
+        
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.maximumLineHeight = lineHeight
-        paragraphStyle.minimumLineHeight = lineHeight
+        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        paragraphStyle.lineBreakMode = lineBreakMode
         paragraphStyle.alignment = alignment
         
         let attributes: [NSAttributedString.Key: Any] = [
@@ -27,9 +49,6 @@ extension NSAttributedString {
         return NSAttributedString(attributedString: mutableAttributedString)
     }
     
-    /// 자간 설정을 위한 attribute를 추가합니다.
-    /// - Parameters:
-    ///   - letterSpacingPercent: UILabel의 자간 백분율 (예: -0.025 = -2.5%)
     func setLetterSpacing(letterSpacingPercent: CGFloat) -> NSAttributedString {
         let attributes: [NSAttributedString.Key: Any] = [
             .kern: letterSpacingPercent
@@ -48,5 +67,39 @@ extension NSAttributedString {
         let mutableAttributedString = NSMutableAttributedString(attributedString: self)
         mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
         return NSAttributedString(attributedString: mutableAttributedString)
+    }
+}
+
+// MARK: 커스텀 attributes 사용하는 커스텀 생성자
+extension NSAttributedString {
+    
+    convenience init(_ string: String, style: AttributeStyle) {
+        self.init(
+            string: string,
+            fontType: style.fontType,
+            lineBreakMode: style.lineBreakMode,
+            alignment: style.alignment
+        )
+    }
+    
+    convenience init(
+        string: String,
+        fontType: LanguageFont,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        alignment: NSTextAlignment = .left
+    ) {
+        
+        let lineHeight = fontType.font.lineHeight * fontType.lineHeightMultiple
+        
+        let attrStr = NSMutableAttributedString(string: string)
+            .setParagraphStyle(
+                lineHeightMultiple: fontType.lineHeightMultiple,
+                lineBreakMode: lineBreakMode,
+                alignment: alignment
+            )
+            .setLetterSpacing(letterSpacingPercent: fontType.letterSpacing)
+            .setBaseLineOffset(baselineOffset: (lineHeight - fontType.font.lineHeight) / 2)
+        
+        self.init(attributedString: attrStr)
     }
 }
