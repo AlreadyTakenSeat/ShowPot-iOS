@@ -1099,7 +1099,7 @@
 		};
 		7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint?tab=readme-ov-file";
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.55.1;
