@@ -23,7 +23,6 @@
 		70107B2A2C1D573900F32042 /* Oswald-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B242C1D573900F32042 /* Oswald-Medium.ttf */; };
 		70107B2B2C1D573900F32042 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B252C1D573900F32042 /* Oswald-Regular.ttf */; };
 		70107B2C2C1D573900F32042 /* Oswald-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B262C1D573900F32042 /* Oswald-SemiBold.ttf */; };
-		70107B302C1D58C500F32042 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B2F2C1D58C500F32042 /* UIFont+Extension.swift */; };
 		70107B512C21680400F32042 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B502C21680400F32042 /* Then */; };
 		70107B592C21693E00F32042 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B582C21693E00F32042 /* GoogleSignIn */; };
 		70107B5B2C21693E00F32042 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B5A2C21693E00F32042 /* GoogleSignInSwift */; };
@@ -131,7 +130,6 @@
 		70107B242C1D573900F32042 /* Oswald-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Medium.ttf"; sourceTree = "<group>"; };
 		70107B252C1D573900F32042 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		70107B262C1D573900F32042 /* Oswald-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-SemiBold.ttf"; sourceTree = "<group>"; };
-		70107B2F2C1D58C500F32042 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		70107B902C2E537E00F32042 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
@@ -420,7 +418,6 @@
 		7D2981192C01E91300A619FB /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				70107B2F2C1D58C500F32042 /* UIFont+Extension.swift */,
 				70107B902C2E537E00F32042 /* UILabel+Extension.swift */,
 				70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */,
 				7DE569F52C557892006724EF /* UIView+UIGestureRecognizer.swift */,
@@ -808,7 +805,6 @@
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
 				7D29813B2C01F27B00A619FB /* SampleRequest.swift in Sources */,
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,
-				70107B302C1D58C500F32042 /* UIFont+Extension.swift in Sources */,
 				7014673D2C3F0A3400750A54 /* FeaturedSearchButton.swift in Sources */,
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,
