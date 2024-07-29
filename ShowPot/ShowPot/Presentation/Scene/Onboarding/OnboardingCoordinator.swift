@@ -19,7 +19,9 @@ final class OnboardingCoordinator: Coordinator {
     }
     
     func start() {
-        let modalViewController = OnboardingViewController(viewModel: OnboardingViewModel(coordinator: self))
+        let viewModel = OnboardingViewModel(coordinator: self, usecase: DefaultOnboardingUseCase())
+        
+        let modalViewController = OnboardingViewController(viewModel: viewModel)
         modalViewController.modalPresentationStyle = .fullScreen
         self.rootViewController.present(modalViewController, animated: true)
         self.modalViewController = modalViewController

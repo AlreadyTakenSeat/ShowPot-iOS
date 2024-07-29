@@ -10,19 +10,13 @@ import RxSwift
 
 final class OnboardingViewController: ViewController {
     
-    /// 온보딩 페이지별 표출될 컨텐츠 관리에 사용할 구조체
-    private struct OnboardingData {
-        let image: UIImage
-        let title: String
-        let description: String
-        let backgroundColor: UIColor
-    }
-    
     let viewHolder: OnboardingViewHolder = .init()
     let viewModel: OnboardingViewModel
     
     // MARK: Property
     
+    /// Carousel Cell에 들어갈 데이터
+    private let carouselData: [OnboardingData]
     /// 현재 Carousel 페이지
     private var currentPage: Int = 0 {
         didSet {
@@ -30,23 +24,10 @@ final class OnboardingViewController: ViewController {
         }
     }
     
-    /// Carousel Cell에 들어갈 데이터
-    private let carouselData: [OnboardingData] = [
-        OnboardingData(
-            image: .onboarding1,
-            title: Strings.onboardingTitle1, description: Strings.onboardingDescription1,
-            backgroundColor: .mainOrange
-        ),
-        OnboardingData(
-            image: .onboarding2, 
-            title: Strings.onboardingTitle2, description: Strings.onboardingDescription2,
-            backgroundColor: .mainGreen
-        )
-    ]
-    
     // MARK: - Initializer
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
+        self.carouselData = viewModel.usecase.carouselData
         super.init(nibName: nil, bundle: nil)
     }
     
