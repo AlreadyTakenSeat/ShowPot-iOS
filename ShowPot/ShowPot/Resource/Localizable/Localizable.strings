@@ -42,7 +42,7 @@
 // 검색 화면
 "search_artist_title" = "아티스트";
 "search_performance_title" = "공연 정보";
-"search_query_title" = "최근검색어";
-"search_query_button_title" = "모두삭제";
+"search_keyword_title" = "최근검색어";
+"search_keyword_button_title" = "모두삭제";
 "search_empty_title" = "검색 기록이 없어요";
 

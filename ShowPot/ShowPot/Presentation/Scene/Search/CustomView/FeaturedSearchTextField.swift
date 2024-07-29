@@ -11,15 +11,16 @@ import RxSwift
 import SnapKit
 import Then
 
+/// 검색화면에서 키워드 검색하기위한 UITextField
 final class FeaturedSearchTextField: UITextField {
     
     private let disposeBag = DisposeBag()
     
-    var didTappedXButton: Observable<Void> {
-        xButton.rx.tap.asObservable().share(replay: 1)
+    var didTappedRemoveAllButton: Observable<Void> {
+        removeAllButton.rx.tap.asObservable().share(replay: 1)
     }
     
-    var didTappedReturnButton: Observable<String> {
+    var didTappedReturnKey: Observable<String> {
         rx.controlEvent(.editingDidEndOnExit).asObservable()
             .withUnretained(self)
             .filter { $0.0.returnKeyType == .search }
@@ -27,8 +28,8 @@ final class FeaturedSearchTextField: UITextField {
             .share(replay: 1)
     }
     
-    private let xButton = UIButton().then {
-        $0.setImage(.icCancel.withTintColor(.white), for: .normal)
+    private let removeAllButton = UIButton().then {
+        $0.setImage(.icCancel.withTintColor(.gray000), for: .normal)
         $0.backgroundColor = .clear
     }
     
@@ -46,8 +47,8 @@ final class FeaturedSearchTextField: UITextField {
         delegate = self
         becomeFirstResponder()
         
-        textColor = .white
-        tintColor = .white
+        textColor = .gray000
+        tintColor = .gray000
         backgroundColor = .gray500
         layer.masksToBounds = true
         layer.cornerRadius = 2
@@ -63,19 +64,18 @@ final class FeaturedSearchTextField: UITextField {
         clearButtonMode = .never
         
         rightViewMode = .always
-        rightView = xButton
+        rightView = removeAllButton
     }
     
     private func bind() {
-        xButton.rx.tap
+        didTappedRemoveAllButton
             .subscribe(with: self) { owner, _ in
                 owner.text?.removeAll()
                 owner.updateReturnKey(type: .default)
-                owner.searchTextFieldDelegate?.didTappedXButton()
             }
             .disposed(by: disposeBag)
         
-        didTappedReturnButton
+        didTappedReturnKey
             .subscribe(with: self) { owner, _ in
                 owner.resignFirstResponder()
             }

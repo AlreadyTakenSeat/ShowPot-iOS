@@ -91,13 +91,13 @@ extension FeaturedSubscribeArtistCell {
             return
         case .selected:
             setupSubscribeArtistCell(
-                image: .icCheck.withTintColor(.white),
+                image: .icCheck.withTintColor(.gray000),
                 alpha: 0.7,
                 alphaBackgroundColor: .mainOrange
             )
         case .availableSubscription:
             setupSubscribeArtistCell(
-                image: .icAlarmPlus.withTintColor(.white),
+                image: .icAlarmPlus.withTintColor(.gray000),
                 alpha: 0.5,
                 alphaBackgroundColor: .gray700
             )

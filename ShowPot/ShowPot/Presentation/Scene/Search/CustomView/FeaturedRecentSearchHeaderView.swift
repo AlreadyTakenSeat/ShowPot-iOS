@@ -11,26 +11,25 @@ import RxSwift
 import SnapKit
 import Then
 
-final class FeaturedRecentSearchHeaderView: UICollectionReusableView {
+/// 최근 검색리스트에 대한 헤더뷰
+final class FeaturedRecentSearchHeaderView: UICollectionReusableView, ReusableCell {
     
-    static let identifier = String(describing: FeaturedRecentSearchHeaderView.self)
     private let disposeBag = DisposeBag()
     
     var didTappedRemoveAllButton: Observable<Void> {
         removeAllButton.rx.tap.asObservable()
     }
     
-    private let recentSearchLabel = UILabel().then {
-        $0.text = Strings.searchQueryTitle
+    private let recentSearchLabel = SPLabel(KRFont.H2).then {
         $0.textColor = .gray100
-        $0.textAlignment = .left
-        $0.font = KRFont.H2
+        $0.setText(Strings.searchKeywordTitle)
     }
     
-    private let removeAllButton = UIButton().then {
-        $0.setTitle(Strings.searchQueryButtonTitle, for: .normal)
-        $0.setTitleColor(.gray400, for: .normal)
-        $0.titleLabel?.font = KRFont.B1_regular
+    private let removeAllButton = SPButton().then { 
+        $0.setText(Strings.searchKeywordButtonTitle, fontType: KRFont.B1_regular)
+        $0.configuration?.baseForegroundColor = .gray400
+        $0.configuration?.baseBackgroundColor = .clear
+        $0.configuration?.contentInsets = .zero
     }
     
     override init(frame: CGRect) {
@@ -57,7 +56,6 @@ final class FeaturedRecentSearchHeaderView: UICollectionReusableView {
             $0.leading.equalTo(recentSearchLabel.snp.trailing)
             $0.directionalVerticalEdges.equalToSuperview()
             $0.trailing.equalToSuperview().inset(16)
-            $0.width.equalTo(59)
         }
     }
 }

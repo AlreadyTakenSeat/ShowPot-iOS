@@ -11,18 +11,18 @@ import RxSwift
 import SnapKit
 import Then
 
+/// 최근검색키워드에 대한 셀
 final class FeaturedRecentSearchCell: UICollectionViewCell, ReusableCell {
     
-    var didTappedXButton: Observable<Void> {
-        xButton.rx.tap.asObservable()
+    var didTappedRemoveKeywordButton: Observable<Void> {
+        removeKeywordButton.rx.tap.asObservable()
     }
     
-    private let recentSearchQueryLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = KRFont.B1_regular
+    private let recentSearchKeywordLabel = SPLabel(KRFont.B1_regular).then {
+        $0.textColor = .gray000
     }
     
-    private let xButton = UIButton().then {
+    private let removeKeywordButton = UIButton().then {
         $0.setImage(.icCancel.withTintColor(.gray300), for: .normal)
     }
     
@@ -46,30 +46,25 @@ final class FeaturedRecentSearchCell: UICollectionViewCell, ReusableCell {
     }
     
     private func setupLayouts() {
-        [recentSearchQueryLabel, xButton].forEach { contentView.addSubview($0) }
+        [recentSearchKeywordLabel, removeKeywordButton].forEach { contentView.addSubview($0) }
     }
     
     private func setupConstraints() {
-        recentSearchQueryLabel.snp.makeConstraints {
+        recentSearchKeywordLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(14)
             $0.directionalVerticalEdges.equalToSuperview().inset(8)
         }
         
-        xButton.snp.makeConstraints {
+        removeKeywordButton.snp.makeConstraints {
             $0.directionalVerticalEdges.trailing.equalToSuperview().inset(8)
-            $0.leading.equalTo(recentSearchQueryLabel.snp.trailing)
+            $0.leading.equalTo(recentSearchKeywordLabel.snp.trailing)
             $0.size.equalTo(24)
         }
     }
 }
 
-struct FeaturedRecentSearchCellModel {
-    let recentSearchQuery: String
-}
-
 extension FeaturedRecentSearchCell {
-    func configureUI(with model: FeaturedRecentSearchCellModel) {
-        recentSearchQueryLabel.setAttributedText(font: KRFont.self, string: model.recentSearchQuery) 
-        recentSearchQueryLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용 이후 lineBreakMode적용안되는 문제 해결 필요
+    func configureUI(with searchKeyword: String) {
+        recentSearchKeywordLabel.setText(searchKeyword)
     }
 }

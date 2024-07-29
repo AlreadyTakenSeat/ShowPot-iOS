@@ -11,6 +11,7 @@ import Kingfisher
 import SnapKit
 import Then
 
+/// 공연정보에 대한 셀
 final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCell {
     
     private let performanceImageView = UIImageView().then {
@@ -18,19 +19,16 @@ final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCel
         $0.layer.masksToBounds = true
     }
     
-    private let performanceTitleLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = ENFont.H2
+    private let performanceTitleLabel = SPLabel(ENFont.H2).then {
+        $0.textColor = .gray000
     }
     
-    private let performanceTimeLabel = UILabel().then {
+    private let performanceTimeLabel = SPLabel(KRFont.B3_regular).then {
         $0.textColor = .gray200
-        $0.font = KRFont.B3_regular
     }
     
-    private let performanceLocationLabel = UILabel().then {
+    private let performanceLocationLabel = SPLabel(KRFont.B3_regular).then {
         $0.textColor = .gray200
-        $0.font = KRFont.B3_regular
     }
     
     override init(frame: CGRect) {
@@ -80,7 +78,7 @@ final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCel
 struct PerformanceInfoCollectionViewCellModel: Hashable {
     let performanceImageURL: URL?
     let performanceTitle: String
-    let performanceTime: String
+    let performanceTime: Date?
     let performanceLocation: String
     
     func hash(into hasher: inout Hasher) {
@@ -92,9 +90,31 @@ struct PerformanceInfoCollectionViewCellModel: Hashable {
 
 extension PerformanceInfoCollectionViewCell {
     func configureUI(with model: PerformanceInfoCollectionViewCellModel) {
+        
+        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
+        dateFormatter.dateFormat = "yyyy.MM.d"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
         performanceImageView.kf.setImage(with: model.performanceImageURL)
-        performanceTitleLabel.setAttributedText(font: ENFont.self, string: model.performanceTitle)
-        performanceTimeLabel.setAttributedText(font: KRFont.self, string: model.performanceTime)
-        performanceLocationLabel.setAttributedText(font: KRFont.self, string: model.performanceLocation)
+        performanceTitleLabel.setText(model.performanceTitle)
+        performanceTimeLabel.setText(dateFormatter.string(from: model.performanceTime ?? Date()))
+        performanceLocationLabel.setText(model.performanceLocation)
+    }
+    
+    func configureUI(
+        performanceImageURL: URL?,
+        performanceTitle: String,
+        performanceTime: Date?,
+        performanceLocation: String
+    ) {
+        
+        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
+        dateFormatter.dateFormat = "yyyy.MM.d"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        performanceImageView.kf.setImage(with: performanceImageURL)
+        performanceTitleLabel.setText(performanceTitle)
+        performanceTimeLabel.setText(dateFormatter.string(from: performanceTime ?? Date()))
+        performanceLocationLabel.setText(performanceLocation)
     }
 }

@@ -25,7 +25,7 @@ final class FeaturedSearchViewHolder {
     
     lazy var recentSearchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: recentSearchFlowLayout).then {
         $0.register(FeaturedRecentSearchCell.self)
-        $0.register(FeaturedRecentSearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FeaturedRecentSearchHeaderView.identifier)
+        $0.register(FeaturedRecentSearchHeaderView.self, of: UICollectionView.elementKindSectionHeader)
         $0.backgroundColor = .gray700
         $0.alwaysBounceVertical = true
     }
@@ -33,10 +33,10 @@ final class FeaturedSearchViewHolder {
     private lazy var searchResultFlowLayout = UICollectionViewCompositionalLayout { [weak self] sec, env -> NSCollectionLayoutSection? in
         guard let self = self else { return nil }
         let type = FeaturedSearchViewModel.SearchResultSection.allCases[sec]
-        return self.setupSearchQueryResultCollectionViewLayoutSection(type: type)
+        return self.setupSearchKeywordResultCollectionViewLayoutSection(type: type)
     }
     
-    lazy var searchQueryResultCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchResultFlowLayout).then {
+    lazy var searchKeywordResultCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchResultFlowLayout).then {
         $0.register(FeaturedSubscribeArtistCell.self)
         $0.register(PerformanceInfoCollectionViewCell.self)
         $0.register(FeaturedOnlyTitleHeaderView.self, of: UICollectionView.elementKindSectionHeader)
@@ -44,12 +44,10 @@ final class FeaturedSearchViewHolder {
         $0.alwaysBounceVertical = true
     }
     
-    let emptyLabel = UILabel().then {
+    let emptyLabel = SPLabel(KRFont.B1_semibold, alignment: .center).then {
         $0.backgroundColor = .clear
-        $0.font = KRFont.B1_semibold
         $0.textColor = .gray400
-        $0.textAlignment = .center
-        $0.setAttributedText(font: KRFont.self, string: Strings.searchEmptyTitle)
+        $0.setText(Strings.searchEmptyTitle)
     }
     
     lazy var indicatorView = UIActivityIndicatorView().then {
@@ -60,7 +58,7 @@ final class FeaturedSearchViewHolder {
 extension FeaturedSearchViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        [backButton, featuredSearchTextField, recentSearchCollectionView, searchQueryResultCollectionView, indicatorView].forEach { view.addSubview($0) }
+        [backButton, featuredSearchTextField, recentSearchCollectionView, searchKeywordResultCollectionView, indicatorView].forEach { view.addSubview($0) }
         recentSearchCollectionView.addSubview(emptyLabel)
     }
     
@@ -89,7 +87,7 @@ extension FeaturedSearchViewHolder: ViewHolderType {
             $0.centerX.equalToSuperview()
         }
         
-        searchQueryResultCollectionView.snp.makeConstraints {
+        searchKeywordResultCollectionView.snp.makeConstraints {
             $0.top.equalTo(featuredSearchTextField.snp.bottom).offset(12)
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
         }
@@ -102,11 +100,11 @@ extension FeaturedSearchViewHolder: ViewHolderType {
 
 extension FeaturedSearchViewHolder {
     
-    private func setupSearchQueryResultCollectionViewLayoutSection(type: FeaturedSearchViewModel.SearchResultSection) -> NSCollectionLayoutSection {
+    private func setupSearchKeywordResultCollectionViewLayoutSection(type: FeaturedSearchViewModel.SearchResultSection) -> NSCollectionLayoutSection {
         switch type {
-        case .artistList:
+        case .artist:
             return searchResultArtistLayoutSection()
-        case .performanceInfo:
+        case .performance:
             return searchResultPerformanceLayoutSection()
         }
     }
