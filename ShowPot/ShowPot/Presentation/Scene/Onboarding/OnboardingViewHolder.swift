@@ -45,7 +45,6 @@ extension OnboardingViewHolder: ViewHolderType {
         [carouselCollectionView, pageControl, bottomButton].forEach { view.addSubview($0) }
     }
     
-    // TODO: #51 PinLayout + FlexLayout으로 리팩토링
     func configureConstraints(for view: UIView) {
         
         carouselCollectionView.snp.makeConstraints { make in

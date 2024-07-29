@@ -42,7 +42,6 @@ final class OnboardingCarouselCell: UICollectionViewCell, ReusableCell {
 // MARK: UI Configuration
 extension OnboardingCarouselCell {
     
-    // TODO: #51 PinLayout + FlexLayout으로 리팩토링
     private func setUpLayout() {
         
         self.addSubview(imageView)
