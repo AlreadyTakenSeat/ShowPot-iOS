@@ -37,7 +37,19 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.textColor = .gray300
     }
     
-    private let performanceBackgroundImageView = UIImageView() // TODO: Linear적용
+    private let performanceBackgroundImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = true
+        $0.applyLinearGradient(
+            colors: [
+                .gray700.withAlphaComponent(1.0),
+                .gray700.withAlphaComponent(0.3),
+                .gray700.withAlphaComponent(0.0)
+            ],
+            startPoint: .init(x: 0.0, y: 0.5),
+            endPoint: .init(x: 1.0, y: 0.5)
+        )
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,6 +68,11 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceTitleLabel.text = nil
         performanceLocationLabel.text = nil
         ticketingOpenTimeLabel.text = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        performanceBackgroundImageView.updateGradientLayerFrame()
     }
     
     private func setupStyles() {
@@ -112,5 +129,6 @@ extension FeaturedPerformanceWithTicketOnSaleSoonCell {
         ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail
         performanceTitleLabel.lineBreakMode = .byTruncatingTail
         performanceLocationLabel.lineBreakMode = .byTruncatingTail
+        performanceBackgroundImageView.layoutIfNeeded()
     }
 }
