@@ -10,11 +10,13 @@ import RxSwift
 
 final class OnboardingViewModel: ViewModelType {
     
+    var usecase: OnboardingUseCase
     private var coordinator: OnboardingCoordinator
     private let disposeBag = DisposeBag()
     
-    init(coordinator: OnboardingCoordinator) {
+    init(coordinator: OnboardingCoordinator, usecase: OnboardingUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {

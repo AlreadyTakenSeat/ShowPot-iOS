@@ -83,8 +83,9 @@
 		7D2DCAC02C269C2100389FBF /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2DCABF2C269C2100389FBF /* RxSwift */; };
 		7D2DCAC32C269C2E00389FBF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2DCAC22C269C2E00389FBF /* SnapKit */; };
 		7D3196422C133EC90015F88E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3196412C133EC90015F88E /* Environment.swift */; };
-		7D3E96282C061CD2003A6FA9 /* SampleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E96272C061CD2003A6FA9 /* SampleUseCase.swift */; };
 		7D3E962A2C061DA3003A6FA9 /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */; };
+		7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */; };
+		7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */; };
 		7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */; };
 		7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */; };
 		7D8255A52C295DF100D104BE /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7D8255A42C295DF100D104BE /* swiftgen.yml */; };
@@ -170,8 +171,9 @@
 		7D31963D2C1336A70015F88E /* ShowPot-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ShowPot-Release.xcconfig"; sourceTree = "<group>"; };
 		7D31963E2C1336BE0015F88E /* ShowPot-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ShowPot-Debug.xcconfig"; sourceTree = "<group>"; };
 		7D3196412C133EC90015F88E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		7D3E96272C061CD2003A6FA9 /* SampleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUseCase.swift; sourceTree = "<group>"; };
 		7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
+		7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
+		7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOnboardingUseCase.swift; sourceTree = "<group>"; };
 		7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		7D8255A42C295DF100D104BE /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -551,9 +553,18 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				7D3E96272C061CD2003A6FA9 /* SampleUseCase.swift */,
+				7D43E7DB2C57CFEC0008F349 /* Onboarding */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		7D43E7DB2C57CFEC0008F349 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */,
+				7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		7D75B91E2C4FEAAD00C72417 /* UserDefaults */ = {
@@ -761,6 +772,7 @@
 			files = (
 				7DCAAEA22C38532E00DE8F7B /* OnboardingCarouselCell.swift in Sources */,
 				7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */,
+				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
@@ -802,13 +814,13 @@
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7014677A2C534F7700750A54 /* PaddingLabel.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
-				7D3E96282C061CD2003A6FA9 /* SampleUseCase.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,
 				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,
+				7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */,
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,
 				7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */,
