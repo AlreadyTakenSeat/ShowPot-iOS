@@ -68,6 +68,16 @@ extension NSAttributedString {
         mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
         return NSAttributedString(attributedString: mutableAttributedString)
     }
+    
+    func setFont(font: UIFont) -> NSAttributedString {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font
+        ]
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: self)
+        mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
+        return NSAttributedString(attributedString: mutableAttributedString)
+    }
 }
 
 // MARK: 커스텀 attributes 사용하는 커스텀 생성자
@@ -75,7 +85,7 @@ extension NSAttributedString {
     
     convenience init(_ string: String, style: AttributeStyle) {
         self.init(
-            string: string,
+            string,
             fontType: style.fontType,
             lineBreakMode: style.lineBreakMode,
             alignment: style.alignment
@@ -83,7 +93,7 @@ extension NSAttributedString {
     }
     
     convenience init(
-        string: String,
+        _ string: String,
         fontType: LanguageFont,
         lineBreakMode: NSLineBreakMode = .byTruncatingTail,
         alignment: NSTextAlignment = .left
@@ -92,6 +102,7 @@ extension NSAttributedString {
         let lineHeight = fontType.font.lineHeight * fontType.lineHeightMultiple
         
         let attrStr = NSMutableAttributedString(string: string)
+            .setFont(font: fontType.font)
             .setParagraphStyle(
                 lineHeightMultiple: fontType.lineHeightMultiple,
                 lineBreakMode: lineBreakMode,
