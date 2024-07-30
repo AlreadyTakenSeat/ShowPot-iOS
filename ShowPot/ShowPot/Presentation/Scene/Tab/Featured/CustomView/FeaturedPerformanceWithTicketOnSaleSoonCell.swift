@@ -16,7 +16,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     private let ticketingInfoStackView = UIStackView().then {
         $0.axis = .vertical
         $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = .init(top: 12.5, left: .zero, bottom: 12.5, right: 7)
+        $0.layoutMargins = .init(top: 12.5, left: .zero, bottom: 12.5, right: .zero)
         $0.spacing = 3
     }
     
@@ -85,15 +85,14 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     }
     
     private func setupConstraints() {
-        
         performanceBackgroundImageView.snp.makeConstraints {
+            $0.leading.equalTo(self.snp.centerX)
             $0.trailing.directionalVerticalEdges.equalToSuperview()
-            $0.width.equalTo(178.5)
         }
         
         ticketingInfoStackView.snp.makeConstraints {
             $0.leading.directionalVerticalEdges.equalToSuperview()
-            $0.trailing.equalTo(performanceBackgroundImageView.snp.leading)
+            $0.trailing.equalTo(performanceBackgroundImageView.snp.leading).offset(30)
         }
         
         performanceTitleLabel.snp.makeConstraints {
@@ -107,6 +106,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceLocationLabel.snp.makeConstraints {
             $0.height.equalTo(21)
         }
+        contentView.bringSubviewToFront(ticketingInfoStackView)
     }
     
 }
