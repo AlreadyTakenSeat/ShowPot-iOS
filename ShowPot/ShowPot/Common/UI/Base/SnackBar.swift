@@ -46,10 +46,9 @@ class SnackBar: UIView {
         imageView.snp.makeConstraints { $0.size.equalTo(36) }
     }
     
-    private lazy var descriptionLabel = UILabel().then { label in
-        label.font = KRFont.B1_semibold.font
+    private lazy var descriptionLabel = SPLabel(KRFont.B1_semibold).then { label in
         label.textColor = .gray000
-        label.setAttributedText(font: KRFont.B1_semibold, string: style.message, alignment: .left)
+        label.setText(style.message)
     }
     
     private lazy var actionButton = UIButton().then { button in

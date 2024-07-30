@@ -38,7 +38,6 @@
 		70107B702C216A4200F32042 /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B6F2C216A4200F32042 /* KakaoSDKTalk */; };
 		70107B722C216A4200F32042 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B712C216A4200F32042 /* KakaoSDKTemplate */; };
 		70107B742C216A4200F32042 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B732C216A4200F32042 /* KakaoSDKUser */; };
-		70107B912C2E537E00F32042 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B902C2E537E00F32042 /* UILabel+Extension.swift */; };
 		70107BA12C36661200F32042 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */; };
 		7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */; };
 		701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467342C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift */; };
@@ -86,6 +85,7 @@
 		7D3E962A2C061DA3003A6FA9 /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */; };
 		7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */; };
 		7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */; };
+		7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D45CB5C2C591D640018FCB8 /* SPLabel.swift */; };
 		7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */; };
 		7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */; };
 		7D8255A52C295DF100D104BE /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7D8255A42C295DF100D104BE /* swiftgen.yml */; };
@@ -130,7 +130,6 @@
 		70107B242C1D573900F32042 /* Oswald-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Medium.ttf"; sourceTree = "<group>"; };
 		70107B252C1D573900F32042 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		70107B262C1D573900F32042 /* Oswald-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-SemiBold.ttf"; sourceTree = "<group>"; };
-		70107B902C2E537E00F32042 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		7014671A2C3D8D3C00750A54 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		701467342C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSubscribeArtistCell.swift; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
 		7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOnboardingUseCase.swift; sourceTree = "<group>"; };
+		7D45CB5C2C591D640018FCB8 /* SPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPLabel.swift; sourceTree = "<group>"; };
 		7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		7D8255A42C295DF100D104BE /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -411,6 +411,7 @@
 				7DF7118A2C4810B3001406F0 /* Protocol */,
 				7DE569F22C556996006724EF /* Base */,
 				7D93096B2C569DFB000889DE /* SPSnackBar.swift */,
+				7D45CB5C2C591D640018FCB8 /* SPLabel.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -418,7 +419,6 @@
 		7D2981192C01E91300A619FB /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				70107B902C2E537E00F32042 /* UILabel+Extension.swift */,
 				70107BA02C36661200F32042 /* NSAttributedString+Extension.swift */,
 				7DE569F52C557892006724EF /* UIView+UIGestureRecognizer.swift */,
 				7DE569F72C561CE7006724EF /* UIButton+Trigger.swift */,
@@ -775,6 +775,7 @@
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
+				7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
@@ -797,7 +798,6 @@
 				7D89E5482C36652300E6001E /* OnboardingViewController.swift in Sources */,
 				7DE569F82C561CE7006724EF /* UIButton+Trigger.swift in Sources */,
 				7D8574C12C187A1F0042F539 /* LoginViewHolder.swift in Sources */,
-				70107B912C2E537E00F32042 /* UILabel+Extension.swift in Sources */,
 				7D2981002C01E1D000A619FB /* AppDelegate.swift in Sources */,
 				7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */,
 				7D89E54C2C3666A600E6001E /* OnboardingCoordinator.swift in Sources */,

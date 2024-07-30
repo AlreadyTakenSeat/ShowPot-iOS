@@ -36,11 +36,13 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
         var configuration = UIButton.Configuration.filled()
         configuration.imagePlacement = .trailing
         configuration.image = .icArrowRight.withTintColor(.gray400)
-        configuration.attributedTitle = configureButtonAttributedString()
+        let attrStr = NSAttributedString(Strings.homeTicketingPerformanceButtonTitle, fontType: KRFont.B1_semibold)
+        configuration.attributedTitle = AttributedString(attrStr)
         configuration.baseBackgroundColor = .gray600
         configuration.baseForegroundColor = .gray100
         configuration.cornerStyle = .fixed
         configuration.background.cornerRadius = 2
+        
         watchTheFullPerformanceButton.configuration = configuration
     }
     
@@ -53,26 +55,5 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
             $0.top.directionalHorizontalEdges.equalToSuperview()
             $0.height.equalTo(42)
         }
-    }
-}
-
-extension FeaturedWatchTheFullPerformanceFooterView {
-    
-    /// attributed가 적용된 라벨을 리턴하는 함수
-    private func configureLabelAttributedText() -> UILabel { // TODO: #61 UIButton AttributedString에 대한 attribute적용 공통함수로 중복코드삭제
-        let setAttributedButtonLabel = UILabel().then {
-            $0.setAttributedText(font: KRFont.B1_semibold, string: Strings.homeTicketingPerformanceButtonTitle)
-        }
-        return setAttributedButtonLabel
-    }
-    
-    /// UIButton.Configuration에 사용될 AttributedString을 리턴하는 함수
-    private func configureButtonAttributedString() -> AttributedString? {
-        let labelWithAttributedText = configureLabelAttributedText()
-        guard let attributedText = labelWithAttributedText.attributedText else { return nil }
-        
-        var attributedString = AttributedString(attributedText)
-        attributedString.font = KRFont.B1_semibold.font
-        return attributedString
     }
 }

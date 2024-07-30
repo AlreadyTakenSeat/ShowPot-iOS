@@ -23,56 +23,19 @@ final class FeaturedSearchButton: UIButton {
     private func setupStyles() {
         
         contentHorizontalAlignment = .fill
+        let attrStr = NSAttributedString(Strings.homeSearchbarPlaceholder, fontType: KRFont.B1_semibold)
         
-        let attributedTitle = createButtonAttributedString(string: Strings.homeSearchbarPlaceholder)
-        var configuration = createButtonConfiguration(
-            image: .icMagnifier.withTintColor(.white),
-            baseBackgroundColor: .gray600,
-            baseForegroundColor: .gray400,
-            cornerRadius: 2,
-            contentInsets: NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5),
-            with: attributedTitle
-        )
-        configuration.attributedTitle = attributedTitle
-        self.configuration = configuration
-    }
-}
-
-// MARK: - FeaturedSearchButton Setup For UIButtonConfiguration
-
-extension FeaturedSearchButton {
-    
-    /// UIButton.Configuration에 사용될 AttributedString을 리턴하는 함수
-    private func createButtonAttributedString(string: String) -> AttributedString {
-        let labelWithAttributedText = UILabel().then {
-            $0.setAttributedText(font: KRFont.B1_semibold, string: string) // TODO: #61 UIButton AttributedString에 대한 attribute적용 공통함수로 중복코드삭제
-        }
-        let attributedText = labelWithAttributedText.attributedText ?? NSAttributedString(string: string)
-        
-        var attributedString = AttributedString(attributedText)
-        attributedString.font = KRFont.B1_semibold.font
-        return attributedString
-    }
-    
-    /// 버튼에서 사용할 Configuration을 생성하는 함수
-    private func createButtonConfiguration(
-        image: UIImage,
-        baseBackgroundColor: UIColor,
-        baseForegroundColor: UIColor,
-        cornerRadius: CGFloat,
-        contentInsets: NSDirectionalEdgeInsets,
-        with attributedTitle: AttributedString
-    ) -> UIButton.Configuration {
         var configuration = UIButton.Configuration.filled()
-        configuration.image = image
+        configuration.image = .icMagnifier.withTintColor(.white)
         configuration.imagePlacement = .trailing
-        configuration.baseBackgroundColor = baseBackgroundColor
-        configuration.baseForegroundColor = baseForegroundColor
+        configuration.baseBackgroundColor = .gray600
+        configuration.baseForegroundColor = .gray400
         configuration.cornerStyle = .fixed
-        configuration.background.cornerRadius = cornerRadius
-        configuration.contentInsets = contentInsets
+        configuration.background.cornerRadius = 2
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5)
         configuration.imagePadding = -configuration.contentInsets.trailing
-        configuration.attributedTitle = attributedTitle
-        return configuration
+        configuration.attributedTitle = AttributedString(attrStr)
+        
+        self.configuration = configuration
     }
 }

@@ -21,10 +21,8 @@ final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell
         tapGesture.rx.event
     }
     
-    private let featuredHeaderTitleLabel = UILabel().then {
-        $0.font = KRFont.H1.font
+    private let featuredHeaderTitleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
-        $0.textAlignment = .left
     }
     
     private let featuredHeaderImageView = UIImageView().then {
@@ -76,10 +74,10 @@ struct FeaturedWithButtonHeaderViewModel {
 
 extension FeaturedWithButtonHeaderView {
     func configureUI(with model: FeaturedWithButtonHeaderViewModel) {
-        featuredHeaderTitleLabel.setAttributedText(font: KRFont.H1, string: model.headerTitle)
+        featuredHeaderTitleLabel.setText(model.headerTitle)
     }
     
     func configureUI(headerTitle: String) {
-        featuredHeaderTitleLabel.setAttributedText(font: KRFont.H1, string: headerTitle)
+        featuredHeaderTitleLabel.setText(headerTitle)
     }
 }

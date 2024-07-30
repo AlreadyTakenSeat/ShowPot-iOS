@@ -15,17 +15,13 @@ final class OnboardingCarouselCell: UICollectionViewCell, ReusableCell {
         imageView.contentMode = .scaleAspectFit
     }
     
-    private lazy var titleLabel = UILabel().then { label in
-        label.font = KRFont.H0.font
+    private lazy var titleLabel = SPLabel(KRFont.H0, alignment: .center).then { label in
         label.textColor = .gray800
-        label.textAlignment = .center
         label.numberOfLines = 0
     }
     
-    private lazy var descriptionLabel = UILabel().then { label in
-        label.font = KRFont.H2.font
+    private lazy var descriptionLabel = SPLabel(KRFont.H2, alignment: .center).then { label in
         label.textColor = .gray800
-        label.textAlignment = .center
         label.numberOfLines = 0
     }
     
@@ -77,7 +73,7 @@ extension OnboardingCarouselCell {
     
     public func configure(image: UIImage? = nil, title: String, description: String) {
         self.imageView.image = image
-        self.titleLabel.setAttributedText(font: KRFont.H0, string: title, alignment: .center)
-        self.descriptionLabel.setAttributedText(font: KRFont.H2, string: description, alignment: .center)
+        self.titleLabel.setText(title)
+        self.descriptionLabel.setText(description)
     }
 }

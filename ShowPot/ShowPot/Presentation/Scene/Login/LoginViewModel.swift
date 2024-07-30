@@ -129,4 +129,66 @@ enum SocialLoginType { // TODO: 추후 Usecase로 빼서 작업 필요
     case google
     case kakao
     case apple
+    
+    var buttonTitle: String {
+        switch self {
+        case .google:
+            return Strings.socialLoginGoogleButton
+        case .kakao:
+            return Strings.socialLoginKakaoButton
+        case .apple:
+            return Strings.socialLoginAppleButton
+        }
+    }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .google:
+            return .btnBgSocialGoogle
+        case .kakao:
+            return .btnBgSocialKakao
+        case .apple:
+            return .gray800
+        }
+    }
+    
+    var foregroundColor: UIColor {
+        switch self {
+        case .google:
+            return .gray700
+        case .kakao:
+            return .gray800
+        case .apple:
+            return .gray000
+        }
+    }
+    
+    var iconImage: UIImage {
+        switch self {
+        case .google:
+            return .icGoogle
+        case .kakao:
+            return .icKakao
+        case .apple:
+            return .icApple
+        }
+    }
+    
+    var strokeWidth: CGFloat? {
+        switch self {
+        case .apple:
+            return 1
+        default:
+            return nil
+        }
+    }
+    
+    var strokeColor: UIColor? {
+        switch self {
+        case .apple:
+            return .gray100
+        default:
+            return nil
+        }
+    }
 }

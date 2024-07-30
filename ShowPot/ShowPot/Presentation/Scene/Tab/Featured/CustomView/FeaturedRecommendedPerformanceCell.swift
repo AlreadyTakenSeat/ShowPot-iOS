@@ -68,7 +68,6 @@ struct FeaturedRecommendedPerformanceCellModel {
 extension FeaturedRecommendedPerformanceCell {
     func configureUI(with model: FeaturedRecommendedPerformanceCellModel) {
         recommendedPerformanceThumbnailImageView.kf.setImage(with: model.recommendedPerformanceThumbnailURL)
-        recommendedPerformanceTitleLabel.setAttributedText(font: ENFont.H4, string: model.recommendedPerformanceTitle)
-        recommendedPerformanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        recommendedPerformanceTitleLabel.attributedText = NSAttributedString(model.recommendedPerformanceTitle, fontType: ENFont.H4)
     }
 }

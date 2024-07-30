@@ -21,10 +21,9 @@ final class LoginViewHolder {
         $0.contentMode = .scaleAspectFit
     }
     
-    let alertLabel = UILabel().then {
+    let alertLabel = SPLabel(KRFont.H2).then {
         $0.textColor = .gray000
-        $0.font = KRFont.H2.font
-        $0.setAttributedText(font: KRFont.H2, string: Strings.socialLoginDescription)
+        $0.setText(Strings.socialLoginDescription)
         $0.textAlignment = .center
     }
     
