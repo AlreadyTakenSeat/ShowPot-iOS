@@ -143,9 +143,17 @@ extension FeaturedViewModel {
     private func fetchTicketingPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         ticketingPerformanceModelRelay.accept([
             .init(
-                perfonmanceState: .reserving, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
+                perfonmanceState: .reserving, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
             .init(
-                perfonmanceState: .upcoming("10.10(MON) 11:00"), performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"))
+                perfonmanceState: .upcoming(Date(timeIntervalSinceNow: 24 * 60 * 60)), performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg")),
+            .init(
+                perfonmanceState: .upcoming(Date(timeIntervalSinceNow: 24 * 60)), performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg")),
+            .init(
+                perfonmanceState: .upcoming(Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)), performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg")),
+            .init(
+                perfonmanceState: .upcoming(Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)), performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg")),
+            .init(
+                perfonmanceState: .upcoming(Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60)), performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"))
         ])
     }
     

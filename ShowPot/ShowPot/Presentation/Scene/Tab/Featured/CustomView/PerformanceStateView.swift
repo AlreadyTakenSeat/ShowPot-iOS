@@ -12,7 +12,7 @@ import Then
 
 /// 티켓팅 공연에 대한 현재 상태
 enum PerformanceState {
-    case upcoming(String)
+    case upcoming(Date)
     case reserving
     
     var title: String {
@@ -21,6 +21,15 @@ enum PerformanceState {
             return "오픈예정"
         case .reserving:
             return "예매중"
+        }
+    }
+    
+    var chipColor: UIColor {
+        switch self {
+        case .upcoming:
+            return .mainYellow
+        case .reserving:
+            return .mainBlue
         }
     }
 }
@@ -34,12 +43,9 @@ final class PerformanceStateView: UIView {
         $0.layer.borderWidth = 0.5
     }
     
-    private let performanceStateView = UILabel().then {
-        $0.font = KRFont.B2_regular
-    }
+    private let performanceStateView = SPLabel(KRFont.B2_regular, alignment: .center)
     
-    private lazy var ticketingOpenTimeLabel = UILabel().then {
-        $0.font = ENFont.H5
+    private lazy var ticketingOpenTimeLabel = SPLabel(ENFont.H5).then {
         $0.textColor = .mainYellow
     }
     
@@ -78,17 +84,30 @@ final class PerformanceStateView: UIView {
 
 extension PerformanceStateView {
     func configureUI(with model: PerformanceState) {
-        switch model {
-        case .upcoming(let string):
-            performanceStateView.textColor = .mainYellow
-            stateContainer.layer.borderColor = UIColor.mainYellow.cgColor
-            ticketingOpenTimeLabel.setAttributedText(font: ENFont.self, string: string, alignment: .left)
-            ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
-        case .reserving:
-            performanceStateView.textColor = .mainBlue
-            stateContainer.layer.borderColor = UIColor.mainBlue.cgColor
+        if case let .upcoming(date) = model {
+            let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
+            dateFormatter.dateFormat = "MM.dd(EEE) HH:mm"
+            dateFormatter.locale = Locale(identifier: "en_US")
+            ticketingOpenTimeLabel.setText(dateFormatter.string(from: date))
         }
-        performanceStateView.setAttributedText(font: KRFont.self, string: model.title, alignment: .center)
+        performanceStateView.textColor = model.chipColor
+        stateContainer.layer.borderColor = model.chipColor.cgColor
+        performanceStateView.setText(model.title)
+    }
+    
+    func configureUI(
+        performanceDate: Date?,
+        chipColor: UIColor,
+        chipTitle: String
+    ) {
+        if let performanceDate = performanceDate {
+            let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
+            dateFormatter.dateFormat = "MM.dd(EEE) HH:mm"
+            dateFormatter.locale = Locale(identifier: "en_US")
+            ticketingOpenTimeLabel.setText(dateFormatter.string(from: performanceDate))
+        }
+        performanceStateView.textColor = chipColor
+        stateContainer.layer.borderColor = chipColor.cgColor
+        performanceStateView.setText(chipTitle)
     }
 }
-

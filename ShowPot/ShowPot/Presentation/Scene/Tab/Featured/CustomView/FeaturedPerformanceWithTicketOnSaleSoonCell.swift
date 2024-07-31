@@ -23,7 +23,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     private let performanceStateView = PerformanceStateView()
     
     private let performanceTitleLabel = SPLabel(ENFont.H3).then {
-        $0.textColor = .white
+        $0.textColor = .gray000
     }
     
     private let performanceLocationLabel = SPLabel(KRFont.B2_regular).then {
@@ -113,10 +113,26 @@ struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
         performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
-        ticketingOpenTimeLabel.setText(model.ticketingOpenTime)
+        performanceStateView.configureUI(with: model.perfonmanceState)
         performanceTitleLabel.setText(model.performanceTitle)
         performanceLocationLabel.setText(model.performanceLocation)
         
+        performanceBackgroundImageView.layoutIfNeeded()
+    }
+    
+    func configureUI(
+        performanceTitle: String,
+        performanceLocation: String,
+        performanceImageURL: URL?,
+        performanceDate: Date?,
+        chipColor: UIColor,
+        chipTitle: String
+    ) {
+        performanceBackgroundImageView.kf.setImage(with: performanceImageURL)
+        performanceStateView.configureUI(performanceDate: performanceDate, chipColor: chipColor, chipTitle: chipTitle)
+        performanceTitleLabel.setText(performanceTitle)
+        performanceLocationLabel.setText(performanceLocation)
+
         performanceBackgroundImageView.layoutIfNeeded()
     }
 }
