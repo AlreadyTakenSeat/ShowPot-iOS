@@ -19,14 +19,8 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
         watchTheFullPerformanceButton.rx.tap
     }
     
-    private let watchTheFullPerformanceButton = SPButton().then { button in
-        button.configuration?.imagePlacement = .trailing
-        button.configuration?.image = .icArrowRight.withTintColor(.gray400)
-        button.configuration?.baseBackgroundColor = .gray600
-        button.configuration?.baseForegroundColor = .gray100
-        button.configuration?.cornerStyle = .fixed
-        button.configuration?.background.cornerRadius = 2
-        button.setText(Strings.homeTicketingPerformanceButtonTitle, fontType: KRFont.B1_semibold)
+    private let watchTheFullPerformanceButton = SPButton(.disclosureButton).then { button in
+        button.setText(Strings.homeTicketingPerformanceButtonTitle)
     }
     
     override init(frame: CGRect) {

@@ -86,6 +86,7 @@
 		7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */; };
 		7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D45CB5C2C591D640018FCB8 /* SPLabel.swift */; };
 		7D45CB612C5956C70018FCB8 /* SPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D45CB602C5956C70018FCB8 /* SPButton.swift */; };
+		7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */; };
 		7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */; };
 		7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */; };
 		7D8255A52C295DF100D104BE /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7D8255A42C295DF100D104BE /* swiftgen.yml */; };
@@ -174,6 +175,7 @@
 		7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOnboardingUseCase.swift; sourceTree = "<group>"; };
 		7D45CB5C2C591D640018FCB8 /* SPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPLabel.swift; sourceTree = "<group>"; };
 		7D45CB602C5956C70018FCB8 /* SPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPButton.swift; sourceTree = "<group>"; };
+		7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPButtonStyle.swift; sourceTree = "<group>"; };
 		7D75B91C2C4FE9F500C72417 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		7D75B91F2C4FEABD00C72417 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		7D8255A42C295DF100D104BE /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				7D93096B2C569DFB000889DE /* SPSnackBar.swift */,
 				7D45CB5C2C591D640018FCB8 /* SPLabel.swift */,
 				7D45CB602C5956C70018FCB8 /* SPButton.swift */,
+				7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				7D93096C2C569DFB000889DE /* SPSnackBar.swift in Sources */,
 				70107BA12C36661200F32042 /* NSAttributedString+Extension.swift in Sources */,
 				7D3E962A2C061DA3003A6FA9 /* SampleAPI.swift in Sources */,
+				7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */,
 				7DEACE4C2C1ECC5200F37DA3 /* CustomFont.swift in Sources */,
 				7014677C2C5363CE00750A54 /* FeaturedPerformanceWithTicketOnSaleSoonCell.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,

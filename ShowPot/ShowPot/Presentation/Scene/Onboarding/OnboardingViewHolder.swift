@@ -30,10 +30,8 @@ final class OnboardingViewHolder {
         pageControl.currentPage = 0
     }
     
-    lazy var bottomButton = SPButton().then { button in
+    lazy var bottomButton = SPButton(.basicBottomEnabled).then { button in
         button.setText(Strings.onboardingButton, fontType: KRFont.H2)
-        button.configuration?.baseForegroundColor = .gray000
-        button.configuration?.baseBackgroundColor = .gray700
     }
     
 }
