@@ -16,7 +16,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     private let ticketingInfoStackView = UIStackView().then {
         $0.axis = .vertical
         $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = .init(top: 12.5, left: .zero, bottom: 12.5, right: 7)
+        $0.layoutMargins = .init(top: 12.5, left: .zero, bottom: 12.5, right: .zero)
         $0.spacing = 3
     }
     
@@ -37,7 +37,19 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.textColor = .gray300
     }
     
-    private let performanceBackgroundImageView = UIImageView() // TODO: Linear적용
+    private let performanceBackgroundImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = true
+        $0.applyLinearGradient(
+            colors: [
+                .gray700.withAlphaComponent(1.0),
+                .gray700.withAlphaComponent(0.3),
+                .gray700.withAlphaComponent(0.0)
+            ],
+            startPoint: .init(x: 0.0, y: 0.5),
+            endPoint: .init(x: 1.0, y: 0.5)
+        )
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,6 +70,11 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         ticketingOpenTimeLabel.text = nil
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        performanceBackgroundImageView.updateGradientLayerFrame()
+    }
+    
     private func setupStyles() {
         contentView.backgroundColor = .gray700
     }
@@ -68,15 +85,14 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     }
     
     private func setupConstraints() {
-        
         performanceBackgroundImageView.snp.makeConstraints {
+            $0.leading.equalTo(self.snp.centerX)
             $0.trailing.directionalVerticalEdges.equalToSuperview()
-            $0.width.equalTo(178.5)
         }
         
         ticketingInfoStackView.snp.makeConstraints {
             $0.leading.directionalVerticalEdges.equalToSuperview()
-            $0.trailing.equalTo(performanceBackgroundImageView.snp.leading)
+            $0.trailing.equalTo(performanceBackgroundImageView.snp.leading).offset(30)
         }
         
         performanceTitleLabel.snp.makeConstraints {
@@ -90,6 +106,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceLocationLabel.snp.makeConstraints {
             $0.height.equalTo(21)
         }
+        contentView.bringSubviewToFront(ticketingInfoStackView)
     }
     
 }
@@ -112,5 +129,6 @@ extension FeaturedPerformanceWithTicketOnSaleSoonCell {
         ticketingOpenTimeLabel.lineBreakMode = .byTruncatingTail
         performanceTitleLabel.lineBreakMode = .byTruncatingTail
         performanceLocationLabel.lineBreakMode = .byTruncatingTail
+        performanceBackgroundImageView.layoutIfNeeded()
     }
 }
