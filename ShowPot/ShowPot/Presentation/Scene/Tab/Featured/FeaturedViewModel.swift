@@ -143,9 +143,9 @@ extension FeaturedViewModel {
     private func fetchTicketingPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         ticketingPerformanceModelRelay.accept([
             .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
+                perfonmanceState: .reserving, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
             .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"))
+                perfonmanceState: .upcoming("10.10(MON) 11:00"), performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"))
         ])
     }
     

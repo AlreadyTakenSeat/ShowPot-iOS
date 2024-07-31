@@ -20,9 +20,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.spacing = 3
     }
     
-    private let ticketingOpenTimeLabel = SPLabel(ENFont.H5).then {
-        $0.textColor = .mainYellow
-    }
+    private let performanceStateView = PerformanceStateView()
     
     private let performanceTitleLabel = SPLabel(ENFont.H3).then {
         $0.textColor = .white
@@ -62,7 +60,6 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceBackgroundImageView.image = nil
         performanceTitleLabel.text = nil
         performanceLocationLabel.text = nil
-        ticketingOpenTimeLabel.text = nil
     }
     
     override func layoutSubviews() {
@@ -76,7 +73,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     
     private func setupLayouts() {
         [ticketingInfoStackView, performanceBackgroundImageView].forEach { contentView.addSubview($0) }
-        [ticketingOpenTimeLabel, performanceTitleLabel, performanceLocationLabel].forEach { ticketingInfoStackView.addArrangedSubview($0) }
+        [performanceStateView, performanceTitleLabel, performanceLocationLabel].forEach { ticketingInfoStackView.addArrangedSubview($0) }
     }
     
     private func setupConstraints() {
@@ -94,7 +91,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
             $0.height.equalTo(30)
         }
         
-        ticketingOpenTimeLabel.snp.makeConstraints {
+        performanceStateView.snp.makeConstraints {
             $0.height.equalTo(24)
         }
         
@@ -107,7 +104,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
 }
 
 struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
-    let ticketingOpenTime: String
+    let perfonmanceState: PerformanceState
     let performanceTitle: String
     let performanceLocation: String
     let performanceImageURL: URL?
