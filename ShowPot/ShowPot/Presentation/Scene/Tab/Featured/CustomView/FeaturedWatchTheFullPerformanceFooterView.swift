@@ -19,31 +19,24 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
         watchTheFullPerformanceButton.rx.tap
     }
     
-    private let watchTheFullPerformanceButton = UIButton()
+    private let watchTheFullPerformanceButton = SPButton().then { button in
+        button.configuration?.imagePlacement = .trailing
+        button.configuration?.image = .icArrowRight.withTintColor(.gray400)
+        button.configuration?.baseBackgroundColor = .gray600
+        button.configuration?.baseForegroundColor = .gray100
+        button.configuration?.cornerStyle = .fixed
+        button.configuration?.background.cornerRadius = 2
+        button.setText(Strings.homeTicketingPerformanceButtonTitle, fontType: KRFont.B1_semibold)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupStyles()
         setupLayouts()
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupStyles() {
-        var configuration = UIButton.Configuration.filled()
-        configuration.imagePlacement = .trailing
-        configuration.image = .icArrowRight.withTintColor(.gray400)
-        let attrStr = NSAttributedString(Strings.homeTicketingPerformanceButtonTitle, fontType: KRFont.B1_semibold)
-        configuration.attributedTitle = AttributedString(attrStr)
-        configuration.baseBackgroundColor = .gray600
-        configuration.baseForegroundColor = .gray100
-        configuration.cornerStyle = .fixed
-        configuration.background.cornerRadius = 2
-        
-        watchTheFullPerformanceButton.configuration = configuration
     }
     
     private func setupLayouts() {

@@ -12,7 +12,7 @@ import GoogleSignIn
 
 final class LoginViewHolder {
     
-    let backButton = UIButton().then {
+    let backButton = SPButton().then {
         $0.setImage(.icArrowLeft.withTintColor(.gray000), for: .normal)
     }
     

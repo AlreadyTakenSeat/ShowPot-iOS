@@ -10,9 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
-final class FeaturedSearchButton: UIButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+final class FeaturedSearchButton: SPButton {
+    
+    init() {
+        super.init()
         setupStyles()
     }
     
@@ -23,19 +24,18 @@ final class FeaturedSearchButton: UIButton {
     private func setupStyles() {
         
         contentHorizontalAlignment = .fill
-        let attrStr = NSAttributedString(Strings.homeSearchbarPlaceholder, fontType: KRFont.B1_semibold)
+
+        self.configuration?.image = .icMagnifier.withTintColor(.white)
+        self.configuration?.imagePlacement = .trailing
+        self.configuration?.baseBackgroundColor = .gray600
+        self.configuration?.baseForegroundColor = .gray400
+        self.configuration?.cornerStyle = .fixed
+        self.configuration?.background.cornerRadius = 2
         
-        var configuration = UIButton.Configuration.filled()
-        configuration.image = .icMagnifier.withTintColor(.white)
-        configuration.imagePlacement = .trailing
-        configuration.baseBackgroundColor = .gray600
-        configuration.baseForegroundColor = .gray400
-        configuration.cornerStyle = .fixed
-        configuration.background.cornerRadius = 2
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5)
-        configuration.imagePadding = -configuration.contentInsets.trailing
-        configuration.attributedTitle = AttributedString(attrStr)
+        let contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5)
+        self.configuration?.contentInsets = contentInsets
+        self.configuration?.imagePadding = contentInsets.trailing
         
-        self.configuration = configuration
+        self.setText(Strings.homeSearchbarPlaceholder, fontType: KRFont.B1_semibold)
     }
 }
