@@ -64,6 +64,7 @@ final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
         super.prepareForReuse()
         artistImageView.image = nil
         artistNameLabel.text = nil
+        state = .availableSubscription
     }
     
     private func setupLayouts() {
@@ -90,13 +91,13 @@ extension FeaturedSubscribeArtistCell {
             return
         case .selected:
             setupSubscribeArtistCell(
-                image: .icCheck.withTintColor(.white),
+                image: .icCheck.withTintColor(.gray000),
                 alpha: 0.7,
                 alphaBackgroundColor: .mainOrange
             )
         case .availableSubscription:
             setupSubscribeArtistCell(
-                image: .icAlarmPlus.withTintColor(.white),
+                image: .icAlarmPlus.withTintColor(.gray000),
                 alpha: 0.5,
                 alphaBackgroundColor: .gray700
             )
@@ -131,10 +132,16 @@ extension FeaturedSubscribeArtistCell {
 
 // MARK: Data Configuration
 
-struct FeaturedSubscribeArtistCellModel {
+struct FeaturedSubscribeArtistCellModel: Hashable {
     var state: FeaturedSubscribeArtistCellState
     let artistImageURL: URL?
     let artistName: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    private let identifier = UUID() // TODO: - 추후 아티스트 정보에 대한 아이디로 대체
 }
 
 extension FeaturedSubscribeArtistCell {

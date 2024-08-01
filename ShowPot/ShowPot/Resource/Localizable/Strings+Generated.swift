@@ -37,6 +37,16 @@ public enum Strings {
   public static let onboardingTitle1 = Strings.tr("Localizable", "onboarding_title_1", fallback: "티켓팅 알림받기")
   /// 장르/아티스트 구독하기
   public static let onboardingTitle2 = Strings.tr("Localizable", "onboarding_title_2", fallback: "장르/아티스트 구독하기")
+  /// 아티스트
+  public static let searchArtistTitle = Strings.tr("Localizable", "search_artist_title", fallback: "아티스트")
+  /// 검색 기록이 없어요
+  public static let searchEmptyTitle = Strings.tr("Localizable", "search_empty_title", fallback: "검색 기록이 없어요")
+  /// 모두삭제
+  public static let searchKeywordButtonTitle = Strings.tr("Localizable", "search_keyword_button_title", fallback: "모두삭제")
+  /// 최근검색어
+  public static let searchKeywordTitle = Strings.tr("Localizable", "search_keyword_title", fallback: "최근검색어")
+  /// 공연 정보
+  public static let searchPerformanceTitle = Strings.tr("Localizable", "search_performance_title", fallback: "공연 정보")
   /// 보러가기
   public static let snackbarActionTitle = Strings.tr("Localizable", "snackbar_action_title", fallback: "보러가기")
   /// 알림 설정이 완료되었습니다

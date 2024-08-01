@@ -21,10 +21,9 @@ final class LoginViewHolder {
         $0.contentMode = .scaleAspectFit
     }
     
-    let alertLabel = SPLabel(KRFont.H2).then {
+    let alertLabel = SPLabel(KRFont.H2, alignment: .center).then {
         $0.textColor = .gray000
         $0.setText(Strings.socialLoginDescription)
-        $0.textAlignment = .center
     }
     
     let loginImageView = UIImageView().then {

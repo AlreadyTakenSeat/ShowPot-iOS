@@ -50,6 +50,15 @@
 		701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014677F2C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift */; };
 		701467822C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467812C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
+		7014678B2C53C11200750A54 /* FeaturedSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014678A2C53C11200750A54 /* FeaturedSearchTextField.swift */; };
+		7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014678C2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift */; };
+		7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7014678E2C53C13500750A54 /* FeaturedRecentSearchCell.swift */; };
+		701467912C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467902C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift */; };
+		701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467922C53C15800750A54 /* FeaturedSearchViewController.swift */; };
+		701467952C53C16900750A54 /* FeaturedSearchViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */; };
+		701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */; };
+		701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */; };
+		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		7D1092262C26F36800498C87 /* FlexLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092252C26F36800498C87 /* FlexLayout */; };
 		7D1092292C26F38800498C87 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1092282C26F38800498C87 /* PinLayout */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
@@ -142,6 +151,16 @@
 		7014677F2C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWatchTheFullPerformanceFooterView.swift; sourceTree = "<group>"; };
 		701467812C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedOnlyTitleHeaderView.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
+		701467862C53C0E600750A54 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		7014678A2C53C11200750A54 /* FeaturedSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchTextField.swift; sourceTree = "<group>"; };
+		7014678C2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRecentSearchHeaderView.swift; sourceTree = "<group>"; };
+		7014678E2C53C13500750A54 /* FeaturedRecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRecentSearchCell.swift; sourceTree = "<group>"; };
+		701467902C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		701467922C53C15800750A54 /* FeaturedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewController.swift; sourceTree = "<group>"; };
+		701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewHolder.swift; sourceTree = "<group>"; };
+		701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchViewModel.swift; sourceTree = "<group>"; };
+		701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedSearchCoordinator.swift; sourceTree = "<group>"; };
+		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -299,6 +318,45 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		701467882C53C0FC00750A54 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				701467892C53C10600750A54 /* CustomView */,
+				701467922C53C15800750A54 /* FeaturedSearchViewController.swift */,
+				701467942C53C16900750A54 /* FeaturedSearchViewHolder.swift */,
+				701467962C53C17B00750A54 /* FeaturedSearchViewModel.swift */,
+				701467982C53C18C00750A54 /* FeaturedSearchCoordinator.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		701467892C53C10600750A54 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				7014678A2C53C11200750A54 /* FeaturedSearchTextField.swift */,
+				7014678C2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift */,
+				7014678E2C53C13500750A54 /* FeaturedRecentSearchCell.swift */,
+				701467902C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		70B81D5C2C580D6100665EDD /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				701467862C53C0E600750A54 /* LeftAlignedCollectionViewFlowLayout.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		70B81D612C59404900665EDD /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +388,7 @@
 				7D8255A42C295DF100D104BE /* swiftgen.yml */,
 				7D2980FE2C01E1D000A619FB /* ShowPot */,
 				7D2980FD2C01E1D000A619FB /* Products */,
+				70B81D5C2C580D6100665EDD /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -410,6 +469,7 @@
 		7D2981182C01E90A00A619FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				70B81D612C59404900665EDD /* Layout */,
 				7DF7118A2C4810B3001406F0 /* Protocol */,
 				7DE569F22C556996006724EF /* Base */,
 				7D93096B2C569DFB000889DE /* SPSnackBar.swift */,
@@ -453,6 +513,7 @@
 		7D29811C2C01EB6300A619FB /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				701467882C53C0FC00750A54 /* Search */,
 				7D89E5462C36650B00E6001E /* Onboarding */,
 				7D1E5FB22C0A20BB0012504D /* Login */,
 				7D1E5FB82C0A27F30012504D /* Tab */,
@@ -777,13 +838,17 @@
 				7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */,
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
+				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
+				7014678B2C53C11200750A54 /* FeaturedSearchTextField.swift in Sources */,
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
 				7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */,
 				7D45CB612C5956C70018FCB8 /* SPButton.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
+				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
+				701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */,
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
 				70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */,
 				7D1E5FBA2C0A28080012504D /* MainTabCoordinator.swift in Sources */,
@@ -795,6 +860,7 @@
 				7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */,
 				7DEACE4C2C1ECC5200F37DA3 /* CustomFont.swift in Sources */,
 				7014677C2C5363CE00750A54 /* FeaturedPerformanceWithTicketOnSaleSoonCell.swift in Sources */,
+				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
 				7DD2CB832C2ED5510052ECCD /* SavedCoordinator.swift in Sources */,
@@ -813,8 +879,10 @@
 				7014673D2C3F0A3400750A54 /* FeaturedSearchButton.swift in Sources */,
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,
+				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
+				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
@@ -828,7 +896,9 @@
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,
 				7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */,
+				701467912C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift in Sources */,
 				7D2981312C01F23C00A619FB /* SavedViewModel.swift in Sources */,
+				701467952C53C16900750A54 /* FeaturedSearchViewHolder.swift in Sources */,
 				7D21953F2C143AAA00A38D2B /* ViewModelType.swift in Sources */,
 				7D2195412C143E8400A38D2B /* ViewHolderType.swift in Sources */,
 				7DEACE4E2C1ED00100F37DA3 /* LanguageFont.swift in Sources */,

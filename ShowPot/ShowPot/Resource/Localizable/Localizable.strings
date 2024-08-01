@@ -38,3 +38,11 @@
 "home_searchbar_placeholder" = "관심 있는 공연과 가수를 검색해보세요";
 "home_ticketing_performance_title" = "티켓팅이 얼마 남지 않은 공연";
 "home_ticketing_performance_buttonTitle" = "전체공연 보러가기";
+
+// 검색 화면
+"search_artist_title" = "아티스트";
+"search_performance_title" = "공연 정보";
+"search_keyword_title" = "최근검색어";
+"search_keyword_button_title" = "모두삭제";
+"search_empty_title" = "검색 기록이 없어요";
+
