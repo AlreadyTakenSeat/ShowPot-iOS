@@ -119,5 +119,7 @@ extension FeaturedPerformanceWithTicketOnSaleSoonCell {
         ticketingOpenTimeLabel.setText(model.ticketingOpenTime)
         performanceTitleLabel.setText(model.performanceTitle)
         performanceLocationLabel.setText(model.performanceLocation)
+        
+        performanceBackgroundImageView.layoutIfNeeded()
     }
 }

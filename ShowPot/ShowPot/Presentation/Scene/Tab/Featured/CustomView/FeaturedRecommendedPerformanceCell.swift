@@ -25,7 +25,6 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
     private let recommendedPerformanceTitleLabel = SPLabel(ENFont.H4).then {
         $0.textColor = .gray000
         $0.numberOfLines = 1
-//        $0.backgroundColor = .red
     }
     
     override init(frame: CGRect) {
