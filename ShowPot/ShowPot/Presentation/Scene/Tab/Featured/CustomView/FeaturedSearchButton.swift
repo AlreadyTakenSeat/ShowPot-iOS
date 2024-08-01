@@ -10,9 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
-final class FeaturedSearchButton: UIButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+final class FeaturedSearchButton: SPButton {
+    
+    init() {
+        super.init()
         setupStyles()
     }
     
@@ -23,56 +24,18 @@ final class FeaturedSearchButton: UIButton {
     private func setupStyles() {
         
         contentHorizontalAlignment = .fill
-        
-        let attributedTitle = createButtonAttributedString(string: Strings.homeSearchbarPlaceholder)
-        var configuration = createButtonConfiguration(
-            image: .icMagnifier.withTintColor(.white),
-            baseBackgroundColor: .gray600,
-            baseForegroundColor: .gray400,
-            cornerRadius: 2,
-            contentInsets: NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5),
-            with: attributedTitle
-        )
-        configuration.attributedTitle = attributedTitle
-        self.configuration = configuration
-    }
-}
 
-// MARK: - FeaturedSearchButton Setup For UIButtonConfiguration
-
-extension FeaturedSearchButton {
-    
-    /// UIButton.Configuration에 사용될 AttributedString을 리턴하는 함수
-    private func createButtonAttributedString(string: String) -> AttributedString {
-        let labelWithAttributedText = UILabel().then {
-            $0.setAttributedText(font: KRFont.self, string: string) // TODO: #61 UIButton AttributedString에 대한 attribute적용 공통함수로 중복코드삭제
-        }
-        let attributedText = labelWithAttributedText.attributedText ?? NSAttributedString(string: string)
+        self.configuration?.image = .icMagnifier.withTintColor(.white)
+        self.configuration?.imagePlacement = .trailing
+        self.configuration?.baseBackgroundColor = .gray600
+        self.configuration?.baseForegroundColor = .gray400
+        self.configuration?.cornerStyle = .fixed
+        self.configuration?.background.cornerRadius = 2
         
-        var attributedString = AttributedString(attributedText)
-        attributedString.font = KRFont.B1_semibold
-        return attributedString
-    }
-    
-    /// 버튼에서 사용할 Configuration을 생성하는 함수
-    private func createButtonConfiguration(
-        image: UIImage,
-        baseBackgroundColor: UIColor,
-        baseForegroundColor: UIColor,
-        cornerRadius: CGFloat,
-        contentInsets: NSDirectionalEdgeInsets,
-        with attributedTitle: AttributedString
-    ) -> UIButton.Configuration {
-        var configuration = UIButton.Configuration.filled()
-        configuration.image = image
-        configuration.imagePlacement = .trailing
-        configuration.baseBackgroundColor = baseBackgroundColor
-        configuration.baseForegroundColor = baseForegroundColor
-        configuration.cornerStyle = .fixed
-        configuration.background.cornerRadius = cornerRadius
-        configuration.contentInsets = contentInsets
-        configuration.imagePadding = -configuration.contentInsets.trailing
-        configuration.attributedTitle = attributedTitle
-        return configuration
+        let contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 5)
+        self.configuration?.contentInsets = contentInsets
+        self.configuration?.imagePadding = contentInsets.trailing
+        
+        self.setText(Strings.homeSearchbarPlaceholder, fontType: KRFont.B1_semibold)
     }
 }

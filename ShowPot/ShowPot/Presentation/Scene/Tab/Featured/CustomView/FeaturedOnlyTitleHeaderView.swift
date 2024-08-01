@@ -12,9 +12,7 @@ import Then
 
 final class FeaturedOnlyTitleHeaderView: UICollectionReusableView, ReusableCell {
     
-    private let titleLabel = UILabel().then {
-        $0.font = KRFont.H1
-        $0.textAlignment = .left
+    private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
     }
     
@@ -45,7 +43,7 @@ final class FeaturedOnlyTitleHeaderView: UICollectionReusableView, ReusableCell 
 }
 
 extension FeaturedOnlyTitleHeaderView {
-    func configureUI(with model: String) {
-        titleLabel.setAttributedText(font: KRFont.self, string: model)
+    func configureUI(with title: String) {
+        titleLabel.setText(title)
     }
 }

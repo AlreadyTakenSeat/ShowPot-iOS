@@ -38,10 +38,8 @@ final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
         $0.contentMode = .scaleAspectFill
     }
     
-    private let artistNameLabel = UILabel().then {
-        $0.textAlignment = .center
+    private let artistNameLabel = SPLabel(ENFont.H5, alignment: .center).then {
         $0.textColor = .gray100
-        $0.font = ENFont.H5
         $0.numberOfLines = 1
     }
     
@@ -143,8 +141,7 @@ extension FeaturedSubscribeArtistCell {
     func configureUI(with model: FeaturedSubscribeArtistCellModel) {
         self.state = model.state
         artistImageView.kf.setImage(with: model.artistImageURL)
-        artistNameLabel.setAttributedText(font: ENFont.self, string: model.artistName)
-        artistNameLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용 이후 lineBreakMode동작안하는 문제 해결요망
+        artistNameLabel.setText(model.artistName)
     }
     
     func configureUI(
@@ -154,7 +151,6 @@ extension FeaturedSubscribeArtistCell {
     ) {
         self.state = state
         artistImageView.kf.setImage(with: artistImageURL)
-        artistNameLabel.setAttributedText(font: ENFont.self, string: artistName)
-        artistNameLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용 이후 lineBreakMode동작안하는 문제 해결요망
+        artistNameLabel.setText(artistName)
     }
 }

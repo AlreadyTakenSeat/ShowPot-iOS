@@ -12,11 +12,14 @@ import UIKit
 /// 언어별 폰트가 다르기 때문에 폰트, line height, letter spacing 값들을 관리하기 위한 프로토콜
 protocol LanguageFont {
     /// 폰트 이름
-    static var font: CustomFont { get }
+    var customFont: CustomFont { get }
     
     /// AttributedString에 사용할 lineHeight 배율
-    static var lineHeightMultiple: CGFloat { get }
+    var lineHeightMultiple: CGFloat { get }
     
     /// AttributedString에 사용할 letterSpacing
-    static var letterSpacing: CGFloat { get }
+    var letterSpacing: CGFloat { get }
+    
+    /// 디자인 가이드에 명시된 font style 적용 `UIFont`
+    var font: UIFont { get }
 }

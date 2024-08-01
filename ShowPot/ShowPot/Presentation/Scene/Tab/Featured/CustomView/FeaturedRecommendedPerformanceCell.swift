@@ -18,17 +18,19 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
         $0.layer.masksToBounds = true
     }
     
-    private let recommendedPerformanceTitleLabel = PaddingLabel(withInsets: 11, 11, 14, 14).then {
-        $0.font = ENFont.H4
-        $0.textAlignment = .left
-        $0.textColor = .white
-        $0.backgroundColor = .gray500
+    private let titleContainer = UIView().then { view in
+        view.backgroundColor = .clear
+    }
+    
+    private let recommendedPerformanceTitleLabel = SPLabel(ENFont.H4).then {
+        $0.textColor = .gray000
         $0.numberOfLines = 1
-        $0.lineBreakMode = .byTruncatingTail
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundColor = .gray500
         setupLayouts()
         setupConstraints()
     }
@@ -44,7 +46,8 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
     }
     
     private func setupLayouts() {
-        [recommendedPerformanceThumbnailImageView, recommendedPerformanceTitleLabel].forEach { contentView.addSubview($0) }
+        [recommendedPerformanceThumbnailImageView, titleContainer].forEach { contentView.addSubview($0) }
+        titleContainer.addSubview(recommendedPerformanceTitleLabel)
     }
     
     private func setupConstraints() {
@@ -53,9 +56,16 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
             $0.height.equalTo(260)
         }
         
+        titleContainer.snp.makeConstraints { make in
+            make.top.equalTo(recommendedPerformanceThumbnailImageView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
         recommendedPerformanceTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(recommendedPerformanceThumbnailImageView.snp.bottom)
-            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(14)
+            $0.centerY.equalToSuperview()
+            $0.height.lessThanOrEqualToSuperview()
         }
     }
 }
@@ -68,7 +78,6 @@ struct FeaturedRecommendedPerformanceCellModel {
 extension FeaturedRecommendedPerformanceCell {
     func configureUI(with model: FeaturedRecommendedPerformanceCellModel) {
         recommendedPerformanceThumbnailImageView.kf.setImage(with: model.recommendedPerformanceThumbnailURL)
-        recommendedPerformanceTitleLabel.setAttributedText(font: ENFont.self, string: model.recommendedPerformanceTitle)
-        recommendedPerformanceTitleLabel.lineBreakMode = .byTruncatingTail // TODO: - attribute적용이후 lineBreakMode적용안되는 문제 해결 필요
+        recommendedPerformanceTitleLabel.attributedText = NSAttributedString(model.recommendedPerformanceTitle, fontType: ENFont.H4)
     }
 }

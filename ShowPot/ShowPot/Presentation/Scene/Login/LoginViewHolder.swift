@@ -12,7 +12,7 @@ import GoogleSignIn
 
 final class LoginViewHolder {
     
-    let backButton = UIButton().then {
+    let backButton = SPButton().then {
         $0.setImage(.icArrowLeft.withTintColor(.gray000), for: .normal)
     }
     
@@ -21,10 +21,9 @@ final class LoginViewHolder {
         $0.contentMode = .scaleAspectFit
     }
     
-    let alertLabel = UILabel().then {
+    let alertLabel = SPLabel(KRFont.H2).then {
         $0.textColor = .gray000
-        $0.font = KRFont.H2
-        $0.setAttributedText(font: KRFont.self, string: Strings.socialLoginDescription)
+        $0.setText(Strings.socialLoginDescription)
         $0.textAlignment = .center
     }
     
