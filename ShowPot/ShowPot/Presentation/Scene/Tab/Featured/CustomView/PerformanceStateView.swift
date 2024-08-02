@@ -12,7 +12,7 @@ import Then
 
 /// 티켓팅 공연에 대한 현재 상태
 enum PerformanceState {
-    case upcoming(Date)
+    case upcoming
     case reserving
     
     var title: String {
@@ -83,18 +83,6 @@ final class PerformanceStateView: UIView {
 }
 
 extension PerformanceStateView {
-    func configureUI(with model: PerformanceState) {
-        if case let .upcoming(date) = model {
-            let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-            dateFormatter.dateFormat = "MM.dd(EEE) HH:mm"
-            dateFormatter.locale = Locale(identifier: "en_US")
-            ticketingOpenTimeLabel.setText(dateFormatter.string(from: date))
-        }
-        performanceStateView.textColor = model.chipColor
-        stateContainer.layer.borderColor = model.chipColor.cgColor
-        performanceStateView.setText(model.title)
-    }
-    
     func configureUI(
         performanceDate: Date?,
         chipColor: UIColor,

@@ -104,16 +104,21 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
 }
 
 struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
-    let perfonmanceState: PerformanceState
+    let performanceState: PerformanceState
     let performanceTitle: String
     let performanceLocation: String
     let performanceImageURL: URL?
+    let performanceDate: Date?
 }
 
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
         performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
-        performanceStateView.configureUI(with: model.perfonmanceState)
+        performanceStateView.configureUI(
+            performanceDate: model.performanceDate,
+            chipColor: model.performanceState.chipColor,
+            chipTitle: model.performanceState.title
+        )
         performanceTitleLabel.setText(model.performanceTitle)
         performanceLocationLabel.setText(model.performanceLocation)
         
@@ -129,7 +134,11 @@ extension FeaturedPerformanceWithTicketOnSaleSoonCell {
         chipTitle: String
     ) {
         performanceBackgroundImageView.kf.setImage(with: performanceImageURL)
-        performanceStateView.configureUI(performanceDate: performanceDate, chipColor: chipColor, chipTitle: chipTitle)
+        performanceStateView.configureUI(
+            performanceDate: performanceDate,
+            chipColor: chipColor,
+            chipTitle: chipTitle
+        )
         performanceTitleLabel.setText(performanceTitle)
         performanceLocationLabel.setText(performanceLocation)
 
