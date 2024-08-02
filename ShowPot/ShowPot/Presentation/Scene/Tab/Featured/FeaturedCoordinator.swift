@@ -43,5 +43,8 @@ extension FeaturedCoordinator {
     
     func goToFullPerformanceScreen() {
         LogHelper.debug("전체공연화면 이동")
+        let coordinator = AllPerformanceCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
 }

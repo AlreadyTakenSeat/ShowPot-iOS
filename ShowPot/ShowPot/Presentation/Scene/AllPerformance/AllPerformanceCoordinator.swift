@@ -20,4 +20,17 @@ final class AllPerformanceCoordinator: Coordinator {
         let viewController: AllPerformanceViewController = AllPerformanceViewController(viewModel: AllPerformanceViewModel(coordinator: self))
         self.navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func popViewController() {
+        LogHelper.debug("홈 화면으로 pop 호출")
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
+    
+    func goToSearchScreen() {
+        LogHelper.debug("검색 화면으로 이동")
+        let coordinator = FeaturedSearchCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }
