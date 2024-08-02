@@ -7,9 +7,16 @@
 
 import UIKit
 
+/// Warning:
 class SPLabel: UILabel {
     
     var style: AttributeStyle
+    
+    override var numberOfLines: Int {
+        didSet {
+            self.style.multiline = isMultiline()
+        }
+    }
     
     init(style: AttributeStyle) {
         self.style = style
@@ -23,6 +30,7 @@ class SPLabel: UILabel {
     ) {
         let style = AttributeStyle(fontType: fontType, lineBreakMode: lineBreakMode, alignment: alignment)
         self.init(style: style)
+        self.numberOfLines = 1
     }
     
     required init?(coder: NSCoder) {
@@ -44,9 +52,17 @@ extension SPLabel {
         let newStyle = AttributeStyle(
             fontType: fontType ?? self.style.fontType,
             lineBreakMode: lineBreakMode ?? self.style.lineBreakMode,
-            alignment: alignment ?? self.style.alignment
+            alignment: alignment ?? self.style.alignment,
+            multiline: isMultiline()
         )
         
         self.style = newStyle
+    }
+}
+
+extension SPLabel {
+    
+    private func isMultiline() -> Bool {
+        return self.numberOfLines != 1
     }
 }
