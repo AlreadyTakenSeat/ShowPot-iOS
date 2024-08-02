@@ -27,7 +27,7 @@ final class AllPerformanceNavigationView: UIView {
     
     private let navigationTitleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
-        $0.text = "전체공연" // TODO: - 추후 Swiftgen으로 리소스 문구 변경
+        $0.text = Strings.allPerformanceTitle
     }
     
     private let searchButton = UIButton().then {

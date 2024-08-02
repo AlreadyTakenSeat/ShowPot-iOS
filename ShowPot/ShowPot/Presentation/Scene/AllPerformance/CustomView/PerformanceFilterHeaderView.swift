@@ -22,7 +22,7 @@ final class PerformanceFilterHeaderView: UICollectionReusableView, ReusableCell 
     }
     
     private let disposeBag = DisposeBag()
-    private let checkBoxButton = CheckBoxButton(title: "오픈예정 티켓만 보기")
+    private let checkBoxButton = CheckBoxButton(title: Strings.allPerformanceCheckboxTitle)
     private let filterAreaView = UIView().then { // FIXME: - 추후 필터를 위한 UI로 변경 필수
         $0.backgroundColor = .red
     }
