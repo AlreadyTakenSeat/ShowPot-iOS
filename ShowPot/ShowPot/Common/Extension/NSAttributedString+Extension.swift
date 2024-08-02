@@ -11,15 +11,18 @@ struct AttributeStyle {
     let fontType: LanguageFont
     let lineBreakMode: NSLineBreakMode
     let alignment: NSTextAlignment
+    var multiline: Bool
     
     init(
         fontType: LanguageFont,
         lineBreakMode: NSLineBreakMode = .byTruncatingTail,
-        alignment: NSTextAlignment = .left
+        alignment: NSTextAlignment = .left,
+        multiline: Bool = false
     ) {
         self.fontType = fontType
         self.lineBreakMode = lineBreakMode
         self.alignment = alignment
+        self.multiline = multiline
     }
 }
 
@@ -88,7 +91,8 @@ extension NSAttributedString {
             string,
             fontType: style.fontType,
             lineBreakMode: style.lineBreakMode,
-            alignment: style.alignment
+            alignment: style.alignment,
+            multiline: style.multiline
         )
     }
     
@@ -96,20 +100,23 @@ extension NSAttributedString {
         _ string: String,
         fontType: LanguageFont,
         lineBreakMode: NSLineBreakMode = .byTruncatingTail,
-        alignment: NSTextAlignment = .left
+        alignment: NSTextAlignment = .left,
+        multiline: Bool = false
     ) {
-        
         let lineHeight = fontType.font.lineHeight * fontType.lineHeightMultiple
         
-        let attrStr = NSMutableAttributedString(string: string)
+        var attrStr = NSMutableAttributedString(string: string)
             .setFont(font: fontType.font)
             .setParagraphStyle(
-                lineHeightMultiple: fontType.lineHeightMultiple,
+                lineHeightMultiple: multiline ? fontType.lineHeightMultiple : 0,
                 lineBreakMode: lineBreakMode,
                 alignment: alignment
             )
             .setLetterSpacing(letterSpacingPercent: fontType.letterSpacing)
-            .setBaseLineOffset(baselineOffset: (lineHeight - fontType.font.lineHeight) / 2)
+
+        if multiline {
+            attrStr = attrStr.setBaseLineOffset(baselineOffset: (lineHeight - fontType.font.lineHeight) / 2)
+        }
         
         self.init(attributedString: attrStr)
     }

@@ -17,7 +17,6 @@ final class OnboardingCarouselCell: UICollectionViewCell, ReusableCell {
     
     private lazy var titleLabel = SPLabel(KRFont.H0, alignment: .center).then { label in
         label.textColor = .gray800
-        label.numberOfLines = 0
     }
     
     private lazy var descriptionLabel = SPLabel(KRFont.H2, alignment: .center).then { label in
