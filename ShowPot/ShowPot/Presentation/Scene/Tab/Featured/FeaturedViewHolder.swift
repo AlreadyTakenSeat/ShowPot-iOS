@@ -11,6 +11,55 @@ import Then
 
 final class FeaturedViewHolder {
     
+    private let searchAreaHeight: CGFloat = 66
+    
+    lazy var logoTopView = UIStackView().then { stackView in
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.layoutMargins = .init(top: 13, left: 17, bottom: 18, right: 17)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.backgroundColor = .gray700
+        
+        let logoImageView = UIImageView(image: .logoTitle)
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.sizeToFit()
+        
+        [logoImageView, UIView()].forEach { stackView.addArrangedSubview($0) }
+        logoImageView.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.width.equalTo(91)
+        }
+    }
+    
+    lazy var searchFieldTopView = UIView().then { view in
+        lazy var searchField = UIStackView().then { stackView in
+            stackView.axis = .horizontal
+            stackView.backgroundColor = .gray500
+            stackView.layoutMargins = .init(top: 8, left: 8, bottom: 8, right: 8)
+            stackView.isLayoutMarginsRelativeArrangement = true
+        }
+        
+        lazy var placeholderLabel = SPLabel(KRFont.B1_semibold).then { label in
+            label.textColor = .gray300
+            label.setText(Strings.homeSearchbarPlaceholder)
+        }
+        
+        lazy var searchIconImageView = UIImageView().then { imageView in
+            imageView.image = .icMagnifier.withTintColor(.gray000)
+            imageView.contentMode = .scaleAspectFit
+        }
+        
+        [placeholderLabel, searchIconImageView].forEach { searchField.addArrangedSubview($0) }
+        
+        view.backgroundColor = .gray700
+        view.addSubview(searchField)
+        searchField.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(14)
+        }
+    }
+    
     lazy var featuredCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.register(FeaturedSubscribeGenreCell.self)
         $0.register(FeaturedSubscribeArtistCell.self)
@@ -23,7 +72,7 @@ final class FeaturedViewHolder {
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
         $0.alwaysBounceVertical = true
-        $0.contentInset = .init(top: .zero, left: .zero, bottom: 100, right: .zero)
+        $0.contentInset = .init(top: searchAreaHeight, left: .zero, bottom: 100, right: .zero)
     }
     
 }
@@ -31,13 +80,29 @@ final class FeaturedViewHolder {
 extension FeaturedViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        view.addSubview(featuredCollectionView)
+        [featuredCollectionView, searchFieldTopView, logoTopView].forEach { view.addSubview($0) }
     }
     
     func configureConstraints(for view: UIView) {
-        featuredCollectionView.snp.makeConstraints {
-            $0.directionalEdges.equalToSuperview()
+        
+        logoTopView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.horizontalEdges.equalToSuperview()
         }
+        
+        searchFieldTopView.snp.makeConstraints { make in
+            make.top.equalTo(logoTopView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(searchAreaHeight)
+        }
+        
+        featuredCollectionView.snp.makeConstraints {
+            $0.top.equalTo(logoTopView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        logoTopView.layoutSubviews()
     }
     
 }
