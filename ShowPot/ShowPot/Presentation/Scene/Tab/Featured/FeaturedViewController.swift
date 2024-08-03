@@ -138,6 +138,26 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
+extension FeaturedViewController {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let isTop = scrollView.contentOffset.y <= -scrollView.contentInset.top/2
+        let isDragUp = velocity.y < 0
+        self.animateTopApperance(isAppear: isTop || isDragUp)
+    }
+    
+    private func animateTopApperance(isAppear: Bool) {
+        
+        viewHolder.updateSearchFieldConstraint(for: self.view, isAppear: isAppear)
+                
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+
+    }
+}
+
 enum FeaturedSectionType { // TODO: 추후 Usecase로 코드 전환 예정
     case subscribeGenre([FeaturedSubscribeGenreCellModel])
     case subscribeArtist([FeaturedSubscribeArtistCellModel])

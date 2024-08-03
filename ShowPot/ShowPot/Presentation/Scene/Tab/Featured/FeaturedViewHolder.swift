@@ -107,6 +107,25 @@ extension FeaturedViewHolder: ViewHolderType {
     
 }
 
+// MARK: Update constraint for Animation
+extension FeaturedViewHolder {
+    public func updateSearchFieldConstraint(for view: UIView, isAppear: Bool) {
+        if isAppear {
+            searchFieldTopView.snp.remakeConstraints { make in
+                make.top.equalTo(logoTopView.snp.bottom)
+                make.horizontalEdges.equalToSuperview()
+                make.height.equalTo(searchAreaHeight)
+            }
+        } else {
+            searchFieldTopView.snp.remakeConstraints { make in
+                make.bottom.equalTo(logoTopView.snp.bottom)
+                make.horizontalEdges.equalToSuperview()
+                make.height.equalTo(searchAreaHeight)
+            }
+        }
+    }
+}
+
 // MARK: - Layout Function For UICompositionalLayout
 
 extension FeaturedViewHolder {
