@@ -113,16 +113,14 @@ struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
 
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
-        performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
-        performanceStateView.configureUI(
+        self.configureUI(
+            performanceTitle: model.performanceTitle,
+            performanceLocation: model.performanceLocation,
+            performanceImageURL: model.performanceImageURL,
             performanceDate: model.performanceDate,
             chipColor: model.performanceState.chipColor,
             chipTitle: model.performanceState.title
         )
-        performanceTitleLabel.setText(model.performanceTitle)
-        performanceLocationLabel.setText(model.performanceLocation)
-        
-        performanceBackgroundImageView.layoutIfNeeded()
     }
     
     func configureUI(
