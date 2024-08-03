@@ -60,6 +60,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceBackgroundImageView.image = nil
         performanceTitleLabel.text = nil
         performanceLocationLabel.text = nil
+        performanceStateView.configureUI(performanceDate: nil, chipColor: nil, chipTitle: nil)
     }
     
     override func layoutSubviews() {
@@ -101,16 +102,6 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         contentView.bringSubviewToFront(ticketingInfoStackView)
     }
     
-}
-
-struct FeaturedPerformanceWithTicketOnSaleSoonCellModel: Hashable {
-    let performanceState: PerformanceState
-    let performanceTitle: String
-    let performanceLocation: String
-    let performanceImageURL: URL?
-    let performanceDate: Date?
-
-    private let identifier = UUID() // TODO: - 추후 공연정보에 대한 아이디로 대체 예정
 }
 
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {

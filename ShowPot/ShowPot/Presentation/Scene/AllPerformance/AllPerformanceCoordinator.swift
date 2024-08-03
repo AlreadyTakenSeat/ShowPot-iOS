@@ -17,7 +17,7 @@ final class AllPerformanceCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController: AllPerformanceViewController = AllPerformanceViewController(viewModel: AllPerformanceViewModel(coordinator: self))
+        let viewController: AllPerformanceViewController = AllPerformanceViewController(viewModel: AllPerformanceViewModel(coordinator: self, usecase: DefaultAllPerformanceUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

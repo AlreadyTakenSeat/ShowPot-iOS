@@ -15,13 +15,14 @@ final class AllPerformanceViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     var coordinator: AllPerformanceCoordinator
     
-    private let isOnlyUpcomingRelay = BehaviorRelay<Bool>(value: false)
+    private let usecase: AllPerformanceUseCase
     private let performanceListRelay = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
 
     var dataSource: DataSource?
     
-    init(coordinator: AllPerformanceCoordinator) {
+    init(coordinator: AllPerformanceCoordinator, usecase: AllPerformanceUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
@@ -36,6 +37,10 @@ final class AllPerformanceViewModel: ViewModelType {
     
     @discardableResult
     func transform(input: Input) -> Output {
+        
+        usecase.performanceList
+            .bind(to: performanceListRelay)
+            .disposed(by: disposeBag)
         
         input.initializePerformance
             .subscribe(with: self) { owner, _ in
@@ -75,34 +80,12 @@ final class AllPerformanceViewModel: ViewModelType {
 extension AllPerformanceViewModel {
     
     private func fetchAllPerformanceList() {
-        performanceListRelay.accept([ // FIXME: - 추후 전체공연조회 API연동예정
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"))
-        ])
+        usecase.fetchAllPerformance(isOnlyUpcoming: false)
         updateDataSource()
     }
     
     private func fetchOnlyUpcomingPerformance() {
-        performanceListRelay.accept([ // FIXME: - 추후 오픈예정기준에 대한 프로퍼티를 이용해 스냅샷 필터 예정
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-            .init(
-                ticketingOpenTime: "OPEN : 06.10(MON) AM 11:00", performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg")),
-        ])
+        usecase.fetchAllPerformance(isOnlyUpcoming: true)
         updateDataSource()
 
     }

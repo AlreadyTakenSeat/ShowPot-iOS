@@ -85,8 +85,8 @@ final class PerformanceStateView: UIView {
 extension PerformanceStateView {
     func configureUI(
         performanceDate: Date?,
-        chipColor: UIColor,
-        chipTitle: String
+        chipColor: UIColor?,
+        chipTitle: String?
     ) {
         if let performanceDate = performanceDate {
             let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
@@ -95,7 +95,7 @@ extension PerformanceStateView {
             ticketingOpenTimeLabel.setText(dateFormatter.string(from: performanceDate))
         }
         performanceStateView.textColor = chipColor
-        stateContainer.layer.borderColor = chipColor.cgColor
-        performanceStateView.setText(chipTitle)
+        stateContainer.layer.borderColor = chipColor?.cgColor
+        performanceStateView.setText(chipTitle ?? "")
     }
 }
