@@ -20,12 +20,10 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.spacing = 3
     }
     
-    private let ticketingOpenTimeLabel = SPLabel(ENFont.H5).then {
-        $0.textColor = .mainYellow
-    }
+    private let performanceStateView = PerformanceStateView()
     
     private let performanceTitleLabel = SPLabel(ENFont.H3).then {
-        $0.textColor = .white
+        $0.textColor = .gray000
     }
     
     private let performanceLocationLabel = SPLabel(KRFont.B2_regular).then {
@@ -62,7 +60,6 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceBackgroundImageView.image = nil
         performanceTitleLabel.text = nil
         performanceLocationLabel.text = nil
-        ticketingOpenTimeLabel.text = nil
     }
     
     override func layoutSubviews() {
@@ -76,7 +73,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
     
     private func setupLayouts() {
         [ticketingInfoStackView, performanceBackgroundImageView].forEach { contentView.addSubview($0) }
-        [ticketingOpenTimeLabel, performanceTitleLabel, performanceLocationLabel].forEach { ticketingInfoStackView.addArrangedSubview($0) }
+        [performanceStateView, performanceTitleLabel, performanceLocationLabel].forEach { ticketingInfoStackView.addArrangedSubview($0) }
     }
     
     private func setupConstraints() {
@@ -94,7 +91,7 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
             $0.height.equalTo(30)
         }
         
-        ticketingOpenTimeLabel.snp.makeConstraints {
+        performanceStateView.snp.makeConstraints {
             $0.height.equalTo(24)
         }
         
@@ -107,19 +104,42 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
 }
 
 struct FeaturedPerformanceWithTicketOnSaleSoonCellModel {
-    let ticketingOpenTime: String
+    let performanceState: PerformanceState
     let performanceTitle: String
     let performanceLocation: String
     let performanceImageURL: URL?
+    let performanceDate: Date?
 }
 
 extension FeaturedPerformanceWithTicketOnSaleSoonCell {
     func configureUI(with model: FeaturedPerformanceWithTicketOnSaleSoonCellModel) {
-        performanceBackgroundImageView.kf.setImage(with: model.performanceImageURL)
-        ticketingOpenTimeLabel.setText(model.ticketingOpenTime)
-        performanceTitleLabel.setText(model.performanceTitle)
-        performanceLocationLabel.setText(model.performanceLocation)
-        
+        self.configureUI(
+            performanceTitle: model.performanceTitle,
+            performanceLocation: model.performanceLocation,
+            performanceImageURL: model.performanceImageURL,
+            performanceDate: model.performanceDate,
+            chipColor: model.performanceState.chipColor,
+            chipTitle: model.performanceState.title
+        )
+    }
+    
+    func configureUI(
+        performanceTitle: String,
+        performanceLocation: String,
+        performanceImageURL: URL?,
+        performanceDate: Date?,
+        chipColor: UIColor,
+        chipTitle: String
+    ) {
+        performanceBackgroundImageView.kf.setImage(with: performanceImageURL)
+        performanceStateView.configureUI(
+            performanceDate: performanceDate,
+            chipColor: chipColor,
+            chipTitle: chipTitle
+        )
+        performanceTitleLabel.setText(performanceTitle)
+        performanceLocationLabel.setText(performanceLocation)
+
         performanceBackgroundImageView.layoutIfNeeded()
     }
 }
