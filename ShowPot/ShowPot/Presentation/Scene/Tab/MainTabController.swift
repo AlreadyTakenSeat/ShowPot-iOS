@@ -12,9 +12,9 @@ final class MainTabController: UITabBarController {
     override func viewDidLoad() {
         
         let tabCoordinators: [NavigationCoordinator] = [
-            FeaturedCoordinator(navigationController: UINavigationController()),
-            SavedCoordinator(navigationController: UINavigationController()),
-            SettingsCoordinator(navigationController: UINavigationController())
+            FeaturedCoordinator(navigationController: NavigationController()),
+            SavedCoordinator(navigationController: NavigationController()),
+            SettingsCoordinator(navigationController: NavigationController())
         ]
         
         let viewControllers = tabCoordinators.map { $0.navigationController }
