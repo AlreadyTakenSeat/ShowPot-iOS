@@ -28,7 +28,9 @@ final class FeaturedCoordinator: NavigationCoordinator {
 extension FeaturedCoordinator {
     
     func goToFeaturedSearchScreen() {
-        LogHelper.debug("홈 검색화면 이동")
+        let coordinator = FeaturedSearchCoordinator(navigationController: self.navigationController)
+        coordinator.parentCoordinator = self
+        coordinator.start()
     }
     
     func goToSubscribeGenreScreen() {

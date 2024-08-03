@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxGesture
 
 final class FeaturedViewController: ViewController {
     
@@ -42,6 +43,7 @@ final class FeaturedViewController: ViewController {
     override func bind() {
         let input = FeaturedViewModel.Input(
             requestFeaturedSectionModel: .just(()),
+            didTapSearchField: viewHolder.searchFieldTopView.rx.tapGesture().when(.recognized),
             didTappedSubscribeGenreButton: didTappedSubscribeGenreButtonSubject,
             didTappedSubscribeArtistButton: didTappedSubscribeArtistButtonSubject, 
             didTappedFeaturedCell: viewHolder.featuredCollectionView.rx.itemSelected.asObservable(), 
