@@ -93,6 +93,8 @@ extension PerformanceStateView {
             dateFormatter.dateFormat = "MM.dd(EEE) HH:mm"
             dateFormatter.locale = Locale(identifier: "en_US")
             ticketingOpenTimeLabel.setText(dateFormatter.string(from: performanceDate))
+        } else {
+            ticketingOpenTimeLabel.text = nil
         }
         performanceStateView.textColor = chipColor
         stateContainer.layer.borderColor = chipColor?.cgColor
