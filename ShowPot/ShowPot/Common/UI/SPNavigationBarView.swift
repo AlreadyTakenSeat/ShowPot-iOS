@@ -19,6 +19,8 @@ struct SPNavigationStyle {
 
 final class SPNavigationBarView: UIStackView {
     
+    static let height: CGFloat = 44
+    
     let didTapLeftButton = PublishSubject<Void>()
     let didTapRightButton = PublishSubject<Void>()
     

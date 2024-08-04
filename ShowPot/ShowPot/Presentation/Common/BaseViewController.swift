@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import class RxSwift.DisposeBag
 
-protocol BaseViewControllerPorotocol where Self: UIViewController {
+protocol BaseViewControllerPorotocol where Self: BaseViewController {
     associatedtype ViewHolder: ViewHolderType
     associatedtype ViewModel: ViewModelType
     
@@ -19,14 +19,19 @@ protocol BaseViewControllerPorotocol where Self: UIViewController {
 
 extension BaseViewControllerPorotocol {
     func viewHolderConfigure() {
-        viewHolder.place(in: view)
-        viewHolder.configureConstraints(for: view)
+        viewHolder.place(in: contentView)
+        viewHolder.configureConstraints(for: contentView)
     }
 }
 
+typealias ViewController = BaseViewController & BaseViewControllerPorotocol
+
 class BaseViewController: UIViewController {
     
-    /// A dispose bag. 각 ViewController에 종속적이다.
+    var contentNavigationBar = SPNavigationBarView("")
+    var contentView = UIView().then { $0.backgroundColor = .gray700 }
+    
+    var showNavigaitonBar: Bool = false
     final let disposeBag = DisposeBag()
     
     deinit {
@@ -37,6 +42,8 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         LogHelper.debug("called \(self)")
         setupStyles()
+        setUpContentView()
+        setUpContentLayout()
         bind()
     }
     
@@ -56,4 +63,32 @@ class BaseViewController: UIViewController {
     func bind() { }
 }
 
-typealias ViewController = BaseViewController & BaseViewControllerPorotocol
+extension BaseViewController {
+    
+    private func setUpContentView() {
+        [contentNavigationBar, contentView].forEach { self.view.addSubview($0) }
+    }
+    
+    private func setUpContentLayout() {
+        
+        contentNavigationBar.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(showNavigaitonBar ? SPNavigationBarView.height : 0)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(contentNavigationBar.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+}
+
+extension BaseViewController {
+    
+    func setNavigationBarItem(title: String?, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
+        self.contentNavigationBar = SPNavigationBarView(title ?? "", leftIcon: leftIcon, rightIcon: rightIcon)
+        self.showNavigaitonBar = true
+    }
+}

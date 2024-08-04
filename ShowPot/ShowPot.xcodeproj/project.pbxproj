@@ -61,7 +61,6 @@
 		707FF7442C5CC1AF0026C82D /* AllPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7432C5CC1AF0026C82D /* AllPerformanceViewController.swift */; };
 		707FF7462C5CC1C20026C82D /* AllPerformanceViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7452C5CC1C20026C82D /* AllPerformanceViewHolder.swift */; };
 		707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7472C5CC1D20026C82D /* AllPerformanceViewModel.swift */; };
-		707FF74B2C5CC2100026C82D /* AllPerformanceNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF74A2C5CC2100026C82D /* AllPerformanceNavigationView.swift */; };
 		707FF74D2C5CC2230026C82D /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF74C2C5CC2230026C82D /* CheckBoxButton.swift */; };
 		707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF74E2C5CC2330026C82D /* PerformanceFilterHeaderView.swift */; };
 		707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7512C5DFCFD0026C82D /* AllPerformanceUseCase.swift */; };
@@ -177,7 +176,6 @@
 		707FF7432C5CC1AF0026C82D /* AllPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceViewController.swift; sourceTree = "<group>"; };
 		707FF7452C5CC1C20026C82D /* AllPerformanceViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceViewHolder.swift; sourceTree = "<group>"; };
 		707FF7472C5CC1D20026C82D /* AllPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceViewModel.swift; sourceTree = "<group>"; };
-		707FF74A2C5CC2100026C82D /* AllPerformanceNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceNavigationView.swift; sourceTree = "<group>"; };
 		707FF74C2C5CC2230026C82D /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
 		707FF74E2C5CC2330026C82D /* PerformanceFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilterHeaderView.swift; sourceTree = "<group>"; };
 		707FF7512C5DFCFD0026C82D /* AllPerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceUseCase.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 		707FF7492C5CC1FB0026C82D /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				707FF74A2C5CC2100026C82D /* AllPerformanceNavigationView.swift */,
 				707FF74C2C5CC2230026C82D /* CheckBoxButton.swift */,
 				707FF74E2C5CC2330026C82D /* PerformanceFilterHeaderView.swift */,
 			);
@@ -915,7 +912,6 @@
 				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
-				707FF74B2C5CC2100026C82D /* AllPerformanceNavigationView.swift in Sources */,
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
 				701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */,
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
