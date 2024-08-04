@@ -91,7 +91,7 @@ extension FeaturedSubscribeArtistCell {
             return
         case .selected:
             setupSubscribeArtistCell(
-                image: .icCheck.withTintColor(.gray000),
+                image: .icAlarmComplete.withTintColor(.gray000),
                 alpha: 0.7,
                 alphaBackgroundColor: .mainOrange
             )
