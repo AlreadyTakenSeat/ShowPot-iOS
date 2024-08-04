@@ -65,6 +65,7 @@
 		707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF74E2C5CC2330026C82D /* PerformanceFilterHeaderView.swift */; };
 		707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7512C5DFCFD0026C82D /* AllPerformanceUseCase.swift */; };
 		707FF7542C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7532C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift */; };
+		707FF7582C5FD9900026C82D /* DateFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7572C5FD9900026C82D /* DateFormatterFactory.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -180,6 +181,7 @@
 		707FF74E2C5CC2330026C82D /* PerformanceFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilterHeaderView.swift; sourceTree = "<group>"; };
 		707FF7512C5DFCFD0026C82D /* AllPerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPerformanceUseCase.swift; sourceTree = "<group>"; };
 		707FF7532C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAllPerformanceUseCase.swift; sourceTree = "<group>"; };
+		707FF7572C5FD9900026C82D /* DateFormatterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterFactory.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				7D3196412C133EC90015F88E /* Environment.swift */,
 				70107B092C198E5100F32042 /* LogHelper.swift */,
 				7DEACE4F2C1ED8EE00F37DA3 /* Font */,
+				707FF7572C5FD9900026C82D /* DateFormatterFactory.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
 				7D29813B2C01F27B00A619FB /* SampleRequest.swift in Sources */,
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,
+				707FF7582C5FD9900026C82D /* DateFormatterFactory.swift in Sources */,
 				7014673D2C3F0A3400750A54 /* FeaturedSearchButton.swift in Sources */,
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,

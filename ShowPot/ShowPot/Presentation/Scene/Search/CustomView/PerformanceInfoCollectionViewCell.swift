@@ -90,14 +90,11 @@ struct PerformanceInfoCollectionViewCellModel: Hashable {
 
 extension PerformanceInfoCollectionViewCell {
     func configureUI(with model: PerformanceInfoCollectionViewCellModel) {
-        
-        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-        dateFormatter.dateFormat = "yyyy.MM.d"
-        dateFormatter.locale = Locale(identifier: "en_US")
-        
+        let performanceTime = DateFormatterFactory.dateWithDot.string(from: model.performanceTime ?? Date())
+
         performanceImageView.kf.setImage(with: model.performanceImageURL)
         performanceTitleLabel.setText(model.performanceTitle)
-        performanceTimeLabel.setText(dateFormatter.string(from: model.performanceTime ?? Date()))
+        performanceTimeLabel.setText(performanceTime)
         performanceLocationLabel.setText(model.performanceLocation)
     }
     
@@ -107,14 +104,11 @@ extension PerformanceInfoCollectionViewCell {
         performanceTime: Date?,
         performanceLocation: String
     ) {
-        
-        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-        dateFormatter.dateFormat = "yyyy.MM.d"
-        dateFormatter.locale = Locale(identifier: "en_US")
+        let performanceTime = DateFormatterFactory.dateWithDot.string(from: performanceTime ?? Date())
         
         performanceImageView.kf.setImage(with: performanceImageURL)
         performanceTitleLabel.setText(performanceTitle)
-        performanceTimeLabel.setText(dateFormatter.string(from: performanceTime ?? Date()))
+        performanceTimeLabel.setText(performanceTime)
         performanceLocationLabel.setText(performanceLocation)
     }
 }

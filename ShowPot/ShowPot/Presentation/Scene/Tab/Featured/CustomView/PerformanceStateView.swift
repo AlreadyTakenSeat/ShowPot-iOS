@@ -89,10 +89,8 @@ extension PerformanceStateView {
         chipTitle: String?
     ) {
         if let performanceDate = performanceDate {
-            let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-            dateFormatter.dateFormat = "MM.dd(EEE) HH:mm"
-            dateFormatter.locale = Locale(identifier: "en_US")
-            ticketingOpenTimeLabel.setText(dateFormatter.string(from: performanceDate))
+            let performanceDate = DateFormatterFactory.dateWithPerformance.string(from: performanceDate)
+            ticketingOpenTimeLabel.setText(performanceDate)
         } else {
             ticketingOpenTimeLabel.text = nil
         }
