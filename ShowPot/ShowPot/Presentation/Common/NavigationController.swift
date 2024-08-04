@@ -12,6 +12,9 @@ class NavigationController: UINavigationController {
     override func viewDidLoad() {
         self.navigationBar.isHidden = true
         self.navigationBar.prefersLargeTitles = false
+        self.navigationBar.isTranslucent = false
+        self.navigationBar.backgroundColor = .gray700
+        self.navigationBar.tintColor = .gray100
         
         interactivePopGestureRecognizer?.delegate = self
     }
