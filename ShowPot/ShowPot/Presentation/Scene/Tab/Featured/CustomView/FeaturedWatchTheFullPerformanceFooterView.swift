@@ -13,8 +13,6 @@ import Then
 
 final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView, ReusableCell {
     
-    static let identifier = String(describing: FeaturedWatchTheFullPerformanceFooterView.self) // TODO: #46 identifier 지정코드로 변환
-    
     var didTappedButton: ControlEvent<Void> {
         watchTheFullPerformanceButton.rx.tap
     }

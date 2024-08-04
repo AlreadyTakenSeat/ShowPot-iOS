@@ -104,7 +104,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
         let type = viewModel.featuredSectionModel[indexPath.section]
         switch type {
         case .subscribeGenre, .subscribeArtist:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWithButtonHeaderView.identifier, for: indexPath) as? FeaturedWithButtonHeaderView ?? FeaturedWithButtonHeaderView()
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWithButtonHeaderView.reuseIdentifier, for: indexPath) as? FeaturedWithButtonHeaderView ?? FeaturedWithButtonHeaderView()
             headerView.configureUI(with: .init(headerTitle: type.headerTitle))
             headerView.buttonTapped
                 .subscribe(with: self) { owner, _ in
@@ -118,7 +118,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
                 headerView.configureUI(with: type.headerTitle)
                 return headerView
             }
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWatchTheFullPerformanceFooterView.identifier, for: indexPath) as? FeaturedWatchTheFullPerformanceFooterView ?? FeaturedWatchTheFullPerformanceFooterView()
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWatchTheFullPerformanceFooterView.reuseIdentifier, for: indexPath) as? FeaturedWatchTheFullPerformanceFooterView ?? FeaturedWatchTheFullPerformanceFooterView()
             footerView.didTappedButton
                 .subscribe(with: self) { owner, _ in
                     owner.didTappedWatchTheFullPerformanceButtonSubject.onNext(())
