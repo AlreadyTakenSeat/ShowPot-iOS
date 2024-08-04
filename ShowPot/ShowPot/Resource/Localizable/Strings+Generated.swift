@@ -10,6 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum Strings {
+  /// 오픈예정 티켓만 보기
+  public static let allPerformanceCheckboxTitle = Strings.tr("Localizable", "all_performance_checkbox_title", fallback: "오픈예정 티켓만 보기")
+  /// 전체공연
+  public static let allPerformanceTitle = Strings.tr("Localizable", "all_performance_title", fallback: "전체공연")
   /// Localizable.strings
   ///   ShowPot
   /// 
