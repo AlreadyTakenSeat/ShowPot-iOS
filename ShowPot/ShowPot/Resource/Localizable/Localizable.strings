@@ -50,6 +50,10 @@
 "search_keyword_button_title" = "모두삭제";
 "search_empty_title" = "검색 기록이 없어요";
 
+// 장르 구독 화면
+"subscribe_genre_title" = "장르 구독하기";
+"subscribe_genre_description" = "관심 장르의 내한공연 알림을 보내드려요";
+
 // 전체 공연 화면
 "all_performance_title" = "전체공연";
 "all_performance_checkbox_title" = "오픈예정 티켓만 보기";
