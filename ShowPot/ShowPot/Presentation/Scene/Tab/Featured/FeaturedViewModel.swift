@@ -9,6 +9,7 @@ import Foundation
 
 import RxSwift
 import RxCocoa
+import UIKit
 
 final class FeaturedViewModel: ViewModelType {
     
@@ -30,8 +31,9 @@ final class FeaturedViewModel: ViewModelType {
         self.coordinator = coordinator
     }
     
-    struct Input { // TODO: - 상단 서치바완성되면 연동 필요
+    struct Input {
         let requestFeaturedSectionModel: Observable<Void>
+        let didTapSearchField: Observable<UITapGestureRecognizer>
         let didTappedSubscribeGenreButton: PublishSubject<Void>
         let didTappedSubscribeArtistButton: PublishSubject<Void>
         let didTappedFeaturedCell: Observable<IndexPath>
@@ -50,6 +52,12 @@ final class FeaturedViewModel: ViewModelType {
                 owner.fetchSubscribeArtistListModel()
                 owner.fetchTicketingPerformanceListModel()
                 owner.fetchRecommendedPerformanceListModel()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTapSearchField
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToFeaturedSearchScreen()
             }
             .disposed(by: disposeBag)
         

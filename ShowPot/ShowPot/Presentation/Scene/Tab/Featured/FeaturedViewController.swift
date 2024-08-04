@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxGesture
 
 final class FeaturedViewController: ViewController {
     
@@ -42,6 +43,7 @@ final class FeaturedViewController: ViewController {
     override func bind() {
         let input = FeaturedViewModel.Input(
             requestFeaturedSectionModel: .just(()),
+            didTapSearchField: viewHolder.searchFieldTopView.rx.tapGesture().when(.recognized),
             didTappedSubscribeGenreButton: didTappedSubscribeGenreButtonSubject,
             didTappedSubscribeArtistButton: didTappedSubscribeArtistButtonSubject, 
             didTappedFeaturedCell: viewHolder.featuredCollectionView.rx.itemSelected.asObservable(), 
@@ -135,6 +137,26 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
         default:
             return
         }
+    }
+}
+
+extension FeaturedViewController {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let isTop = scrollView.contentOffset.y <= -scrollView.contentInset.top/2
+        let isDragUp = velocity.y < 0
+        self.animateTopApperance(isAppear: isTop || isDragUp)
+    }
+    
+    private func animateTopApperance(isAppear: Bool) {
+        
+        viewHolder.updateSearchFieldConstraint(for: self.view, isAppear: isAppear)
+                
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+
     }
 }
 
