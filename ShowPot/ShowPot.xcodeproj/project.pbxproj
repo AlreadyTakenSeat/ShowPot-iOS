@@ -111,6 +111,10 @@
 		7D43E2092C5E7A5700D94898 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 7D43E2082C5E7A5700D94898 /* RxGesture */; };
 		7D43E2152C5FB38D00D94898 /* SPNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */; };
 		7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E2162C5FDCA700D94898 /* UIStackView+Extension.swift */; };
+		7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20A2C5FA0A200D94898 /* SubscribeGenreViewController.swift */; };
+		7D43E20E2C5FA0B700D94898 /* SubscribeGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */; };
+		7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20F2C5FA0C200D94898 /* SubscribeGenreCoordinator.swift */; };
+		7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E2112C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift */; };
 		7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */; };
 		7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */; };
 		7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D45CB5C2C591D640018FCB8 /* SPLabel.swift */; };
@@ -233,6 +237,10 @@
 		7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
 		7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPNavigationBarView.swift; sourceTree = "<group>"; };
 		7D43E2162C5FDCA700D94898 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		7D43E20A2C5FA0A200D94898 /* SubscribeGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreViewController.swift; sourceTree = "<group>"; };
+		7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreViewModel.swift; sourceTree = "<group>"; };
+		7D43E20F2C5FA0C200D94898 /* SubscribeGenreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreCoordinator.swift; sourceTree = "<group>"; };
+		7D43E2112C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreViewHolder.swift; sourceTree = "<group>"; };
 		7D43E7D92C57CFDF0008F349 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		7D43E7DC2C57D2240008F349 /* DefaultOnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOnboardingUseCase.swift; sourceTree = "<group>"; };
 		7D45CB5C2C591D640018FCB8 /* SPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPLabel.swift; sourceTree = "<group>"; };
@@ -656,6 +664,7 @@
 				7D2981302C01F23C00A619FB /* SavedViewModel.swift */,
 				7DD2CB822C2ED5510052ECCD /* SavedCoordinator.swift */,
 				7DD2CB842C2ED5A60052ECCD /* SavedViewHolder.swift */,
+				7D43E20C2C5FA0A700D94898 /* Subscribe */,
 			);
 			path = Saved;
 			sourceTree = "<group>";
@@ -739,6 +748,25 @@
 				7D43E7DB2C57CFEC0008F349 /* Onboarding */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		7D43E20C2C5FA0A700D94898 /* Subscribe */ = {
+			isa = PBXGroup;
+			children = (
+				7D43E2132C5FA63600D94898 /* Genre */,
+			);
+			path = Subscribe;
+			sourceTree = "<group>";
+		};
+		7D43E2132C5FA63600D94898 /* Genre */ = {
+			isa = PBXGroup;
+			children = (
+				7D43E20A2C5FA0A200D94898 /* SubscribeGenreViewController.swift */,
+				7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */,
+				7D43E20F2C5FA0C200D94898 /* SubscribeGenreCoordinator.swift */,
+				7D43E2112C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift */,
+			);
+			path = Genre;
 			sourceTree = "<group>";
 		};
 		7D43E7DB2C57CFEC0008F349 /* Onboarding */ = {
@@ -968,6 +996,7 @@
 				707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
 				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
+				7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
@@ -985,9 +1014,11 @@
 				7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */,
 				7DEACE4C2C1ECC5200F37DA3 /* CustomFont.swift in Sources */,
 				7014677C2C5363CE00750A54 /* FeaturedPerformanceWithTicketOnSaleSoonCell.swift in Sources */,
+				7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
+				7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */,
 				7DD2CB832C2ED5510052ECCD /* SavedCoordinator.swift in Sources */,
 				7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */,
 				701467822C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift in Sources */,
@@ -1004,6 +1035,7 @@
 				707FF74D2C5CC2230026C82D /* CheckBoxButton.swift in Sources */,
 				707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */,
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
+				7D43E20E2C5FA0B700D94898 /* SubscribeGenreViewModel.swift in Sources */,
 				7D29813B2C01F27B00A619FB /* SampleRequest.swift in Sources */,
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,
 				707FF7582C5FD9900026C82D /* DateFormatterFactory.swift in Sources */,
