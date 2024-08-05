@@ -70,6 +70,8 @@
 		707FF75D2C5FF0C20026C82D /* SubscribeArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF75C2C5FF0C10026C82D /* SubscribeArtistViewModel.swift */; };
 		707FF75F2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF75E2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift */; };
 		707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7602C5FF1030026C82D /* SubscribeArtistViewHolder.swift */; };
+		707FF7642C5FF23D0026C82D /* SubscribeArtistTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7632C5FF23D0026C82D /* SubscribeArtistTopView.swift */; };
+		707FF7662C60DB8D0026C82D /* SubscribeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7652C60DB8D0026C82D /* SubscribeButton.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -193,6 +195,8 @@
 		707FF75C2C5FF0C10026C82D /* SubscribeArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistViewModel.swift; sourceTree = "<group>"; };
 		707FF75E2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistCoordinator.swift; sourceTree = "<group>"; };
 		707FF7602C5FF1030026C82D /* SubscribeArtistViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistViewHolder.swift; sourceTree = "<group>"; };
+		707FF7632C5FF23D0026C82D /* SubscribeArtistTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistTopView.swift; sourceTree = "<group>"; };
+		707FF7652C60DB8D0026C82D /* SubscribeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeButton.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -417,12 +421,22 @@
 		707FF7592C5FF0920026C82D /* SubscribeArtist */ = {
 			isa = PBXGroup;
 			children = (
+				707FF7622C5FF1D50026C82D /* CustomView */,
 				707FF75A2C5FF0A60026C82D /* SubscribeArtistViewController.swift */,
 				707FF75C2C5FF0C10026C82D /* SubscribeArtistViewModel.swift */,
 				707FF75E2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift */,
 				707FF7602C5FF1030026C82D /* SubscribeArtistViewHolder.swift */,
 			);
 			path = SubscribeArtist;
+			sourceTree = "<group>";
+		};
+		707FF7622C5FF1D50026C82D /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				707FF7632C5FF23D0026C82D /* SubscribeArtistTopView.swift */,
+				707FF7652C60DB8D0026C82D /* SubscribeButton.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
@@ -947,6 +961,7 @@
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
 				701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */,
+				707FF7642C5FF23D0026C82D /* SubscribeArtistTopView.swift in Sources */,
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
 				707FF75F2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift in Sources */,
 				70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */,
@@ -971,6 +986,7 @@
 				7D8574C12C187A1F0042F539 /* LoginViewHolder.swift in Sources */,
 				7D2981002C01E1D000A619FB /* AppDelegate.swift in Sources */,
 				7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */,
+				707FF7662C60DB8D0026C82D /* SubscribeButton.swift in Sources */,
 				7D89E54C2C3666A600E6001E /* OnboardingCoordinator.swift in Sources */,
 				7D2981372C01F25B00A619FB /* APIService.swift in Sources */,
 				7D43E2152C5FB38D00D94898 /* SPNavigationBarView.swift in Sources */,
