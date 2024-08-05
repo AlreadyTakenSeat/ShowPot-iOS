@@ -13,13 +13,14 @@ import RxGesture
 
 struct SPNavigationStyle {
     let title: String
+    let titleColor: UIColor?
     let leftIcon: UIImage?
     let rightIcon: UIImage?
 }
 
 final class SPNavigationBarView: UIStackView {
     
-    static let height: CGFloat = 44
+    static let height: CGFloat = 56
     
     let didTapLeftButton = PublishSubject<Void>()
     let didTapRightButton = PublishSubject<Void>()
@@ -55,8 +56,16 @@ final class SPNavigationBarView: UIStackView {
         self.bind()
     }
     
-    convenience init(_ title: String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
-        let style = SPNavigationStyle(title: title, leftIcon: leftIcon, rightIcon: rightIcon)
+    convenience init(
+        _ title: String, titleColor: UIColor? = .gray100,
+        leftIcon: UIImage? = nil, 
+        rightIcon: UIImage? = nil
+    ) {
+        let style = SPNavigationStyle(
+            title: title, titleColor: titleColor, 
+            leftIcon: leftIcon, 
+            rightIcon: rightIcon
+        )
         self.init(style: style)
     }
     
@@ -70,7 +79,7 @@ final class SPNavigationBarView: UIStackView {
         self.alignment = .center
         self.spacing = 8
         self.distribution = .fill
-        self.layoutMargins = .init(top: 0, left: 4, bottom: 0, right: 4)
+        self.layoutMargins = .init(top: 12, left: 6, bottom: 0, right: 6)
         self.isLayoutMarginsRelativeArrangement = true
     }
     
@@ -98,8 +107,16 @@ extension SPNavigationBarView {
         self.updateSubView()
     }
     
-    func updateStyle(_ title: String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
-        self.style = SPNavigationStyle(title: title, leftIcon: leftIcon, rightIcon: rightIcon)
+    func updateStyle(
+        _ title: String, titleColor: UIColor = .gray100,
+        leftIcon: UIImage? = nil,
+        rightIcon: UIImage? = nil
+    ) {
+        self.style = SPNavigationStyle(
+            title: title, titleColor: titleColor,
+            leftIcon: leftIcon,
+            rightIcon: rightIcon
+        )
         self.updateSubView()
     }
 }
