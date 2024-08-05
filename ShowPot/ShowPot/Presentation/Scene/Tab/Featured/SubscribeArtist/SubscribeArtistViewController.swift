@@ -32,6 +32,39 @@ final class SubscribeArtistViewController: ViewController {
     }
     
     override func bind() {
+        viewModel.dataSource = makeDataSource()
+        
+        let input = SubscribeArtistViewModel.Input(
+            initializeArtistList: .just(()),
+            didTappedBackButton: viewHolder.topView.navigationBar.didTapLeftButton.asObservable(),
+            didTappedArtistCell: viewHolder.artistCollectionView.rx.itemSelected.asObservable(),
+            didTappedSubscribeButton: viewHolder.subscribeButton.accentBottomButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        output.isShowSubscribeButton
+            .skip(1)
+            .subscribe(with: self) { owner, isShow in
+                isShow ? owner.viewHolder.showButton() : owner.viewHolder.dismissButton()
+            }
+            .disposed(by: disposeBag)
+        
+        output.showLoginAlert
+            .subscribe(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
+            }
+            .disposed(by: disposeBag)
+        
+        output.showCompleteAlert
+            .subscribe(with: self) { owner, _ in
+                SPSnackBar(contextView: owner.view, type: .subscribe)
+                    .setAction(action: { LogHelper.debug("설정하기 버튼 클릭") })
+                    .show()
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
 extension SubscribeArtistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

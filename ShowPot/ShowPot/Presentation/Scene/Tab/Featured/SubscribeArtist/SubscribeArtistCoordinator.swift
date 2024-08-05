@@ -21,4 +21,9 @@ final class SubscribeArtistCoordinator: NavigationCoordinator {
         let viewController: SubscribeArtistViewController = SubscribeArtistViewController(viewModel: SubscribeArtistViewModel(coordinator: self))
         self.navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
 }

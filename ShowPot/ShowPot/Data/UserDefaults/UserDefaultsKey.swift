@@ -15,6 +15,9 @@ enum UserDefaultsKey: String {
     /// 최근 검색어 리스트
     case recentSearchKeywordList
     
+    /// 로그인 여부
+    case isLoggedIn
+    
     var value: String {
         return self.rawValue
     }
