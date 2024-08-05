@@ -89,8 +89,8 @@ extension PerformanceStateView {
         chipTitle: String?
     ) {
         if let performanceDate = performanceDate {
-            let performanceDate = DateFormatterFactory.dateWithPerformance.string(from: performanceDate)
-            ticketingOpenTimeLabel.setText(performanceDate)
+            let formattedDate = DateFormatterFactory.dateWithPerformance.string(from: performanceDate)
+            ticketingOpenTimeLabel.setText(formattedDate)
         } else {
             ticketingOpenTimeLabel.text = nil
         }

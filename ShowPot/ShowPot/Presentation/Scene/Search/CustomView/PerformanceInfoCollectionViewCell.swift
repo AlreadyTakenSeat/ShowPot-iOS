@@ -41,6 +41,14 @@ final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCel
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        performanceImageView.image = nil
+        performanceTitleLabel.text = nil
+        performanceTimeLabel.text = nil
+        performanceLocationLabel.text = nil
+    }
+    
     private func setupLayouts() {
         [performanceImageView, performanceTitleLabel, performanceTimeLabel, performanceLocationLabel].forEach { contentView.addSubview($0) }
     }
@@ -90,12 +98,12 @@ struct PerformanceInfoCollectionViewCellModel: Hashable {
 
 extension PerformanceInfoCollectionViewCell {
     func configureUI(with model: PerformanceInfoCollectionViewCellModel) {
-        let performanceTime = DateFormatterFactory.dateWithDot.string(from: model.performanceTime ?? Date())
-
-        performanceImageView.kf.setImage(with: model.performanceImageURL)
-        performanceTitleLabel.setText(model.performanceTitle)
-        performanceTimeLabel.setText(performanceTime)
-        performanceLocationLabel.setText(model.performanceLocation)
+        self.configureUI(
+            performanceImageURL: model.performanceImageURL,
+            performanceTitle: model.performanceTitle,
+            performanceTime: model.performanceTime,
+            performanceLocation: model.performanceLocation
+        )
     }
     
     func configureUI(
@@ -104,11 +112,17 @@ extension PerformanceInfoCollectionViewCell {
         performanceTime: Date?,
         performanceLocation: String
     ) {
-        let performanceTime = DateFormatterFactory.dateWithDot.string(from: performanceTime ?? Date())
+        let formattedTime: String
+        if let time = performanceTime {
+            formattedTime = DateFormatterFactory.dateWithDot.string(from: time)
+        } else {
+            LogHelper.error("서버에서 내려준 포맷과 일치하지않습니다, 확인해주세요.")
+            formattedTime = ""
+        }
         
         performanceImageView.kf.setImage(with: performanceImageURL)
         performanceTitleLabel.setText(performanceTitle)
-        performanceTimeLabel.setText(performanceTime)
+        performanceTimeLabel.setText(formattedTime)
         performanceLocationLabel.setText(performanceLocation)
     }
 }
