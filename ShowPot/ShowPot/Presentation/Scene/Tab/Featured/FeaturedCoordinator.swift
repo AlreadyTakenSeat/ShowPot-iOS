@@ -38,7 +38,9 @@ extension FeaturedCoordinator {
     }
     
     func goToSubscribeArtistScreen() {
-        LogHelper.debug("아티스트구독화면 이동")
+        let coordinator = SubscribeArtistCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
     
     func goToFullPerformanceScreen() {
