@@ -15,6 +15,10 @@
 "snackbar_description_alarm" = "알림 설정이 완료되었습니다";
 "snackbar_action_title" = "보러가기";
 
+// Bottom Sheet
+"bottom_sheet_login_message" = "로그인 후 좋아하는\n장르를 구독해보세요!";
+"bottom_sheet_login_button_title" = "3초만에 로그인하기";
+
 // ------------------------------------------------------------------------------------
 
 /* Scene */
