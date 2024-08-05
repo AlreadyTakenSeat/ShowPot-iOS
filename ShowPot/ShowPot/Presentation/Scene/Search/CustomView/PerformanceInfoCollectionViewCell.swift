@@ -41,6 +41,14 @@ final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCel
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        performanceImageView.image = nil
+        performanceTitleLabel.text = nil
+        performanceTimeLabel.text = nil
+        performanceLocationLabel.text = nil
+    }
+    
     private func setupLayouts() {
         [performanceImageView, performanceTitleLabel, performanceTimeLabel, performanceLocationLabel].forEach { contentView.addSubview($0) }
     }
@@ -90,15 +98,12 @@ struct PerformanceInfoCollectionViewCellModel: Hashable {
 
 extension PerformanceInfoCollectionViewCell {
     func configureUI(with model: PerformanceInfoCollectionViewCellModel) {
-        
-        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-        dateFormatter.dateFormat = "yyyy.MM.d"
-        dateFormatter.locale = Locale(identifier: "en_US")
-        
-        performanceImageView.kf.setImage(with: model.performanceImageURL)
-        performanceTitleLabel.setText(model.performanceTitle)
-        performanceTimeLabel.setText(dateFormatter.string(from: model.performanceTime ?? Date()))
-        performanceLocationLabel.setText(model.performanceLocation)
+        self.configureUI(
+            performanceImageURL: model.performanceImageURL,
+            performanceTitle: model.performanceTitle,
+            performanceTime: model.performanceTime,
+            performanceLocation: model.performanceLocation
+        )
     }
     
     func configureUI(
@@ -107,14 +112,17 @@ extension PerformanceInfoCollectionViewCell {
         performanceTime: Date?,
         performanceLocation: String
     ) {
-        
-        let dateFormatter = DateFormatter() // TODO: #95 Date관련 공통함수로 코드 개선
-        dateFormatter.dateFormat = "yyyy.MM.d"
-        dateFormatter.locale = Locale(identifier: "en_US")
+        let formattedTime: String
+        if let time = performanceTime {
+            formattedTime = DateFormatterFactory.dateWithDot.string(from: time)
+        } else {
+            LogHelper.error("서버에서 내려준 포맷과 일치하지않습니다, 확인해주세요.")
+            formattedTime = ""
+        }
         
         performanceImageView.kf.setImage(with: performanceImageURL)
         performanceTitleLabel.setText(performanceTitle)
-        performanceTimeLabel.setText(dateFormatter.string(from: performanceTime ?? Date()))
+        performanceTimeLabel.setText(formattedTime)
         performanceLocationLabel.setText(performanceLocation)
     }
 }

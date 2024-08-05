@@ -15,7 +15,6 @@ import Then
 final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell {
     
     private let disposeBag = DisposeBag()
-    static let identifier = String(describing: FeaturedWithButtonHeaderView.self) 
     
     var buttonTapped: ControlEvent<UITapGestureRecognizer> {
         tapGesture.rx.event
