@@ -12,8 +12,6 @@ import Then
 
 final class AllPerformanceViewHolder {
     
-    let navigationView = AllPerformanceNavigationView()
-    
     private let performanceListViewLayout = UICollectionViewFlowLayout().then {
         $0.minimumLineSpacing = 10
         $0.scrollDirection = .vertical
@@ -32,21 +30,13 @@ final class AllPerformanceViewHolder {
 extension AllPerformanceViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        
-        [navigationView, performanceListView].forEach { view.addSubview($0) }
+        view.addSubview(performanceListView)
     }
     
     func configureConstraints(for view: UIView) {
         
-        navigationView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
-            $0.directionalHorizontalEdges.equalToSuperview()
-            $0.height.equalTo(44)
-        }
-        
         performanceListView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom)
-            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
     

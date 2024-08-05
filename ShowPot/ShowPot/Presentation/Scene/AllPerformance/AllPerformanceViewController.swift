@@ -33,7 +33,12 @@ final class AllPerformanceViewController: ViewController {
     
     override func setupStyles() {
         super.setupStyles()
-        navigationController?.setNavigationBarHidden(true, animated: false)
+
+        self.setNavigationBarItem(
+            title: Strings.allPerformanceTitle,
+            leftIcon: .icArrowLeft.withTintColor(.gray000),
+            rightIcon: .icMagnifier.withTintColor(.gray100)
+        )
         viewHolder.performanceListView.delegate = self
     }
     
@@ -45,8 +50,8 @@ final class AllPerformanceViewController: ViewController {
             initializePerformance: .just(()),
             didTappedCheckBoxButton: didTappedCheckBoxButtonSubject.asObservable(),
             didTappedPerformance: viewHolder.performanceListView.rx.itemSelected.asObservable(),
-            didTappedBackButton: viewHolder.navigationView.didTappedBackButton,
-            didTappedSearchButton: viewHolder.navigationView.didTappedSearchButton
+            didTappedBackButton: contentNavigationBar.didTapLeftButton,
+            didTappedSearchButton: contentNavigationBar.didTapRightButton
         )
         
         viewModel.transform(input: input)
