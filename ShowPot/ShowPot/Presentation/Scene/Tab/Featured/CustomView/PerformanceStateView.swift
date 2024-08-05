@@ -90,7 +90,7 @@ extension PerformanceStateView {
     ) {
         if let performanceDate = performanceDate {
             let formattedDate = DateFormatterFactory.dateWithPerformance.string(from: performanceDate)
-            ticketingOpenTimeLabel.setText(formattedDate)
+            ticketingOpenTimeLabel.setText(formattedDate.uppercased())
         } else {
             ticketingOpenTimeLabel.text = nil
         }
