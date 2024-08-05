@@ -51,6 +51,12 @@ class BottomSheetViewController: UIViewController {
         setupGestures()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dimmedView.alpha = 0
+        mainContainerView.transform = CGAffineTransform(translationX: 0, y: view.frame.height)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.animatePresent()
@@ -120,7 +126,7 @@ extension BottomSheetViewController {
         UIView.animate(withDuration: 0.5, animations: {  [weak self] in
             guard let self = self else { return }
             self.dimmedView.alpha = 0
-            self.mainContainerView.frame.origin.y = self.view.frame.height
+            self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: view.frame.height)
         }, completion: {  [weak self] _ in
             self?.dismiss(animated: false)
         })
@@ -140,7 +146,7 @@ extension BottomSheetViewController {
     
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        // get drag direction
+        
         let isDraggingDown = translation.y > 0
         guard isDraggingDown else { return }
         
@@ -165,14 +171,11 @@ extension BottomSheetViewController {
         dismissBottomSheet()
     }
     
-    // 5
     private func animatePresent() {
-        dimmedView.alpha = 0
-        mainContainerView.transform = CGAffineTransform(translationX: 0, y: view.frame.height)
-        UIView.animate(withDuration: 0.2) { [weak self] in
+        UIView.animate(withDuration: 0.4) { [weak self] in
             self?.mainContainerView.transform = .identity
         }
-        // add more animation duration for smoothness
+        
         UIView.animate(withDuration: 0.4) { [weak self] in
             guard let self = self else { return }
             self.dimmedView.alpha = self.maxDimmedAlpha
