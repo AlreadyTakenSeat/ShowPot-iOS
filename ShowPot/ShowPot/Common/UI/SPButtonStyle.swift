@@ -27,6 +27,7 @@ extension SPButtonStyle {
         var configuration = UIButton.Configuration.filled()
         configuration.baseForegroundColor = .gray000
         configuration.baseBackgroundColor = .gray700
+        configuration.background.cornerRadius = 2
         return SPButtonStyle(textStyle: textStyle, configuration: configuration)
     }()
     
@@ -35,6 +36,7 @@ extension SPButtonStyle {
         var configuration = UIButton.Configuration.filled()
         configuration.baseForegroundColor = .gray800
         configuration.baseBackgroundColor = .mainOrange
+        configuration.background.cornerRadius = 2
         return SPButtonStyle(textStyle: textStyle, configuration: configuration)
     }()
     
@@ -43,6 +45,7 @@ extension SPButtonStyle {
         var configuration = UIButton.Configuration.filled()
         configuration.baseForegroundColor = .gray700
         configuration.baseBackgroundColor = .gray400
+        configuration.background.cornerRadius = 2
         return SPButtonStyle(textStyle: textStyle, configuration: configuration)
     }()
     
