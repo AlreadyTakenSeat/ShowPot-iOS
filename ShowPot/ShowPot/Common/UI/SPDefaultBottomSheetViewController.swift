@@ -53,14 +53,14 @@ class SPDefaultBottomSheetViewController: BottomSheetViewController {
     private func setupView() {
         [messageLabel, bottomButton].forEach { self.contentView.addSubview($0) }
         messageLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(15)
             make.horizontalEdges.equalToSuperview().inset(15)
         }
         
         bottomButton.snp.makeConstraints { make in
             make.top.equalTo(messageLabel.snp.bottom).offset(19)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
             make.height.equalTo(55)
         }
     }

@@ -94,9 +94,9 @@ class BottomSheetViewController: UIViewController {
         
         mainContainerView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(topBarView.snp.bottom).offset(15)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(topBarView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(20)
         }
     }
     
