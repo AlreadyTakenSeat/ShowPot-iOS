@@ -18,7 +18,8 @@ class SubscribeGenreCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = SubscribeGenreViewModel(coordinator: self)
+        let usecase = GenreSubscribeUseCase()
+        let viewModel = SubscribeGenreViewModel(coordinator: self, usecase: usecase)
         let viewController = SubscribeGenreViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
     }

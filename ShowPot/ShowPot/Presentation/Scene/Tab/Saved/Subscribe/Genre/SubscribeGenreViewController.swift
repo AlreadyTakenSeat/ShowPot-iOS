@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class SubscribeGenreViewController: ViewController {
     let viewHolder: SubscribeGenreViewHolder = .init()
@@ -27,10 +28,25 @@ class SubscribeGenreViewController: ViewController {
     }
     
     override func setupStyles() {
-        
+        setNavigationBarItem(
+            title: Strings.subscribeGenreTitle,
+            leftIcon: .icArrowLeft.withTintColor(.gray000)
+        )
     }
     
     override func bind() {
+        let input = SubscribeGenreViewModel.Input(
+            viewInit: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+        )
         
+        let output = self.viewModel.transform(input: input)
+        output.genreList
+            .bind(to: self.viewHolder.genreCollectionView.rx.items) { collectionView, index, item in
+                let indexPath = IndexPath(item: index, section: 0)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+                cell.backgroundColor = .red
+                return cell
+            }
+            .disposed(by: disposeBag)
     }
 }
