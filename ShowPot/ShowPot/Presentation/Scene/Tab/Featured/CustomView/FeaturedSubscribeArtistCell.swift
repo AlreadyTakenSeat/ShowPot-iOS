@@ -22,6 +22,9 @@ enum FeaturedSubscribeArtistCellState {
     
     /// 구독 선택가능한 상태
     case availableSubscription
+    
+    /// 구독한 상태
+    case subscription
 }
 
 final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
@@ -64,7 +67,8 @@ final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
         super.prepareForReuse()
         artistImageView.image = nil
         artistNameLabel.text = nil
-        state = .availableSubscription
+        alertImageView.image = nil
+        alphaView.backgroundColor = nil
     }
     
     private func setupLayouts() {
@@ -87,9 +91,7 @@ final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
 extension FeaturedSubscribeArtistCell {
     private func updateLayoutIfNeeded() {
         switch state {
-        case .none:
-            return
-        case .selected:
+        case .subscription:
             setupSubscribeArtistCell(
                 image: .icAlarmComplete.withTintColor(.gray000),
                 alpha: 0.7,
@@ -101,6 +103,14 @@ extension FeaturedSubscribeArtistCell {
                 alpha: 0.5,
                 alphaBackgroundColor: .gray700
             )
+        case .selected:
+            setupSubscribeArtistCell(
+                image: .icCheck.withTintColor(.gray000),
+                alpha: 0.7,
+                alphaBackgroundColor: .mainOrange
+            )
+        default:
+            return
         }
     }
     

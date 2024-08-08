@@ -53,3 +53,8 @@
 // 전체 공연 화면
 "all_performance_title" = "전체공연";
 "all_performance_checkbox_title" = "오픈예정 티켓만 보기";
+
+// 아티스트구독 화면
+"subscribe_artist_navigation_title" = "아티스트 구독하기";
+"subscribe_artist_navigation_description" = "관심 있는 아티스트를 선택해주세요";
+"subscribe_artist_button" = "구독하기";

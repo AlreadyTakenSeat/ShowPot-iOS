@@ -67,8 +67,8 @@ final class FeaturedSearchViewModel: ViewModelType {
                     var artistModel = owner.artistResultListRelay.value
                     if artistModel[indexPath.row].state == .availableSubscription {
                         LogHelper.debug("아티스트 구독선택\n모델: \(artistModel[indexPath.row])")
-                        artistModel[indexPath.row].state = .selected
-                    } else if artistModel[indexPath.row].state == .selected {
+                        artistModel[indexPath.row].state = .subscription
+                    } else if artistModel[indexPath.row].state == .subscription {
                         LogHelper.debug("아티스트 구독취소선택\n모델: \(artistModel[indexPath.row])")
                         artistModel[indexPath.row].state = .availableSubscription
                     }
