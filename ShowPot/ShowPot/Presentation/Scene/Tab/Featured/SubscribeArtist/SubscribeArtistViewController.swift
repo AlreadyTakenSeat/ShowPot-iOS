@@ -35,7 +35,7 @@ final class SubscribeArtistViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = SubscribeArtistViewModel.Input(
-            initializeArtistList: .just(()),
+            viewDidLoad: .just(()),
             didTappedBackButton: viewHolder.topView.navigationBar.didTapLeftButton.asObservable(),
             didTappedArtistCell: viewHolder.artistCollectionView.rx.itemSelected.asObservable(),
             didTappedSubscribeButton: viewHolder.subscribeButton.accentBottomButton.rx.tap.asObservable()
@@ -44,19 +44,19 @@ final class SubscribeArtistViewController: ViewController {
         let output = viewModel.transform(input: input)
         output.isShowSubscribeButton
             .skip(1)
-            .subscribe(with: self) { owner, isShow in
+            .drive(with: self) { owner, isShow in
                 isShow ? owner.viewHolder.showButton() : owner.viewHolder.dismissButton()
             }
             .disposed(by: disposeBag)
         
         output.showLoginAlert
-            .subscribe(with: self) { owner, _ in
+            .drive(with: self) { owner, _ in
                 owner.showLoginBottomSheet()
             }
             .disposed(by: disposeBag)
         
         output.showCompleteAlert
-            .subscribe(with: self) { owner, _ in
+            .drive(with: self) { owner, _ in
                 SPSnackBar(contextView: owner.view, type: .subscribe)
                     .setAction(action: { LogHelper.debug("설정하기 버튼 클릭") })
                     .show()

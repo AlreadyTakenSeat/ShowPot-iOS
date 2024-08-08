@@ -18,7 +18,7 @@ final class SubscribeArtistCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: SubscribeArtistViewController = SubscribeArtistViewController(viewModel: SubscribeArtistViewModel(coordinator: self))
+        let viewController: SubscribeArtistViewController = SubscribeArtistViewController(viewModel: SubscribeArtistViewModel(coordinator: self, usecase: DefaultSubscribeArtistUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

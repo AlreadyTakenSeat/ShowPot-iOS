@@ -72,6 +72,8 @@
 		707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7602C5FF1030026C82D /* SubscribeArtistViewHolder.swift */; };
 		707FF7642C5FF23D0026C82D /* SubscribeArtistTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7632C5FF23D0026C82D /* SubscribeArtistTopView.swift */; };
 		707FF7662C60DB8D0026C82D /* SubscribeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7652C60DB8D0026C82D /* SubscribeButton.swift */; };
+		707FF7842C64A8F00026C82D /* SubscribeArtistUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7832C64A8F00026C82D /* SubscribeArtistUseCase.swift */; };
+		707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7852C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -197,6 +199,8 @@
 		707FF7602C5FF1030026C82D /* SubscribeArtistViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistViewHolder.swift; sourceTree = "<group>"; };
 		707FF7632C5FF23D0026C82D /* SubscribeArtistTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistTopView.swift; sourceTree = "<group>"; };
 		707FF7652C60DB8D0026C82D /* SubscribeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeButton.swift; sourceTree = "<group>"; };
+		707FF7832C64A8F00026C82D /* SubscribeArtistUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistUseCase.swift; sourceTree = "<group>"; };
+		707FF7852C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSubscribeArtistUseCase.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -437,6 +441,15 @@
 				707FF7652C60DB8D0026C82D /* SubscribeButton.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		707FF7822C64A8E30026C82D /* SubscribeArtist */ = {
+			isa = PBXGroup;
+			children = (
+				707FF7832C64A8F00026C82D /* SubscribeArtistUseCase.swift */,
+				707FF7852C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift */,
+			);
+			path = SubscribeArtist;
 			sourceTree = "<group>";
 		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
@@ -724,6 +737,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				707FF7822C64A8E30026C82D /* SubscribeArtist */,
 				707FF7502C5DFCEB0026C82D /* AllPerformance */,
 				7D43E7DB2C57CFEC0008F349 /* Onboarding */,
 			);
@@ -1007,6 +1021,7 @@
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
+				707FF7842C64A8F00026C82D /* SubscribeArtistUseCase.swift in Sources */,
 				7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
@@ -1020,6 +1035,7 @@
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,
 				7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */,
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
+				707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */,
 				7D78036B2C5E19530043A230 /* NavigationController.swift in Sources */,
 				707FF75D2C5FF0C20026C82D /* SubscribeArtistViewModel.swift in Sources */,
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,

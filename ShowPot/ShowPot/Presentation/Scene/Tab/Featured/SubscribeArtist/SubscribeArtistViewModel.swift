@@ -17,34 +17,44 @@ final class SubscribeArtistViewModel: ViewModelType {
     private let showLoginAlertSubject = PublishSubject<Void>()
     private let showCompleteAlertSubject = PublishSubject<Void>()
     
+    private let usecase: SubscribeArtistUseCase
     var coordinator: SubscribeArtistCoordinator
     var dataSource: DataSource?
     var isLoggedIn: Bool {
-        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? true
     }
     
-    init(coordinator: SubscribeArtistCoordinator) {
+    init(coordinator: SubscribeArtistCoordinator, usecase: SubscribeArtistUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
-        let initializeArtistList: Observable<Void>
+        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedArtistCell: Observable<IndexPath>
         let didTappedSubscribeButton: Observable<Void>
     }
     
     struct Output {
-        let isShowSubscribeButton: Observable<Bool>
-        let showLoginAlert: Observable<Void>
-        let showCompleteAlert: Observable<Void>
+        let isShowSubscribeButton: Driver<Bool>
+        let showLoginAlert: Driver<Void>
+        let showCompleteAlert: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
         
-        input.initializeArtistList
+        input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                owner.fetchArtistList()
+                Task {
+                    do {
+                        let artistList = try await owner.usecase.fetchArtistList()
+                        owner.artistListRelay.accept(artistList)
+                        owner.updateDataSource()
+                    } catch {
+                        // TODO: - 추후
+                    }
+                }
             }
             .disposed(by: disposeBag)
         
@@ -71,7 +81,19 @@ final class SubscribeArtistViewModel: ViewModelType {
         input.didTappedSubscribeButton
             .subscribe(with: self) { owner, _ in
                 if owner.isLoggedIn {
-                    owner.subscribeArtists()
+                    Task {
+                        do {
+                            let artistID = owner.subscribeArtistIDList.value
+                            LogHelper.debug("구독한 아티스트 아이디: \(artistID)")
+                            let subscribedArtistID = try await owner.usecase.subscribeArtists(artistID: artistID)
+                            var artistList = owner.artistListRelay.value
+                            
+                            owner.filterArtistList(artistID: subscribedArtistID)
+                            owner.showCompleteAlertSubject.onNext(())
+                        } catch {
+                            // TODO: - 구독시도 이후 에러처리 필수
+                        }
+                    }
                 } else {
                     owner.showLoginAlertSubject.onNext(())
                 }
@@ -87,10 +109,10 @@ final class SubscribeArtistViewModel: ViewModelType {
         let isShowSubscribeButton = subscribeArtistIDList
             .map { !$0.isEmpty }
             .distinctUntilChanged()
-            .asObservable()
+            .asDriver(onErrorDriveWith: .empty())
         
-        let showLoginAlert = showLoginAlertSubject.asObservable()
-        let showCompleteAlert = showCompleteAlertSubject.asObservable()
+        let showLoginAlert = showLoginAlertSubject.asDriver(onErrorDriveWith: .empty())
+        let showCompleteAlert = showCompleteAlertSubject.asDriver(onErrorDriveWith: .empty())
         
         return Output(
             isShowSubscribeButton: isShowSubscribeButton,
@@ -101,38 +123,16 @@ final class SubscribeArtistViewModel: ViewModelType {
 }
 
 extension SubscribeArtistViewModel {
-    private func fetchArtistList() { // FIXME: - 추후 API연동해 데이터 수정
-        artistListRelay.accept([
-            .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .none, artistImageURL: URL(string: "https://i.imgur.com/KsEXGAZ.jpg"), artistName: "Marilia Mendonca"),
-            .init(state: .none, artistImageURL: URL(string: "https://cdn.mhns.co.kr/news/photo/201901/157199_206779_07.jpg"), artistName: "The Chainsmokers"),
-            .init(state: .none, artistImageURL: URL(string: "https://t3.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2fG8/image/sxiZQJy0MaesFjfzRRoyNWNRmhM.jpg"), artistName: "Beyonce"),
-            .init(state: .none, artistImageURL: URL(string: "https://cdn.redian.org/news/photo/202108/155857_52695_0153.jpg"), artistName: "Adele"),
-            .init(state: .none, artistImageURL: URL(string: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F1709EC404F290F7720"), artistName: "Imagine Dragons"),
-            .init(state: .none, artistImageURL: URL(string: "https://mblogthumb-phinf.pstatic.net/MjAxOTEwMzBfMjM1/MDAxNTcyNDI4Mzg2NjI2.vFBBiLlc8YhPuny8BFHTYczJzoR1ObVC8ZHX2iAGye4g.BVn1BX_bMjbib22Ks-l2VCQUd70yU7o8vNBLcBhSH1gg.PNG.alvin5092/1572428385660.png?type=w800"), artistName: "Maluma"),
-            .init(state: .none, artistImageURL: URL(string: "https://i.namu.wiki/i/jrUaXffKzxPCo876eNO8GRdQb81OBQuNV99GnN1pDlXkGcvEsyTJaEtCsWzEtjy4yVoOnPqP058LrPswAh7KQQ.webp"), artistName: "Bruno Mars"),
-            .init(state: .none, artistImageURL: URL(string: "https://cdn2.ppomppu.co.kr/zboard/data3/2019/0827/m_20190827133411_lrzretxm.jpg"), artistName: "Leo J"),
-            .init(state: .none, artistImageURL: URL(string: "https://cdn.slist.kr/news/photo/201912/122164_224649_5110.jpg"), artistName: "Marco Jacimus")
-        ])
-        updateDataSource()
-    }
     
-    private func subscribeArtists() {
-        var artistIDs = subscribeArtistIDList.value // TODO: - 추후 구독할 아티스트 ID를 API에 넘겨줄 예정
-        
-        guard !artistIDs.isEmpty else {
-            LogHelper.debug("구독할 아티스트를 선택하고 구독해주세요.")
-            return
-        }
-        var artistList = artistListRelay.value
-        // 만약 구독 API성공했다면
+    /// 구독된 아티스트정보를 가지고 필터하는 함수
+    private func filterArtistList(artistID: [String]) {
+        var artistList = artistListRelay.value // TODO: - 추후 구독할 아티스트 ID를 API에 넘겨줄 예정
         let filteredArtistList = artistList.filter { artist in
-            !artistIDs.contains(artist.artistName) // FIXME: - 현재 데이터를 구분하는 값 artistName -> artistID로 변경해야함
+            !artistID.contains(artist.artistName) // FIXME: - 현재 데이터를 구분하는 값 artistName -> artistID로 변경해야함
         }
         artistListRelay.accept(filteredArtistList)
         subscribeArtistIDList.accept([])
         updateDataSource()
-        showCompleteAlertSubject.onNext(())
     }
     
     /// 구독하기위한 아티스트를 추가하는 함수
