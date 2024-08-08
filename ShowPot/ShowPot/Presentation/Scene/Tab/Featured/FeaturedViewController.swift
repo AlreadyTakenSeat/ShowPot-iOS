@@ -38,7 +38,6 @@ final class FeaturedViewController: ViewController {
         super.setupStyles()
         viewHolder.featuredCollectionView.delegate = self
         viewHolder.featuredCollectionView.dataSource = self
-        hidesBottomBarWhenPushed = true // TODO: - 추후 공통코드로 빼서 작업
     }
     
     override func bind() {

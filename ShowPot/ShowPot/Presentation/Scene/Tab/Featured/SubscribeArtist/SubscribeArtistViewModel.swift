@@ -21,7 +21,7 @@ final class SubscribeArtistViewModel: ViewModelType {
     var coordinator: SubscribeArtistCoordinator
     var dataSource: DataSource?
     var isLoggedIn: Bool {
-        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? true
+        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
     }
     
     init(coordinator: SubscribeArtistCoordinator, usecase: SubscribeArtistUseCase) {
@@ -52,7 +52,7 @@ final class SubscribeArtistViewModel: ViewModelType {
                         owner.artistListRelay.accept(artistList)
                         owner.updateDataSource()
                     } catch {
-                        // TODO: - 추후
+                        // TODO: - 추후 에러 처리필요
                     }
                 }
             }

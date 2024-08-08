@@ -17,10 +17,13 @@ final class SubscribeArtistViewHolder {
         return windowScene?.statusBarManager?.statusBarFrame.height ?? 0
     }
     
-    let topView = SubscribeArtistTopView()
+    private let descriptionLabel = SPLabel(KRFont.H2).then {
+        $0.setText(Strings.subscribeArtistNavigationDescription)
+        $0.textColor = .gray300
+    }
     
     private let artistCollectionViewLayout = UICollectionViewFlowLayout().then {
-        $0.sectionInset = .init(top: 18, left: 27, bottom: .zero, right: 27)
+        $0.sectionInset = .init(top: 32, left: 27, bottom: .zero, right: 27)
         $0.scrollDirection = .vertical
         $0.minimumLineSpacing = 20
     }
@@ -31,10 +34,10 @@ final class SubscribeArtistViewHolder {
         $0.alwaysBounceVertical = true
     }
     
-    lazy var subscribeButton = SubscribeButton(
+    lazy var subscribeFooterView = SubscribeFooterView(
         frame: .init(
             x: .zero,
-            y: UIScreen.main.bounds.height - statusBarHeight,
+            y: UIScreen.main.bounds.height - statusBarHeight - SPNavigationBarView.height,
             width: UIScreen.main.bounds.width,
             height: 113
         )
@@ -44,18 +47,18 @@ final class SubscribeArtistViewHolder {
 extension SubscribeArtistViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        [topView, artistCollectionView, subscribeButton].forEach { view.addSubview($0) }
+        [descriptionLabel, artistCollectionView, subscribeFooterView].forEach { view.addSubview($0) }
     }
     
     func configureConstraints(for view: UIView) {
-        topView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.directionalHorizontalEdges.equalToSuperview()
-            $0.height.equalTo(102)
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(5)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.lessThanOrEqualToSuperview()
         }
         
         artistCollectionView.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom)
+            $0.top.equalTo(descriptionLabel.snp.bottom)
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
         }
     }
@@ -69,7 +72,7 @@ extension SubscribeArtistViewHolder {
             withDuration: 0.1,
             delay: 0.25,
             options: .curveEaseIn) {
-                self.subscribeButton.frame.origin.y -= 113
+                self.subscribeFooterView.frame.origin.y -= 113
             }
     }
     
@@ -78,7 +81,7 @@ extension SubscribeArtistViewHolder {
             withDuration: 0.1,
             delay: 0.25,
             options: .curveEaseOut) {
-                self.subscribeButton.frame.origin.y += 113
+                self.subscribeFooterView.frame.origin.y += 113
             }
     }
 }

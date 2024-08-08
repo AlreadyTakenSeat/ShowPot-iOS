@@ -29,6 +29,11 @@ final class SubscribeArtistViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         viewHolder.artistCollectionView.delegate = self
+        setNavigationBarItem(
+            title: Strings.subscribeArtistNavigationTitle,
+            leftIcon: .icArrowLeft.withTintColor(.gray000),
+            rightIcon: nil
+        )
     }
     
     override func bind() {
@@ -36,9 +41,9 @@ final class SubscribeArtistViewController: ViewController {
         
         let input = SubscribeArtistViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedBackButton: viewHolder.topView.navigationBar.didTapLeftButton.asObservable(),
+            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedArtistCell: viewHolder.artistCollectionView.rx.itemSelected.asObservable(),
-            didTappedSubscribeButton: viewHolder.subscribeButton.accentBottomButton.rx.tap.asObservable()
+            didTappedSubscribeButton: viewHolder.subscribeFooterView.bottomButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)

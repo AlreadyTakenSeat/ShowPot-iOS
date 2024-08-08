@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class SubscribeButton: UIView {
+final class SubscribeFooterView: UIView {
     
     private let backgroundGradientView = UIView().then {
         $0.applyLinearGradient(
@@ -23,7 +23,7 @@ final class SubscribeButton: UIView {
         )
     }
     
-    let accentBottomButton = SPButton(.accentBottomEnabled).then {
+    let bottomButton = SPButton(.accentBottomEnabled).then {
         $0.setText(Strings.subscribeArtistButton, fontType: KRFont.H2)
         $0.configuration?.background.cornerRadius = 2
     }
@@ -45,7 +45,7 @@ final class SubscribeButton: UIView {
     
     private func setupLayouts() {
         addSubview(backgroundGradientView)
-        backgroundGradientView.addSubview(accentBottomButton)
+        backgroundGradientView.addSubview(bottomButton)
     }
     
     private func setupConstraints() {
@@ -53,7 +53,7 @@ final class SubscribeButton: UIView {
             $0.directionalEdges.equalToSuperview()
         }
         
-        accentBottomButton.snp.makeConstraints {
+        bottomButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(4)
             $0.directionalHorizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(54)
