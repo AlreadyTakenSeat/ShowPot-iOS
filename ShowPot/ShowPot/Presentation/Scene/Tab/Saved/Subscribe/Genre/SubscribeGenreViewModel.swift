@@ -24,34 +24,56 @@ final class SubscribeGenreViewModel: ViewModelType {
     init(coordinator: Coordinator, usecase: GenreUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
+        
+        self.bind()
     }
     
     struct Input {
-        let didTapBottomButton: PublishSubject<GenreActionType>
+        let didTapAddSubscribeButton: PublishSubject<[GenreType]>
+        let didTapDeleteSubscribeButton: PublishSubject<GenreType>
     }
     
     struct Output {
         var genreList = BehaviorRelay<[GenreState]>(value: [])
+        var addSubscriptionResult = PublishSubject<Bool>()
+        var deleteSubscriptionResult = PublishSubject<Bool>()
     }
     
     func transform(input: Input) -> Output {
         
-        input.didTapBottomButton.subscribe { action in
-            switch action {
-            case .addSubscribe:
-                LogHelper.debug("구독 추가")
-            case .deleteSubscribe:
-                LogHelper.debug("구독 취소")
-            }
-        }
-        .disposed(by: disposeBag)
+        input.didTapAddSubscribeButton
+            .subscribe(with: self) { owner, list in
+                self.usecase.addSubscribtion(list: list)
+            }.disposed(by: disposeBag)
+        
+        input.didTapDeleteSubscribeButton
+            .subscribe(with: self) { owner, type in
+                self.usecase.deleteSubscribtion(genre: type)
+            }.disposed(by: disposeBag)
         
         let output = Output()
         
-        self.usecase.genreList
+        usecase.genreList
             .bind(to: output.genreList)
             .disposed(by: disposeBag)
         
+        usecase.addSubscribtionresult
+            .bind(to: output.addSubscriptionResult)
+            .disposed(by: disposeBag)
+        
+        usecase.deleteSubscribtionresult
+            .bind(to: output.deleteSubscriptionResult)
+            .disposed(by: disposeBag)
+        
         return output
+    }
+}
+
+extension SubscribeGenreViewModel {
+    private func bind() {
+        Observable.merge(usecase.addSubscribtionresult, usecase.deleteSubscribtionresult)
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.requestGenreList()
+            }.disposed(by: disposeBag)
     }
 }

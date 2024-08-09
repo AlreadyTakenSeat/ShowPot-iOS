@@ -8,9 +8,11 @@
 import RxSwift
 
 final class GenreSubscribeUseCase: GenreUseCase {
-    
     var genreList = BehaviorSubject<[GenreState]>(value: [])
+    var addSubscribtionresult = PublishSubject<Bool>()
+    var deleteSubscribtionresult = PublishSubject<Bool>()
     
+    // MARK: Internal properties
     /// 전체 장르 리스트
     private var supportedGenreList = BehaviorSubject<[GenreType]>(value: [])
     /// 구독중인 장르 리스트
@@ -21,6 +23,16 @@ final class GenreSubscribeUseCase: GenreUseCase {
     func requestGenreList() {
         self.requestSupportedGenreList()
         self.requestSubscribedGenreList()
+    }
+    
+    func addSubscribtion(list: [GenreType]) {
+        // TODO: #6 장르 구독 추가 요청
+        addSubscribtionresult.onNext([true, false].shuffled()[0])
+    }
+    
+    func deleteSubscribtion(genre: GenreType) {
+        // TODO: #6 장르 구독 삭제 요청
+        deleteSubscribtionresult.onNext([true, false].shuffled()[0])
     }
     
     init() {

@@ -25,7 +25,6 @@ class SubscribeGenreViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
-        bindCollectionViewAction()
     }
     
     override func setupStyles() {
@@ -40,7 +39,8 @@ class SubscribeGenreViewController: ViewController {
     
     override func bind() {
         let input = SubscribeGenreViewModel.Input(
-            didTapBottomButton: PublishSubject<GenreActionType>()
+            didTapAddSubscribeButton: PublishSubject<[GenreType]>(),
+            didTapDeleteSubscribeButton: PublishSubject<GenreType>()
         )
         
         bindCollectionViewAction(input: input)
@@ -56,6 +56,16 @@ class SubscribeGenreViewController: ViewController {
                 cell.setData(genre: item.genre)
             }
             .disposed(by: disposeBag)
+        
+        output.addSubscriptionResult
+            .subscribe { isSuccess in
+                LogHelper.debug("구독 추가 결과: \(isSuccess)")
+            }.disposed(by: disposeBag)
+        
+        output.deleteSubscriptionResult
+            .subscribe { isSuccess in
+                LogHelper.debug("구독 삭제 결과: \(isSuccess)")
+            }.disposed(by: disposeBag)
     }
 }
 
