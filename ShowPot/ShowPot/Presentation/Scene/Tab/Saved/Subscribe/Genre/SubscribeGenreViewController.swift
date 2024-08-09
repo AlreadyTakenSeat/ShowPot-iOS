@@ -25,6 +25,7 @@ class SubscribeGenreViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
+        bindCollectionViewAction()
     }
     
     override func setupStyles() {
@@ -32,21 +33,50 @@ class SubscribeGenreViewController: ViewController {
             title: Strings.subscribeGenreTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
+        
+        self.hidesBottomBarWhenPushed = true
     }
     
     override func bind() {
         let input = SubscribeGenreViewModel.Input(
-            viewInit: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+            
         )
         
         let output = self.viewModel.transform(input: input)
+        
         output.genreList
             .bind(to: self.viewHolder.genreCollectionView.rx.items) { collectionView, index, item in
                 let indexPath = IndexPath(item: index, section: 0)
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-                cell.backgroundColor = .red
+                guard let cell = collectionView.dequeueReusableCell(GenreCollectionViewCell.self, for: indexPath) else {
+                    return UICollectionViewCell()
+                }
+                cell.setData(image: item.normalImage)
                 return cell
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension SubscribeGenreViewController {
+    
+    private func bindCollectionViewAction() {
+        viewHolder.genreCollectionView.rx
+            .itemSelected
+            .subscribe(with: self) { owner, indexPath in
+                guard let cell = owner.viewHolder.genreCollectionView.cellForItem(at: indexPath) else {
+                    return
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewHolder.genreCollectionView.rx
+            .itemDeselected
+            .subscribe(with: self) { owner, indexPath in
+                guard let cell = owner.viewHolder.genreCollectionView.cellForItem(at: indexPath) else {
+                    return
+                }
+            }
+            .disposed(by: disposeBag)
+        
     }
 }

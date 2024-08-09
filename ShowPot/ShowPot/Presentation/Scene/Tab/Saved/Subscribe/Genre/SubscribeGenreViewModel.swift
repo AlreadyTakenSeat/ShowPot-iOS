@@ -20,19 +20,14 @@ final class SubscribeGenreViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewInit: Observable<Void>
+        
     }
     
     struct Output {
-        var genreList = BehaviorRelay<[String]>(value: [])
+        var genreList = BehaviorRelay<[GenreType]>(value: [])
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewInit.subscribe(with: self) { owner, _ in
-            owner.usecase.requestGenreList()
-        }
-        .disposed(by: disposeBag)
         
         let output = Output()
         bindOutput(output)
@@ -42,12 +37,8 @@ final class SubscribeGenreViewModel: ViewModelType {
     
     private func bindOutput(_ output: Output) {
         self.usecase.genreList
+            .map { $0.map { GenreType(rawValue: $0) }.compactMap { $0 } }
             .bind(to: output.genreList)
             .disposed(by: disposeBag)
     }
-}
-
-extension SubscribeGenreViewModel {
-    
-    
 }

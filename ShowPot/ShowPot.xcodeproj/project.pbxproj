@@ -136,6 +136,8 @@
 		7DB9F9102C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */; };
 		7DB9F9332C63B9450097C4F9 /* GenreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F9322C63B9450097C4F9 /* GenreUseCase.swift */; };
 		7DB9F9352C63B9910097C4F9 /* GenreSubscribeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F9342C63B9910097C4F9 /* GenreSubscribeUseCase.swift */; };
+		7DB9F9372C63D4A20097C4F9 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F9362C63D4A20097C4F9 /* GenreCollectionViewCell.swift */; };
+		7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F9382C651FBF0097C4F9 /* GenreType.swift */; };
 		7DCAAEA22C38532E00DE8F7B /* OnboardingCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCAAEA12C38532E00DE8F7B /* OnboardingCarouselCell.swift */; };
 		7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2CB7E2C2ED3FA0052ECCD /* FeaturedCoordinator.swift */; };
 		7DD2CB812C2ED4430052ECCD /* FeaturedViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2CB802C2ED4430052ECCD /* FeaturedViewHolder.swift */; };
@@ -264,6 +266,8 @@
 		7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewController+BottomSheet.swift"; sourceTree = "<group>"; };
 		7DB9F9322C63B9450097C4F9 /* GenreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreUseCase.swift; sourceTree = "<group>"; };
 		7DB9F9342C63B9910097C4F9 /* GenreSubscribeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSubscribeUseCase.swift; sourceTree = "<group>"; };
+		7DB9F9362C63D4A20097C4F9 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
+		7DB9F9382C651FBF0097C4F9 /* GenreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreType.swift; sourceTree = "<group>"; };
 		7DCAAEA12C38532E00DE8F7B /* OnboardingCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCarouselCell.swift; sourceTree = "<group>"; };
 		7DD2CB7E2C2ED3FA0052ECCD /* FeaturedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCoordinator.swift; sourceTree = "<group>"; };
 		7DD2CB802C2ED4430052ECCD /* FeaturedViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedViewHolder.swift; sourceTree = "<group>"; };
@@ -770,6 +774,8 @@
 				7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */,
 				7D43E20F2C5FA0C200D94898 /* SubscribeGenreCoordinator.swift */,
 				7D43E2112C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift */,
+				7DB9F9362C63D4A20097C4F9 /* GenreCollectionViewCell.swift */,
+				7DB9F9382C651FBF0097C4F9 /* GenreType.swift */,
 			);
 			path = Genre;
 			sourceTree = "<group>";
@@ -1010,6 +1016,7 @@
 				707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
 				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
+				7DB9F9372C63D4A20097C4F9 /* GenreCollectionViewCell.swift in Sources */,
 				7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
@@ -1060,6 +1067,7 @@
 				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
+				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,

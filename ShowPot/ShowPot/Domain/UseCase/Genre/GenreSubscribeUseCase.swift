@@ -11,6 +11,10 @@ final class GenreSubscribeUseCase: GenreUseCase {
     var genreList = BehaviorSubject<[String]>(value: [])
     
     func requestGenreList() {
-        genreList.onNext(["Rock", "Band", "JPOP"])
+        genreList.onNext(["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"])
+    }
+    
+    init() {
+        self.requestGenreList()
     }
 }

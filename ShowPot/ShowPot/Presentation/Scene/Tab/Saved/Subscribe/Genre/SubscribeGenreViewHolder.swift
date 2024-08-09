@@ -20,9 +20,10 @@ final class SubscribeGenreViewHolder {
         frame: .zero,
         collectionViewLayout: genreGridLayout()
     ).then { collection in
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collection.register(GenreCollectionViewCell.self)
         collection.backgroundColor = .clear
         collection.alwaysBounceVertical = true
+        collection.allowsMultipleSelection = true
     }
     
     lazy var gradientView = UIView().then { view in
@@ -79,7 +80,7 @@ extension SubscribeGenreViewHolder {
             
             let verticalGroupSize = NSCollectionLayoutSize(
                 widthDimension: .absolute(140),
-                heightDimension: .fractionalHeight(1)
+                heightDimension: .absolute(140)
             )
             
             let leftVerticalGroup = NSCollectionLayoutGroup.vertical(
@@ -87,14 +88,12 @@ extension SubscribeGenreViewHolder {
                 repeatingSubitem: leftItem,
                 count: 1
             )
-            leftVerticalGroup.interItemSpacing = .fixed(40)
 
             let rightVerticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: verticalGroupSize,
                 repeatingSubitem: rightItem,
                 count: 1
             )
-            rightVerticalGroup.interItemSpacing = .fixed(40)
             
             //Horizontal Group
             let groupSize = NSCollectionLayoutSize(
@@ -109,8 +108,8 @@ extension SubscribeGenreViewHolder {
             let horizontalPadding = (layoutEnvironment.container.effectiveContentSize.width - totalGroupWidth) / 2.0
             
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 10
-            section.contentInsets = .init(top: 0, leading: horizontalPadding, bottom: 90, trailing: horizontalPadding)
+            section.interGroupSpacing = 40
+            section.contentInsets = .init(top: 32, leading: horizontalPadding, bottom: 90, trailing: horizontalPadding)
             
             return section
         }
