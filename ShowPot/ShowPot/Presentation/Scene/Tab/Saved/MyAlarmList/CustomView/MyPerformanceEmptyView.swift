@@ -46,8 +46,11 @@ final class MyPerformanceEmptyView: UIView {
     
     private func setupConstraints() {
         emptyImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(72)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(70)
+            $0.top.greaterThanOrEqualToSuperview()
+            $0.directionalHorizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(emptyImageView.snp.width)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(snp.centerY)
         }
         
         emptyLabel.snp.makeConstraints {
