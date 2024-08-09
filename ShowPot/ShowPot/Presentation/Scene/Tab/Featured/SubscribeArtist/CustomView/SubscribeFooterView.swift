@@ -12,17 +12,15 @@ import Then
 
 final class SubscribeFooterView: UIView {
     
-    private let backgroundGradientView = UIView().then {
-        $0.applyLinearGradient(
-            colors: [
-                .gray700.withAlphaComponent(1.0),
-                .gray700.withAlphaComponent(0.0)
-            ],
-            startPoint: .init(x: 0.5, y: 0.0),
-            endPoint: .init(x: 0.5, y: 1.0)
-        )
-    }
-    
+    private let backgroundGradientView = GradientView(
+        colors: [
+            .gray700.withAlphaComponent(0.0),
+            .gray700.withAlphaComponent(1.0)
+        ],
+        startPoint: .init(x: 0.5, y: 0.0),
+        endPoint: .init(x: 0.5, y: 1.0)
+    )
+        
     let bottomButton = SPButton(.accentBottomEnabled).then {
         $0.setText(Strings.subscribeArtistButton, fontType: KRFont.H2)
         $0.configuration?.background.cornerRadius = 2
@@ -36,11 +34,6 @@ final class SubscribeFooterView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        backgroundGradientView.updateGradientLayerFrame()
     }
     
     private func setupLayouts() {

@@ -16,9 +16,15 @@ extension UIView {
     ///   - startPoint: 레이어의 좌표 공간에서 그라디언트의 시작 지점입니다.
     ///   - endPoint: 레이어의 좌표 공간에서 그라디언트의 끝 지점입니다.
     ///   - locations: 각 그라디언트 색상에 해당하는 끝의 위치입니다. (0.0 ~ 1.0)
-    func applyLinearGradient(colors: [UIColor], startPoint: CGPoint, endPoint: CGPoint, locations: [NSNumber]? = nil) {
+    func applyLinearGradient(
+        colors: [UIColor],
+        startPoint: CGPoint, endPoint: CGPoint,
+        locations: [NSNumber]? = nil
+    ) {
         
-        self.layer.sublayers?.filter { $0 is CAGradientLayer }.forEach { $0.removeFromSuperlayer() }
+        self.layer.sublayers?
+            .filter { $0 is CAGradientLayer }
+            .forEach { $0.removeFromSuperlayer() }
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = colors.map { $0.cgColor }
@@ -31,7 +37,7 @@ extension UIView {
         self.layer.addSublayer(gradientLayer)
     }
     
-    /// 그라디언트 레이어의 프레임을 업데이트하는 함수
+    /// layoutSubView에서 해당 동작이 이루어져야 gradient가 정상 적용됨
     func updateGradientLayerFrame() {
         self.layer.sublayers?.filter { $0 is CAGradientLayer }.forEach { $0.frame = self.bounds }
     }

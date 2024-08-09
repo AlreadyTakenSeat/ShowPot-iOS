@@ -26,16 +26,15 @@ final class SubscribeGenreViewHolder {
         collection.allowsMultipleSelection = true
     }
     
-    lazy var gradientView = UIView().then { view in
-        view.applyLinearGradient(
-            colors: [
-                .gray700.withAlphaComponent(0.0),
-                .gray700.withAlphaComponent(1.0)
-            ],
-            startPoint: .init(x: 0.5, y: 0.0),
-            endPoint: .init(x: 0.5, y: 1.0)
-        )
-    }
+    lazy var gradientView = GradientView(
+        colors: [
+            .gray700.withAlphaComponent(0.0),
+            .gray700.withAlphaComponent(1.0)
+        ],
+        startPoint: .init(x: 0.5, y: 0.0),
+        endPoint: .init(x: 0.5, y: 1.0)
+    )
+
 }
 
 extension SubscribeGenreViewHolder: ViewHolderType {
