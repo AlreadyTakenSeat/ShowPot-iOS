@@ -70,16 +70,18 @@ public enum Strings {
   public static let socialLoginGoogleButton = Strings.tr("Localizable", "socialLogin_google_button", fallback: "Google로 시작하기")
   /// Kakao로 시작하기
   public static let socialLoginKakaoButton = Strings.tr("Localizable", "socialLogin_kakao_button", fallback: "Kakao로 시작하기")
-  /// 관심 장르의 내한공연 알림을 보내드려요
-  public static let subscribeGenreDescription = Strings.tr("Localizable", "subscribe_genre_description", fallback: "관심 장르의 내한공연 알림을 보내드려요")
-  /// 장르 구독하기
-  public static let subscribeGenreTitle = Strings.tr("Localizable", "subscribe_genre_title", fallback: "장르 구독하기")
   /// 구독하기
   public static let subscribeArtistButton = Strings.tr("Localizable", "subscribe_artist_button", fallback: "구독하기")
   /// 관심 있는 아티스트를 선택해주세요
   public static let subscribeArtistNavigationDescription = Strings.tr("Localizable", "subscribe_artist_navigation_description", fallback: "관심 있는 아티스트를 선택해주세요")
   /// 아티스트 구독하기
   public static let subscribeArtistNavigationTitle = Strings.tr("Localizable", "subscribe_artist_navigation_title", fallback: "아티스트 구독하기")
+  /// 구독하기
+  public static let subscribeGenreAddButtonTitle = Strings.tr("Localizable", "subscribe_genre_add_button_title", fallback: "구독하기")
+  /// 관심 장르의 내한공연 알림을 보내드려요
+  public static let subscribeGenreDescription = Strings.tr("Localizable", "subscribe_genre_description", fallback: "관심 장르의 내한공연 알림을 보내드려요")
+  /// 장르 구독하기
+  public static let subscribeGenreTitle = Strings.tr("Localizable", "subscribe_genre_title", fallback: "장르 구독하기")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
