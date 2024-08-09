@@ -40,4 +40,8 @@ extension GenreCollectionViewCell {
         self.genreImageView.image = image
     }
     
+    func setData(genre: GenreType) {
+        let genreImage = genreImage(type: genre)
+        self.setData(image: genreImage)
+    }
 }

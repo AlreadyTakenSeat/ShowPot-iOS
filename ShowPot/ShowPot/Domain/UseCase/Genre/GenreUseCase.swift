@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol GenreUseCase {
-    var genreList: BehaviorSubject<[String]> { get set }
+    var genreList: BehaviorSubject<[GenreState]> { get set }
     
     func requestGenreList()
 }

@@ -5,8 +5,8 @@
 //  Created by Daegeon Choi on 8/4/24.
 //
 
-import Foundation
 import UIKit
+import RxSwift
 
 class SubscribeGenreViewController: ViewController {
     let viewHolder: SubscribeGenreViewHolder = .init()
@@ -29,6 +29,7 @@ class SubscribeGenreViewController: ViewController {
     }
     
     override func setupStyles() {
+        super.setupStyles()
         setNavigationBarItem(
             title: Strings.subscribeGenreTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
@@ -39,19 +40,20 @@ class SubscribeGenreViewController: ViewController {
     
     override func bind() {
         let input = SubscribeGenreViewModel.Input(
-            
+            didTapBottomButton: PublishSubject<GenreActionType>()
         )
+        
+        bindCollectionViewAction(input: input)
         
         let output = self.viewModel.transform(input: input)
         
         output.genreList
-            .bind(to: self.viewHolder.genreCollectionView.rx.items) { collectionView, index, item in
-                let indexPath = IndexPath(item: index, section: 0)
-                guard let cell = collectionView.dequeueReusableCell(GenreCollectionViewCell.self, for: indexPath) else {
-                    return UICollectionViewCell()
-                }
-                cell.setData(image: item.normalImage)
-                return cell
+            .bind(to: viewHolder.genreCollectionView.rx.items(
+                cellIdentifier: GenreCollectionViewCell.reuseIdentifier,
+                cellType: GenreCollectionViewCell.self)
+            ) { index, item, cell in
+                cell.isHighlighted = item.isSubscribed
+                cell.setData(genre: item.genre)
             }
             .disposed(by: disposeBag)
     }
@@ -59,24 +61,49 @@ class SubscribeGenreViewController: ViewController {
 
 extension SubscribeGenreViewController {
     
-    private func bindCollectionViewAction() {
-        viewHolder.genreCollectionView.rx
-            .itemSelected
-            .subscribe(with: self) { owner, indexPath in
-                guard let cell = owner.viewHolder.genreCollectionView.cellForItem(at: indexPath) else {
+    private func bindCollectionViewAction(input: SubscribeGenreViewModel.Input) {
+        
+        let collectionView = viewHolder.genreCollectionView
+        
+        let cellStateObservable = Observable.merge(
+            collectionView.rx.itemSelected.asObservable(),
+            collectionView.rx.itemDeselected.asObservable()
+        )
+        
+        let cellModelObservable = Observable.merge(
+            collectionView.rx.modelSelected(GenreState.self).asObservable(),
+            collectionView.rx.modelDeselected(GenreState.self).asObservable()
+        )
+        
+        Observable.zip(cellStateObservable, cellModelObservable)
+            .subscribe { [weak self] indexPath, model in
+                guard let self = self,
+                      let cell = collectionView.cellForItem(at: indexPath) as? GenreCollectionViewCell else {
                     return
                 }
-            }
-            .disposed(by: disposeBag)
-        
-        viewHolder.genreCollectionView.rx
-            .itemDeselected
-            .subscribe(with: self) { owner, indexPath in
-                guard let cell = owner.viewHolder.genreCollectionView.cellForItem(at: indexPath) else {
+                
+                if self.viewModel.isLoggedIn == false {
+                    self.showLoginBottomSheet()
+                    cell.isSelected = false
+                }
+                
+                if model.isSubscribed {
+                    let cancelSubscribeSheet = SPDefaultBottomSheetViewController(
+                        message: "\(model.genre.rawValue) 구독 취소 하시겠습니까?",
+                        buttonTitle: "구독 취소하기"
+                    )
+                    
+                    cancelSubscribeSheet.didTapBottomButton
+                        .map { model.genre }
+                        .bind(to: input.didTapDeleteSubscribeButton)
+                        .disposed(by: self.disposeBag)
+                    
+                    self.presentBottomSheet(viewController: cancelSubscribeSheet)
                     return
                 }
-            }
-            .disposed(by: disposeBag)
-        
+            
+            cell.setData(genre: model.genre)
+            
+        }.disposed(by: disposeBag)
     }
 }

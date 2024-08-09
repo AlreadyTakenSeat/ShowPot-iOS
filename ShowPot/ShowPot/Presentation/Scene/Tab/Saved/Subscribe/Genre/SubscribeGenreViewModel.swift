@@ -8,11 +8,18 @@
 import RxSwift
 import RxRelay
 
+struct GenreState {
+    let genre: GenreType
+    let isSubscribed: Bool
+}
+
 final class SubscribeGenreViewModel: ViewModelType {
     
     var coordinator: Coordinator
     private var usecase: GenreUseCase
     private let disposeBag = DisposeBag()
+    
+    var isLoggedIn = true  // TODO: #6 API 구현 이후 수정
     
     init(coordinator: Coordinator, usecase: GenreUseCase) {
         self.coordinator = coordinator
@@ -20,25 +27,31 @@ final class SubscribeGenreViewModel: ViewModelType {
     }
     
     struct Input {
-        
+        let didTapBottomButton: PublishSubject<GenreActionType>
     }
     
     struct Output {
-        var genreList = BehaviorRelay<[GenreType]>(value: [])
+        var genreList = BehaviorRelay<[GenreState]>(value: [])
     }
     
     func transform(input: Input) -> Output {
         
-        let output = Output()
-        bindOutput(output)
+        input.didTapBottomButton.subscribe { action in
+            switch action {
+            case .addSubscribe:
+                LogHelper.debug("구독 추가")
+            case .deleteSubscribe:
+                LogHelper.debug("구독 취소")
+            }
+        }
+        .disposed(by: disposeBag)
         
-        return output
-    }
-    
-    private func bindOutput(_ output: Output) {
+        let output = Output()
+        
         self.usecase.genreList
-            .map { $0.map { GenreType(rawValue: $0) }.compactMap { $0 } }
             .bind(to: output.genreList)
             .disposed(by: disposeBag)
+        
+        return output
     }
 }

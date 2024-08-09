@@ -23,3 +23,19 @@ enum GenreType: String {
         return UIImage(named: "genre_subscribed_\(self.rawValue)")
     }
 }
+
+extension UICollectionViewCell {
+    
+    func genreImage(type: GenreType) -> UIImage? {
+        
+        if isSelected {
+            return type.selectedImage
+        }
+        
+        if isHighlighted {
+            return type.subscribedImage
+        }
+        
+        return type.normalImage
+    }
+}
