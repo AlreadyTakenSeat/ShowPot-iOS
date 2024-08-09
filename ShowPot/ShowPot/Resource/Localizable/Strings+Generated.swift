@@ -34,6 +34,25 @@ public enum Strings {
   public static let homeTicketingPerformanceButtonTitle = Strings.tr("Localizable", "home_ticketing_performance_buttonTitle", fallback: "전체공연 보러가기")
   /// 티켓팅이 얼마 남지 않은 공연
   public static let homeTicketingPerformanceTitle = Strings.tr("Localizable", "home_ticketing_performance_title", fallback: "티켓팅이 얼마 남지 않은 공연")
+  /// 변경하기
+  public static let myPerformanceAlarmBottomsheetButton1 = Strings.tr("Localizable", "my_performance_alarm_bottomsheet_button_1", fallback: "변경하기")
+  /// 해제하기
+  public static let myPerformanceAlarmBottomsheetButton2 = Strings.tr("Localizable", "my_performance_alarm_bottomsheet_button_2", fallback: "해제하기")
+  /// 알림
+  public static let myPerformanceAlarmBottomsheetTitle = Strings.tr("Localizable", "my_performance_alarm_bottomsheet_title", fallback: "알림")
+  /// 해당 시간 선택은 불가능해요
+  public static let myPerformanceDisenabledTitle = Strings.tr("Localizable", "my_performance_disenabled_title", fallback: "해당 시간 선택은 불가능해요")
+  /// 공연 정보 보러가기
+  public static let myPerformanceEmptyButtonTitle = Strings.tr("Localizable", "my_performance_empty_button_title", fallback: "공연 정보 보러가기")
+  /// 알림 설정한
+  /// 공연이 없어요
+  public static let myPerformanceEmptyTitle = Strings.tr("Localizable", "my_performance_empty_title", fallback: "알림 설정한\n공연이 없어요")
+  /// 알림 설정한 공연
+  public static let myPerformanceNavigationTitle = Strings.tr("Localizable", "my_performance_navigation_title", fallback: "알림 설정한 공연")
+  /// 티켓팅 알림을 언제 받으실건가요?
+  public static let myPerformanceTicketBottomsheetTitle = Strings.tr("Localizable", "my_performance_ticket_bottomsheet_title", fallback: "티켓팅 알림을 언제 받으실건가요?")
+  /// 알림 시간 변경하기
+  public static let myPerformanceTicketButtonTitle = Strings.tr("Localizable", "my_performance_ticket_button_title", fallback: "알림 시간 변경하기")
   /// 쇼팟 시작하기
   public static let onboardingButton = Strings.tr("Localizable", "onboarding_button", fallback: "쇼팟 시작하기")
   /// 중요한 티켓팅, 잊어버리지 않게

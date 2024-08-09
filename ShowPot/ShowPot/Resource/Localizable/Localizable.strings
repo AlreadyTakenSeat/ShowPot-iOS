@@ -66,3 +66,14 @@
 "subscribe_artist_navigation_title" = "아티스트 구독하기";
 "subscribe_artist_navigation_description" = "관심 있는 아티스트를 선택해주세요";
 "subscribe_artist_button" = "구독하기";
+
+// 내 알림공연설정 화면
+"my_performance_navigation_title" = "알림 설정한 공연";
+"my_performance_alarm_bottomsheet_title" = "알림";
+"my_performance_alarm_bottomsheet_button_1" = "변경하기";
+"my_performance_alarm_bottomsheet_button_2" = "해제하기";
+"my_performance_ticket_bottomsheet_title" = "티켓팅 알림을 언제 받으실건가요?";
+"my_performance_ticket_button_title" = "알림 시간 변경하기";
+"my_performance_empty_title" = "알림 설정한\n공연이 없어요";
+"my_performance_empty_button_title" = "공연 정보 보러가기";
+"my_performance_disenabled_title" = "해당 시간 선택은 불가능해요";
