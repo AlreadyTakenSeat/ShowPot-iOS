@@ -39,7 +39,7 @@ final class PerformanceAlarmCell: UICollectionViewCell, ReusableCell {
         $0.textColor = .gray200
     }
     
-    let alarmButton = AlarmButton()
+    let alarmButton = PerformanceAlarmButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

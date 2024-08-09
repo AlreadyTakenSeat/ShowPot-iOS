@@ -1,5 +1,5 @@
 //
-//  MyAlarmListViewController.swift
+//  MyPerformanceAlarmViewController.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -10,14 +10,14 @@ import UIKit
 import RxSwift
 import RxGesture
 
-final class MyAlarmListViewController: ViewController {
-    let viewHolder: MyAlarmListViewHolder = .init()
-    let viewModel: MyAlarmListViewModel
+final class MyPerformanceAlarmViewController: ViewController {
+    let viewHolder: MyPerformanceAlarmViewHolder = .init()
+    let viewModel: MyPerformanceAlarmViewModel
     
     private let didTappedAlarmRemoveButtonSubject = PublishSubject<IndexPath>()
     private let didTappedAlarmUpdateButtonSubject = PublishSubject<IndexPath>()
     
-    init(viewModel: MyAlarmListViewModel) {
+    init(viewModel: MyPerformanceAlarmViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -44,7 +44,7 @@ final class MyAlarmListViewController: ViewController {
     override func bind() {
         viewModel.dataSource = makeDataSource()
         
-        let input = MyAlarmListViewModel.Input(
+        let input = MyPerformanceAlarmViewModel.Input(
             initializePerformanceList: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedAlarmRemoveButton: didTappedAlarmRemoveButtonSubject.asObservable(), 
@@ -75,27 +75,27 @@ final class MyAlarmListViewController: ViewController {
     }
 }
 
-extension MyAlarmListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension MyPerformanceAlarmViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 32, height: 80)
     }
 }
 
-extension MyAlarmListViewController {
-    func makeDataSource() -> MyAlarmListViewModel.DataSource {
+extension MyPerformanceAlarmViewController {
+    func makeDataSource() -> MyPerformanceAlarmViewModel.DataSource {
         let cellRegistration = UICollectionView.CellRegistration<PerformanceAlarmCell, PerformanceInfoCollectionViewCellModel> { (cell, indexPath, model) in
             cell.configureUI(with: model)
             cell.delegate = self
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<MyAlarmListViewModel.MyPerformanceSection, PerformanceInfoCollectionViewCellModel>(collectionView: viewHolder.myPerformanceCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<MyPerformanceAlarmViewModel.MyPerformanceSection, PerformanceInfoCollectionViewCellModel>(collectionView: viewHolder.myPerformanceCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
         return dataSource
     }
 }
 
-extension MyAlarmListViewController: PerformanceAlarmCellDelegate {
+extension MyPerformanceAlarmViewController: PerformanceAlarmCellDelegate {
     func didTappedAlarmButton(_ cell: UICollectionViewCell) {
         let indexPath = viewHolder.myPerformanceCollectionView.indexPath(for: cell)
         let settingBottomSheet = AlarmSettingBottomSheetViewController()

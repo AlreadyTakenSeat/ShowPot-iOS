@@ -1,5 +1,5 @@
 //
-//  AlarmButton.swift
+//  PerformanceAlarmButtonView.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class AlarmButton: UIView {
+final class PerformanceAlarmButtonView: UIView {
     
     private let containerView = UIStackView().then {
         $0.axis = .horizontal

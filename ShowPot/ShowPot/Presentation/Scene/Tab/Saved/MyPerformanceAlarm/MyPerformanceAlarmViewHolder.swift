@@ -1,5 +1,5 @@
 //
-//  MyAlarmListViewHolder.swift
+//  MyPerformanceAlarmViewHolder.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MyAlarmListViewHolder {
+final class MyPerformanceAlarmViewHolder {
     
     private let myPerformanceCollectionViewLayout = UICollectionViewFlowLayout().then {
         $0.sectionInset = .init(top: 12, left: 16, bottom: .zero, right: 16)
@@ -24,7 +24,7 @@ final class MyAlarmListViewHolder {
     lazy var emptyView = MyPerformanceEmptyView()
 }
 
-extension MyAlarmListViewHolder: ViewHolderType {
+extension MyPerformanceAlarmViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
         [myPerformanceCollectionView, emptyView].forEach { view.addSubview($0) }

@@ -1,5 +1,5 @@
 //
-//  MyAlarmListViewModel.swift
+//  MyPerformanceAlarmViewModel.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -10,17 +10,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class MyAlarmListViewModel: ViewModelType {
+final class MyPerformanceAlarmViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
     private let myPerformanceRelay = BehaviorRelay<[PerformanceInfoCollectionViewCellModel]>(value: [])
     private let showTicketingAlarmBottomSheetRelay = PublishRelay<PerformanceInfoCollectionViewCellModel>()
     
-    var coordinator: MyAlarmListCoordinator
+    var coordinator: MyPerformanceAlarmCoordinator
     var dataSource: DataSource?
     
-    init(coordinator: MyAlarmListCoordinator) {
+    init(coordinator: MyPerformanceAlarmCoordinator) {
         self.coordinator = coordinator
     }
     
@@ -96,7 +96,7 @@ final class MyAlarmListViewModel: ViewModelType {
 
 // MARK: - For NSDiffableDataSource
 
-extension MyAlarmListViewModel {
+extension MyPerformanceAlarmViewModel {
     
     typealias Item = PerformanceInfoCollectionViewCellModel
     typealias DataSource = UICollectionViewDiffableDataSource<MyPerformanceSection, Item>

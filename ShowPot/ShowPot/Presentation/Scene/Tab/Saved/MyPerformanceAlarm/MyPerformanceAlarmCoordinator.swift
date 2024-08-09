@@ -1,5 +1,5 @@
 //
-//  MyAlarmListCoordinator.swift
+//  MyPerformanceAlarmCoordinator.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyAlarmListCoordinator: NavigationCoordinator {
+final class MyPerformanceAlarmCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class MyAlarmListCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: MyAlarmListViewController = MyAlarmListViewController(viewModel: MyAlarmListViewModel(coordinator: self))
+        let viewController: MyPerformanceAlarmViewController = MyPerformanceAlarmViewController(viewModel: MyPerformanceAlarmViewModel(coordinator: self))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
