@@ -20,6 +20,7 @@ final class SubscribeGenreViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     
     var isLoggedIn = true  // TODO: #6 API 구현 이후 수정
+    private var selectedGenre = Set<GenreType>()
     
     init(coordinator: Coordinator, usecase: GenreUseCase) {
         self.coordinator = coordinator
@@ -29,11 +30,13 @@ final class SubscribeGenreViewModel: ViewModelType {
     }
     
     struct Input {
-        let didTapAddSubscribeButton: PublishSubject<[GenreType]>
-        let didTapDeleteSubscribeButton: PublishSubject<GenreType>
+        let didSelectGenreCell: PublishRelay<GenreState>
+        let didTapAddSubscribeButton: Observable<Void>
+        let didTapDeleteSubscribeButton: PublishRelay<GenreType>
     }
     
     struct Output {
+        var bottomButtonHidden = BehaviorRelay<Bool>(value: false)
         var genreList = BehaviorRelay<[GenreState]>(value: [])
         var addSubscriptionResult = PublishSubject<Bool>()
         var deleteSubscriptionResult = PublishSubject<Bool>()
@@ -41,9 +44,18 @@ final class SubscribeGenreViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
+        input.didSelectGenreCell
+            .subscribe(with: self) { owner, model in
+                if model.isSubscribed {
+                    owner.selectedGenre.insert(model.genre)
+                } else {
+                    owner.selectedGenre.remove(model.genre)
+                }
+            }.disposed(by: disposeBag)
+        
         input.didTapAddSubscribeButton
-            .subscribe(with: self) { owner, list in
-                self.usecase.addSubscribtion(list: list)
+            .subscribe(with: self) { owner, _ in
+                self.usecase.addSubscribtion(list: Array(owner.selectedGenre))
             }.disposed(by: disposeBag)
         
         input.didTapDeleteSubscribeButton
@@ -73,6 +85,7 @@ extension SubscribeGenreViewModel {
     private func bind() {
         Observable.merge(usecase.addSubscribtionresult, usecase.deleteSubscribtionresult)
             .subscribe(with: self) { owner, _ in
+                owner.selectedGenre = Set<GenreType>()
                 owner.usecase.requestGenreList()
             }.disposed(by: disposeBag)
     }

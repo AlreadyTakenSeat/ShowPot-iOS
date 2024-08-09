@@ -26,12 +26,12 @@ final class GenreSubscribeUseCase: GenreUseCase {
     }
     
     func addSubscribtion(list: [GenreType]) {
-        // TODO: #6 장르 구독 추가 요청
+        LogHelper.debug("구독 추가 \(list.map { $0.rawValue })")    // TODO: #6 장르 구독 추가 요청
         addSubscribtionresult.onNext([true, false].shuffled()[0])
     }
     
     func deleteSubscribtion(genre: GenreType) {
-        // TODO: #6 장르 구독 삭제 요청
+        LogHelper.debug("구독 삭제 \(genre.rawValue)")  // TODO: #6 장르 구독 삭제 요청
         deleteSubscribtionresult.onNext([true, false].shuffled()[0])
     }
     

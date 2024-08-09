@@ -32,6 +32,11 @@ class GenreCollectionViewCell: UICollectionViewCell, ReusableCell {
         }
     }
     
+    override func prepareForReuse() {
+        genreImageView.image = nil
+        isSelected = false
+        isHighlighted = false
+    }
 }
 
 extension GenreCollectionViewCell {

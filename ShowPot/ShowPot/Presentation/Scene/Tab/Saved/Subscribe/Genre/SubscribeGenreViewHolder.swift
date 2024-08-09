@@ -34,13 +34,16 @@ final class SubscribeGenreViewHolder {
         startPoint: .init(x: 0.5, y: 0.0),
         endPoint: .init(x: 0.5, y: 1.0)
     )
-
+    
+    lazy var bottomButton = SPButton(.accentBottomEnabled).then { button in
+        button.setText(Strings.subscribeGenreAddButtonTitle)
+    }
 }
 
 extension SubscribeGenreViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
-        [descriptionLabel, genreCollectionView, gradientView].forEach { view.addSubview($0) }
+        [descriptionLabel, genreCollectionView, gradientView, bottomButton].forEach { view.addSubview($0) }
     }
     
     func configureConstraints(for view: UIView) {
@@ -57,9 +60,15 @@ extension SubscribeGenreViewHolder: ViewHolderType {
         }
         
         gradientView.snp.makeConstraints { make in
-            make.height.equalTo(56)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(80)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        bottomButton.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
         }
     }
     

@@ -69,5 +69,10 @@ class SPDefaultBottomSheetViewController: BottomSheetViewController {
         bottomButton.rx.tap
             .bind(to: didTapBottomButton)
             .disposed(by: disposeBag)
+        
+        bottomButton.rx.tap
+            .subscribe(with: self) { owner, _ in
+                owner.dismissBottomSheet()
+            }.disposed(by: disposeBag)
     }
 }

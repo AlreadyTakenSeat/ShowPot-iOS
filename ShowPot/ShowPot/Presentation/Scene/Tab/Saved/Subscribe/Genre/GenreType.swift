@@ -9,7 +9,7 @@ import UIKit
 
 enum GenreType: String {
     
-    case rock, band, edm, classic, hiphop, house, opera, pop, rnb, musical, metal, jazz
+    case rock, band, edm, classic, hiphop, house, opera, pop, rnb, musical, metal, jpop, jazz
     
     var normalImage: UIImage? {
         return UIImage(named: "genre_\(self.rawValue)")

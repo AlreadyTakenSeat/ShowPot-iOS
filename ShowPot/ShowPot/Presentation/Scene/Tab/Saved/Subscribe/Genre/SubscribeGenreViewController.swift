@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class SubscribeGenreViewController: ViewController {
     let viewHolder: SubscribeGenreViewHolder = .init()
@@ -39,8 +40,9 @@ class SubscribeGenreViewController: ViewController {
     
     override func bind() {
         let input = SubscribeGenreViewModel.Input(
-            didTapAddSubscribeButton: PublishSubject<[GenreType]>(),
-            didTapDeleteSubscribeButton: PublishSubject<GenreType>()
+            didSelectGenreCell: PublishRelay<GenreState>(),
+            didTapAddSubscribeButton: viewHolder.bottomButton.rx.tap.asObservable(),
+            didTapDeleteSubscribeButton: PublishRelay<GenreType>()
         )
         
         bindCollectionViewAction(input: input)
@@ -112,8 +114,12 @@ extension SubscribeGenreViewController {
                     return
                 }
             
-            cell.setData(genre: model.genre)
-            
+                cell.setData(genre: model.genre)
+                
+                Observable.just(GenreState(genre: model.genre, isSubscribed: cell.isSelected))
+                    .bind(to: input.didSelectGenreCell)
+                    .disposed(by: self.disposeBag)
+                
         }.disposed(by: disposeBag)
     }
 }
