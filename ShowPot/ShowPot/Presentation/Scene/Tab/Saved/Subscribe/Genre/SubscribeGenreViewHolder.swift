@@ -68,7 +68,7 @@ extension SubscribeGenreViewHolder: ViewHolderType {
         bottomButton.snp.makeConstraints { make in
             make.height.equalTo(55)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+            make.top.equalTo(view.snp.bottom)
         }
     }
     
@@ -133,6 +133,24 @@ extension SubscribeGenreViewHolder {
             )
             
             return section
+        }
+    }
+}
+
+extension SubscribeGenreViewHolder {
+    func showBottomButton(in view: UIView, isVisible: Bool) {
+        if isVisible {
+            bottomButton.snp.remakeConstraints { make in
+                make.height.equalTo(55)
+                make.horizontalEdges.equalToSuperview().inset(16)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            }
+        } else {
+            bottomButton.snp.remakeConstraints { make in
+                make.height.equalTo(55)
+                make.horizontalEdges.equalToSuperview().inset(16)
+                make.top.equalTo(view.snp.bottom)
+            }
         }
     }
 }

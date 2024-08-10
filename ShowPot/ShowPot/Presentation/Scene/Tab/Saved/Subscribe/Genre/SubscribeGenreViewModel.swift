@@ -39,7 +39,7 @@ final class SubscribeGenreViewModel: ViewModelType {
         /// 장르 리스트 정보
         var genreList = BehaviorRelay<[GenreState]>(value: [])
         /// 구독 요청 활성화 여부 (하단 버튼 표출 여부)
-        var subscribeAvailable = BehaviorRelay<Bool>(value: false)
+        var subscribeAvailable = PublishRelay<Bool>()
         /// 구독 추가 요청 결과
         var addSubscriptionResult = PublishSubject<Bool>()
         /// 구독 취소 요청 결과
@@ -66,11 +66,21 @@ final class SubscribeGenreViewModel: ViewModelType {
         input.didTapAddSubscribeButton
             .subscribe(with: self) { owner, _ in
                 self.usecase.addSubscribtion(list: Array(owner.selectedGenre))
+                
+                Observable.just(false)
+                    .bind(to: output.subscribeAvailable)
+                    .disposed(by: owner.disposeBag)
+                
             }.disposed(by: disposeBag)
         
         input.didTapDeleteSubscribeButton
             .subscribe(with: self) { owner, type in
                 self.usecase.deleteSubscribtion(genre: type)
+                
+                Observable.just(false)
+                    .bind(to: output.subscribeAvailable)
+                    .disposed(by: owner.disposeBag)
+
             }.disposed(by: disposeBag)
         
         usecase.genreList

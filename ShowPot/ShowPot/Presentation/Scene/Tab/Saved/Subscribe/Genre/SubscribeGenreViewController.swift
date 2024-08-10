@@ -82,8 +82,12 @@ class SubscribeGenreViewController: ViewController {
             }.disposed(by: disposeBag)
         
         output.subscribeAvailable
+            .subscribe(on: MainScheduler.asyncInstance)
             .subscribe(with: self) { owner, isAvailable in
-                owner.viewHolder.bottomButton.isHidden = !isAvailable
+                owner.viewHolder.showBottomButton(in: owner.contentView, isVisible: isAvailable)
+                UIView.animate(withDuration: 0.1) {
+                    self.view.layoutIfNeeded()
+                }
             }.disposed(by: disposeBag)
     }
 }
