@@ -55,6 +55,8 @@
 "subscribe_genre_title" = "장르 구독하기";
 "subscribe_genre_description" = "관심 장르의 내한공연 알림을 보내드려요";
 "subscribe_genre_add_button_title" = "구독하기";
+"subscribe_genre_delete_button_title" = "구독 취소하기";
+"subscribe_genre_delete_description" = "구독을 취소하시겠습니까?";
 
 // 전체 공연 화면
 "all_performance_title" = "전체공연";

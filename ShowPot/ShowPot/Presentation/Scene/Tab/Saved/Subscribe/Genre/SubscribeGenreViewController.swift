@@ -61,24 +61,13 @@ class SubscribeGenreViewController: ViewController {
         
         output.addSubscriptionResult
             .subscribe(with: self) { owner, isSuccess in
-                let style = SnackBarStyle(
-                    icon: .icCheck.withTintColor(.gray200),
-                    message: Strings.snackbarDescriptionSubscribe, 
-                    actionTitle: ""
-                )
-                SnackBar(contextView: owner.view, style: style, duration: .short)
-                    .show()
+                owner.showAddSubscribtionSnackbar(isSuccess: isSuccess)
             }.disposed(by: disposeBag)
         
         output.deleteSubscriptionResult
             .subscribe(with: self) { owner, isSuccess in
-                let style = SnackBarStyle(
-                    icon: .icCheck.withTintColor(.gray200),
-                    message: Strings.snackbarDescriptionSubscribeDelete,
-                    actionTitle: ""
+                owner.showDeleteSubscribtionSnackbar(isSuccess: isSuccess
                 )
-                SnackBar(contextView: owner.view, style: style, duration: .short)
-                    .show()
             }.disposed(by: disposeBag)
         
         output.subscribeAvailable
@@ -92,6 +81,7 @@ class SubscribeGenreViewController: ViewController {
     }
 }
 
+// MARK: Genre UICollectionView Action
 extension SubscribeGenreViewController {
     
     private func bindCollectionViewAction(input: SubscribeGenreViewModel.Input) {
@@ -121,17 +111,7 @@ extension SubscribeGenreViewController {
                 }
                 
                 if model.isSubscribed {
-                    let cancelSubscribeSheet = SPDefaultBottomSheetViewController(
-                        message: "\(model.genre.rawValue) 구독 취소 하시겠습니까?",
-                        buttonTitle: "구독 취소하기"
-                    )
-                    
-                    cancelSubscribeSheet.didTapBottomButton
-                        .map { model.genre }
-                        .bind(to: input.didTapDeleteSubscribeButton)
-                        .disposed(by: self.disposeBag)
-                    
-                    self.presentBottomSheet(viewController: cancelSubscribeSheet)
+                    self.presentDeleteSubscribeBottomSheet(with: model, input: input)
                     return
                 }
             
@@ -142,5 +122,52 @@ extension SubscribeGenreViewController {
                     .disposed(by: self.disposeBag)
                 
         }.disposed(by: disposeBag)
+    }
+}
+
+// MARK: Snackbar & bottom sheet Actions
+extension SubscribeGenreViewController {
+    
+    private func presentDeleteSubscribeBottomSheet(
+        with model: GenreState,
+        input: SubscribeGenreViewModel.Input
+    ) {
+        let genreName = NSMutableAttributedString(model.genre.title, fontType: ENFont.H1)
+        let message = NSMutableAttributedString("\n\(Strings.subscribeGenreDeleteDescription)", fontType: KRFont.H1)
+        
+        let fullMessage = NSMutableAttributedString()
+        fullMessage.append(genreName)
+        fullMessage.append(message)
+        
+        let cancelSubscribeSheet = SPDefaultBottomSheetViewController(
+            message: fullMessage, buttonTitle: Strings.subscribeGenreDeleteButtonTitle
+        )
+        
+        cancelSubscribeSheet.didTapBottomButton
+            .map { model.genre }
+            .bind(to: input.didTapDeleteSubscribeButton)
+            .disposed(by: self.disposeBag)
+        
+        self.presentBottomSheet(viewController: cancelSubscribeSheet)
+    }
+    
+    private func showAddSubscribtionSnackbar(isSuccess: Bool) {
+        let style = SnackBarStyle(
+            icon: .icCheck.withTintColor(.gray200),
+            message: Strings.snackbarDescriptionSubscribe,
+            actionTitle: ""
+        )
+        SnackBar(contextView: self.view, style: style, duration: .short)
+            .show()
+    }
+    
+    private func showDeleteSubscribtionSnackbar(isSuccess: Bool) {
+        let style = SnackBarStyle(
+            icon: .icCheck.withTintColor(.gray200),
+            message: Strings.snackbarDescriptionSubscribeDelete,
+            actionTitle: ""
+        )
+        SnackBar(contextView: self.view, style: style, duration: .short)
+            .show()
     }
 }

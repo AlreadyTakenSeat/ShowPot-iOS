@@ -11,6 +11,17 @@ enum GenreType: String {
     
     case rock, band, edm, classic, hiphop, house, opera, pop, rnb, musical, metal, jpop, jazz
     
+    var title: String {
+        switch self {
+        case .rnb:
+            return "R&B"
+        case .jpop:
+            return "J-POP"
+        default:
+            return self.rawValue.uppercased()
+        }
+    }
+    
     var normalImage: UIImage? {
         return UIImage(named: "genre_\(self.rawValue)")
     }

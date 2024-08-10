@@ -40,6 +40,14 @@ class SPDefaultBottomSheetViewController: BottomSheetViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    init(message: NSMutableAttributedString, buttonTitle: String) {
+        self.message = ""
+        self.buttonTitle = buttonTitle
+        super.init(nibName: nil, bundle: nil)
+        
+        self.messageLabel.attributedText = message
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

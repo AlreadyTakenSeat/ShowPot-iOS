@@ -80,6 +80,10 @@ public enum Strings {
   public static let subscribeArtistNavigationTitle = Strings.tr("Localizable", "subscribe_artist_navigation_title", fallback: "아티스트 구독하기")
   /// 구독하기
   public static let subscribeGenreAddButtonTitle = Strings.tr("Localizable", "subscribe_genre_add_button_title", fallback: "구독하기")
+  /// 구독 취소하기
+  public static let subscribeGenreDeleteButtonTitle = Strings.tr("Localizable", "subscribe_genre_delete_button_title", fallback: "구독 취소하기")
+  /// 구독을 취소하시겠습니까?
+  public static let subscribeGenreDeleteDescription = Strings.tr("Localizable", "subscribe_genre_delete_description", fallback: "구독을 취소하시겠습니까?")
   /// 관심 장르의 내한공연 알림을 보내드려요
   public static let subscribeGenreDescription = Strings.tr("Localizable", "subscribe_genre_description", fallback: "관심 장르의 내한공연 알림을 보내드려요")
   /// 장르 구독하기
