@@ -12,6 +12,7 @@
 
 // 스낵바
 "snackbar_description_subscribe" = "구독 설정이 완료되었습니다";
+"snackbar_description_subscribe_delete" = "구독이 취소되었습니다";
 "snackbar_description_alarm" = "알림 설정이 완료되었습니다";
 "snackbar_action_title" = "보러가기";
 

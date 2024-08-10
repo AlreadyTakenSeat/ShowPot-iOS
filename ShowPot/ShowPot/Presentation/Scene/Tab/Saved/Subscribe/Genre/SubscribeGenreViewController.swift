@@ -60,13 +60,25 @@ class SubscribeGenreViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.addSubscriptionResult
-            .subscribe { isSuccess in
-                LogHelper.debug("구독 추가 결과: \(isSuccess)")
+            .subscribe(with: self) { owner, isSuccess in
+                let style = SnackBarStyle(
+                    icon: .icCheck.withTintColor(.gray200),
+                    message: Strings.snackbarDescriptionSubscribe, 
+                    actionTitle: ""
+                )
+                SnackBar(contextView: owner.view, style: style, duration: .short)
+                    .show()
             }.disposed(by: disposeBag)
         
         output.deleteSubscriptionResult
-            .subscribe { isSuccess in
-                LogHelper.debug("구독 삭제 결과: \(isSuccess)")
+            .subscribe(with: self) { owner, isSuccess in
+                let style = SnackBarStyle(
+                    icon: .icCheck.withTintColor(.gray200),
+                    message: Strings.snackbarDescriptionSubscribeDelete,
+                    actionTitle: ""
+                )
+                SnackBar(contextView: owner.view, style: style, duration: .short)
+                    .show()
             }.disposed(by: disposeBag)
     }
 }
