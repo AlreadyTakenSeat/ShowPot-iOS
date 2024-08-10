@@ -18,7 +18,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
     
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
-        $0.setText(Strings.myPerformanceTicketBottomsheetTitle)
+        $0.setText(Strings.myShowTicketBottomsheetTitle)
     }
     
     private let ticketingAlarmCollectionViewLayout = UICollectionViewFlowLayout().then {
@@ -34,7 +34,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
     }
     
     private let alarmSettingButton = SPButton(fontType: KRFont.H2).then {
-        $0.configurationUpdateHandler = $0.configuration?.enabledToggleButton(label: Strings.myPerformanceTicketButtonTitle)
+        $0.configurationUpdateHandler = $0.configuration?.enabledToggleButton(label: Strings.myShowTicketButtonTitle)
     }
     
     init(viewModel: TicketingAlarmBottomSheetViewModel) {

@@ -1,5 +1,5 @@
 //
-//  PerformanceAlarmCell.swift
+//  ShowAlarmCell.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -13,16 +13,16 @@ import RxGesture
 import SnapKit
 import Then
 
-protocol PerformanceAlarmCellDelegate: AnyObject {
+protocol ShowAlarmCellDelegate: AnyObject {
     func didTappedAlarmButton(_ cell: UICollectionViewCell)
 }
 
 /// 공연알림정보에 대한 셀
-final class PerformanceAlarmCell: PerformanceInfoCollectionViewCell {
+final class ShowAlarmCell: PerformanceInfoCollectionViewCell {
     private var disposeBag = DisposeBag()
-    weak var delegate: PerformanceAlarmCellDelegate?
+    weak var delegate: ShowAlarmCellDelegate?
     
-    let alarmButton = PerformanceAlarmButtonView()
+    let alarmButton = ShowAlarmButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

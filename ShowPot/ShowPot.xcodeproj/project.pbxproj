@@ -76,17 +76,17 @@
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
-		70F3C0DB2C663A8900786738 /* MyPerformanceAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DA2C663A8900786738 /* MyPerformanceAlarmViewController.swift */; };
-		70F3C0DD2C663A9C00786738 /* MyPerformanceAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DC2C663A9C00786738 /* MyPerformanceAlarmViewModel.swift */; };
-		70F3C0DF2C663AA900786738 /* MyPerformanceAlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DE2C663AA900786738 /* MyPerformanceAlarmCoordinator.swift */; };
-		70F3C0E12C663AB700786738 /* MyPerformanceAlarmViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E02C663AB700786738 /* MyPerformanceAlarmViewHolder.swift */; };
-		70F3C0E42C663ACC00786738 /* PerformanceAlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E32C663ACC00786738 /* PerformanceAlarmCell.swift */; };
-		70F3C0E62C663ADC00786738 /* PerformanceAlarmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E52C663ADC00786738 /* PerformanceAlarmButtonView.swift */; };
+		70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */; };
+		70F3C0DD2C663A9C00786738 /* MyShowAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */; };
+		70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */; };
+		70F3C0E12C663AB700786738 /* MyShowAlarmViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E02C663AB700786738 /* MyShowAlarmViewHolder.swift */; };
+		70F3C0E42C663ACC00786738 /* ShowAlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E32C663ACC00786738 /* ShowAlarmCell.swift */; };
+		70F3C0E62C663ADC00786738 /* ShowAlarmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E52C663ADC00786738 /* ShowAlarmButtonView.swift */; };
 		70F3C0E82C663AE900786738 /* AlarmSettingBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */; };
 		70F3C0EA2C663AF600786738 /* TicketingAlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0E92C663AF600786738 /* TicketingAlarmCell.swift */; };
 		70F3C0EC2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */; };
 		70F3C0EE2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0ED2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift */; };
-		70F3C0F02C663B2200786738 /* MyPerformanceEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0EF2C663B2200786738 /* MyPerformanceEmptyView.swift */; };
+		70F3C0F02C663B2200786738 /* MyShowEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0EF2C663B2200786738 /* MyShowEmptyView.swift */; };
 		70F3C0F22C663B3C00786738 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
@@ -224,17 +224,17 @@
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
-		70F3C0DA2C663A8900786738 /* MyPerformanceAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPerformanceAlarmViewController.swift; sourceTree = "<group>"; };
-		70F3C0DC2C663A9C00786738 /* MyPerformanceAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPerformanceAlarmViewModel.swift; sourceTree = "<group>"; };
-		70F3C0DE2C663AA900786738 /* MyPerformanceAlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPerformanceAlarmCoordinator.swift; sourceTree = "<group>"; };
-		70F3C0E02C663AB700786738 /* MyPerformanceAlarmViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPerformanceAlarmViewHolder.swift; sourceTree = "<group>"; };
-		70F3C0E32C663ACC00786738 /* PerformanceAlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceAlarmCell.swift; sourceTree = "<group>"; };
-		70F3C0E52C663ADC00786738 /* PerformanceAlarmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceAlarmButtonView.swift; sourceTree = "<group>"; };
+		70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewController.swift; sourceTree = "<group>"; };
+		70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewModel.swift; sourceTree = "<group>"; };
+		70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmCoordinator.swift; sourceTree = "<group>"; };
+		70F3C0E02C663AB700786738 /* MyShowAlarmViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewHolder.swift; sourceTree = "<group>"; };
+		70F3C0E32C663ACC00786738 /* ShowAlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmCell.swift; sourceTree = "<group>"; };
+		70F3C0E52C663ADC00786738 /* ShowAlarmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmButtonView.swift; sourceTree = "<group>"; };
 		70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingBottomSheetViewController.swift; sourceTree = "<group>"; };
 		70F3C0E92C663AF600786738 /* TicketingAlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketingAlarmCell.swift; sourceTree = "<group>"; };
 		70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketingAlarmBottomSheetViewController.swift; sourceTree = "<group>"; };
 		70F3C0ED2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketingAlarmBottomSheetViewModel.swift; sourceTree = "<group>"; };
-		70F3C0EF2C663B2200786738 /* MyPerformanceEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPerformanceEmptyView.swift; sourceTree = "<group>"; };
+		70F3C0EF2C663B2200786738 /* MyShowEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowEmptyView.swift; sourceTree = "<group>"; };
 		70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
@@ -509,28 +509,28 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		70F3C0D92C663A7700786738 /* MyPerformanceAlarm */ = {
+		70F3C0D92C663A7700786738 /* MyShowAlarm */ = {
 			isa = PBXGroup;
 			children = (
 				70F3C0E22C663AC300786738 /* CustomView */,
-				70F3C0DA2C663A8900786738 /* MyPerformanceAlarmViewController.swift */,
-				70F3C0DC2C663A9C00786738 /* MyPerformanceAlarmViewModel.swift */,
-				70F3C0DE2C663AA900786738 /* MyPerformanceAlarmCoordinator.swift */,
-				70F3C0E02C663AB700786738 /* MyPerformanceAlarmViewHolder.swift */,
+				70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */,
+				70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */,
+				70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */,
+				70F3C0E02C663AB700786738 /* MyShowAlarmViewHolder.swift */,
 			);
-			path = MyPerformanceAlarm;
+			path = MyShowAlarm;
 			sourceTree = "<group>";
 		};
 		70F3C0E22C663AC300786738 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				70F3C0E32C663ACC00786738 /* PerformanceAlarmCell.swift */,
-				70F3C0E52C663ADC00786738 /* PerformanceAlarmButtonView.swift */,
+				70F3C0E32C663ACC00786738 /* ShowAlarmCell.swift */,
+				70F3C0E52C663ADC00786738 /* ShowAlarmButtonView.swift */,
 				70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */,
 				70F3C0E92C663AF600786738 /* TicketingAlarmCell.swift */,
 				70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */,
 				70F3C0ED2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift */,
-				70F3C0EF2C663B2200786738 /* MyPerformanceEmptyView.swift */,
+				70F3C0EF2C663B2200786738 /* MyShowEmptyView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -723,7 +723,7 @@
 		7D2981222C01EC3B00A619FB /* Saved */ = {
 			isa = PBXGroup;
 			children = (
-				70F3C0D92C663A7700786738 /* MyPerformanceAlarm */,
+				70F3C0D92C663A7700786738 /* MyShowAlarm */,
 				7D29812E2C01F23400A619FB /* SavedViewController.swift */,
 				7D2981302C01F23C00A619FB /* SavedViewModel.swift */,
 				7DD2CB822C2ED5510052ECCD /* SavedCoordinator.swift */,
@@ -1073,7 +1073,7 @@
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
 				7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */,
 				7D45CB612C5956C70018FCB8 /* SPButton.swift in Sources */,
-				70F3C0E12C663AB700786738 /* MyPerformanceAlarmViewHolder.swift in Sources */,
+				70F3C0E12C663AB700786738 /* MyShowAlarmViewHolder.swift in Sources */,
 				707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */,
 				7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
@@ -1087,9 +1087,9 @@
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
 				707FF75F2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift in Sources */,
 				70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */,
-				70F3C0DF2C663AA900786738 /* MyPerformanceAlarmCoordinator.swift in Sources */,
+				70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */,
 				7D1E5FBA2C0A28080012504D /* MainTabCoordinator.swift in Sources */,
-				70F3C0F02C663B2200786738 /* MyPerformanceEmptyView.swift in Sources */,
+				70F3C0F02C663B2200786738 /* MyShowEmptyView.swift in Sources */,
 				707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */,
 				7DD2CB872C2ED63E0052ECCD /* SettingsCoordinator.swift in Sources */,
 				7DD2CB812C2ED4430052ECCD /* FeaturedViewHolder.swift in Sources */,
@@ -1101,7 +1101,7 @@
 				7DEACE4C2C1ECC5200F37DA3 /* CustomFont.swift in Sources */,
 				7014677C2C5363CE00750A54 /* FeaturedPerformanceWithTicketOnSaleSoonCell.swift in Sources */,
 				7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */,
-				70F3C0E42C663ACC00786738 /* PerformanceAlarmCell.swift in Sources */,
+				70F3C0E42C663ACC00786738 /* ShowAlarmCell.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
@@ -1110,7 +1110,7 @@
 				7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */,
 				701467822C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift in Sources */,
 				7DB9F9332C63B9450097C4F9 /* GenreUseCase.swift in Sources */,
-				70F3C0DD2C663A9C00786738 /* MyPerformanceAlarmViewModel.swift in Sources */,
+				70F3C0DD2C663A9C00786738 /* MyShowAlarmViewModel.swift in Sources */,
 				70F3C0E82C663AE900786738 /* AlarmSettingBottomSheetViewController.swift in Sources */,
 				7D89E5482C36652300E6001E /* OnboardingViewController.swift in Sources */,
 				7DE569F82C561CE7006724EF /* UIButton+Trigger.swift in Sources */,
@@ -1147,12 +1147,12 @@
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
-				70F3C0E62C663ADC00786738 /* PerformanceAlarmButtonView.swift in Sources */,
+				70F3C0E62C663ADC00786738 /* ShowAlarmButtonView.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,
 				7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */,
 				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
 				707FF7542C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift in Sources */,
-				70F3C0DB2C663A8900786738 /* MyPerformanceAlarmViewController.swift in Sources */,
+				70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */,
 				707FF7462C5CC1C20026C82D /* AllPerformanceViewHolder.swift in Sources */,
 				7DB9F9352C63B9910097C4F9 /* GenreSubscribeUseCase.swift in Sources */,
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,

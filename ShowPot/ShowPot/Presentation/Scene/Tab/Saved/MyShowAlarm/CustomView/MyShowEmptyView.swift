@@ -1,5 +1,5 @@
 //
-//  MyPerformanceEmptyView.swift
+//  MyShowEmptyView.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -10,24 +10,24 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyPerformanceEmptyView: UIView {
+final class MyShowEmptyView: UIView {
     
     private let emptyImageView = UIImageView().then {
-        $0.image = .myPerformanceEmpty
+        $0.image = .myShowEmpty
         $0.contentMode = .scaleAspectFit
     }
     
     private let emptyLabel = SPLabel(KRFont.H0, alignment: .center).then {
         $0.textColor = .gray400
         $0.numberOfLines = .max
-        $0.setText(Strings.myPerformanceEmptyTitle)
+        $0.setText(Strings.myShowEmptyTitle)
     }
     
     let footerButton = SPButton(fontType: KRFont.H2).then {
         $0.configuration?.baseForegroundColor = .gray000
         $0.configuration?.baseBackgroundColor = .gray500
         $0.configuration?.background.cornerRadius = 2
-        $0.setText(Strings.myPerformanceEmptyButtonTitle)
+        $0.setText(Strings.myShowEmptyButtonTitle)
     }
     
     override init(frame: CGRect) {

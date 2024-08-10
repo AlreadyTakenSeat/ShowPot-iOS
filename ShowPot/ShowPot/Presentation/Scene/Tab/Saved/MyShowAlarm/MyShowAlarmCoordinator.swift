@@ -1,5 +1,5 @@
 //
-//  MyPerformanceAlarmCoordinator.swift
+//  MyShowAlarmCoordinator.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyPerformanceAlarmCoordinator: NavigationCoordinator {
+final class MyShowAlarmCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class MyPerformanceAlarmCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: MyPerformanceAlarmViewController = MyPerformanceAlarmViewController(viewModel: MyPerformanceAlarmViewModel(coordinator: self))
+        let viewController: MyShowAlarmViewController = MyShowAlarmViewController(viewModel: MyShowAlarmViewModel(coordinator: self))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
@@ -28,7 +28,7 @@ final class MyPerformanceAlarmCoordinator: NavigationCoordinator {
         self.navigationController.popViewController(animated: true)
     }
     
-    func goToPerformanceInfoScreen() {
+    func goToShowInfoScreen() {
         LogHelper.debug("공연정보화면으로 이동")
     }
 }

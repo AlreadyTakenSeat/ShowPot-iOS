@@ -1,5 +1,5 @@
 //
-//  MyPerformanceAlarmViewController.swift
+//  MyShowAlarmViewController.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -10,14 +10,14 @@ import UIKit
 import RxSwift
 import RxGesture
 
-final class MyPerformanceAlarmViewController: ViewController {
-    let viewHolder: MyPerformanceAlarmViewHolder = .init()
-    let viewModel: MyPerformanceAlarmViewModel
+final class MyShowAlarmViewController: ViewController {
+    let viewHolder: MyShowAlarmViewHolder = .init()
+    let viewModel: MyShowAlarmViewModel
     
     private let didTappedAlarmRemoveButtonSubject = PublishSubject<IndexPath>()
     private let didTappedAlarmUpdateButtonSubject = PublishSubject<IndexPath>()
     
-    init(viewModel: MyPerformanceAlarmViewModel) {
+    init(viewModel: MyShowAlarmViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -35,21 +35,21 @@ final class MyPerformanceAlarmViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         setNavigationBarItem(
-            title: Strings.myPerformanceNavigationTitle,
+            title: Strings.myShowNavigationTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
-        viewHolder.myPerformanceCollectionView.delegate = self
+        viewHolder.myShowCollectionView.delegate = self
     }
     
     override func bind() {
         viewModel.dataSource = makeDataSource()
         
-        let input = MyPerformanceAlarmViewModel.Input(
-            initializePerformanceList: .just(()),
+        let input = MyShowAlarmViewModel.Input(
+            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedAlarmRemoveButton: didTappedAlarmRemoveButtonSubject.asObservable(), 
             didTappedAlarmUpdateButton: didTappedAlarmUpdateButtonSubject.asObservable(),
-            didTappedPerformanceInfoButton: viewHolder.emptyView.footerButton.rx.tap.asObservable()
+            didTappedShowInfoButton: viewHolder.emptyView.footerButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -60,7 +60,7 @@ final class MyPerformanceAlarmViewController: ViewController {
         
         output.showTicketingAlarmBottomSheet
             .emit(with: self) { owner, model in
-                let updateBottomSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmBottomSheetViewModel(performanceModel: model))
+                let updateBottomSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmBottomSheetViewModel(showModel: model))
                 if let presentedVC = owner.presentedViewController as? AlarmSettingBottomSheetViewController {
                     // 이전 바텀시트가 아직 표시되고 있는 경우, dismiss 후에 새로운 바텀시트를 표시
                     presentedVC.dismissBottomSheet(completion: {
@@ -75,29 +75,29 @@ final class MyPerformanceAlarmViewController: ViewController {
     }
 }
 
-extension MyPerformanceAlarmViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension MyShowAlarmViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 32, height: 80)
     }
 }
 
-extension MyPerformanceAlarmViewController {
-    func makeDataSource() -> MyPerformanceAlarmViewModel.DataSource {
-        let cellRegistration = UICollectionView.CellRegistration<PerformanceAlarmCell, PerformanceInfoCollectionViewCellModel> { (cell, indexPath, model) in
+extension MyShowAlarmViewController {
+    func makeDataSource() -> MyShowAlarmViewModel.DataSource {
+        let cellRegistration = UICollectionView.CellRegistration<ShowAlarmCell, PerformanceInfoCollectionViewCellModel> { (cell, indexPath, model) in
             cell.configureUI(with: model)
             cell.delegate = self
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<MyPerformanceAlarmViewModel.MyPerformanceSection, PerformanceInfoCollectionViewCellModel>(collectionView: viewHolder.myPerformanceCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<MyShowAlarmViewModel.MyPerformanceSection, PerformanceInfoCollectionViewCellModel>(collectionView: viewHolder.myShowCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
         return dataSource
     }
 }
 
-extension MyPerformanceAlarmViewController: PerformanceAlarmCellDelegate {
+extension MyShowAlarmViewController: ShowAlarmCellDelegate {
     func didTappedAlarmButton(_ cell: UICollectionViewCell) {
-        let indexPath = viewHolder.myPerformanceCollectionView.indexPath(for: cell)
+        let indexPath = viewHolder.myShowCollectionView.indexPath(for: cell)
         let settingBottomSheet = AlarmSettingBottomSheetViewController()
         settingBottomSheet.alarmRemoveButton.rx.tap
             .compactMap { indexPath }

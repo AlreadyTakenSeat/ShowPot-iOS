@@ -14,7 +14,7 @@ final class AlarmSettingBottomSheetViewController: BottomSheetViewController {
     
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
-        $0.setText(Strings.myPerformanceAlarmBottomsheetTitle)
+        $0.setText(Strings.myShowAlarmBottomsheetTitle)
     }
     
     private let buttonStackView = UIStackView().then {
@@ -28,14 +28,14 @@ final class AlarmSettingBottomSheetViewController: BottomSheetViewController {
         $0.configuration?.baseBackgroundColor = .gray400
         $0.configuration?.baseForegroundColor = .gray000
         $0.configuration?.background.cornerRadius = 2
-        $0.setText(Strings.myPerformanceAlarmBottomsheetButton1, fontType: KRFont.H2)
+        $0.setText(Strings.myShowAlarmBottomsheetButton1, fontType: KRFont.H2)
     }
     
     let alarmRemoveButton = SPButton().then {
         $0.configuration?.baseBackgroundColor = .gray400
         $0.configuration?.baseForegroundColor = .gray000
         $0.configuration?.background.cornerRadius = 2
-        $0.setText(Strings.myPerformanceAlarmBottomsheetButton2, fontType: KRFont.H2)
+        $0.setText(Strings.myShowAlarmBottomsheetButton2, fontType: KRFont.H2)
     }
     
     override func viewDidLoad() {

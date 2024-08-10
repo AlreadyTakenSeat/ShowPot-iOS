@@ -14,7 +14,7 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    private let performanceModel: PerformanceInfoCollectionViewCellModel
+    private let showModel: PerformanceInfoCollectionViewCellModel
     
     /// 변경하기 이전 기준이 되는 모델
     private var myTicketingAlarmBeforeModel: [TicketingAlarmCellModel] = []
@@ -24,8 +24,8 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     
     var dataSource: DataSource?
     
-    init(performanceModel: PerformanceInfoCollectionViewCellModel) { // TODO: - 추후 showID를 인자로 받아와 처리필요
-        self.performanceModel = performanceModel
+    init(showModel: PerformanceInfoCollectionViewCellModel) { // TODO: - 추후 showID를 인자로 받아와 처리필요
+        self.showModel = showModel
     }
     
     struct Input {
@@ -69,7 +69,7 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
         input.didTappedUpdateButton
             .subscribe(with: self) { owner, _ in
                 var currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
-                LogHelper.debug("티켓팅 알림 업데이트 정보: \(currentTicketingTimeList)\n공연제목: \(owner.performanceModel.performanceTitle)")
+                LogHelper.debug("티켓팅 알림 업데이트 정보: \(currentTicketingTimeList)\n업데이트될 공연제목: \(owner.showModel.performanceTitle)")
                 // TODO: - 티켓팅 시간정보를 가지고 API를 호출 필요
             }
             .disposed(by: disposeBag)

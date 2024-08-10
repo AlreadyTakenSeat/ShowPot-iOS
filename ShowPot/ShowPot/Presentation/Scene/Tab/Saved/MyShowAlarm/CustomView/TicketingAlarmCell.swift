@@ -34,7 +34,7 @@ final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
     }
     
     private lazy var disEnabledAlertLabel = SPLabel(KRFont.B3_semibold, alignment: .right).then {
-        $0.setText(Strings.myPerformanceDisenabledTitle)
+        $0.setText(Strings.myShowDisenabledTitle)
         $0.textColor = .mainOrange
     }
     
