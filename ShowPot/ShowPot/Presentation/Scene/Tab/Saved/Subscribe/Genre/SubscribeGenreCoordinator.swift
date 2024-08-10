@@ -24,3 +24,10 @@ class SubscribeGenreCoordinator: Coordinator {
         self.navigationController.pushViewController(viewController, animated: true)
     }
 }
+
+extension SubscribeGenreCoordinator {
+    func goBack() {
+        self.navigationController.popViewController(animated: true)
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+    }
+}

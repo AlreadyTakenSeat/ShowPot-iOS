@@ -42,7 +42,8 @@ class SubscribeGenreViewController: ViewController {
         let input = SubscribeGenreViewModel.Input(
             didSelectGenreCell: PublishRelay<GenreState>(),
             didTapAddSubscribeButton: viewHolder.bottomButton.rx.tap.asObservable(),
-            didTapDeleteSubscribeButton: PublishRelay<GenreType>()
+            didTapDeleteSubscribeButton: PublishRelay<GenreType>(),
+            didTapBackButton: contentNavigationBar.didTapLeftButton.asObservable()
         )
         
         bindCollectionViewAction(input: input)

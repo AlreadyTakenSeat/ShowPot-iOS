@@ -15,14 +15,14 @@ struct GenreState {
 
 final class SubscribeGenreViewModel: ViewModelType {
     
-    var coordinator: Coordinator
+    var coordinator: SubscribeGenreCoordinator
     private var usecase: GenreUseCase
     private let disposeBag = DisposeBag()
     
     var isLoggedIn = true  // TODO: #6 API 구현 이후 수정
     private var selectedGenre = Set<GenreType>()
     
-    init(coordinator: Coordinator, usecase: GenreUseCase) {
+    init(coordinator: SubscribeGenreCoordinator, usecase: GenreUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
         
@@ -33,6 +33,7 @@ final class SubscribeGenreViewModel: ViewModelType {
         let didSelectGenreCell: PublishRelay<GenreState>
         let didTapAddSubscribeButton: Observable<Void>
         let didTapDeleteSubscribeButton: PublishRelay<GenreType>
+        let didTapBackButton: Observable<Void>
     }
     
     struct Output {
@@ -49,6 +50,11 @@ final class SubscribeGenreViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         let output = Output()
+        
+        input.didTapBackButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goBack()
+            }.disposed(by: disposeBag)
         
         input.didSelectGenreCell
             .subscribe(with: self) { owner, model in
