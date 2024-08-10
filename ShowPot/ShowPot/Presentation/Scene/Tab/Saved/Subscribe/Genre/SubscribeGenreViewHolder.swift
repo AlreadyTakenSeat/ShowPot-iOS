@@ -77,18 +77,27 @@ extension SubscribeGenreViewHolder: ViewHolderType {
 extension SubscribeGenreViewHolder {
     private func genreGridLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            
+            let columnOffset: CGFloat = 90
+            let itemSize: CGFloat = 140
+            
             let elementSize = NSCollectionLayoutSize(
-                widthDimension: .absolute(140),
-                heightDimension: .absolute(140)
+                widthDimension: .absolute(itemSize),
+                heightDimension: .absolute(itemSize)
             )
             
             let leftItem = NSCollectionLayoutItem(layoutSize: elementSize)
             let rightItem = NSCollectionLayoutItem(layoutSize: elementSize)
-            rightItem.contentInsets = NSDirectionalEdgeInsets(top: 90, leading: 0, bottom: -90, trailing: 0)
+            rightItem.contentInsets = NSDirectionalEdgeInsets(
+                top: columnOffset,
+                leading: 0,
+                bottom: -columnOffset,
+                trailing: 0
+            )
             
             let verticalGroupSize = NSCollectionLayoutSize(
-                widthDimension: .absolute(140),
-                heightDimension: .absolute(140)
+                widthDimension: .absolute(itemSize),
+                heightDimension: .absolute(itemSize)
             )
             
             let leftVerticalGroup = NSCollectionLayoutGroup.vertical(
@@ -103,21 +112,25 @@ extension SubscribeGenreViewHolder {
                 count: 1
             )
             
-            //Horizontal Group
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .estimated(280),
-                heightDimension: .absolute(140)
+                widthDimension: .estimated(itemSize * 2),
+                heightDimension: .absolute(itemSize)
             )
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [leftVerticalGroup, rightVerticalGroup])
             group.interItemSpacing = .fixed(15)
             
-            let totalGroupWidth: CGFloat = 140 * 2 + 15
+            let totalGroupWidth: CGFloat = itemSize * 2 + 15
             let horizontalPadding = (layoutEnvironment.container.effectiveContentSize.width - totalGroupWidth) / 2.0
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 40
-            section.contentInsets = .init(top: 32, leading: horizontalPadding, bottom: 90, trailing: horizontalPadding)
+            section.contentInsets = .init(
+                top: 32,
+                leading: horizontalPadding,
+                bottom: columnOffset + 150,
+                trailing: horizontalPadding
+            )
             
             return section
         }

@@ -36,13 +36,19 @@ final class SubscribeGenreViewModel: ViewModelType {
     }
     
     struct Output {
-        var bottomButtonHidden = BehaviorRelay<Bool>(value: false)
+        /// 장르 리스트 정보
         var genreList = BehaviorRelay<[GenreState]>(value: [])
+        /// 구독 요청 활성화 여부 (하단 버튼 표출 여부)
+        var subscribeAvailable = BehaviorRelay<Bool>(value: false)
+        /// 구독 추가 요청 결과
         var addSubscriptionResult = PublishSubject<Bool>()
+        /// 구독 취소 요청 결과
         var deleteSubscriptionResult = PublishSubject<Bool>()
     }
     
     func transform(input: Input) -> Output {
+        
+        let output = Output()
         
         input.didSelectGenreCell
             .subscribe(with: self) { owner, model in
@@ -51,6 +57,10 @@ final class SubscribeGenreViewModel: ViewModelType {
                 } else {
                     owner.selectedGenre.remove(model.genre)
                 }
+                
+                Observable.just(owner.selectedGenre.isEmpty == false)
+                    .bind(to: output.subscribeAvailable)
+                    .disposed(by: owner.disposeBag)
             }.disposed(by: disposeBag)
         
         input.didTapAddSubscribeButton
@@ -62,8 +72,6 @@ final class SubscribeGenreViewModel: ViewModelType {
             .subscribe(with: self) { owner, type in
                 self.usecase.deleteSubscribtion(genre: type)
             }.disposed(by: disposeBag)
-        
-        let output = Output()
         
         usecase.genreList
             .bind(to: output.genreList)

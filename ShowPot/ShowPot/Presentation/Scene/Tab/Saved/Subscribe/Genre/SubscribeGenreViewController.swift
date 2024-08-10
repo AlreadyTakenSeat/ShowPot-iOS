@@ -80,6 +80,11 @@ class SubscribeGenreViewController: ViewController {
                 SnackBar(contextView: owner.view, style: style, duration: .short)
                     .show()
             }.disposed(by: disposeBag)
+        
+        output.subscribeAvailable
+            .subscribe(with: self) { owner, isAvailable in
+                owner.viewHolder.bottomButton.isHidden = !isAvailable
+            }.disposed(by: disposeBag)
     }
 }
 
