@@ -8,42 +8,16 @@
 import UIKit
 import Then
 
-extension UIBackgroundConfiguration: Then { }
-
 extension UIButton.Configuration {
     
-    private static func spButtonEnabled() -> UIButton.Configuration {
-        var style = UIButton.Configuration.plain()
-        
-        style.background = style.background.with {
-            $0.cornerRadius = 2
-            $0.backgroundColor = .mainOrange
-        }
-        style.baseForegroundColor = .gray800
-        
-        return style
-    }
-    
-    private static func spButtonDisabled() -> UIButton.Configuration {
-        var style = UIButton.Configuration.plain()
-        
-        style.background = style.background.with {
-            $0.cornerRadius = 2
-            $0.backgroundColor = .gray700
-        }
-        style.baseForegroundColor = .gray400
-        
-        return style
-    }
-    
-    func spButton(label text: String) -> UIButton.ConfigurationUpdateHandler {
+    func enabledToggleButton(label text: String) -> UIButton.ConfigurationUpdateHandler {
         return { button in
             guard let button = button as? SPButton else { return }
             switch button.state {
             case .normal:
-                button.configuration = .spButtonEnabled()
+                button.configuration = SPButtonStyle.accentBottomEnabled.configuration
             case .disabled:
-                button.configuration = .spButtonDisabled()
+                button.configuration = SPButtonStyle.bottomDisabled.configuration
             default: break
             }
             button.setText(text)

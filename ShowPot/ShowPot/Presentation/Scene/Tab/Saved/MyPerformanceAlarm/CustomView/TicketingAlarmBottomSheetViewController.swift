@@ -34,7 +34,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
     }
     
     private let alarmSettingButton = SPButton(fontType: KRFont.H2).then {
-        $0.configurationUpdateHandler = $0.configuration?.spButton(label: Strings.myPerformanceTicketButtonTitle)
+        $0.configurationUpdateHandler = $0.configuration?.enabledToggleButton(label: Strings.myPerformanceTicketButtonTitle)
     }
     
     init(viewModel: TicketingAlarmBottomSheetViewModel) {
