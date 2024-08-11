@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 import class RxSwift.DisposeBag
 
 protocol BaseViewControllerPorotocol where Self: BaseViewController {
@@ -33,6 +34,8 @@ class BaseViewController: UIViewController {
     
     var showNavigaitonBar: Bool = false
     var showTabBar: Bool = false
+    var useSafeArea: Bool = false
+    
     final let disposeBag = DisposeBag()
     
     deinit {
@@ -84,10 +87,12 @@ extension BaseViewController {
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(contentNavigationBar.snp.bottom)
+            make.top.equalTo(useSafeArea ? view.snp.top : contentNavigationBar.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        view.bringSubviewToFront(contentNavigationBar)
     }
 }
 
