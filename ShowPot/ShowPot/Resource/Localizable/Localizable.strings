@@ -69,6 +69,12 @@
 "all_show_dropdown_popular_title" = "인기순";
 "all_show_dropdown_upcoming_title" = "임박순";
 
+// 공연 상세 화면
+"show_detail_title" = "공연정보";
+"show_detail_bottom_button_title" = "알림 설정하기";
+"show_detail_alarm_update_bottom_button_title" = "알림 시간 변경하기";
+"show_detail_disenabled_bottom_button_title" = "예매가 오픈된 공연이에요";
+
 // 아티스트구독 화면
 "subscribe_artist_navigation_title" = "아티스트 구독하기";
 "subscribe_artist_navigation_description" = "관심 있는 아티스트를 선택해주세요";
@@ -108,3 +114,16 @@
 "closed_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
 "closed_show_empty_button" = "알림 설정한 공연 보러가기";
 "closed_show_navigation_title" = "티켓팅 종료 공연";
+// ------------------------------------------------------------------------------------
+
+/* Model */
+
+// 공연 관련 정보
+"show_date" = "기간";
+"show_loaction" = "장소";
+"show_ticketopen_info" = "티켓팅 정보";
+"show_pre_ticketopen" = "선예매 오픈";
+"show_normal_ticketopen" = "일반예매 오픈";
+"show_artist_info" = "아티스트 정보";
+"show_seat_price_info" = "좌석 가격 정보";
+"show_genre" = "공연 장르";
