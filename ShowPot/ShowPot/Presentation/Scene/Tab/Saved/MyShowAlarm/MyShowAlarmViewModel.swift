@@ -19,9 +19,11 @@ final class MyShowAlarmViewModel: ViewModelType {
     
     var coordinator: MyShowAlarmCoordinator
     var dataSource: DataSource?
+    private let usecase: MyShowUseCase
     
-    init(coordinator: MyShowAlarmCoordinator) {
+    init(coordinator: MyShowAlarmCoordinator, usecase: MyShowUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
@@ -34,32 +36,27 @@ final class MyShowAlarmViewModel: ViewModelType {
     
     struct Output {
         let isEmptyViewHidden: Driver<Bool>
-        let showTicketingAlarmBottomSheet: Signal<PerformanceInfoCollectionViewCellModel>
+        let showTicketingAlarmBottomSheet: Signal<String>
     }
     
     func transform(input: Input) -> Output {
         
+        usecase.showList
+            .subscribe(with: self) { owner, model in
+                owner.myShowRelay.accept(model)
+                owner.updateDataSource()
+            }
+            .disposed(by: disposeBag)
+        
         input.viewDidLoad
             .subscribe(with: self) { owner, model in
-                owner.myShowRelay.accept([
-                    .init(performanceImageURL: URL(string: "https://img.newspim.com/news/2023/09/21/2309210928580280.jpg"), performanceTitle: "에스파단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60), performanceLocation: "KBS 아레나홀"),
-                    .init(performanceImageURL: URL(string: "https://image.bugsm.co.kr/essential/images/500/39/3978.jpg"), performanceTitle: "샘스미스단독공연", performanceTime: Date(timeIntervalSinceNow: 24 * 60), performanceLocation: "KBS 아레나홀"),
-                    .init(performanceImageURL: URL(string: "https://img.newspim.com/news/2023/03/06/2303060940437270.jpg"), performanceTitle: "안젤리나졸리단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60), performanceLocation: "KBS 아레나홀"),
-                    .init(performanceImageURL: URL(string: "https://www.gugakpeople.com/data/gugakpeople_com/mainimages/202407/2024071636209869.jpg"), performanceTitle: "브루노마스단독고연", performanceTime: Date(timeIntervalSinceNow: 24), performanceLocation: "KBS 아레나홀"),
-                    .init(performanceImageURL: URL(string: "https://img.newspim.com/news/2023/06/05/2306051642145540.jpg"), performanceTitle: "워시단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60), performanceLocation: "KBS 아레나홀")
-                ])
-                owner.updateDataSource()
+                owner.usecase.fetchShowList()
             }
             .disposed(by: disposeBag)
         
         input.didTappedAlarmRemoveButton
             .subscribe(with: self) { owner, indexPath in
-                LogHelper.debug("알림 해제하기 인덱스: \(indexPath.row)")
-                var showList = owner.myShowRelay.value
-                let showTitle = showList[indexPath.row].performanceTitle
-                showList.removeAll(where: { $0.performanceTitle == showTitle })
-                owner.myShowRelay.accept(showList)
-                owner.updateDataSource()
+                owner.usecase.deleteShowAlarm(indexPath: indexPath)
             }
             .disposed(by: disposeBag)
         
@@ -89,7 +86,7 @@ final class MyShowAlarmViewModel: ViewModelType {
         
         return Output(
             isEmptyViewHidden: isEmptyViewHidden,
-            showTicketingAlarmBottomSheet: showTicketingAlarmBottomSheetRelay.asSignal()
+            showTicketingAlarmBottomSheet: showTicketingAlarmBottomSheetRelay.map { $0.showID }.asSignal(onErrorSignalWith: .empty())
         )
     }
 }

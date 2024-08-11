@@ -14,7 +14,7 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    private let showModel: PerformanceInfoCollectionViewCellModel
+    private let showID: String
     
     /// 변경하기 이전 기준이 되는 모델
     private var myTicketingAlarmBeforeModel: [TicketingAlarmCellModel] = []
@@ -23,9 +23,11 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     private let myTicketingAlarmAfterModel = BehaviorRelay<[TicketingAlarmCellModel]>(value: [])
     
     var dataSource: DataSource?
+    private let usecase: MyShowUseCase
     
-    init(showModel: PerformanceInfoCollectionViewCellModel) { // TODO: - 추후 showID를 인자로 받아와 처리필요
-        self.showModel = showModel
+    init(showID: String, usecase: MyShowUseCase) {
+        self.usecase = usecase
+        self.showID = showID
     }
     
     struct Input {
@@ -40,18 +42,24 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
+        let ticketingAlarmModel = usecase.ticketingAlarm.share()
+        
+        ticketingAlarmModel.take(1)
+            .subscribe(with: self) { owner, model in
+                owner.myTicketingAlarmBeforeModel = model
+            }
+            .disposed(by: disposeBag)
+        
+        ticketingAlarmModel
+            .subscribe(with: self) { owner, model in
+                owner.myTicketingAlarmAfterModel.accept(model)
+                owner.updateDataSource()
+            }
+            .disposed(by: disposeBag)
+        
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                
-                let beforeTicketingModel: [TicketingAlarmCellModel] = [
-                    .init(isChecked: true, isEnabled: true, ticketingAlertText: "티켓팅 24시간 전"),
-                    .init(isChecked: true, isEnabled: false, ticketingAlertText: "티켓팅 6시간 전"),
-                    .init(isChecked: false, isEnabled: true, ticketingAlertText: "티켓팅 1시간 전")
-                ]
-                
-                owner.myTicketingAlarmBeforeModel = beforeTicketingModel
-                owner.myTicketingAlarmAfterModel.accept(beforeTicketingModel)
-                owner.updateDataSource()
+                owner.usecase.requestTicketingAlarm()
             }
             .disposed(by: disposeBag)
         
@@ -68,8 +76,8 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
         
         input.didTappedUpdateButton
             .subscribe(with: self) { owner, _ in
-                var currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
-                LogHelper.debug("티켓팅 알림 업데이트 정보: \(currentTicketingTimeList)\n업데이트될 공연제목: \(owner.showModel.performanceTitle)")
+                let currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
+                owner.usecase.updateTicketingAlarm(model: currentTicketingTimeList, showID: owner.showID)
                 // TODO: - 티켓팅 시간정보를 가지고 API를 호출 필요
             }
             .disposed(by: disposeBag)

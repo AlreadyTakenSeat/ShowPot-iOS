@@ -84,6 +84,7 @@ class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCell {
 }
 
 struct PerformanceInfoCollectionViewCellModel: Hashable {
+    let showID: String
     let performanceImageURL: URL?
     let performanceTitle: String
     let performanceTime: Date?

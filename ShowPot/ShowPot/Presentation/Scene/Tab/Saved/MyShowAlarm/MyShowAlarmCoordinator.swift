@@ -18,7 +18,7 @@ final class MyShowAlarmCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: MyShowAlarmViewController = MyShowAlarmViewController(viewModel: MyShowAlarmViewModel(coordinator: self))
+        let viewController: MyShowAlarmViewController = MyShowAlarmViewController(viewModel: MyShowAlarmViewModel(coordinator: self, usecase: MyShowAlarmUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

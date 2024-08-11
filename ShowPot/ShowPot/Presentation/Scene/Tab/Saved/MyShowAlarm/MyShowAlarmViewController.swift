@@ -59,8 +59,8 @@ final class MyShowAlarmViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.showTicketingAlarmBottomSheet
-            .emit(with: self) { owner, model in
-                let updateBottomSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmBottomSheetViewModel(showModel: model))
+            .emit(with: self) { owner, showID in
+                let updateBottomSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmBottomSheetViewModel(showID: showID, usecase: MyShowAlarmUseCase()))
                 updateBottomSheet.alarmSettingButton.rx.tap
                     .subscribe(onNext: { _ in
                         updateBottomSheet.dismissBottomSheet()
