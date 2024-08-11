@@ -32,6 +32,7 @@ final class MyShowAlarmViewModel: ViewModelType {
         let didTappedAlarmRemoveButton: Observable<IndexPath>
         let didTappedAlarmUpdateButton: Observable<IndexPath>
         let didTappedShowInfoButton: Observable<Void>
+        let didTappedMyShow: Observable<IndexPath>
     }
     
     struct Output {
@@ -69,6 +70,13 @@ final class MyShowAlarmViewModel: ViewModelType {
         input.didTappedShowInfoButton
             .subscribe(with: self) { owner, _ in
                 owner.coordinator.goToShowInfoScreen()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedMyShow
+            .subscribe(with: self) { owner, indexPath in
+                LogHelper.debug("공연 셀 클릭: \(owner.myShowRelay.value[indexPath.row])")
+                owner.coordinator.goToShowDetailScreen()
             }
             .disposed(by: disposeBag)
         

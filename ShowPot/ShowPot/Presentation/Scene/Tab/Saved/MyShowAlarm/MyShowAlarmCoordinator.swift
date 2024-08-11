@@ -31,4 +31,8 @@ final class MyShowAlarmCoordinator: NavigationCoordinator {
     func goToShowInfoScreen() {
         LogHelper.debug("공연정보화면으로 이동")
     }
+    
+    func goToShowDetailScreen() {
+        LogHelper.debug("공연상세화면으로 이동")
+    }
 }

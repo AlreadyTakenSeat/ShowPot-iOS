@@ -49,7 +49,8 @@ final class MyShowAlarmViewController: ViewController {
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedAlarmRemoveButton: didTappedAlarmRemoveButtonSubject.asObservable(), 
             didTappedAlarmUpdateButton: didTappedAlarmUpdateButtonSubject.asObservable(),
-            didTappedShowInfoButton: viewHolder.emptyView.footerButton.rx.tap.asObservable()
+            didTappedShowInfoButton: viewHolder.emptyView.footerButton.rx.tap.asObservable(), 
+            didTappedMyShow: viewHolder.myShowCollectionView.rx.itemSelected.asObservable()
         )
         
         let output = viewModel.transform(input: input)

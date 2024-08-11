@@ -550,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */,
-				70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */,
 				70F3C0ED2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift */,
 			);
 			path = BottomSheet;
@@ -678,6 +677,7 @@
 				7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */,
 				7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */,
 				7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */,
+				70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
