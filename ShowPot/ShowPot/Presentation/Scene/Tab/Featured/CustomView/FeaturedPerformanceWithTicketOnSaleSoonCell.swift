@@ -30,20 +30,19 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         $0.textColor = .gray300
     }
     
-    private let performanceBackgroundImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.layer.masksToBounds = true
-        $0.applyLinearGradient(
-            colors: [
-                .gray700.withAlphaComponent(1.0),
-                .gray700.withAlphaComponent(0.3),
-                .gray700.withAlphaComponent(0.0)
-            ],
-            startPoint: .init(x: 0.0, y: 0.5),
-            endPoint: .init(x: 1.0, y: 0.5)
-        )
+    private let performanceBackgroundImageView = GradientImageView(
+        colors: [
+            .gray700.withAlphaComponent(1.0),
+            .gray700.withAlphaComponent(0.3),
+            .gray700.withAlphaComponent(0.0)
+        ],
+        startPoint: .init(x: 0.0, y: 0.5),
+        endPoint: .init(x: 1.0, y: 0.5)
+    ).then { view in
+        view.contentMode = .scaleAspectFill
+        view.layer.masksToBounds = true
     }
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStyles()
@@ -61,11 +60,6 @@ final class FeaturedPerformanceWithTicketOnSaleSoonCell: UICollectionViewCell, R
         performanceTitleLabel.text = nil
         performanceLocationLabel.text = nil
         performanceStateView.configureUI(performanceDate: nil, chipColor: nil, chipTitle: nil)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        performanceBackgroundImageView.updateGradientLayerFrame()
     }
     
     private func setupStyles() {

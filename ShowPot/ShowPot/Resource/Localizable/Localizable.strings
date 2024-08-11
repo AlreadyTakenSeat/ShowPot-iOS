@@ -12,6 +12,7 @@
 
 // 스낵바
 "snackbar_description_subscribe" = "구독 설정이 완료되었습니다";
+"snackbar_description_subscribe_delete" = "구독이 취소되었습니다";
 "snackbar_description_alarm" = "알림 설정이 완료되었습니다";
 "snackbar_action_title" = "보러가기";
 
@@ -49,6 +50,13 @@
 "search_keyword_title" = "최근검색어";
 "search_keyword_button_title" = "모두삭제";
 "search_empty_title" = "검색 기록이 없어요";
+
+// 장르 구독 화면
+"subscribe_genre_title" = "장르 구독하기";
+"subscribe_genre_description" = "관심 장르의 내한공연 알림을 보내드려요";
+"subscribe_genre_add_button_title" = "구독하기";
+"subscribe_genre_delete_button_title" = "구독 취소하기";
+"subscribe_genre_delete_description" = "구독을 취소하시겠습니까?";
 
 // 전체 공연 화면
 "all_performance_title" = "전체공연";

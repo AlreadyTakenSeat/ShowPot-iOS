@@ -62,6 +62,8 @@ public enum Strings {
   public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
   /// Common
   public static let snackbarDescriptionSubscribe = Strings.tr("Localizable", "snackbar_description_subscribe", fallback: "구독 설정이 완료되었습니다")
+  /// 구독이 취소되었습니다
+  public static let snackbarDescriptionSubscribeDelete = Strings.tr("Localizable", "snackbar_description_subscribe_delete", fallback: "구독이 취소되었습니다")
   /// Apple로 시작하기
   public static let socialLoginAppleButton = Strings.tr("Localizable", "socialLogin_apple_button", fallback: "Apple로 시작하기")
   /// 잊지않고 내한공연 즐기러가요
@@ -76,6 +78,16 @@ public enum Strings {
   public static let subscribeArtistNavigationDescription = Strings.tr("Localizable", "subscribe_artist_navigation_description", fallback: "관심 있는 아티스트를 선택해주세요")
   /// 아티스트 구독하기
   public static let subscribeArtistNavigationTitle = Strings.tr("Localizable", "subscribe_artist_navigation_title", fallback: "아티스트 구독하기")
+  /// 구독하기
+  public static let subscribeGenreAddButtonTitle = Strings.tr("Localizable", "subscribe_genre_add_button_title", fallback: "구독하기")
+  /// 구독 취소하기
+  public static let subscribeGenreDeleteButtonTitle = Strings.tr("Localizable", "subscribe_genre_delete_button_title", fallback: "구독 취소하기")
+  /// 구독을 취소하시겠습니까?
+  public static let subscribeGenreDeleteDescription = Strings.tr("Localizable", "subscribe_genre_delete_description", fallback: "구독을 취소하시겠습니까?")
+  /// 관심 장르의 내한공연 알림을 보내드려요
+  public static let subscribeGenreDescription = Strings.tr("Localizable", "subscribe_genre_description", fallback: "관심 장르의 내한공연 알림을 보내드려요")
+  /// 장르 구독하기
+  public static let subscribeGenreTitle = Strings.tr("Localizable", "subscribe_genre_title", fallback: "장르 구독하기")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

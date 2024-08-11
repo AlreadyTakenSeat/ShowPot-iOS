@@ -40,6 +40,14 @@ class SPDefaultBottomSheetViewController: BottomSheetViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    init(message: NSMutableAttributedString, buttonTitle: String) {
+        self.message = ""
+        self.buttonTitle = buttonTitle
+        super.init(nibName: nil, bundle: nil)
+        
+        self.messageLabel.attributedText = message
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,5 +77,10 @@ class SPDefaultBottomSheetViewController: BottomSheetViewController {
         bottomButton.rx.tap
             .bind(to: didTapBottomButton)
             .disposed(by: disposeBag)
+        
+        bottomButton.rx.tap
+            .subscribe(with: self) { owner, _ in
+                owner.dismissBottomSheet()
+            }.disposed(by: disposeBag)
     }
 }

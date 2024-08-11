@@ -29,7 +29,7 @@ typealias ViewController = BaseViewController & BaseViewControllerPorotocol
 class BaseViewController: UIViewController {
     
     var contentNavigationBar = SPNavigationBarView("")
-    var contentView = UIView().then { $0.backgroundColor = .gray700 }
+    var contentView = UIView()
     
     var showNavigaitonBar: Bool = false
     final let disposeBag = DisposeBag()

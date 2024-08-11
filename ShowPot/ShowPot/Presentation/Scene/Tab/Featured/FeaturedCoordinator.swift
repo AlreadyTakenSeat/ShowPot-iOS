@@ -34,7 +34,9 @@ extension FeaturedCoordinator {
     }
     
     func goToSubscribeGenreScreen() {
-        LogHelper.debug("장르구독화면 이동")
+        let coordinator = SubscribeGenreCoordinator(navigationController: self.navigationController)
+        coordinator.parentCoordinator = self
+        coordinator.start()
     }
     
     func goToSubscribeArtistScreen() {
