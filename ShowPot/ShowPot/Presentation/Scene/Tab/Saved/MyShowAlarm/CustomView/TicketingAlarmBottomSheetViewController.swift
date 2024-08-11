@@ -33,7 +33,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
         $0.delegate = self
     }
     
-    private let alarmSettingButton = SPButton(fontType: KRFont.H2).then {
+    let alarmSettingButton = SPButton(fontType: KRFont.H2).then {
         $0.configurationUpdateHandler = $0.configuration?.enabledToggleButton(label: Strings.myShowTicketButtonTitle)
     }
     

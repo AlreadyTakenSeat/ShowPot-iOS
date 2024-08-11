@@ -61,6 +61,12 @@ final class MyShowAlarmViewController: ViewController {
         output.showTicketingAlarmBottomSheet
             .emit(with: self) { owner, model in
                 let updateBottomSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmBottomSheetViewModel(showModel: model))
+                updateBottomSheet.alarmSettingButton.rx.tap
+                    .subscribe(onNext: { _ in
+                        updateBottomSheet.dismissBottomSheet()
+                    })
+                    .disposed(by: owner.disposeBag)
+                    
                 if let presentedVC = owner.presentedViewController as? AlarmSettingBottomSheetViewController {
                     // 이전 바텀시트가 아직 표시되고 있는 경우, dismiss 후에 새로운 바텀시트를 표시
                     presentedVC.dismissBottomSheet(completion: {
