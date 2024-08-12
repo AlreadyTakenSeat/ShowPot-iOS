@@ -69,7 +69,7 @@ final class MyShowAlarmViewModel: ViewModelType {
         
         input.didTappedShowInfoButton
             .subscribe(with: self) { owner, _ in
-                owner.coordinator.goToShowInfoScreen()
+                owner.coordinator.goToAllShowScreen()
             }
             .disposed(by: disposeBag)
         

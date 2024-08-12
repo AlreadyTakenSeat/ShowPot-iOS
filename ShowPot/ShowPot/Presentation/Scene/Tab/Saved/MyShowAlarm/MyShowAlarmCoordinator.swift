@@ -28,8 +28,10 @@ final class MyShowAlarmCoordinator: NavigationCoordinator {
         self.navigationController.popViewController(animated: true)
     }
     
-    func goToShowInfoScreen() {
-        LogHelper.debug("공연정보화면으로 이동")
+    func goToAllShowScreen() {
+        let coordinator = AllPerformanceCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
     
     func goToShowDetailScreen() {
