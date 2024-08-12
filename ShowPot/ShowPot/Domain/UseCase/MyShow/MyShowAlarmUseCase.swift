@@ -42,24 +42,9 @@ final class MyShowAlarmUseCase: MyShowUseCase {
         let reserveDate = calendar.date(byAdding: .hour, value: 24, to: currentDate) ?? Date() // TODO: - 추후 기준이 될 일반예매시간으로 대체
         
         ticketingAlarm.accept([
-            .init(isChecked: true, isEnabled: checkEnabled(since: reserveDate, minimumHour: 24), ticketingAlertText: "티켓팅 24시간 전"),
-            .init(isChecked: true, isEnabled: checkEnabled(since: reserveDate, minimumHour: 6), ticketingAlertText: "티켓팅 6시간 전"),
-            .init(isChecked: false, isEnabled: checkEnabled(since: reserveDate, minimumHour: 1), ticketingAlertText: "티켓팅 1시간 전")
+            .init(isChecked: true, isEnabled: reserveDate.hasElapsed(hours: 24), ticketingAlertText: "티켓팅 24시간 전"),
+            .init(isChecked: true, isEnabled: reserveDate.hasElapsed(hours: 6), ticketingAlertText: "티켓팅 6시간 전"),
+            .init(isChecked: false, isEnabled: reserveDate.hasElapsed(hours: 1), ticketingAlertText: "티켓팅 1시간 전")
         ])
-    }
-}
-
-extension MyShowAlarmUseCase {
-    private func checkEnabled(since date: Date, minimumHour: Int) -> Bool {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        let components = calendar.dateComponents([.hour], from: currentDate, to: date)
-        
-        guard let elapsedHours = components.hour else {
-            return false
-        }
-        
-        return elapsedHours >= minimumHour
     }
 }

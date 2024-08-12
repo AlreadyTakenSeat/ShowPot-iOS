@@ -90,6 +90,7 @@
 		70F3C0F22C663B3C00786738 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */; };
 		70F3C0FF2C68B33900786738 /* MyShowUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0FE2C68B33900786738 /* MyShowUseCase.swift */; };
 		70F3C1012C68B3E600786738 /* MyShowAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1002C68B3E600786738 /* MyShowAlarmUseCase.swift */; };
+		70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1082C6A151400786738 /* Date+Extension.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -240,6 +241,7 @@
 		70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		70F3C0FE2C68B33900786738 /* MyShowUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowUseCase.swift; sourceTree = "<group>"; };
 		70F3C1002C68B3E600786738 /* MyShowAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmUseCase.swift; sourceTree = "<group>"; };
+		70F3C1082C6A151400786738 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 				7D43E2162C5FDCA700D94898 /* UIStackView+Extension.swift */,
 				7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */,
 				70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */,
+				70F3C1082C6A151400786738 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				70F3C0EE2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift in Sources */,
 				7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */,
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
+				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
 				70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
 				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
