@@ -530,7 +530,6 @@
 		70F3C0E22C663AC300786738 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				70F3C1022C68DCED00786738 /* BottomSheet */,
 				70F3C0E32C663ACC00786738 /* ShowAlarmCell.swift */,
 				70F3C0E52C663ADC00786738 /* ShowAlarmButtonView.swift */,
 				70F3C0E92C663AF600786738 /* TicketingAlarmCell.swift */,
@@ -548,10 +547,13 @@
 			path = MyShow;
 			sourceTree = "<group>";
 		};
-		70F3C1022C68DCED00786738 /* BottomSheet */ = {
+		70F3C10A2C6A3D7D00786738 /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
+				7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */,
+				70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */,
 				70F3C0ED2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift */,
+				70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */,
 			);
 			path = BottomSheet;
 			sourceTree = "<group>";
@@ -669,6 +671,7 @@
 		7D2981182C01E90A00A619FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				70F3C10A2C6A3D7D00786738 /* BottomSheet */,
 				70B81D612C59404900665EDD /* Layout */,
 				7DF7118A2C4810B3001406F0 /* Protocol */,
 				7DE569F22C556996006724EF /* Base */,
@@ -677,9 +680,6 @@
 				7D45CB602C5956C70018FCB8 /* SPButton.swift */,
 				7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */,
 				7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */,
-				7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */,
-				70F3C0EB2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift */,
-				70F3C0E72C663AE900786738 /* AlarmSettingBottomSheetViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
