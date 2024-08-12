@@ -78,7 +78,6 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
             .subscribe(with: self) { owner, _ in
                 let currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
                 owner.usecase.updateTicketingAlarm(model: currentTicketingTimeList, showID: owner.showID)
-                // TODO: - 티켓팅 시간정보를 가지고 API를 호출 필요
             }
             .disposed(by: disposeBag)
         
@@ -86,21 +85,11 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
         let isCheckedStateDifferent = myTicketingAlarmAfterModel
             .withUnretained(self)
             .map { owner, afterModels in
-                // isEnabled 값이 true인 beforeModels만 필터링
                 let enabledBeforeModels = owner.myTicketingAlarmBeforeModel.filter { $0.isEnabled }
-                
-                // isEnabled 값이 true인 afterModels만 필터링
                 let enabledAfterModels = afterModels.filter { $0.isEnabled }
                 
-                // enabledBeforeModels와 enabledAfterModels의 isChecked 값을 비교
-                for (index, afterModel) in enabledAfterModels.enumerated() {
-                    // 배열 크기 체크 및 isChecked 값이 다른 경우
-                    if index < enabledBeforeModels.count &&
-                        enabledBeforeModels[index].isChecked != afterModel.isChecked {
-                        return true
-                    }
-                }
-                return false
+                // 두 모델의 isChecked 값을 비교하여 하나라도 다르면 true 반환
+                return zip(enabledBeforeModels, enabledAfterModels).contains { $0.isChecked != $1.isChecked }
             }
             .asDriver(onErrorDriveWith: .empty())
         
