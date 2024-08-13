@@ -5,7 +5,9 @@
 //  Created by Daegeon Choi on 5/25/24.
 //
 
-import Foundation
+import UIKit
+
+import RxSwift
 
 final class SavedViewController: ViewController {
     let viewHolder: SavedViewHolder = .init()
@@ -26,7 +28,23 @@ final class SavedViewController: ViewController {
         viewHolderConfigure()
     }
     
+    override func setupStyles() {
+        super.setupStyles()
+        viewHolder.menuCollectionView.delegate = self
+        viewHolder.upcomingCarouselView.delegate = self
+    }
+    
     override func bind() {
         
+extension SavedViewController: UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == viewHolder.menuCollectionView {
+            return .init(width: collectionView.frame.width, height: 44)
+        } else if collectionView == viewHolder.upcomingCarouselView {
+            return .init(width: collectionView.frame.width - 66 * 2, height: 357)
+        }
+        return .zero
+    }
     }
 }
