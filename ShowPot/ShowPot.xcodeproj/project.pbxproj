@@ -94,6 +94,7 @@
 		70F3C1102C6B9FD100786738 /* MyUpcomingTicketingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C10F2C6B9FD100786738 /* MyUpcomingTicketingCell.swift */; };
 		70F3C1122C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */; };
 		70F3C1142C6B9FF200786738 /* MyAlarmMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */; };
+		70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C1162C6BA19700786738 /* ScalingCarousel */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -347,6 +348,7 @@
 				70107B6C2C216A4200F32042 /* KakaoSDKNavi in Frameworks */,
 				7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */,
 				7D2DCAB92C269BF700389FBF /* Alamofire in Frameworks */,
+				70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */,
 				70107B682C216A4200F32042 /* KakaoSDKFriend in Frameworks */,
 				70107B6E2C216A4200F32042 /* KakaoSDKShare in Frameworks */,
 				70107B6A2C216A4200F32042 /* KakaoSDKFriendCore in Frameworks */,
@@ -997,6 +999,7 @@
 				7D43E2032C5E790100D94898 /* Differentiator */,
 				7D43E2052C5E790100D94898 /* RxDataSources */,
 				7D43E2082C5E7A5700D94898 /* RxGesture */,
+				70F3C1162C6BA19700786738 /* ScalingCarousel */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -1037,6 +1040,7 @@
 				7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				7D43E2072C5E7A5700D94898 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -1483,6 +1487,14 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/superpeteblaze/ScalingCarousel.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 		7D2DCAB72C269BF700389FBF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1613,6 +1625,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		70F3C1162C6BA19700786738 /* ScalingCarousel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */;
+			productName = ScalingCarousel;
 		};
 		7D2DCAB82C269BF700389FBF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
