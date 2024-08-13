@@ -12,22 +12,22 @@ import SnapKit
 import Then
 
 /// 공연정보에 대한 셀
-final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCell {
+class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCell {
     
     private let performanceImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
     }
     
-    private let performanceTitleLabel = SPLabel(ENFont.H2).then {
+    let performanceTitleLabel = SPLabel(ENFont.H2).then {
         $0.textColor = .gray000
     }
     
-    private let performanceTimeLabel = SPLabel(KRFont.B3_regular).then {
+    let performanceTimeLabel = SPLabel(KRFont.B3_regular).then {
         $0.textColor = .gray200
     }
     
-    private let performanceLocationLabel = SPLabel(KRFont.B3_regular).then {
+    let performanceLocationLabel = SPLabel(KRFont.B3_regular).then {
         $0.textColor = .gray200
     }
     
@@ -84,6 +84,7 @@ final class PerformanceInfoCollectionViewCell: UICollectionViewCell, ReusableCel
 }
 
 struct PerformanceInfoCollectionViewCellModel: Hashable {
+    let showID: String
     let performanceImageURL: URL?
     let performanceTitle: String
     let performanceTime: Date?

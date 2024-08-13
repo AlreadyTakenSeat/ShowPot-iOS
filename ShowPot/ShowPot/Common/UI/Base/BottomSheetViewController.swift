@@ -122,13 +122,15 @@ extension BottomSheetViewController {
         view.layoutIfNeeded()
     }
     
-    func dismissBottomSheet() {
+    func dismissBottomSheet(completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.5, animations: {  [weak self] in
             guard let self = self else { return }
             self.dimmedView.alpha = 0
             self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: view.frame.height)
         }, completion: {  [weak self] _ in
-            self?.dismiss(animated: false)
+            self?.dismiss(animated: false) {
+                completion?()
+            }
         })
     }
 }
