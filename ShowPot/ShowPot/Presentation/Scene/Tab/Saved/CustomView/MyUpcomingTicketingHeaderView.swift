@@ -14,7 +14,7 @@ final class MyUpcomingTicketingHeaderView: UIView {
     
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray300
-        $0.setText("티켓팅이 임박한 공연")
+        $0.setText(Strings.myShowMainTitle)
     }
     
     private let performanceArtistNameLabel = SPLabel(ENFont.H0).then {

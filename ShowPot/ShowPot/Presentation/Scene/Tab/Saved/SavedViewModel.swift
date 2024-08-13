@@ -126,11 +126,11 @@ enum MyAlarmMenuType: CaseIterable {
     var menuTitle: String {
         switch self {
         case .alarmPerformance:
-            return "알림 설정한 공연"
+            return Strings.myAlarmMenuButton1
         case .artist:
-            return "구독한 아티스트"
+            return Strings.myAlarmMenuButton2
         case .genre:
-            return "구독한 장르"
+            return Strings.myAlarmMenuButton3
         }
     }
     

@@ -77,3 +77,12 @@
 "my_show_empty_title" = "알림 설정한\n공연이 없어요";
 "my_show_empty_button_title" = "공연 정보 보러가기";
 "my_show_disenabled_title" = "해당 시간 선택은 불가능해요";
+
+// 내 알림화면
+"my_alarm_menu_button_1" = "알림 설정한 공연";
+"my_alarm_menu_button_2" = "구독한 아티스트";
+"my_alarm_menu_button_3" = "구독한 장르";
+"my_alarm_main_title" = "티켓팅이 임박한 공연";
+"my_alarm_ticket_title" = "TICKET OPEN";
+"my_alarm_empty_title" = "알림 설정한\n공연이 없어요";
+"my_alarm_empty_button" = "로그인 하러가기";

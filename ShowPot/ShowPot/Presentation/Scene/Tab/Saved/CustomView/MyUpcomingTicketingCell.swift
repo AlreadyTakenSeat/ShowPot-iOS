@@ -36,7 +36,7 @@ final class MyUpcomingTicketingCell: ScalingCarouselCell, ReusableCell {
     
     private let ticketingTitleLabel = SPLabel(ENFont.H5, alignment: .center).then {
         $0.textColor = .gray700
-        $0.setText("TICKET OPEN")
+        $0.setText(Strings.myAlarmTicketTitle)
     }
     
     private let ticketingOpenTimeLabel = SPLabel(ENFont.H1, alignment: .center).then {
