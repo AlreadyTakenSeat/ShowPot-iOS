@@ -36,6 +36,10 @@ final class SavedViewModel: ViewModelType {
     private let usecase: MyAlarmUseCase
     private let disposeBag = DisposeBag()
     
+    private var isLoggedIn: Bool {
+        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+    }
+    
     private let alarmMenuModelRelay = BehaviorRelay<[MyMenuData]>(value: [])
     private let upcomingTicketingModelRelay = BehaviorRelay<[MyShowData]>(value: [])
     private let currentHeaderModelRelay = BehaviorRelay<ArtistShowInfo?>(value: nil)
@@ -49,12 +53,15 @@ final class SavedViewModel: ViewModelType {
         let viewDidLoad: Observable<Void>
         let didTappedMenu: Observable<IndexPath>
         let didEndScrolling: Observable<IndexPath>
+        let didTappedLoginButton: Observable<Void>
+        let didTappedUpcomingCell: Observable<IndexPath>
     }
     
     struct Output {
         let alarmMenuModel: Driver<[MyMenuData]>
         let upcomingTicketingModel: Driver<[MyShowData]>
         let currentHeaderModel: Driver<ArtistShowInfo>
+        let upcomingIsEmpty: Driver<(Bool, Bool)>
     }
     
     func transform(input: Input) -> Output {
@@ -98,6 +105,19 @@ final class SavedViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.didTappedLoginButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToLoginScreen()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedUpcomingCell
+            .subscribe(with: self) { owner, indexPath in
+                var model = owner.usecase.upcomingShowList.value
+                LogHelper.debug("선택된 셀 모델: \(model[indexPath.row])")
+            }
+            .disposed(by: disposeBag)
+        
         input.didEndScrolling
             .distinctUntilChanged()
             .subscribe(with: self) { owner, indexPath in
@@ -112,7 +132,8 @@ final class SavedViewModel: ViewModelType {
         return Output(
             alarmMenuModel: alarmMenuModelRelay.asDriver(),
             upcomingTicketingModel: upcomingTicketingModelRelay.asDriver(),
-            currentHeaderModel: currentHeaderModelRelay.compactMap { $0 }.asDriver(onErrorDriveWith: .empty())
+            currentHeaderModel: currentHeaderModelRelay.compactMap { $0 }.asDriver(onErrorDriveWith: .empty()), 
+            upcomingIsEmpty: upcomingTicketingModelRelay.map { ($0.isEmpty, self.isLoggedIn) }.asDriver(onErrorDriveWith: .empty())
         )
     }
 }

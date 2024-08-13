@@ -12,11 +12,6 @@ import Then
 
 final class MyUpcomingTicketingHeaderView: UIView {
     
-    private let titleLabel = SPLabel(KRFont.H1).then {
-        $0.textColor = .gray300
-        $0.setText(Strings.myShowMainTitle)
-    }
-    
     private let performanceArtistNameLabel = SPLabel(ENFont.H0).then {
         $0.textColor = .gray100
     }
@@ -36,17 +31,13 @@ final class MyUpcomingTicketingHeaderView: UIView {
     }
     
     private func setupLayouts() {
-        [titleLabel, performanceArtistNameLabel, upcomingTimeLabel].forEach { addSubview($0) }
+        [performanceArtistNameLabel, upcomingTimeLabel].forEach { addSubview($0) }
     }
     
     private func setupConstraints() {
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(7)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(16)
-        }
         
         performanceArtistNameLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.top.equalToSuperview()
             $0.directionalHorizontalEdges.equalToSuperview().inset(16)
         }
         

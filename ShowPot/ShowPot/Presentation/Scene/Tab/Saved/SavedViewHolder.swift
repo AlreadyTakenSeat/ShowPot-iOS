@@ -21,8 +21,11 @@ final class SavedViewHolder {
     private let containerStackView = UIStackView().then {
         $0.backgroundColor = .clear
         $0.axis = .vertical
-        $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = .init(top: 6, left: .zero, bottom: .zero, right: .zero)
+    }
+    
+    private let titleLabel = SPLabel(KRFont.H1).then {
+        $0.textColor = .gray300
+        $0.setText(Strings.myAlarmMainTitle)
     }
     
     let ticketingHeaderView = MyUpcomingTicketingHeaderView()
@@ -43,13 +46,15 @@ final class SavedViewHolder {
         $0.isScrollEnabled = false
     }
     
+    lazy var emptyView = MyAlarmEmptyView()
+    
 }
 
 extension SavedViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
         view.addSubview(scrollView)
-        scrollView.addSubview(containerStackView)
+        [titleLabel, containerStackView, emptyView].forEach { scrollView.addSubview($0) }
         [ticketingHeaderView, upcomingCarouselView, menuCollectionView].forEach { containerStackView.addArrangedSubview($0) }
     }
     
@@ -59,13 +64,25 @@ extension SavedViewHolder: ViewHolderType {
             $0.directionalEdges.width.equalToSuperview()
         }
         
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(13)
+            $0.directionalHorizontalEdges.equalToSuperview().inset(16)
+        }
+        
         containerStackView.snp.makeConstraints {
-            $0.top.directionalHorizontalEdges.width.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.directionalHorizontalEdges.width.equalToSuperview()
             $0.bottom.lessThanOrEqualToSuperview()
         }
         
+        emptyView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(menuCollectionView.snp.top)
+        }
+        
         ticketingHeaderView.snp.makeConstraints {
-            $0.height.equalTo(90 + 36)
+            $0.height.equalTo(45 + 36)
         }
         
         upcomingCarouselView.snp.makeConstraints {
@@ -75,8 +92,8 @@ extension SavedViewHolder: ViewHolderType {
         menuCollectionView.snp.makeConstraints {
             $0.height.equalTo(156)
         }
-        
-        containerStackView.setCustomSpacing(23, after: ticketingHeaderView)
+
+        containerStackView.setCustomSpacing(24, after: ticketingHeaderView)
+        containerStackView.setCustomSpacing(23, after: upcomingCarouselView)
     }
 }
-

@@ -39,5 +39,11 @@ final class SavedCoordinator: NavigationCoordinator {
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }
+    
+    func goToLoginScreen() {
+        let coordinator = LoginCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }
 

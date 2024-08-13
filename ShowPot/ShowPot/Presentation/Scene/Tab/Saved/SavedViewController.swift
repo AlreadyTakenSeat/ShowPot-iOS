@@ -45,7 +45,10 @@ final class SavedViewController: ViewController {
         
         let input = SavedViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedMenu: viewHolder.menuCollectionView.rx.itemSelected.asObservable(), didEndScrolling: visiblePerformanceSubject.asObservable()
+            didTappedMenu: viewHolder.menuCollectionView.rx.itemSelected.asObservable(), 
+            didEndScrolling: visiblePerformanceSubject.asObservable(),
+            didTappedLoginButton: viewHolder.emptyView.footerButton.rx.tap.asObservable(),
+            didTappedUpcomingCell: viewHolder.upcomingCarouselView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
         
@@ -80,6 +83,14 @@ final class SavedViewController: ViewController {
                     artistName: headerModel.artistName,
                     upcomingTime: headerModel.remainDay
                 )
+            }
+            .disposed(by: disposeBag)
+        
+        output.upcomingIsEmpty
+            .drive(with: self) { owner, result in
+                let (isEmpty, isLoggedIn) = result
+                owner.viewHolder.emptyView.isHidden = !isEmpty
+                owner.viewHolder.emptyView.configureUI(isLoggedIn: isLoggedIn)
             }
             .disposed(by: disposeBag)
     }
