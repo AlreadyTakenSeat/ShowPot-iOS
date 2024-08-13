@@ -95,6 +95,8 @@
 		70F3C1122C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */; };
 		70F3C1142C6B9FF200786738 /* MyAlarmMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */; };
 		70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C1162C6BA19700786738 /* ScalingCarousel */; };
+		70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */; };
+		70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -249,6 +251,8 @@
 		70F3C10F2C6B9FD100786738 /* MyUpcomingTicketingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUpcomingTicketingCell.swift; sourceTree = "<group>"; };
 		70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUpcomingTicketingHeaderView.swift; sourceTree = "<group>"; };
 		70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmMenuCell.swift; sourceTree = "<group>"; };
+		70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmUseCase.swift; sourceTree = "<group>"; };
+		70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmUseCase.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -576,6 +580,15 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		70F3C1182C6BA34E00786738 /* MyAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */,
+				70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */,
+			);
+			path = MyAlarm;
+			sourceTree = "<group>";
+		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -850,6 +863,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				70F3C1182C6BA34E00786738 /* MyAlarm */,
 				70F3C0FD2C68B31300786738 /* MyShow */,
 				707FF7822C64A8E30026C82D /* SubscribeArtist */,
 				707FF7502C5DFCEB0026C82D /* AllPerformance */,
@@ -1212,6 +1226,7 @@
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */,
 				7D78036B2C5E19530043A230 /* NavigationController.swift in Sources */,
+				70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */,
 				707FF75D2C5FF0C20026C82D /* SubscribeArtistViewModel.swift in Sources */,
 				70F3C0F22C663B3C00786738 /* UIButton+Extension.swift in Sources */,
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,
@@ -1222,6 +1237,7 @@
 				7D2981312C01F23C00A619FB /* SavedViewModel.swift in Sources */,
 				701467952C53C16900750A54 /* FeaturedSearchViewHolder.swift in Sources */,
 				7D21953F2C143AAA00A38D2B /* ViewModelType.swift in Sources */,
+				70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */,
 				7D2195412C143E8400A38D2B /* ViewHolderType.swift in Sources */,
 				707FF7422C5CC1800026C82D /* AllPerformanceCoordinator.swift in Sources */,
 				707FF75B2C5FF0A60026C82D /* SubscribeArtistViewController.swift in Sources */,

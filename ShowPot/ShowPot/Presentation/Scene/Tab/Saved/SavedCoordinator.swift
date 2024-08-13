@@ -18,7 +18,26 @@ final class SavedCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: SavedViewController = SavedViewController(viewModel: SavedViewModel(coordinator: self))
+        let viewController: SavedViewController = SavedViewController(viewModel: SavedViewModel(coordinator: self, usecase: DefaultMyAlarmUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func goToMyPerformanceAlarmScreen() {
+        let coordinator = MyShowAlarmCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
+    
+    func goToSubscribeArtistScreen() {
+        let coordinator = SubscribeArtistCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
+    
+    func goToSubscribeGenreScreen() {
+        let coordinator = SubscribeGenreCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }
+

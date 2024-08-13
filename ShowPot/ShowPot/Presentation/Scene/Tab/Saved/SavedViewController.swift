@@ -13,6 +13,8 @@ final class SavedViewController: ViewController {
     let viewHolder: SavedViewHolder = .init()
     let viewModel: SavedViewModel
     
+    private let visiblePerformanceSubject = PublishSubject<IndexPath>()
+    
     init(viewModel: SavedViewModel) {
         self.viewModel = viewModel
         
@@ -21,6 +23,11 @@ final class SavedViewController: ViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        viewHolder.upcomingCarouselView.deviceRotated()
     }
     
     override func viewDidLoad() {
@@ -36,6 +43,48 @@ final class SavedViewController: ViewController {
     
     override func bind() {
         
+        let input = SavedViewModel.Input(
+            viewDidLoad: .just(()),
+            didTappedMenu: viewHolder.menuCollectionView.rx.itemSelected.asObservable(), didEndScrolling: visiblePerformanceSubject.asObservable()
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.upcomingTicketingModel
+            .drive(viewHolder.upcomingCarouselView.rx.items(cellIdentifier: MyUpcomingTicketingCell.reuseIdentifier, cellType: MyUpcomingTicketingCell.self)) { index, model, cell in
+                cell.configureUI(
+                    backgroundImage: model.backgroundImage,
+                    showThubnailURL: model.showThubnailURL,
+                    showName: model.showName,
+                    showLocation: model.showLocation,
+                    showStartTime: model.showStartTime,
+                    showEndTime: model.showEndTime,
+                    ticketingOpenTime: model.ticketingOpenTime
+                )
+            }
+            .disposed(by: disposeBag)
+        
+        output.alarmMenuModel
+            .drive(viewHolder.menuCollectionView.rx.items(cellIdentifier: MyAlarmMenuCell.reuseIdentifier, cellType: MyAlarmMenuCell.self)) { index, model, cell in
+                cell.configureUI(with: .init(
+                    type: model.type,
+                    menuImage: model.type.menuImage,
+                    menuTitle: model.type.menuTitle,
+                    badgeCount: "\(model.badgeCount)"
+                ))
+            }
+            .disposed(by: disposeBag)
+        
+        output.currentHeaderModel
+            .drive(with: self) { owner, headerModel in
+                owner.viewHolder.ticketingHeaderView.configureUI(
+                    artistName: headerModel.artistName,
+                    upcomingTime: headerModel.remainDay
+                )
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
 extension SavedViewController: UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -46,5 +95,13 @@ extension SavedViewController: UICollectionViewDelegateFlowLayout, UIScrollViewD
         }
         return .zero
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let visibleRect = CGRect(origin: viewHolder.upcomingCarouselView.contentOffset, size: viewHolder.upcomingCarouselView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        
+        if let indexPath = viewHolder.upcomingCarouselView.indexPathForItem(at: visiblePoint) {
+            visiblePerformanceSubject.onNext(indexPath)
+        }
     }
 }
