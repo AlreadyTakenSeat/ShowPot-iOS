@@ -53,14 +53,14 @@ final class MyUpcomingTicketingHeaderView: UIView {
 
 struct MyUpcomingTicketingHeaderViewModel {
     let artistName: String
-    let upcomingTime: String
+    let remainDay: Int
 }
 
 extension MyUpcomingTicketingHeaderView {
     func configureUI(with model: MyUpcomingTicketingHeaderViewModel) {
         self.configureUI(
             artistName: model.artistName,
-            upcomingTime: model.upcomingTime
+            remainDay: model.remainDay
         )
     }
     

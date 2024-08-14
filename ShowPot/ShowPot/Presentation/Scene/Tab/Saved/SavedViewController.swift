@@ -56,11 +56,11 @@ final class SavedViewController: ViewController {
             .drive(viewHolder.upcomingCarouselView.rx.items(cellIdentifier: MyUpcomingTicketingCell.reuseIdentifier, cellType: MyUpcomingTicketingCell.self)) { index, model, cell in
                 cell.configureUI(
                     backgroundImage: model.backgroundImage,
-                    showThubnailURL: model.showThubnailURL,
-                    showName: model.showName,
-                    showLocation: model.showLocation,
-                    showStartTime: model.showStartTime,
-                    showEndTime: model.showEndTime,
+                    showThubnailURL: model.thubnailURL,
+                    showName: model.name,
+                    showLocation: model.location,
+                    showStartTime: model.startTime,
+                    showEndTime: model.endTime,
                     ticketingOpenTime: model.ticketingOpenTime
                 )
             }
@@ -82,7 +82,7 @@ final class SavedViewController: ViewController {
                 guard let remainDay = headerModel.remainDay else { return }
                 owner.viewHolder.ticketingHeaderView.configureUI(
                     artistName: headerModel.artistName,
-                    upcomingTime: "공연 티켓팅까지, D-\(remainDay)"
+                    remainDay: remainDay
                 )
             }
             .disposed(by: disposeBag)

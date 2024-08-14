@@ -15,18 +15,15 @@ struct MyMenuData {
     let badgeCount: Int
 }
 
-struct ArtistShowInfo {
+struct ShowData {
     let artistName: String
     let remainDay: Int?
-}
-
-struct MyShowData {
     let backgroundImage: UIImage
-    let showThubnailURL: URL?
-    let showName: String
-    let showLocation: String
-    let showStartTime: Date?
-    let showEndTime: Date?
+    let thubnailURL: URL?
+    let name: String
+    let location: String
+    let startTime: Date?
+    let endTime: Date?
     let ticketingOpenTime: Date?
 }
 
@@ -40,9 +37,8 @@ final class SavedViewModel: ViewModelType {
         UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
     }
     
-    private let alarmMenuModelRelay = BehaviorRelay<[MyMenuData]>(value: [])
-    private let upcomingTicketingModelRelay = BehaviorRelay<[MyShowData]>(value: [])
-    private let currentHeaderModelRelay = BehaviorRelay<ArtistShowInfo?>(value: nil)
+    private let upcomingTicketingModelRelay = BehaviorRelay<[ShowData]>(value: [])
+    private let currentHeaderModelRelay = BehaviorRelay<ShowData?>(value: nil)
     
     init(coordinator: SavedCoordinator, usecase: MyAlarmUseCase) {
         self.coordinator = coordinator
@@ -58,25 +54,25 @@ final class SavedViewModel: ViewModelType {
     }
     
     struct Output {
-        let alarmMenuModel: Driver<[MyMenuData]>
-        let upcomingTicketingModel: Driver<[MyShowData]>
-        let currentHeaderModel: Driver<ArtistShowInfo>
+        let upcomingTicketingModel: Driver<[ShowData]>
+        let currentHeaderModel: Driver<ShowData>
         let upcomingIsEmpty: Driver<(Bool, Bool)>
     }
     
     func transform(input: Input) -> Output {
         
-        usecase.showArtistList
-            .subscribe(with: self) { owner, data in
-                guard let firstData = data.first else { return }
-                owner.currentHeaderModelRelay.accept(.init(
-                    artistName: firstData.artistName,
-                    remainDay: firstData.remainDay
-                ))
+        let shareShowObservable = usecase.upcomingShowList.share()
+        
+        shareShowObservable
+            .filter { !$0.isEmpty }
+            .take(1)
+            .subscribe(with: self) { owner, model in
+                guard let firstModel = model.first else { return }
+                owner.currentHeaderModelRelay.accept(firstModel)
             }
             .disposed(by: disposeBag)
         
-        usecase.upcomingShowList
+        shareShowObservable
             .bind(to: upcomingTicketingModelRelay)
             .disposed(by: disposeBag)
         
@@ -121,11 +117,8 @@ final class SavedViewModel: ViewModelType {
         input.didEndScrolling
             .distinctUntilChanged()
             .subscribe(with: self) { owner, indexPath in
-                let currentVisibleModel = owner.usecase.showArtistList.value[indexPath.row]
-                owner.currentHeaderModelRelay.accept(.init(
-                    artistName: currentVisibleModel.artistName,
-                    remainDay: currentVisibleModel.remainDay
-                ))
+                let currentVisibleModel = owner.usecase.upcomingShowList.value[indexPath.row]
+                owner.currentHeaderModelRelay.accept(currentVisibleModel)
             }
             .disposed(by: disposeBag)
         
