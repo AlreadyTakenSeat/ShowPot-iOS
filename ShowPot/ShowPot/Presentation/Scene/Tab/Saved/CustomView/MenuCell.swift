@@ -1,5 +1,5 @@
 //
-//  MyAlarmMenuCell.swift
+//  MenuCell.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/13/24.
@@ -11,7 +11,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class MyAlarmMenuCell: UICollectionViewCell, ReusableCell {
+final class MenuCell: UICollectionViewCell, ReusableCell {
     
     private let indicatorView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -72,30 +72,61 @@ final class MyAlarmMenuCell: UICollectionViewCell, ReusableCell {
 
 // MARK: - Data Configuration
 
-struct MyAlarmMenuCellModel {
-    let type: MyAlarmMenuType
+struct MenuCellModel {
     let menuImage: UIImage
     let menuTitle: String
-    let badgeCount: String
 }
 
-extension MyAlarmMenuCell {
-    func configureUI(with model: MyAlarmMenuCellModel) {
+extension MenuCell {
+    
+    func configureUI(with model: MenuCellModel) {
         self.configureUI(
             menuImage: model.menuImage,
-            menuTitle: model.menuTitle,
-            badgeCount: model.badgeCount
+            menuTitle: model.menuTitle
         )
     }
     
     func configureUI(
         menuImage: UIImage,
-        menuTitle: String,
-        badgeCount: String
+        menuTitle: String
     ) {
         mainMenuImageView.image = menuImage
         menuTitleLabel.setText(menuTitle)
-        countBadgeLabel.setText(badgeCount)
     }
 }
 
+/// 내 알림 메뉴 타입
+enum MyAlarmMenuType: CaseIterable {
+    case alarmPerformance
+    case artist
+    case genre
+    
+    var menuTitle: String {
+        switch self {
+        case .alarmPerformance:
+            return Strings.myAlarmMenuButton1
+        case .artist:
+            return Strings.myAlarmMenuButton2
+        case .genre:
+            return Strings.myAlarmMenuButton3
+        }
+    }
+    
+    var menuImage: UIImage {
+        switch self {
+        case .alarmPerformance:
+            return .icAlarm.withTintColor(.gray300)
+        case .artist:
+            return .icArtist.withTintColor(.gray300)
+        case .genre:
+            return .icGenre.withTintColor(.gray300)
+        }
+    }
+    
+    static func menuType(title: String) -> Self {
+        guard let type = MyAlarmMenuType.allCases.first(where: { $0.menuTitle == title }) else {
+            fatalError("Not Found MyAlarmMenuType")
+        }
+        return type
+    }
+}
