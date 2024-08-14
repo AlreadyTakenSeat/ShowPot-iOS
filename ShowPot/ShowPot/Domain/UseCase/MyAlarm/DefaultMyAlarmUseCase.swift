@@ -12,7 +12,9 @@ import RxCocoa
 
 final class DefaultMyAlarmUseCase: MyAlarmUseCase {
 
+    var menuList: RxRelay.BehaviorRelay<[MyShowMenuData]> = BehaviorRelay<[MyShowMenuData]>(value: [])
     var upcomingShowList: RxRelay.BehaviorRelay<[ShowData]> = BehaviorRelay<[ShowData]>(value: [])
+
     func requestUpcomingShow() {
         
         let backgroundTicketImageList: [UIImage] = [.orangeTicket, .greenTicket, .blueTicket, .yellowTicket]
@@ -30,8 +32,11 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
     }
     
     func requestMenuData() {
-        
-        let menus = ["알림 설정한 공연", "구독한 아티스트", "구독한 장르"]
-        menuList.accept(menus.compactMap { .init(type: MyAlarmMenuType.menuType(title: $0), badgeCount: Array(1...100).shuffled()[0]) })
+        // TODO: - 추후 메뉴에 대한 badgeCount 적용 필요
+        menuList.accept([
+            .init(type: .alarmPerformance, badgeCount: Array(1...10).shuffled()[0]),
+            .init(type: .artist, badgeCount: Array(1...10).shuffled()[0]),
+            .init(type: .genre, badgeCount: Array(1...10).shuffled()[0])
+        ])
     }
 }

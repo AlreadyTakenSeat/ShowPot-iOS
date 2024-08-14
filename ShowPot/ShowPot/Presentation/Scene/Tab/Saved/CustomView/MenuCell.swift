@@ -79,6 +79,10 @@ struct MenuCellModel {
 
 extension MenuCell {
     
+    func updateBadge(count: Int) {
+        countBadgeLabel.setText("\(count)")
+    }
+    
     func configureUI(with model: MenuCellModel) {
         self.configureUI(
             menuImage: model.menuImage,

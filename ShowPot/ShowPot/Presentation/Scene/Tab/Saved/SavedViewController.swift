@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 
 final class SavedViewController: ViewController {
     let viewHolder: SavedViewHolder = .init()
@@ -66,13 +67,11 @@ final class SavedViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.alarmMenuModel
-            .drive(viewHolder.menuCollectionView.rx.items(cellIdentifier: MyAlarmMenuCell.reuseIdentifier, cellType: MyAlarmMenuCell.self)) { index, model, cell in
+        Driver.just(MyAlarmMenuType.allCases)
+            .drive(viewHolder.menuCollectionView.rx.items(cellIdentifier: MenuCell.reuseIdentifier, cellType: MenuCell.self)) { index, model, cell in
                 cell.configureUI(with: .init(
-                    type: model.type,
-                    menuImage: model.type.menuImage,
-                    menuTitle: model.type.menuTitle,
-                    badgeCount: "\(model.badgeCount)"
+                    menuImage: model.menuImage,
+                    menuTitle: model.menuTitle
                 ))
             }
             .disposed(by: disposeBag)
@@ -84,6 +83,17 @@ final class SavedViewController: ViewController {
                     artistName: headerModel.artistName,
                     remainDay: remainDay
                 )
+            }
+            .disposed(by: disposeBag)
+        
+        output.alarmMenuModel
+            .drive(with: self) { owner, models in
+                models.forEach { data in
+                    guard let index = MyAlarmMenuType.allCases.firstIndex(where: { $0 == data.type }) else { return }
+                    let cell = owner.viewHolder.menuCollectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? MenuCell ?? MenuCell()
+                    cell.updateBadge(count: data.badgeCount)
+                }
+                owner.viewHolder.menuCollectionView.reloadData()
             }
             .disposed(by: disposeBag)
         

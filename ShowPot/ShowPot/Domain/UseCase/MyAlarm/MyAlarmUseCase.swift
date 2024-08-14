@@ -10,6 +10,7 @@ import RxCocoa
 
 protocol MyAlarmUseCase {
     var upcomingShowList: BehaviorRelay<[ShowData]> { get }
+    var menuList: BehaviorRelay<[MyShowMenuData]> { get }
     
     func requestMenuData()
     func requestUpcomingShow()

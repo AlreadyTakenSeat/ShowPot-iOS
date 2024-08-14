@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-struct MyMenuData {
+struct MyShowMenuData {
     let type: MyAlarmMenuType
     let badgeCount: Int
 }
@@ -37,6 +37,7 @@ final class SavedViewModel: ViewModelType {
         UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
     }
     
+    private let alarmMenuModelRelay = BehaviorRelay<[MyShowMenuData]>(value: [])
     private let upcomingTicketingModelRelay = BehaviorRelay<[ShowData]>(value: [])
     private let currentHeaderModelRelay = BehaviorRelay<ShowData?>(value: nil)
     
@@ -54,6 +55,7 @@ final class SavedViewModel: ViewModelType {
     }
     
     struct Output {
+        let alarmMenuModel: Driver<[MyShowMenuData]>
         let upcomingTicketingModel: Driver<[ShowData]>
         let currentHeaderModel: Driver<ShowData>
         let upcomingIsEmpty: Driver<(Bool, Bool)>
@@ -89,8 +91,8 @@ final class SavedViewModel: ViewModelType {
         
         input.didTappedMenu
             .subscribe(with: self) { owner, indexPath in
-                let menuModel = owner.alarmMenuModelRelay.value
-                switch menuModel[indexPath.row].type {
+                let menuModel = MyAlarmMenuType.allCases[indexPath.row]
+                switch menuModel {
                 case .alarmPerformance:
                     owner.coordinator.goToMyPerformanceAlarmScreen()
                 case .artist:
@@ -128,41 +130,5 @@ final class SavedViewModel: ViewModelType {
             currentHeaderModel: currentHeaderModelRelay.compactMap { $0 }.asDriver(onErrorDriveWith: .empty()), 
             upcomingIsEmpty: upcomingTicketingModelRelay.map { ($0.isEmpty, self.isLoggedIn) }.asDriver(onErrorDriveWith: .empty())
         )
-    }
-}
-
-/// 내 알림 메뉴 타입
-enum MyAlarmMenuType: CaseIterable {
-    case alarmPerformance
-    case artist
-    case genre
-    
-    var menuTitle: String {
-        switch self {
-        case .alarmPerformance:
-            return Strings.myAlarmMenuButton1
-        case .artist:
-            return Strings.myAlarmMenuButton2
-        case .genre:
-            return Strings.myAlarmMenuButton3
-        }
-    }
-    
-    var menuImage: UIImage {
-        switch self {
-        case .alarmPerformance:
-            return .icAlarm.withTintColor(.gray300)
-        case .artist:
-            return .icArtist.withTintColor(.gray300)
-        case .genre:
-            return .icGenre.withTintColor(.gray300)
-        }
-    }
-    
-    static func menuType(title: String) -> Self {
-        guard let type = MyAlarmMenuType.allCases.first(where: { $0.menuTitle == title }) else {
-            fatalError("Not Found MyAlarmMenuType")
-        }
-        return type
     }
 }
