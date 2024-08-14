@@ -17,7 +17,7 @@ struct MyMenuData {
 
 struct ArtistShowInfo {
     let artistName: String
-    let remainDay: String
+    let remainDay: Int?
 }
 
 struct MyShowData {

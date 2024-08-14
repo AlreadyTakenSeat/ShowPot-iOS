@@ -24,23 +24,17 @@ extension Date {
         return elapsedHours >= hours
     }
     
-    /// 주어진 목표일(`targetDate`)까지 남은 날짜를 계산하여 D-Day 형식으로 반환합니다.
-    func calculateDDay(to targetDate: Date) -> String {
+    /// 주어진 목표일(`targetDate`)까지 남은 날짜를 반환합니다.
+    func daysUntil(_ targetDate: Date) -> Int? {
         let calendar = Calendar.current
         
         // 두 날짜 사이의 일(day) 차이를 계산
         let components = calendar.dateComponents([.day], from: self, to: targetDate)
         
         guard let daysDifference = components.day else {
-            return "Error calculating D-Day"
+            return nil
         }
         
-        if daysDifference > 0 {
-            return "D-\(daysDifference)"
-        } else if daysDifference == 0 {
-            return "D-Day"
-        } else {
-            fatalError("Target date is in the past. D-Day calculation is not valid.") 
-        }
+        return daysDifference
     }
 }

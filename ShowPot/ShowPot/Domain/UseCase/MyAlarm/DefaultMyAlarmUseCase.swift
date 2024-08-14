@@ -21,12 +21,12 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
         let currentDate = Date()
         
         showArtistList.accept([ // FIXME: - 티켓팅 시간을 기준으로 remainDay 변경 필요
-            .init(artistName: "Dua lipa", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 2).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))"),
-            .init(artistName: "Michael Jackson", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))"),
-            .init(artistName: "Anjelinanana", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 1).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))"),
-            .init(artistName: "Tarzan Azars", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))"),
-            .init(artistName: "JustLikeThantKR", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))"),
-            .init(artistName: "ShowPot Team", remainDay: "공연 티켓팅까지, \(currentDate.calculateDDay(to: Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))")
+            .init(artistName: "Dua lipa", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 2).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0])),
+            .init(artistName: "Michael Jackson", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0])),
+            .init(artistName: "Anjelinanana", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 1).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0])),
+            .init(artistName: "Tarzan Azars", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0])),
+            .init(artistName: "JustLikeThantKR", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0])),
+            .init(artistName: "ShowPot Team", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]))
         ])
         upcomingShowList.accept([ // FIXME: - API연동 이후 %연산자로 backgroundImage적용 필요
             .init(backgroundImage: .orangeTicket, showThubnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), showName: "OPN(Oneohtrix Point Never)", showLocation: "KBS 아레나홀", showStartTime: Date(timeIntervalSinceNow: 24), showEndTime: Date(timeIntervalSinceNow: 24*60), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),

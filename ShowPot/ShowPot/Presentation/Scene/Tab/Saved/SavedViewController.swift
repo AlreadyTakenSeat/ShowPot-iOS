@@ -79,9 +79,10 @@ final class SavedViewController: ViewController {
         
         output.currentHeaderModel
             .drive(with: self) { owner, headerModel in
+                guard let remainDay = headerModel.remainDay else { return }
                 owner.viewHolder.ticketingHeaderView.configureUI(
                     artistName: headerModel.artistName,
-                    upcomingTime: headerModel.remainDay
+                    upcomingTime: "공연 티켓팅까지, D-\(remainDay)"
                 )
             }
             .disposed(by: disposeBag)
