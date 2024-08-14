@@ -66,27 +66,32 @@ extension MyUpcomingTicketingHeaderView {
     
     func configureUI(
         artistName: String,
-        upcomingTime: String
+        remainDay: Int
     ) {
         performanceArtistNameLabel.setText(artistName)
-        applyFontAndColorToText(fullText: upcomingTime, startText: "D", font: KRFont.H0.font, foregroundColor: .mainOrange) // TODO: - 추후 SPLabel에 추가 혹은 SPLabel 2개를 생성해 해결할지 논의 필요
+        let targetText = "D-\(remainDay)"
+        applyFontAndColorToText(
+            fullText: "공연 티켓팅까지, \(targetText)",
+            targetText: targetText,
+            font: KRFont.H0.font,
+            foregroundColor: .mainOrange
+        ) // TODO: - 추후 SPLabel에 추가 혹은 SPLabel 2개를 생성해 해결할지 논의 필요
     }
     
     private func applyFontAndColorToText(
         fullText: String,
-        startText: String,
+        targetText: String,
         font: UIFont,
         foregroundColor: UIColor
     ) {
         let attributedString = NSMutableAttributedString(string: fullText)
         attributedString.addAttribute(.font, value: font, range: NSRange(location: 0, length: attributedString.length))
         
-        if let range = fullText.range(of: startText) {
-            let nsRange = NSRange(range.lowerBound..<fullText.endIndex, in: fullText)
+        if let range = fullText.range(of: targetText) {
+            let nsRange = NSRange(range, in: fullText)
             attributedString.addAttribute(.foregroundColor, value: foregroundColor, range: nsRange)
         }
         
         upcomingTimeLabel.attributedText = attributedString
     }
 }
-
