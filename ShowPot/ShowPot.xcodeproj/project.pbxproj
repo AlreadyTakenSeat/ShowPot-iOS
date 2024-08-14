@@ -93,7 +93,7 @@
 		70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1082C6A151400786738 /* Date+Extension.swift */; };
 		70F3C1102C6B9FD100786738 /* MyUpcomingTicketingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C10F2C6B9FD100786738 /* MyUpcomingTicketingCell.swift */; };
 		70F3C1122C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */; };
-		70F3C1142C6B9FF200786738 /* MyAlarmMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */; };
+		70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1132C6B9FF200786738 /* MenuCell.swift */; };
 		70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C1162C6BA19700786738 /* ScalingCarousel */; };
 		70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */; };
 		70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */; };
@@ -251,7 +251,7 @@
 		70F3C1082C6A151400786738 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		70F3C10F2C6B9FD100786738 /* MyUpcomingTicketingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUpcomingTicketingCell.swift; sourceTree = "<group>"; };
 		70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUpcomingTicketingHeaderView.swift; sourceTree = "<group>"; };
-		70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmMenuCell.swift; sourceTree = "<group>"; };
+		70F3C1132C6B9FF200786738 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmEmptyView.swift; sourceTree = "<group>"; };
@@ -577,7 +577,7 @@
 			children = (
 				70F3C10F2C6B9FD100786738 /* MyUpcomingTicketingCell.swift */,
 				70F3C1112C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift */,
-				70F3C1132C6B9FF200786738 /* MyAlarmMenuCell.swift */,
+				70F3C1132C6B9FF200786738 /* MenuCell.swift */,
 				70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */,
 			);
 			path = CustomView;
@@ -1215,7 +1215,7 @@
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
-				70F3C1142C6B9FF200786738 /* MyAlarmMenuCell.swift in Sources */,
+				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
 				70F3C0E62C663ADC00786738 /* ShowAlarmButtonView.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,

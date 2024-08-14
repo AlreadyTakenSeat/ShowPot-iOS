@@ -41,7 +41,7 @@ final class SavedViewHolder {
     }
     
     lazy var menuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: menuCollectionViewLayout).then {
-        $0.register(MyAlarmMenuCell.self)
+        $0.register(MenuCell.self)
         $0.backgroundColor = .gray700
         $0.isScrollEnabled = false
     }
