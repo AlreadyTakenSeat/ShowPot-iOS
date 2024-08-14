@@ -53,6 +53,16 @@ final class MyUpcomingTicketingCell: ScalingCarouselCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        showDateLabel.text = nil
+        ticketingOpenTimeLabel.text = nil
+        backgroundImageView.image = nil
+        showImageView.image = nil
+        showTitleLabel.text = nil
+        showLocationLabel.text = nil
+    }
+    
     private func setupLayouts() {
         mainView = UIView(frame: contentView.bounds)
         contentView.addSubview(mainView)
@@ -137,20 +147,34 @@ extension MyUpcomingTicketingCell {
         showEndTime: Date?,
         ticketingOpenTime: Date?
     ) {
-        if let startTime = showStartTime,
-           let endTime = showEndTime,
-           let openTime = ticketingOpenTime {
-            let showDate = DateFormatterFactory.dateWithDot.string(from: startTime) + " - " + DateFormatterFactory.dateWithDot.string(from: endTime)
-            showDateLabel.setText(showDate)
+        var showTime: String = ""
+        if let startTime = showStartTime {
+            let startDate = DateFormatterFactory.dateWithDot.string(from: startTime)
+            showTime += startDate
+        } else {
+            showTime += "TBD"
+        }
+        
+        showTime += " - "
+        
+        if let endTime = showEndTime {
+            let endDate = DateFormatterFactory.dateWithDot.string(from: endTime)
+            showTime += endDate
+        } else {
+            showTime += "TBD"
+        }
+        
+        showDateLabel.setText(showTime)
+        
+        if let openTime = ticketingOpenTime {
             ticketingOpenTimeLabel.setText(DateFormatterFactory.dateWithPerformance.string(from: openTime).uppercased())
         } else {
-            showDateLabel.setText("")
-            ticketingOpenTimeLabel.setText("")
+            ticketingOpenTimeLabel.setText("TBD")
         }
+        
         backgroundImageView.image = backgroundImage
         showImageView.kf.setImage(with: showThubnailURL)
         showTitleLabel.setText(showName)
         showLocationLabel.setText(showLocation)
     }
 }
-
