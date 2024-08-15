@@ -43,12 +43,17 @@ public enum Strings {
   public static let myAlarmMainTitle = Strings.tr("Localizable", "my_alarm_main_title", fallback: "티켓팅이 임박한 공연")
   /// 알림 설정한 공연
   public static let myAlarmMenuButton1 = Strings.tr("Localizable", "my_alarm_menu_button_1", fallback: "알림 설정한 공연")
-  /// 구독한 아티스트
-  public static let myAlarmMenuButton2 = Strings.tr("Localizable", "my_alarm_menu_button_2", fallback: "구독한 아티스트")
-  /// 구독한 장르
-  public static let myAlarmMenuButton3 = Strings.tr("Localizable", "my_alarm_menu_button_3", fallback: "구독한 장르")
   /// TICKET OPEN
   public static let myAlarmTicketTitle = Strings.tr("Localizable", "my_alarm_ticket_title", fallback: "TICKET OPEN")
+  /// 로그인 후 다채로운
+  /// 내한공연을 만나보세요.
+  public static let myPageLoginAlert = Strings.tr("Localizable", "my_page_login_alert", fallback: "로그인 후 다채로운\n내한공연을 만나보세요.")
+  /// 구독한 아티스트
+  public static let myPageMenuButton2 = Strings.tr("Localizable", "my_page_menu_button_2", fallback: "구독한 아티스트")
+  /// 구독한 장르
+  public static let myPageMenuButton3 = Strings.tr("Localizable", "my_page_menu_button_3", fallback: "구독한 장르")
+  /// 마이
+  public static let myPageNavigationTitle = Strings.tr("Localizable", "my_page_navigation_title", fallback: "마이")
   /// 변경하기
   public static let myShowAlarmBottomsheetButton1 = Strings.tr("Localizable", "my_show_alarm_bottomsheet_button_1", fallback: "변경하기")
   /// 해제하기
