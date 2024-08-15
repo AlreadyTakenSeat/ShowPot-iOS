@@ -12,7 +12,7 @@ import RxCocoa
 
 struct MyShowMenuData {
     let type: MyAlarmMenuType
-    let badgeCount: Int
+    let badgeCount: Int?
 }
 
 struct ShowData {
@@ -62,6 +62,12 @@ final class SavedViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
+        
+        Observable.just(MyAlarmMenuType.allCases)
+            .subscribe(with: self) { owner, model in
+                owner.alarmMenuModelRelay.accept(model.map { .init(type: $0, badgeCount: nil) })
+            }
+            .disposed(by: disposeBag)
         
         let shareShowObservable = usecase.upcomingShowList.share()
         

@@ -32,7 +32,7 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
     }
     
     func requestMenuData() {
-        // TODO: - 추후 메뉴에 대한 badgeCount 적용 필요
+        // TODO: - #6 badgeCount 적용 필요
         menuList.accept([
             .init(type: .alarmPerformance, badgeCount: Array(1...10).shuffled()[0]),
             .init(type: .artist, badgeCount: Array(1...10).shuffled()[0]),

@@ -75,27 +75,28 @@ final class MenuCell: UICollectionViewCell, ReusableCell {
 struct MenuCellModel {
     let menuImage: UIImage
     let menuTitle: String
+    let badgeCount: Int?
 }
 
 extension MenuCell {
-    
-    func updateBadge(count: Int) {
-        countBadgeLabel.setText("\(count)")
-    }
-    
     func configureUI(with model: MenuCellModel) {
         self.configureUI(
             menuImage: model.menuImage,
-            menuTitle: model.menuTitle
+            menuTitle: model.menuTitle,
+            badgeCount: model.badgeCount
         )
     }
     
     func configureUI(
         menuImage: UIImage,
-        menuTitle: String
+        menuTitle: String,
+        badgeCount: Int? = nil
     ) {
         mainMenuImageView.image = menuImage
         menuTitleLabel.setText(menuTitle)
+        if let badgeCount = badgeCount {
+            countBadgeLabel.setText("\(badgeCount)")
+        }
     }
 }
 

@@ -67,15 +67,6 @@ final class SavedViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        Driver.just(MyAlarmMenuType.allCases)
-            .drive(viewHolder.menuCollectionView.rx.items(cellIdentifier: MenuCell.reuseIdentifier, cellType: MenuCell.self)) { index, model, cell in
-                cell.configureUI(with: .init(
-                    menuImage: model.menuImage,
-                    menuTitle: model.menuTitle
-                ))
-            }
-            .disposed(by: disposeBag)
-        
         output.currentHeaderModel
             .drive(with: self) { owner, headerModel in
                 guard let remainDay = headerModel.remainDay else { return }
@@ -87,13 +78,12 @@ final class SavedViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.alarmMenuModel
-            .drive(with: self) { owner, models in
-                models.forEach { data in
-                    guard let index = MyAlarmMenuType.allCases.firstIndex(where: { $0 == data.type }) else { return }
-                    let cell = owner.viewHolder.menuCollectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? MenuCell ?? MenuCell()
-                    cell.updateBadge(count: data.badgeCount)
-                }
-                owner.viewHolder.menuCollectionView.reloadData()
+            .drive(viewHolder.menuCollectionView.rx.items(cellIdentifier: MenuCell.reuseIdentifier, cellType: MenuCell.self)) { index, model, cell in
+                cell.configureUI(
+                    menuImage: model.type.menuImage,
+                    menuTitle: model.type.menuTitle,
+                    badgeCount: model.badgeCount
+                )
             }
             .disposed(by: disposeBag)
         
