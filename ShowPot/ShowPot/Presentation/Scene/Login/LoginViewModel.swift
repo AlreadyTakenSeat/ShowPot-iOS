@@ -69,7 +69,7 @@ final class LoginViewModel: ViewModelType {
 
 // MARK: - SocialLogin Logics
 
-extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn 상태값 처리 필수
+extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn, nickname 상태값 처리 필수
     
     private func loginWithGoogle() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
