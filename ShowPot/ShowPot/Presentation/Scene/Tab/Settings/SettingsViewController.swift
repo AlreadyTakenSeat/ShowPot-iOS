@@ -14,6 +14,8 @@ final class SettingsViewController: ViewController {
     let viewHolder: SettingsViewHolder = .init()
     let viewModel: SettingsViewModel
     
+    private let didTappedLoginButtonSubject = PublishSubject<Void>()
+    
     init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel
         
@@ -37,7 +39,17 @@ final class SettingsViewController: ViewController {
     }
     
     override func bind() {
-        
+        super.bind()
+        let input = SettingsViewModel.Input(
+            viewDidLoad: .just(()),
+            didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(), 
+            didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(), 
+            didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
+        )
+        viewModel.transform(input: input)
+    }
+}
+
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         MypageSectionType.allCases.count
@@ -67,7 +79,7 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
             let cell = collectionView.dequeueReusableCell(PerformanceInfoCollectionViewCell.self, for: indexPath) ?? PerformanceInfoCollectionViewCell()
             let model = viewModel.recentShowList[indexPath.row]
             cell.configureUI(
-                performanceImageURL: model.thumbnailImageURL,
+                performanceImageURL: model.thumbnailURL,
                 performanceTitle: model.title,
                 performanceTime: model.time,
                 performanceLocation: model.location
@@ -78,7 +90,18 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyPageHeaderView.reuseIdentifier, for: indexPath) as? MyPageHeaderView ?? MyPageHeaderView()
-        headerView.configureUI(userNickname: viewModel.userNickname)
+        headerView.configureUI(userNickname: viewModel.nickname)
+        headerView.alertTextView.delegate = self
         return headerView
+    }
+}
+
+extension SettingsViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if URL.absoluteString == MyPageHeaderView.actionID {
+            didTappedLoginButtonSubject.onNext(())
+            return false
+        }
+        return true
     }
 }

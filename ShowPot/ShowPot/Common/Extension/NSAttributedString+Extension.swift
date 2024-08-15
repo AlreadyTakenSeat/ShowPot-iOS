@@ -81,6 +81,37 @@ extension NSAttributedString {
         mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: self.length))
         return NSAttributedString(attributedString: mutableAttributedString)
     }
+    
+    func setUnderline(to targetText: String) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(attributedString: self)
+        let fullText = self.string
+        
+        if let range = fullText.range(of: targetText) {
+            let nsRange = NSRange(range, in: fullText)
+            attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+        }
+        
+        return attributedString
+    }
+    
+    func setLink(to targetText: String, actionID: String) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(attributedString: self)
+        let fullText = self.string
+        if let range = fullText.range(of: targetText) {
+            let nsRange = NSRange(range, in: fullText)
+            attributedString.addAttribute(.link, value: actionID, range: nsRange)
+        }
+        return attributedString
+    }
+    
+    func setForegroundColor(color: UIColor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(attributedString: self)
+        let fullRange = NSRange(location: 0, length: attributedString.length)
+        
+        attributedString.addAttribute(.foregroundColor, value: color, range: fullRange)
+        
+        return attributedString
+    }
 }
 
 // MARK: 커스텀 attributes 사용하는 커스텀 생성자
@@ -113,7 +144,7 @@ extension NSAttributedString {
                 alignment: alignment
             )
             .setLetterSpacing(letterSpacingPercent: fontType.letterSpacing)
-
+        
         if multiline {
             attrStr = attrStr.setBaseLineOffset(baselineOffset: (lineHeight - fontType.font.lineHeight) / 2)
         }
