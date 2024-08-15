@@ -98,6 +98,7 @@
 		70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */; };
 		70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */; };
 		70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */; };
+		70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -255,6 +256,7 @@
 		70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmEmptyView.swift; sourceTree = "<group>"; };
+		70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -592,6 +594,14 @@
 			path = MyAlarm;
 			sourceTree = "<group>";
 		};
+		70F3C1202C6CD48D00786738 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +805,7 @@
 		7D2981252C01EC5200A619FB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				70F3C1202C6CD48D00786738 /* CustomView */,
 				7D2981322C01F24500A619FB /* SettingsViewController.swift */,
 				7D2981342C01F25100A619FB /* SettingsViewModel.swift */,
 				7DD2CB862C2ED63E0052ECCD /* SettingsCoordinator.swift */,
@@ -1132,6 +1143,7 @@
 				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
 				70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
+				70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */,
 				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
 				7014678B2C53C11200750A54 /* FeaturedSearchTextField.swift in Sources */,
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
