@@ -27,7 +27,7 @@ final class SettingsViewModel: ViewModelType {
     }
 
     var nickname: String? {
-        UserDefaultsManager.shared.get(for: .nickname)
+        UserDefaultsManager.shared.get(for: .nickname) 
     }
     
     init(coordinator: SettingsCoordinator, usecase: MyPageUseCase) {
