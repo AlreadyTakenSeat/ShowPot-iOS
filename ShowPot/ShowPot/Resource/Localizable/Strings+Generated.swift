@@ -48,12 +48,12 @@ public enum Strings {
   /// 로그인 후 다채로운
   /// 내한공연을 만나보세요.
   public static let myPageLoginAlert = Strings.tr("Localizable", "my_page_login_alert", fallback: "로그인 후 다채로운\n내한공연을 만나보세요.")
-  /// 구독한 아티스트
-  public static let myPageMenuButton2 = Strings.tr("Localizable", "my_page_menu_button_2", fallback: "구독한 아티스트")
-  /// 구독한 장르
-  public static let myPageMenuButton3 = Strings.tr("Localizable", "my_page_menu_button_3", fallback: "구독한 장르")
   /// 마이
   public static let myPageNavigationTitle = Strings.tr("Localizable", "my_page_navigation_title", fallback: "마이")
+  /// 구독한 아티스트
+  public static let myPageSubscribeArtistButtonTitle = Strings.tr("Localizable", "my_page_subscribe_artist_button_title", fallback: "구독한 아티스트")
+  /// 구독한 장르
+  public static let myPageSubscribeGenreButtonTitle = Strings.tr("Localizable", "my_page_subscribe_genre_button_title", fallback: "구독한 장르")
   /// 변경하기
   public static let myShowAlarmBottomsheetButton1 = Strings.tr("Localizable", "my_show_alarm_bottomsheet_button_1", fallback: "변경하기")
   /// 해제하기

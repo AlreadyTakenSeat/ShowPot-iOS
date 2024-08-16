@@ -87,6 +87,6 @@
 
 // 마이페이지 화면
 "my_page_login_alert" = "로그인 후 다채로운\n내한공연을 만나보세요.";
-"my_page_menu_button_2" = "구독한 아티스트";
-"my_page_menu_button_3" = "구독한 장르";
+"my_page_subscribe_artist_button_title" = "구독한 아티스트";
+"my_page_subscribe_genre_button_title" = "구독한 장르";
 "my_page_navigation_title" = "마이";

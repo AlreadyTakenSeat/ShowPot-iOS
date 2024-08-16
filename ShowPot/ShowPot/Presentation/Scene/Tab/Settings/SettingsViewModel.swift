@@ -27,7 +27,7 @@ final class SettingsViewModel: ViewModelType {
     }
 
     var nickname: String? {
-        UserDefaultsManager.shared.get(for: .nickname) 
+        UserDefaultsManager.shared.get(for: .nickname)
     }
     
     init(coordinator: SettingsCoordinator, usecase: MyPageUseCase) {
@@ -133,9 +133,9 @@ enum MypageMenuType: CaseIterable {
     var title: String {
         switch self {
         case .artist:
-            return Strings.myPageMenuButton2
+            return Strings.myPageSubscribeArtistButtonTitle
         case .genre:
-            return Strings.myPageMenuButton3
+            return Strings.myPageSubscribeGenreButtonTitle
         }
     }
     
