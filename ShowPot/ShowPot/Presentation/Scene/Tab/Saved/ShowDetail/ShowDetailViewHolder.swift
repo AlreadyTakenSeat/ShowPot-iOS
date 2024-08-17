@@ -23,6 +23,8 @@ final class ShowDetailViewHolder {
         stackView.distribution = .fill
     }
     
+    lazy var posterImageView = ShowDetailPosterImageView()
+    
     /// TestView
     let sample1 = UIView().then { view in
         view.snp.makeConstraints { $0.height.equalTo(300) }
@@ -50,7 +52,7 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        let subViews = [sample1, sample2, sample3, sample4]
+        let subViews = [posterImageView, sample1, sample2, sample3, sample4]
         contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
     }
     

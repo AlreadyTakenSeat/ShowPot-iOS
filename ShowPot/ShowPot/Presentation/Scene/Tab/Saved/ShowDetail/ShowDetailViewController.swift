@@ -35,6 +35,7 @@ class ShowDetailViewController: ViewController {
     }
         
     override func bind() {
-        
+        // TODO: #106 ViewHolder 개발 완료 후 ViewModel 사용하여 데이터 주입
+        viewHolder.posterImageView.setImage(urlString: "https://enfntsterribles.com/wp-content/uploads/2023/08/enfntsterribles-nothing-but-thieves-01.jpg", option: .relativeHeight)
     }
 }

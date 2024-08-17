@@ -179,6 +179,7 @@
 		7DA112542C689380009DFDB1 /* ShowDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */; };
 		7DA112562C6893AC009DFDB1 /* ShowDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */; };
 		7DA112582C6893D4009DFDB1 /* ShowDetailViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */; };
+		7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */; };
 		7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */; };
 		7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */; };
 		7DB9F90E2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */; };
@@ -202,6 +203,7 @@
 		7DEACE4E2C1ED00100F37DA3 /* LanguageFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEACE4D2C1ED00100F37DA3 /* LanguageFont.swift */; };
 		7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEACE502C1ED95E00F37DA3 /* KRFont.swift */; };
 		7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEACE522C1ED96400F37DA3 /* ENFont.swift */; };
+		7DEDA5492C70DFD000B07818 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */; };
 		7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF711882C480FDF001406F0 /* ReusableCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -357,6 +359,7 @@
 		7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewModel.swift; sourceTree = "<group>"; };
 		7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailCoordinator.swift; sourceTree = "<group>"; };
 		7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewHolder.swift; sourceTree = "<group>"; };
+		7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailPosterImageView.swift; sourceTree = "<group>"; };
 		7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDividerView.swift; sourceTree = "<group>"; };
 		7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDefaultBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -381,6 +384,7 @@
 		7DEACE4D2C1ED00100F37DA3 /* LanguageFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFont.swift; sourceTree = "<group>"; };
 		7DEACE502C1ED95E00F37DA3 /* KRFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRFont.swift; sourceTree = "<group>"; };
 		7DEACE522C1ED96400F37DA3 /* ENFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENFont.swift; sourceTree = "<group>"; };
+		7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		7DF711882C480FDF001406F0 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -860,6 +864,7 @@
 				7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */,
 				70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */,
 				70F3C1082C6A151400786738 /* Date+Extension.swift */,
+				7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1082,6 +1087,19 @@
 				7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */,
 			);
 			path = ShowDetail;
+			sourceTree = "<group>";
+		};
+		7DA1CA1B2C6BA3F900C2752F /* CustomView */ = {
+			isa = PBXGroup;
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		7DA1CA242C6D0A8500C2752F /* StackSubViews */ = {
+			isa = PBXGroup;
+			children = (
+				7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */,
+			);
+			path = StackSubViews;
 			sourceTree = "<group>";
 		};
 		7DB9F9312C63B9120097C4F9 /* Genre */ = {
@@ -1318,6 +1336,7 @@
 				7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */,
 				707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */,
 				7DD2CB872C2ED63E0052ECCD /* SettingsCoordinator.swift in Sources */,
+				7DEDA5492C70DFD000B07818 /* UIImageView+Extension.swift in Sources */,
 				7DD2CB812C2ED4430052ECCD /* FeaturedViewHolder.swift in Sources */,
 				7D93096C2C569DFB000889DE /* SPSnackBar.swift in Sources */,
 				70F3C0EC2C663B0600786738 /* TicketingAlarmBottomSheetViewController.swift in Sources */,
@@ -1378,6 +1397,7 @@
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
 				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
+				7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				70F3C1442C6FB9E600786738 /* ClosedShowUseCase.swift in Sources */,
 				70F3C12A2C6E723900786738 /* InterestShowUseCase.swift in Sources */,
