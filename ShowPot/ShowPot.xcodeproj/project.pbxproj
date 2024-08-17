@@ -101,6 +101,10 @@
 		70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */; };
 		70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */; };
 		70F3C1272C6CE4EC00786738 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */; };
+		70F3C1382C6E748200786738 /* ShowDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1372C6E748200786738 /* ShowDeleteCell.swift */; };
+		70F3C1492C6FBB0300786738 /* EndShowEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1482C6FBB0300786738 /* EndShowEmptyView.swift */; };
+		70F3C14B2C6FBBA200786738 /* InterestShowEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14A2C6FBBA200786738 /* InterestShowEmptyView.swift */; };
+		70F3C1502C70FD5700786738 /* ShowDeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -261,6 +265,10 @@
 		70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
 		70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
+		70F3C1372C6E748200786738 /* ShowDeleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDeleteCell.swift; sourceTree = "<group>"; };
+		70F3C1482C6FBB0300786738 /* EndShowEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowEmptyView.swift; sourceTree = "<group>"; };
+		70F3C14A2C6FBBA200786738 /* InterestShowEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowEmptyView.swift; sourceTree = "<group>"; };
+		70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDeleteButtonView.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -613,6 +621,24 @@
 				70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		70F3C1362C6E747700786738 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1372C6E748200786738 /* ShowDeleteCell.swift */,
+				70F3C14A2C6FBBA200786738 /* InterestShowEmptyView.swift */,
+				70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		70F3C1472C6FBAFA00786738 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1482C6FBB0300786738 /* EndShowEmptyView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
@@ -1152,6 +1178,7 @@
 				70F3C0EA2C663AF600786738 /* TicketingAlarmCell.swift in Sources */,
 				7DCAAEA22C38532E00DE8F7B /* OnboardingCarouselCell.swift in Sources */,
 				70F3C0EE2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift in Sources */,
+				70F3C1382C6E748200786738 /* ShowDeleteCell.swift in Sources */,
 				7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */,
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
@@ -1193,6 +1220,7 @@
 				7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */,
 				7DEACE4C2C1ECC5200F37DA3 /* CustomFont.swift in Sources */,
 				7014677C2C5363CE00750A54 /* FeaturedPerformanceWithTicketOnSaleSoonCell.swift in Sources */,
+				70F3C1502C70FD5700786738 /* ShowDeleteButtonView.swift in Sources */,
 				7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */,
 				70F3C0E42C663ACC00786738 /* ShowAlarmCell.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
@@ -1209,6 +1237,7 @@
 				7D89E5482C36652300E6001E /* OnboardingViewController.swift in Sources */,
 				7DE569F82C561CE7006724EF /* UIButton+Trigger.swift in Sources */,
 				7D8574C12C187A1F0042F539 /* LoginViewHolder.swift in Sources */,
+				70F3C1492C6FBB0300786738 /* EndShowEmptyView.swift in Sources */,
 				7D2981002C01E1D000A619FB /* AppDelegate.swift in Sources */,
 				7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */,
 				707FF7662C60DB8D0026C82D /* SubscribeFooterView.swift in Sources */,
@@ -1219,6 +1248,7 @@
 				707FF74D2C5CC2230026C82D /* CheckBoxButton.swift in Sources */,
 				707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */,
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
+				70F3C14B2C6FBBA200786738 /* InterestShowEmptyView.swift in Sources */,
 				7D43E20E2C5FA0B700D94898 /* SubscribeGenreViewModel.swift in Sources */,
 				7D29813B2C01F27B00A619FB /* SampleRequest.swift in Sources */,
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,
