@@ -179,7 +179,9 @@
 		7DA112542C689380009DFDB1 /* ShowDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */; };
 		7DA112562C6893AC009DFDB1 /* ShowDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */; };
 		7DA112582C6893D4009DFDB1 /* ShowDetailViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */; };
+		7DA1CA1A2C6BA3F600C2752F /* ShowDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */; };
 		7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */; };
+		7DA1CA232C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */; };
 		7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */; };
 		7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */; };
 		7DB9F90E2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */; };
@@ -359,7 +361,9 @@
 		7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewModel.swift; sourceTree = "<group>"; };
 		7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailCoordinator.swift; sourceTree = "<group>"; };
 		7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewHolder.swift; sourceTree = "<group>"; };
+		7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailTitleView.swift; sourceTree = "<group>"; };
 		7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailPosterImageView.swift; sourceTree = "<group>"; };
+		7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailTicketInfoView.swift; sourceTree = "<group>"; };
 		7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDividerView.swift; sourceTree = "<group>"; };
 		7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDefaultBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -1015,6 +1019,7 @@
 				707FF7502C5DFCEB0026C82D /* AllPerformance */,
 				7D43E7DB2C57CFEC0008F349 /* Onboarding */,
 				7DB9F9312C63B9120097C4F9 /* Genre */,
+				7DA1CA2B2C6DD27900C2752F /* ShowDetail */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1081,6 +1086,7 @@
 		7DA112522C68933D009DFDB1 /* ShowDetail */ = {
 			isa = PBXGroup;
 			children = (
+				7DA1CA1B2C6BA3F900C2752F /* CustomView */,
 				7DA112502C689332009DFDB1 /* ShowDetailViewController.swift */,
 				7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */,
 				7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */,
@@ -1098,6 +1104,7 @@
 			isa = PBXGroup;
 			children = (
 				7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */,
+				7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */,
 			);
 			path = StackSubViews;
 			sourceTree = "<group>";
@@ -1327,6 +1334,7 @@
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
 				701467932C53C15800750A54 /* FeaturedSearchViewController.swift in Sources */,
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
+				7DA1CA1A2C6BA3F600C2752F /* ShowDetailTitleView.swift in Sources */,
 				707FF75F2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift in Sources */,
 				70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */,
 				70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */,
