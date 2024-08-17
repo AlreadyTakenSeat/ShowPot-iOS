@@ -101,6 +101,8 @@
 		70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */; };
 		70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */; };
 		70F3C1272C6CE4EC00786738 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */; };
+		70F3C12A2C6E723900786738 /* InterestShowUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1292C6E723900786738 /* InterestShowUseCase.swift */; };
+		70F3C12C2C6E724500786738 /* DefaultInterestShowUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C12B2C6E724500786738 /* DefaultInterestShowUseCase.swift */; };
 		70F3C12F2C6E729600786738 /* InterestShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C12E2C6E729600786738 /* InterestShowViewController.swift */; };
 		70F3C1312C6E72A500786738 /* InterestShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1302C6E72A500786738 /* InterestShowViewModel.swift */; };
 		70F3C1332C6E72AC00786738 /* InterestShowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1322C6E72AC00786738 /* InterestShowCoordinator.swift */; };
@@ -110,6 +112,8 @@
 		70F3C13D2C6FAF1600786738 /* EndShowViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C13C2C6FAF1600786738 /* EndShowViewHolder.swift */; };
 		70F3C13F2C6FAF3100786738 /* EndShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C13E2C6FAF3100786738 /* EndShowViewModel.swift */; };
 		70F3C1412C6FAF3B00786738 /* EndShowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1402C6FAF3B00786738 /* EndShowCoordinator.swift */; };
+		70F3C1442C6FB9E600786738 /* EndShowUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1432C6FB9E600786738 /* EndShowUseCase.swift */; };
+		70F3C1462C6FB9EF00786738 /* DefaultEndShowUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1452C6FB9EF00786738 /* DefaultEndShowUseCase.swift */; };
 		70F3C1492C6FBB0300786738 /* EndShowEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1482C6FBB0300786738 /* EndShowEmptyView.swift */; };
 		70F3C14B2C6FBBA200786738 /* InterestShowEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14A2C6FBBA200786738 /* InterestShowEmptyView.swift */; };
 		70F3C1502C70FD5700786738 /* ShowDeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */; };
@@ -273,6 +277,8 @@
 		70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
 		70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
+		70F3C1292C6E723900786738 /* InterestShowUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowUseCase.swift; sourceTree = "<group>"; };
+		70F3C12B2C6E724500786738 /* DefaultInterestShowUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterestShowUseCase.swift; sourceTree = "<group>"; };
 		70F3C12E2C6E729600786738 /* InterestShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowViewController.swift; sourceTree = "<group>"; };
 		70F3C1302C6E72A500786738 /* InterestShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowViewModel.swift; sourceTree = "<group>"; };
 		70F3C1322C6E72AC00786738 /* InterestShowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowCoordinator.swift; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 		70F3C13C2C6FAF1600786738 /* EndShowViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowViewHolder.swift; sourceTree = "<group>"; };
 		70F3C13E2C6FAF3100786738 /* EndShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowViewModel.swift; sourceTree = "<group>"; };
 		70F3C1402C6FAF3B00786738 /* EndShowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowCoordinator.swift; sourceTree = "<group>"; };
+		70F3C1432C6FB9E600786738 /* EndShowUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowUseCase.swift; sourceTree = "<group>"; };
+		70F3C1452C6FB9EF00786738 /* DefaultEndShowUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEndShowUseCase.swift; sourceTree = "<group>"; };
 		70F3C1482C6FBB0300786738 /* EndShowEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShowEmptyView.swift; sourceTree = "<group>"; };
 		70F3C14A2C6FBBA200786738 /* InterestShowEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowEmptyView.swift; sourceTree = "<group>"; };
 		70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDeleteButtonView.swift; sourceTree = "<group>"; };
@@ -639,6 +647,15 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		70F3C1282C6E71FE00786738 /* InterestShow */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1292C6E723900786738 /* InterestShowUseCase.swift */,
+				70F3C12B2C6E724500786738 /* DefaultInterestShowUseCase.swift */,
+			);
+			path = InterestShow;
+			sourceTree = "<group>";
+		};
 		70F3C12D2C6E728300786738 /* InterestShow */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +686,15 @@
 				70F3C13C2C6FAF1600786738 /* EndShowViewHolder.swift */,
 				70F3C13E2C6FAF3100786738 /* EndShowViewModel.swift */,
 				70F3C1402C6FAF3B00786738 /* EndShowCoordinator.swift */,
+			);
+			path = EndShow;
+			sourceTree = "<group>";
+		};
+		70F3C1422C6FB9DD00786738 /* EndShow */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1432C6FB9E600786738 /* EndShowUseCase.swift */,
+				70F3C1452C6FB9EF00786738 /* DefaultEndShowUseCase.swift */,
 			);
 			path = EndShow;
 			sourceTree = "<group>";
@@ -1223,6 +1249,7 @@
 				7DCAAEA22C38532E00DE8F7B /* OnboardingCarouselCell.swift in Sources */,
 				70F3C0EE2C663B1400786738 /* TicketingAlarmBottomSheetViewModel.swift in Sources */,
 				70F3C1382C6E748200786738 /* ShowDeleteCell.swift in Sources */,
+				70F3C1462C6FB9EF00786738 /* DefaultEndShowUseCase.swift in Sources */,
 				7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */,
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
@@ -1310,11 +1337,14 @@
 				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				7DB9F93B2C662D600097C4F9 /* GradientView.swift in Sources */,
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,
+				70F3C12C2C6E724500786738 /* DefaultInterestShowUseCase.swift in Sources */,
 				70F3C0FF2C68B33900786738 /* MyShowUseCase.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
 				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
+				70F3C1442C6FB9E600786738 /* EndShowUseCase.swift in Sources */,
+				70F3C12A2C6E723900786738 /* InterestShowUseCase.swift in Sources */,
 				70F3C1352C6E72B300786738 /* InterestShowViewHolder.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,

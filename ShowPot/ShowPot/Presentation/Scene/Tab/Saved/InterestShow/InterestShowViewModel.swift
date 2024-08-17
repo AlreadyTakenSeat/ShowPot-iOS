@@ -1,11 +1,84 @@
+//
+//  InterestShowViewModel.swift
+//  ShowPot
+//
+//  Created by 이건준 on 8/16/24.
+//
+
+import UIKit
+import RxSwift
+import RxCocoa
+
 final class InterestShowViewModel: ViewModelType {
+    
+    var coordinator: InterestShowCoordinator
+    private let disposeBag = DisposeBag()
+    private let usecase: InterestShowUseCase
+    
+    var dataSource: DataSource?
+    
+    private let showListRelay = BehaviorRelay<[ShowSummary]>(value: [])
+    
+    init(coordinator: InterestShowCoordinator, usecase: InterestShowUseCase) {
+        self.coordinator = coordinator
+        self.usecase = usecase
+    }
+    
     struct Input {
+        let viewDidLoad: Observable<Void>
+        let didTappedDeleteButton: Observable<IndexPath>
+        let didTappedShowCell: Observable<IndexPath>
+        let didTappedBackButton: Observable<Void>
+        let didTappedEmptyButton: Observable<Void>
     }
     
     struct Output {
+        let isEmpty: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
+        
+        input.viewDidLoad
+            .subscribe(with: self) { owner, model in
+                owner.usecase.requestShowData()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedDeleteButton
+            .subscribe(with: self) { owner, indexPath in
+                let deleteShow = owner.usecase.showList.value[indexPath.row]
+                owner.usecase.deleteShow(show: deleteShow)
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedShowCell
+            .subscribe(with: self) { owner, indexPath in
+                LogHelper.debug("공연 셀 클릭: \(owner.showListRelay.value[indexPath.row])")
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedBackButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.popViewController()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedEmptyButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToFullPerformanceScreen()
+            }
+            .disposed(by: disposeBag)
+        
+        usecase.showList
+            .subscribe(with: self) { owner, model in
+                owner.showListRelay.accept(model)
+                owner.updateDataSource()
+            }
+            .disposed(by: disposeBag)
+        
+        let isEmpty = showListRelay.map { $0.isEmpty }.asDriver(onErrorDriveWith: .empty())
+        
+        return Output(isEmpty: isEmpty)
     }
 }
 
