@@ -98,6 +98,9 @@
 		70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */; };
 		70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */; };
 		70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */; };
+		70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */; };
+		70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */; };
+		70F3C1272C6CE4EC00786738 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -255,6 +258,9 @@
 		70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmUseCase.swift; sourceTree = "<group>"; };
 		70F3C11D2C6BBCE200786738 /* MyAlarmEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmEmptyView.swift; sourceTree = "<group>"; };
+		70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
+		70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
+		70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -592,6 +598,23 @@
 			path = MyAlarm;
 			sourceTree = "<group>";
 		};
+		70F3C1202C6CD48D00786738 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1212C6CD4C500786738 /* MyPageHeaderView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		70F3C1232C6CE4D200786738 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				70F3C1242C6CE4DD00786738 /* MyPageUseCase.swift */,
+				70F3C1262C6CE4EC00786738 /* DefaultMyPageUseCase.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		7D1E5FB22C0A20BB0012504D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +818,7 @@
 		7D2981252C01EC5200A619FB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				70F3C1202C6CD48D00786738 /* CustomView */,
 				7D2981322C01F24500A619FB /* SettingsViewController.swift */,
 				7D2981342C01F25100A619FB /* SettingsViewModel.swift */,
 				7DD2CB862C2ED63E0052ECCD /* SettingsCoordinator.swift */,
@@ -866,6 +890,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				70F3C1232C6CE4D200786738 /* MyPage */,
 				70F3C1182C6BA34E00786738 /* MyAlarm */,
 				70F3C0FD2C68B31300786738 /* MyShow */,
 				707FF7822C64A8E30026C82D /* SubscribeArtist */,
@@ -1132,6 +1157,7 @@
 				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
 				70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
+				70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */,
 				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
 				7014678B2C53C11200750A54 /* FeaturedSearchTextField.swift in Sources */,
 				7D29813D2C01F28100A619FB /* SampleResponse.swift in Sources */,
@@ -1198,6 +1224,7 @@
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,
 				707FF7582C5FD9900026C82D /* DateFormatterFactory.swift in Sources */,
 				7014673D2C3F0A3400750A54 /* FeaturedSearchButton.swift in Sources */,
+				70F3C1272C6CE4EC00786738 /* DefaultMyPageUseCase.swift in Sources */,
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,
 				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
@@ -1213,6 +1240,7 @@
 				707FF7842C64A8F00026C82D /* SubscribeArtistUseCase.swift in Sources */,
 				7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
+				70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,

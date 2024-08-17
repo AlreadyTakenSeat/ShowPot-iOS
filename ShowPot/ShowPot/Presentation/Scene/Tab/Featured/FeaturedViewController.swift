@@ -32,7 +32,6 @@ final class FeaturedViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
-        self.hidesBottomBarWhenPushed = true
     }
     
     override func setupStyles() {

@@ -18,6 +18,9 @@ enum UserDefaultsKey: String {
     /// 로그인 여부
     case isLoggedIn
     
+    /// 유저 닉네임
+    case nickname
+    
     var value: String {
         return self.rawValue
     }

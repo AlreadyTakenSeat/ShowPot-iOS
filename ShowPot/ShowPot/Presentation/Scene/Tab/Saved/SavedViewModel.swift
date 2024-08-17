@@ -101,10 +101,10 @@ final class SavedViewModel: ViewModelType {
                 switch menuModel {
                 case .alarmPerformance:
                     owner.coordinator.goToMyPerformanceAlarmScreen()
-                case .artist:
-                    owner.coordinator.goToSubscribeArtistScreen()
-                case .genre:
-                    owner.coordinator.goToSubscribeGenreScreen()
+                case .interestShow:
+                    owner.coordinator.goToInterestShowScreen()
+                case .endShow:
+                    owner.coordinator.goToEndShowScreen()
                 }
             }
             .disposed(by: disposeBag)

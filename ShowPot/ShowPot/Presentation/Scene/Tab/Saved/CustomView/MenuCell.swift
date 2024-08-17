@@ -103,17 +103,17 @@ extension MenuCell {
 /// 내 알림 메뉴 타입
 enum MyAlarmMenuType: CaseIterable {
     case alarmPerformance
-    case artist
-    case genre
+    case interestShow
+    case endShow
     
     var menuTitle: String {
         switch self {
         case .alarmPerformance:
             return Strings.myAlarmMenuButton1
-        case .artist:
-            return Strings.myAlarmMenuButton2
-        case .genre:
-            return Strings.myAlarmMenuButton3
+        case .interestShow:
+            return "관심 공연"
+        case .endShow:
+            return "티켓팅 종료 공연"
         }
     }
     
@@ -121,10 +121,10 @@ enum MyAlarmMenuType: CaseIterable {
         switch self {
         case .alarmPerformance:
             return .icAlarm.withTintColor(.gray300)
-        case .artist:
-            return .icArtist.withTintColor(.gray300)
-        case .genre:
-            return .icGenre.withTintColor(.gray300)
+        case .interestShow:
+            return .icHeart.withTintColor(.gray300)
+        case .endShow:
+            return .icTicketFinish.withTintColor(.gray300)
         }
     }
     
