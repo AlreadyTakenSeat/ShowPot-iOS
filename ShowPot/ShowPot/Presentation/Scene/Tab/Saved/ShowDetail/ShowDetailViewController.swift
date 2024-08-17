@@ -13,8 +13,9 @@ class ShowDetailViewController: ViewController {
     
     init(viewModel: ShowDetailViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
+        
+        self.useSafeArea = true
     }
     
     required init?(coder: NSCoder) {
@@ -29,8 +30,10 @@ class ShowDetailViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         
+        self.setNavigationBarItem(title: Strings.showDetailTitle, leftIcon: .icArrowLeft.withTintColor(.gray000))
+        self.contentNavigationBar.backgroundColor = .clear
     }
-    
+        
     override func bind() {
         
     }
