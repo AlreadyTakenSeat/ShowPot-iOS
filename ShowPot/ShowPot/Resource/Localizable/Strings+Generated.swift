@@ -24,6 +24,13 @@ public enum Strings {
   /// 로그인 후 좋아하는
   /// 장르를 구독해보세요!
   public static let bottomSheetLoginMessage = Strings.tr("Localizable", "bottom_sheet_login_message", fallback: "로그인 후 좋아하는\n장르를 구독해보세요!")
+  /// 알림 설정한 공연 보러가기
+  public static let endShowEmptyButton = Strings.tr("Localizable", "end_show_empty_button", fallback: "알림 설정한 공연 보러가기")
+  /// 티켓팅이 종료된
+  /// 공연이 없어요
+  public static let endShowEmptyTitle = Strings.tr("Localizable", "end_show_empty_title", fallback: "티켓팅이 종료된\n공연이 없어요")
+  /// 티켓팅 종료 공연
+  public static let endShowNavigationTitle = Strings.tr("Localizable", "end_show_navigation_title", fallback: "티켓팅 종료 공연")
   /// 관심 있는 공연과 가수를 검색해보세요
   public static let homeSearchbarPlaceholder = Strings.tr("Localizable", "home_searchbar_placeholder", fallback: "관심 있는 공연과 가수를 검색해보세요")
   /// 아티스트 구독하기
@@ -34,6 +41,14 @@ public enum Strings {
   public static let homeTicketingPerformanceButtonTitle = Strings.tr("Localizable", "home_ticketing_performance_buttonTitle", fallback: "전체공연 보러가기")
   /// 티켓팅이 얼마 남지 않은 공연
   public static let homeTicketingPerformanceTitle = Strings.tr("Localizable", "home_ticketing_performance_title", fallback: "티켓팅이 얼마 남지 않은 공연")
+  /// 삭제
+  public static let interestShowDeleteButton = Strings.tr("Localizable", "interest_show_delete_button", fallback: "삭제")
+  /// 공연 정보 보러가기
+  public static let interestShowEmptyButton = Strings.tr("Localizable", "interest_show_empty_button", fallback: "공연 정보 보러가기")
+  /// 관심있는 공연이 없어요
+  public static let interestShowEmptyTitle = Strings.tr("Localizable", "interest_show_empty_title", fallback: "관심있는 공연이 없어요")
+  /// 관심공연
+  public static let interestShowNavigationTitle = Strings.tr("Localizable", "interest_show_navigation_title", fallback: "관심공연")
   /// 로그인 하러가기
   public static let myAlarmEmptyButton = Strings.tr("Localizable", "my_alarm_empty_button", fallback: "로그인 하러가기")
   /// 알림 설정한
