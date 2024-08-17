@@ -15,32 +15,32 @@ final class ShowDetailViewHolder {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.backgroundColor = .brown
     }
     
     let contentStackView = UIStackView().then { stackView in
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.backgroundColor = .lightGray
     }
     
     /// TestView
     let sample1 = UIView().then { view in
-        view.backgroundColor = .red
-        view.snp.makeConstraints { $0.height.equalTo(500) }
+        view.snp.makeConstraints { $0.height.equalTo(300) }
     }
     
     /// TestView
     let sample2 = UIView().then { view in
-        view.backgroundColor = .blue
-        view.snp.makeConstraints { $0.height.equalTo(100) }
+        view.snp.makeConstraints { $0.height.equalTo(300) }
     }
     
     /// TestView
     let sample3 = UIView().then { view in
-        view.backgroundColor = .green
-        view.snp.makeConstraints { $0.height.equalTo(1000) }
+        view.snp.makeConstraints { $0.height.equalTo(300) }
+    }
+    
+    /// TestView
+    let sample4 = UIView().then { view in
+        view.snp.makeConstraints { $0.height.equalTo(300) }
     }
 }
 
@@ -50,7 +50,8 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        [sample1, sample2, sample3].forEach { contentStackView.addArrangedSubview($0) }
+        let subViews = [sample1, sample2, sample3, sample4]
+        contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
     }
     
     func configureConstraints(for view: UIView) {
@@ -62,8 +63,6 @@ extension ShowDetailViewHolder: ViewHolderType {
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
         }
-        
-        view.layoutSubviews()
     }
     
 }

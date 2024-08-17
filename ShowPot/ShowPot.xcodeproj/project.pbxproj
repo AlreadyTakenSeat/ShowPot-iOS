@@ -179,6 +179,7 @@
 		7DA112542C689380009DFDB1 /* ShowDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */; };
 		7DA112562C6893AC009DFDB1 /* ShowDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */; };
 		7DA112582C6893D4009DFDB1 /* ShowDetailViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */; };
+		7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */; };
 		7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */; };
 		7DB9F90E2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */; };
 		7DB9F9102C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */; };
@@ -356,6 +357,7 @@
 		7DA112532C689380009DFDB1 /* ShowDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewModel.swift; sourceTree = "<group>"; };
 		7DA112552C6893AC009DFDB1 /* ShowDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailCoordinator.swift; sourceTree = "<group>"; };
 		7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewHolder.swift; sourceTree = "<group>"; };
+		7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDividerView.swift; sourceTree = "<group>"; };
 		7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		7DB9F90D2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDefaultBottomSheetViewController.swift; sourceTree = "<group>"; };
 		7DB9F90F2C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewController+BottomSheet.swift"; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */,
 				7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */,
 				7D06FDAD2C7628FC002519E1 /* SPTabBarItemView.swift */,
+				7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1312,6 +1315,7 @@
 				7D1E5FBA2C0A28080012504D /* MainTabCoordinator.swift in Sources */,
 				7DA112512C689332009DFDB1 /* ShowDetailViewController.swift in Sources */,
 				70F3C0F02C663B2200786738 /* MyShowEmptyView.swift in Sources */,
+				7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */,
 				707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */,
 				7DD2CB872C2ED63E0052ECCD /* SettingsCoordinator.swift in Sources */,
 				7DD2CB812C2ED4430052ECCD /* FeaturedViewHolder.swift in Sources */,
