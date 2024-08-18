@@ -34,7 +34,7 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        let subViews = [posterImageView, titleView, sample1, sample2, sample3, sample4]
+        let subViews = [posterImageView, titleView, infoView]
         contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
     }
     

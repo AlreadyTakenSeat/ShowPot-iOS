@@ -181,6 +181,7 @@
 		7DA112582C6893D4009DFDB1 /* ShowDetailViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */; };
 		7DA1CA1A2C6BA3F600C2752F /* ShowDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */; };
 		7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */; };
+		7DA1CA212C6BB23700C2752F /* ShowDetailLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA202C6BB23700C2752F /* ShowDetailLabelStackView.swift */; };
 		7DA1CA232C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */; };
 		7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */; };
 		7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */; };
@@ -363,6 +364,7 @@
 		7DA112572C6893D4009DFDB1 /* ShowDetailViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewHolder.swift; sourceTree = "<group>"; };
 		7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailTitleView.swift; sourceTree = "<group>"; };
 		7DA1CA1C2C6BA41200C2752F /* ShowDetailPosterImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailPosterImageView.swift; sourceTree = "<group>"; };
+		7DA1CA202C6BB23700C2752F /* ShowDetailLabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailLabelStackView.swift; sourceTree = "<group>"; };
 		7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailTicketInfoView.swift; sourceTree = "<group>"; };
 		7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDividerView.swift; sourceTree = "<group>"; };
 		7DB9F90B2C60860F0097C4F9 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -1097,6 +1099,10 @@
 		};
 		7DA1CA1B2C6BA3F900C2752F /* CustomView */ = {
 			isa = PBXGroup;
+			children = (
+				7DA1CA202C6BB23700C2752F /* ShowDetailLabelStackView.swift */,
+				7DA1CA242C6D0A8500C2752F /* StackSubViews */,
+			);
 			path = CustomView;
 			sourceTree = "<group>";
 		};
@@ -1379,6 +1385,7 @@
 				7D2981002C01E1D000A619FB /* AppDelegate.swift in Sources */,
 				7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */,
 				707FF7662C60DB8D0026C82D /* SubscribeFooterView.swift in Sources */,
+				7DA1CA212C6BB23700C2752F /* ShowDetailLabelStackView.swift in Sources */,
 				7D89E54C2C3666A600E6001E /* OnboardingCoordinator.swift in Sources */,
 				7D2981372C01F25B00A619FB /* APIService.swift in Sources */,
 				70F3C13B2C6FAF0F00786738 /* ClosedShowListViewController.swift in Sources */,
