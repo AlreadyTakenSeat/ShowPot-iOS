@@ -117,6 +117,7 @@
 		70F3C1492C6FBB0300786738 /* ClosedShowListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1482C6FBB0300786738 /* ClosedShowListEmptyView.swift */; };
 		70F3C14B2C6FBBA200786738 /* InterestShowListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14A2C6FBBA200786738 /* InterestShowListEmptyView.swift */; };
 		70F3C1502C70FD5700786738 /* ShowDeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */; };
+		70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C14D2C706A6A00786738 /* iOSDropDown */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
@@ -395,6 +396,7 @@
 				70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */,
 				70107B682C216A4200F32042 /* KakaoSDKFriend in Frameworks */,
 				70107B6E2C216A4200F32042 /* KakaoSDKShare in Frameworks */,
+				70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */,
 				70107B6A2C216A4200F32042 /* KakaoSDKFriendCore in Frameworks */,
 				701467402C401C0C00750A54 /* Kingfisher in Frameworks */,
 				70107B5E2C216A4200F32042 /* KakaoSDK in Frameworks */,
@@ -1138,6 +1140,7 @@
 				7D43E2052C5E790100D94898 /* RxDataSources */,
 				7D43E2082C5E7A5700D94898 /* RxGesture */,
 				70F3C1162C6BA19700786738 /* ScalingCarousel */,
+				70F3C14D2C706A6A00786738 /* iOSDropDown */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -1179,6 +1182,7 @@
 				7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				7D43E2072C5E7A5700D94898 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */,
+				70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -1655,6 +1659,14 @@
 				minimumVersion = 3.2.0;
 			};
 		};
+		70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jriosdev/iOSDropDown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		7D2DCAB72C269BF700389FBF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1790,6 +1802,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */;
 			productName = ScalingCarousel;
+		};
+		70F3C14D2C706A6A00786738 /* iOSDropDown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */;
+			productName = iOSDropDown;
 		};
 		7D2DCAB82C269BF700389FBF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
