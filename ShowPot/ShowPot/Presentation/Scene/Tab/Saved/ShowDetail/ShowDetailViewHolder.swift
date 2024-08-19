@@ -26,6 +26,7 @@ final class ShowDetailViewHolder {
     lazy var posterImageView = ShowDetailPosterImageView()
     lazy var titleView = ShowDetailTitleView()
     lazy var infoView = ShowDetailInfoView()
+    lazy var ticketInfoView = ShowDetailTicketInfoView()
 }
 
 extension ShowDetailViewHolder: ViewHolderType {
@@ -34,7 +35,7 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        let subViews = [posterImageView, titleView, infoView]
+        let subViews = [posterImageView, titleView, infoView, ticketInfoView]
         contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
     }
     

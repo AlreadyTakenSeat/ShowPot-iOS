@@ -18,7 +18,8 @@ class ShowDetailCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController: ShowDetailViewController = ShowDetailViewController(viewModel: ShowDetailViewModel(coordinator: self))
+        let viewModel = ShowDetailViewModel(coordinator: self, usecase: DefaultShowDetailUseCase())
+        let viewController = ShowDetailViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
     }
 }
