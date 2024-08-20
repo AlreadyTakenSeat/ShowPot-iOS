@@ -12,7 +12,13 @@ import RxSwift
 import SnapKit
 import Then
 
+protocol PerformanceFilterHeaderViewDelegate: AnyObject {
+    func selectedDropdown(text: String)
+}
+
 final class PerformanceFilterHeaderView: UICollectionReusableView, ReusableCell {
+    
+    weak var delegate: PerformanceFilterHeaderViewDelegate?
     
     var didTappedCheckBox: Observable<Bool> {
         checkBoxButton.rx.tap
@@ -70,6 +76,16 @@ final class PerformanceFilterHeaderView: UICollectionReusableView, ReusableCell 
     }
     
     private func bind() {
+        
+        dropdown.didSelect { [weak self] (selectedText, index, id) in
+            guard let self = self,
+                  let text = self.dropdown.text else { return }
+            
+            self.dropdown.optionArray.removeAll(where: { $0 == selectedText })
+            self.dropdown.optionArray.append(text)
+            self.delegate?.selectedDropdown(text: selectedText)
+        }
+        
         didTappedCheckBox
             .subscribe(checkBoxButton.rx.isChecked)
             .disposed(by: disposeBag)

@@ -21,5 +21,5 @@ struct FeaturedPerformanceWithTicketOnSaleSoonCellModel: Hashable { // TODO: - U
 
 protocol AllPerformanceUseCase {
     var performanceList: BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]> { get }
-    func fetchAllPerformance(isOnlyUpcoming: Bool)
+    func fetchAllPerformance(state: ShowFilterState)
 }
