@@ -36,7 +36,7 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
         menuList.accept([
             .init(type: .alarmPerformance, badgeCount: Array(1...10).shuffled()[0]),
             .init(type: .interestShow, badgeCount: Array(1...10).shuffled()[0]),
-            .init(type: .endShow, badgeCount: Array(1...10).shuffled()[0])
+            .init(type: .closedShow, badgeCount: Array(1...10).shuffled()[0])
         ])
     }
 }

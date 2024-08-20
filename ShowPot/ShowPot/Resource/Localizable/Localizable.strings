@@ -90,3 +90,14 @@
 "my_page_subscribe_artist_button_title" = "구독한 아티스트";
 "my_page_subscribe_genre_button_title" = "구독한 장르";
 "my_page_navigation_title" = "마이";
+
+// 관심공연 화면
+"interest_show_empty_title" = "관심있는 공연이 없어요";
+"interest_show_empty_button" = "공연 정보 보러가기";
+"interest_show_navigation_title" = "관심공연";
+"interest_show_delete_button" = "삭제";
+
+// 티켓팅종료공연 화면
+"closed_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
+"closed_show_empty_button" = "알림 설정한 공연 보러가기";
+"closed_show_navigation_title" = "티켓팅 종료 공연";

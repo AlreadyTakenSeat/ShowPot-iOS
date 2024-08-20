@@ -28,12 +28,16 @@ final class SavedCoordinator: NavigationCoordinator {
         self.childCoordinators.append(coordinator)
     }
     
-    func goToEndShowScreen() {
-        LogHelper.debug("티켓팅 종료 공연 화면으로 이동")
+    func goToClosedShowListScreen() {
+        let coordinator = ClosedShowListCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
     
-    func goToInterestShowScreen() {
-        LogHelper.debug("관심 공연 화면으로 이동")
+    func goToInterestShowListScreen() {
+        let coordinator = InterestShowListCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
     
     func goToLoginScreen() {
