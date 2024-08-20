@@ -1,5 +1,5 @@
 //
-//  InterestShowEmptyView.swift
+//  InterestShowListEmptyView.swift.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class InterestShowEmptyView: UIView {
+final class InterestShowListEmptyView: UIView {
     
     private let emptyImageView = UIImageView().then {
         $0.image = .interestShowEmpty

@@ -102,9 +102,9 @@ final class SavedViewModel: ViewModelType {
                 case .alarmPerformance:
                     owner.coordinator.goToMyPerformanceAlarmScreen()
                 case .interestShow:
-                    owner.coordinator.goToInterestShowScreen()
-                case .endShow:
-                    owner.coordinator.goToEndShowScreen()
+                    owner.coordinator.goToInterestShowListScreen()
+                case .closedShow:
+                    owner.coordinator.goToClosedShowListScreen()
                 }
             }
             .disposed(by: disposeBag)

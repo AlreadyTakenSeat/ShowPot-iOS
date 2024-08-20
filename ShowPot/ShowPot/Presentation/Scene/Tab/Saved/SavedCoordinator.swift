@@ -28,14 +28,14 @@ final class SavedCoordinator: NavigationCoordinator {
         self.childCoordinators.append(coordinator)
     }
     
-    func goToEndShowScreen() {
-        let coordinator = EndShowCoordinator(navigationController: self.navigationController)
+    func goToClosedShowListScreen() {
+        let coordinator = ClosedShowListCoordinator(navigationController: self.navigationController)
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }
     
-    func goToInterestShowScreen() {
-        let coordinator = InterestShowCoordinator(navigationController: self.navigationController)
+    func goToInterestShowListScreen() {
+        let coordinator = InterestShowListCoordinator(navigationController: self.navigationController)
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }

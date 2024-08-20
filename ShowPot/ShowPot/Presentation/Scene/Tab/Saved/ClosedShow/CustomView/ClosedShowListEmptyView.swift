@@ -1,5 +1,5 @@
 //
-//  EndShowEmptyView.swift
+//  ClosedShowListEmptyView.swift.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class EndShowEmptyView: UIView {
+final class ClosedShowListEmptyView: UIView {
     
     private let emptyImageView = UIImageView().then {
         $0.image = .myShowEmpty
@@ -20,14 +20,14 @@ final class EndShowEmptyView: UIView {
     private let emptyLabel = SPLabel(KRFont.H0, alignment: .center).then {
         $0.textColor = .gray400
         $0.numberOfLines = .max
-        $0.setText(Strings.endShowEmptyTitle)
+        $0.setText(Strings.closedShowEmptyTitle)
     }
     
     let footerButton = SPButton(fontType: KRFont.H2).then {
         $0.configuration?.baseForegroundColor = .gray000
         $0.configuration?.baseBackgroundColor = .gray500
         $0.configuration?.background.cornerRadius = 2
-        $0.setText(Strings.endShowEmptyButton)
+        $0.setText(Strings.closedShowEmptyButton)
     }
     
     override init(frame: CGRect) {

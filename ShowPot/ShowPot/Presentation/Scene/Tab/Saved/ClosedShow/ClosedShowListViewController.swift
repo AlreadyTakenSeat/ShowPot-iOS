@@ -1,5 +1,5 @@
 //
-//  EndShowViewController.swift
+//  ClosedShowListViewController.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -10,11 +10,11 @@ import UIKit
 import RxSwift
 import RxGesture
 
-final class EndShowViewController: ViewController {
-    let viewHolder: EndShowViewHolder = .init()
-    let viewModel: EndShowViewModel
+final class ClosedShowListViewController: ViewController {
+    let viewHolder: ClosedShowListViewHolder = .init()
+    let viewModel: ClosedShowListViewModel
     
-    init(viewModel: EndShowViewModel) {
+    init(viewModel: ClosedShowListViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -32,7 +32,7 @@ final class EndShowViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         setNavigationBarItem(
-            title: Strings.endShowNavigationTitle,
+            title: Strings.closedShowNavigationTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
         viewHolder.showListView.delegate = self
@@ -40,7 +40,7 @@ final class EndShowViewController: ViewController {
     
     override func bind() {
         
-        let input = EndShowViewModel.Input(
+        let input = ClosedShowListViewModel.Input(
             viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedShowCell: viewHolder.showListView.rx.itemSelected.asObservable(), 
@@ -70,7 +70,7 @@ final class EndShowViewController: ViewController {
     }
 }
 
-extension EndShowViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension ClosedShowListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 32, height: 80)
     }

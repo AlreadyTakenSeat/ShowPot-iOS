@@ -1,5 +1,5 @@
 //
-//  InterestShowViewModel.swift
+//  InterestShowListViewModel.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/16/24.
@@ -9,9 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class InterestShowViewModel: ViewModelType {
+final class InterestShowListViewModel: ViewModelType {
     
-    var coordinator: InterestShowCoordinator
+    var coordinator: InterestShowListCoordinator
     private let disposeBag = DisposeBag()
     private let usecase: InterestShowUseCase
     
@@ -19,7 +19,7 @@ final class InterestShowViewModel: ViewModelType {
     
     private let showListRelay = BehaviorRelay<[ShowSummary]>(value: [])
     
-    init(coordinator: InterestShowCoordinator, usecase: InterestShowUseCase) {
+    init(coordinator: InterestShowListCoordinator, usecase: InterestShowUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
     }
@@ -40,14 +40,14 @@ final class InterestShowViewModel: ViewModelType {
         
         input.viewDidLoad
             .subscribe(with: self) { owner, model in
-                owner.usecase.requestShowData()
+                owner.usecase.requestInterestShowData()
             }
             .disposed(by: disposeBag)
         
         input.didTappedDeleteButton
             .subscribe(with: self) { owner, indexPath in
-                let deleteShow = owner.usecase.showList.value[indexPath.row]
-                owner.usecase.deleteShow(show: deleteShow)
+                let deleteShow = owner.usecase.interestShowList.value[indexPath.row]
+                owner.usecase.deleteInterestShow(deleteShow)
             }
             .disposed(by: disposeBag)
         
@@ -69,7 +69,7 @@ final class InterestShowViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        usecase.showList
+        usecase.interestShowList
             .subscribe(with: self) { owner, model in
                 owner.showListRelay.accept(model)
                 owner.updateDataSource()
@@ -84,7 +84,7 @@ final class InterestShowViewModel: ViewModelType {
 
 // MARK: - For NSDiffableDataSource
 
-extension InterestShowViewModel {
+extension InterestShowListViewModel {
     
     typealias Item = ShowSummary
     typealias DataSource = UICollectionViewDiffableDataSource<InterestShowSection, Item>

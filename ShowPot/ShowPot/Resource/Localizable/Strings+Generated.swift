@@ -25,12 +25,12 @@ public enum Strings {
   /// 장르를 구독해보세요!
   public static let bottomSheetLoginMessage = Strings.tr("Localizable", "bottom_sheet_login_message", fallback: "로그인 후 좋아하는\n장르를 구독해보세요!")
   /// 알림 설정한 공연 보러가기
-  public static let endShowEmptyButton = Strings.tr("Localizable", "end_show_empty_button", fallback: "알림 설정한 공연 보러가기")
+  public static let closedShowEmptyButton = Strings.tr("Localizable", "closed_show_empty_button", fallback: "알림 설정한 공연 보러가기")
   /// 티켓팅이 종료된
   /// 공연이 없어요
-  public static let endShowEmptyTitle = Strings.tr("Localizable", "end_show_empty_title", fallback: "티켓팅이 종료된\n공연이 없어요")
+  public static let closedShowEmptyTitle = Strings.tr("Localizable", "closed_show_empty_title", fallback: "티켓팅이 종료된\n공연이 없어요")
   /// 티켓팅 종료 공연
-  public static let endShowNavigationTitle = Strings.tr("Localizable", "end_show_navigation_title", fallback: "티켓팅 종료 공연")
+  public static let closedShowNavigationTitle = Strings.tr("Localizable", "closed_show_navigation_title", fallback: "티켓팅 종료 공연")
   /// 관심 있는 공연과 가수를 검색해보세요
   public static let homeSearchbarPlaceholder = Strings.tr("Localizable", "home_searchbar_placeholder", fallback: "관심 있는 공연과 가수를 검색해보세요")
   /// 아티스트 구독하기

@@ -1,5 +1,5 @@
 //
-//  EndShowViewModel.swift
+//  ClosedShowListViewModel.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -9,15 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class EndShowViewModel: ViewModelType {
+final class ClosedShowListViewModel: ViewModelType {
     
-    var coordinator: EndShowCoordinator
+    var coordinator: ClosedShowListCoordinator
     private let disposeBag = DisposeBag()
-    private let usecase: EndShowUseCase
+    private let usecase: ClosedShowUseCase
     
     private let showListRelay = BehaviorRelay<[ShowSummary]>(value: [])
     
-    init(coordinator: EndShowCoordinator, usecase: EndShowUseCase) {
+    init(coordinator: ClosedShowListCoordinator, usecase: ClosedShowUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
     }
@@ -38,7 +38,7 @@ final class EndShowViewModel: ViewModelType {
         
         input.viewDidLoad
             .subscribe(with: self) { owner, model in
-                owner.usecase.requestShowData()
+                owner.usecase.requestClosedShowData()
             }
             .disposed(by: disposeBag)
         
@@ -60,7 +60,7 @@ final class EndShowViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        usecase.showList
+        usecase.closedShowList
             .bind(to: showListRelay)
             .disposed(by: disposeBag)
         

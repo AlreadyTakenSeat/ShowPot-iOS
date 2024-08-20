@@ -98,6 +98,6 @@
 "interest_show_delete_button" = "삭제";
 
 // 티켓팅종료공연 화면
-"end_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
-"end_show_empty_button" = "알림 설정한 공연 보러가기";
-"end_show_navigation_title" = "티켓팅 종료 공연";
+"closed_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
+"closed_show_empty_button" = "알림 설정한 공연 보러가기";
+"closed_show_navigation_title" = "티켓팅 종료 공연";

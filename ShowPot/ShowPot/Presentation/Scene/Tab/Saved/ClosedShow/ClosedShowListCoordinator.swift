@@ -1,5 +1,5 @@
 //
-//  EndShowCoordinator.swift
+//  ClosedShowListCoordinator.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class EndShowCoordinator: NavigationCoordinator {
+final class ClosedShowListCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class EndShowCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: EndShowViewController = EndShowViewController(viewModel: EndShowViewModel(coordinator: self, usecase: DefaultEndShowUseCase()))
+        let viewController: ClosedShowListViewController = ClosedShowListViewController(viewModel: ClosedShowListViewModel(coordinator: self, usecase: DefaultClosedShowUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

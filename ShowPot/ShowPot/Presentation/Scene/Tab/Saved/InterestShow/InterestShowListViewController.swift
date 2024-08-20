@@ -1,5 +1,5 @@
 //
-//  InterestShowViewController.swift
+//  InterestShowListViewController.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/16/24.
@@ -10,13 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class InterestShowViewController: ViewController {
-    let viewHolder: InterestShowViewHolder = .init()
-    let viewModel: InterestShowViewModel
+final class InterestShowListViewController: ViewController {
+    let viewHolder: InterestShowListViewHolder = .init()
+    let viewModel: InterestShowListViewModel
     
     private let didTappedDeleteButtonSubject = PublishSubject<IndexPath>()
     
-    init(viewModel: InterestShowViewModel) {
+    init(viewModel: InterestShowListViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -44,7 +44,7 @@ final class InterestShowViewController: ViewController {
         super.bind()
         viewModel.dataSource = makeDataSource()
         
-        let input = InterestShowViewModel.Input(
+        let input = InterestShowListViewModel.Input(
             viewDidLoad: .just(()),
             didTappedDeleteButton: didTappedDeleteButtonSubject.asObservable(),
             didTappedShowCell: viewHolder.showListView.rx.itemSelected.asObservable(), 
@@ -60,14 +60,14 @@ final class InterestShowViewController: ViewController {
     }
 }
 
-extension InterestShowViewController: UICollectionViewDelegateFlowLayout {
+extension InterestShowListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 32, height: 80)
     }
 }
 
-extension InterestShowViewController {
-    func makeDataSource() -> InterestShowViewModel.DataSource {
+extension InterestShowListViewController {
+    func makeDataSource() -> InterestShowListViewModel.DataSource {
         let cellRegistration = UICollectionView.CellRegistration<ShowDeleteCell, ShowSummary> { (cell, indexPath, model) in
             cell.configureUI(
                 performanceImageURL: model.thumbnailURL,
@@ -78,7 +78,7 @@ extension InterestShowViewController {
             cell.delegate = self
         }
         
-        let dataSource = UICollectionViewDiffableDataSource<InterestShowViewModel.InterestShowSection, ShowSummary>(collectionView: viewHolder.showListView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<InterestShowListViewModel.InterestShowSection, ShowSummary>(collectionView: viewHolder.showListView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
         
@@ -86,7 +86,7 @@ extension InterestShowViewController {
     }
 }
 
-extension InterestShowViewController: ShowDeleteCellDelegate {
+extension InterestShowListViewController: ShowDeleteCellDelegate {
     func didTappedDeleteButton(_ cell: UICollectionViewCell) {
         guard let indexPath = viewHolder.showListView.indexPath(for: cell) else { return }
         didTappedDeleteButtonSubject.onNext(indexPath)

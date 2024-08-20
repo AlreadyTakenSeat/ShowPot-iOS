@@ -10,8 +10,8 @@ import RxCocoa
 
 protocol InterestShowUseCase {
     
-    var showList: BehaviorRelay<[ShowSummary]> { get }
+    var interestShowList: BehaviorRelay<[ShowSummary]> { get }
     
-    func deleteShow(show: ShowSummary)
-    func requestShowData()
+    func deleteInterestShow(_ show: ShowSummary)
+    func requestInterestShowData()
 }

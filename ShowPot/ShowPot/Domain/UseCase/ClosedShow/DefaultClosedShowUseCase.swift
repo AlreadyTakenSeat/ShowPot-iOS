@@ -1,5 +1,5 @@
 //
-//  DefaultEndShowUseCase.swift
+//  DefaultClosedShowUseCase.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/17/24.
@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class DefaultEndShowUseCase: EndShowUseCase {
-    var showList: RxRelay.BehaviorRelay<[ShowSummary]> = BehaviorRelay<[ShowSummary]>(value: [])
+final class DefaultClosedShowUseCase: ClosedShowUseCase {
+    var closedShowList: RxRelay.BehaviorRelay<[ShowSummary]> = BehaviorRelay<[ShowSummary]>(value: [])
     
-    func requestShowData() {
-        showList.accept([
+    func requestClosedShowData() {
+        closedShowList.accept([
             .init(id: "1", thumbnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "KBS 아레나홀", time: Date(timeIntervalSinceNow: 24 * 60 * 60)),
             .init(id: "2", thumbnailURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "강원도 성남 교회", time: Date(timeIntervalSinceNow: 24 * 60)),
             .init(id: "3", thumbnailURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "호주 매직키드마수리", time: Date(timeIntervalSinceNow: 24 * 60 * 60 * 80)),

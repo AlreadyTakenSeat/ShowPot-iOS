@@ -10,18 +10,18 @@ import RxSwift
 import RxCocoa
 
 final class DefaultInterestShowUseCase: InterestShowUseCase {
-    var showList: RxRelay.BehaviorRelay<[ShowSummary]> = BehaviorRelay<[ShowSummary]>(value: [])
+    var interestShowList: RxRelay.BehaviorRelay<[ShowSummary]> = BehaviorRelay<[ShowSummary]>(value: [])
     
-    func deleteShow(show: ShowSummary) {
-        var currentShowList = showList.value
+    func deleteInterestShow(_ show: ShowSummary) {
+        var currentShowList = interestShowList.value
         LogHelper.debug("삭제한 공연정보: \(show)")
         let deleteShowID = show.id
         currentShowList.removeAll(where: { $0.id == deleteShowID })
-        showList.accept(currentShowList)
+        interestShowList.accept(currentShowList)
     }
     
-    func requestShowData() {
-        showList.accept([
+    func requestInterestShowData() {
+        interestShowList.accept([
             .init(id: "1", thumbnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "KBS 아레나홀", time: Date(timeIntervalSinceNow: 24 * 60 * 60)),
             .init(id: "2", thumbnailURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "강원도 성남 교회", time: Date(timeIntervalSinceNow: 24 * 60)),
             .init(id: "3", thumbnailURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", location: "호주 매직키드마수리", time: Date(timeIntervalSinceNow: 24 * 60 * 60 * 80)),

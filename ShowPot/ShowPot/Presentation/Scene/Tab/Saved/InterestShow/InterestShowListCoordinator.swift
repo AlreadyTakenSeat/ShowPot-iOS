@@ -1,5 +1,5 @@
 //
-//  InterestShowCoordinator.swift
+//  InterestShowListCoordinator.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/16/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InterestShowCoordinator: NavigationCoordinator {
+final class InterestShowListCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class InterestShowCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: InterestShowViewController = InterestShowViewController(viewModel: InterestShowViewModel(coordinator: self, usecase: DefaultInterestShowUseCase()))
+        let viewController: InterestShowListViewController = InterestShowListViewController(viewModel: InterestShowListViewModel(coordinator: self, usecase: DefaultInterestShowUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
