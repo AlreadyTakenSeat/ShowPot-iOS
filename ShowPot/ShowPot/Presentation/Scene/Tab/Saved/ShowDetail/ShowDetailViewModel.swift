@@ -14,6 +14,10 @@ final class ShowDetailViewModel: ViewModelType {
     private var usecase: ShowDetailUseCase
     private let disposeBag = DisposeBag()
     
+    var genreList: [GenreType] {
+        usecase.genreList.value
+    }
+    
     init(coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
@@ -26,6 +30,7 @@ final class ShowDetailViewModel: ViewModelType {
     struct Output {
         var ticketList = BehaviorSubject<[String]>(value: [])
         var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
+        var genreList = BehaviorSubject<[GenreType]>(value: [])
     }
     
     func transform(input: Input) -> Output {
@@ -44,6 +49,10 @@ final class ShowDetailViewModel: ViewModelType {
         
         usecase.artistList
             .bind(to: output.artistList)
+            .disposed(by: disposeBag)
+        
+        usecase.genreList
+            .bind(to: output.genreList)
             .disposed(by: disposeBag)
         
         return output

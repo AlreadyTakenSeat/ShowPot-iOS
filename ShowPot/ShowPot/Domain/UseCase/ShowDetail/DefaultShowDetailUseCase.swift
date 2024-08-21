@@ -7,11 +7,13 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     var ticketList = BehaviorSubject<[String]>(value: [])
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
+    var genreList = BehaviorRelay<[GenreType]>(value: [])
     
     private let disposeBag = DisposeBag()
     
@@ -28,5 +30,8 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird")
         ])
+        
+        let mockGenreList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"]
+        genreList.accept(mockGenreList.compactMap { GenreType(rawValue: $0) })
     }
 }

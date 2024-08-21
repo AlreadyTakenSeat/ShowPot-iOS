@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import RxCocoa
 import UIKit
 
 enum TicketSaleBrand: String {
@@ -44,6 +45,7 @@ enum TicketSaleBrand: String {
 protocol ShowDetailUseCase {
     var ticketList: BehaviorSubject<[String]> { get set }
     var artistList: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
+    var genreList: BehaviorRelay<[GenreType]> { get set }
     
     func requestShowDetailData()
 }

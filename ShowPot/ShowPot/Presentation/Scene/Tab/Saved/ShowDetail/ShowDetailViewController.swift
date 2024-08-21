@@ -46,6 +46,7 @@ class ShowDetailViewController: ViewController {
         viewHolder.ticketInfoView.normalTicketSaleView.setData(description: "6월 21일 (금) 18:00")
         
         viewHolder.ticketInfoView.ticketSaleCollectionView.delegate = self
+        viewHolder.genreInfoView.showGenreListView.delegate = self
         
         let input = ShowDetailViewModel.Input(viewDidLoad: .just(()))
         let output = viewModel.transform(input: input)
@@ -68,13 +69,32 @@ class ShowDetailViewController: ViewController {
                 cell.configureUI(state: item.state, artistImageURL: item.artistImageURL, artistName: item.artistName)
             }
             .disposed(by: disposeBag)
+        
+        output.genreList
+            .bind(to: viewHolder.genreInfoView.showGenreListView.rx.items(
+                cellIdentifier: ShowGenreCell.reuseIdentifier,
+                cellType: ShowGenreCell.self)
+            ) { index, item, cell in
+                cell.configureUI(with: item.rawValue)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 extension ShowDetailViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        // TODO: #135 self sizing cell 구현
-        return CGSize(width: 80, height: 30)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // TODO: #135 self sizing cell 구현
+        if collectionView == viewHolder.ticketInfoView.ticketSaleCollectionView {
+            return CGSize(width: 80, height: 30)
+        } else if collectionView == viewHolder.genreInfoView.showGenreListView {
+            let label = SPLabel(KRFont.B1_regular).then {
+                $0.setText(viewModel.genreList[indexPath.row].rawValue)
+                $0.sizeToFit()
+            }
+            let size = label.frame.size
+            let additionalWidth: CGFloat = 14 + 14
+            let width = additionalWidth + size.width
+            return CGSize(width: width, height: 40)
+        }
+        return .zero
     }
 }

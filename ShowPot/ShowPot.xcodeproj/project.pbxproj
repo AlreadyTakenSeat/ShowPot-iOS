@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */; };
+		700484FD2C7683A000B9A964 /* ShowDetailGenreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */; };
+		700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484FE2C768D6B00B9A964 /* AutoSizingCollectionView.swift */; };
 		70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B092C198E5100F32042 /* LogHelper.swift */; };
 		70107B182C1D53FB00F32042 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */; };
 		70107B192C1D53FB00F32042 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */; };
@@ -216,6 +218,8 @@
 
 /* Begin PBXFileReference section */
 		700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailArtistInfoView.swift; sourceTree = "<group>"; };
+		700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailGenreInfoView.swift; sourceTree = "<group>"; };
+		700484FE2C768D6B00B9A964 /* AutoSizingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSizingCollectionView.swift; sourceTree = "<group>"; };
 		70107B092C198E5100F32042 /* LogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -863,6 +867,7 @@
 				7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */,
 				7D06FDAD2C7628FC002519E1 /* SPTabBarItemView.swift */,
 				7DA1CA2E2C6DD4AB00C2752F /* SPDividerView.swift */,
+				700484FE2C768D6B00B9A964 /* AutoSizingCollectionView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1122,6 +1127,7 @@
 				7DA1CA1E2C6BA72D00C2752F /* ShowDetailInfoView.swift */,
 				7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */,
 				700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */,
+				700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */,
 			);
 			path = StackSubViews;
 			sourceTree = "<group>";
@@ -1446,6 +1452,7 @@
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
 				70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
+				700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
@@ -1483,6 +1490,7 @@
 				7DEACE4E2C1ED00100F37DA3 /* LanguageFont.swift in Sources */,
 				7DD2CB852C2ED5A60052ECCD /* SavedViewHolder.swift in Sources */,
 				7D29812B2C01F22300A619FB /* FeaturedViewController.swift in Sources */,
+				700484FD2C7683A000B9A964 /* ShowDetailGenreInfoView.swift in Sources */,
 				7D1E5FAF2C0A20A10012504D /* LoginViewModel.swift in Sources */,
 				7D2981332C01F24500A619FB /* SettingsViewController.swift in Sources */,
 				700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */,
