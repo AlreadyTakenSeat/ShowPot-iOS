@@ -14,6 +14,10 @@ public enum Strings {
   public static let allPerformanceCheckboxTitle = Strings.tr("Localizable", "all_performance_checkbox_title", fallback: "오픈예정 티켓만 보기")
   /// 전체공연
   public static let allPerformanceTitle = Strings.tr("Localizable", "all_performance_title", fallback: "전체공연")
+  /// 인기순
+  public static let allShowDropdownPopularTitle = Strings.tr("Localizable", "all_show_dropdown_popular_title", fallback: "인기순")
+  /// 임박순
+  public static let allShowDropdownUpcomingTitle = Strings.tr("Localizable", "all_show_dropdown_upcoming_title", fallback: "임박순")
   /// Localizable.strings
   ///   ShowPot
   /// 

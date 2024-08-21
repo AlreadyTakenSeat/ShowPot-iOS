@@ -122,9 +122,9 @@ enum ShowFilterType: CaseIterable {
     var text: String {
         switch self {
         case .popular:
-            return "인기순"
+            return Strings.allShowDropdownPopularTitle
         case .upcoming:
-            return "임박순"
+            return Strings.allShowDropdownUpcomingTitle
         }
     }
     

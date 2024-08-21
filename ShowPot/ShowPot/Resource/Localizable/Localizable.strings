@@ -61,6 +61,8 @@
 // 전체 공연 화면
 "all_performance_title" = "전체공연";
 "all_performance_checkbox_title" = "오픈예정 티켓만 보기";
+"all_show_dropdown_popular_title" = "인기순";
+"all_show_dropdown_upcoming_title" = "임박순";
 
 // 아티스트구독 화면
 "subscribe_artist_navigation_title" = "아티스트 구독하기";
