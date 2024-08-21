@@ -15,6 +15,7 @@ final class ShowDetailViewHolder {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.alwaysBounceVertical = true
     }
     
     let contentStackView = UIStackView().then { stackView in
@@ -27,6 +28,7 @@ final class ShowDetailViewHolder {
     lazy var titleView = ShowDetailTitleView()
     lazy var infoView = ShowDetailInfoView()
     lazy var ticketInfoView = ShowDetailTicketInfoView()
+    lazy var artistInfoView = ShowDetailArtistInfoView()
 }
 
 extension ShowDetailViewHolder: ViewHolderType {
@@ -35,7 +37,7 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        let subViews = [posterImageView, titleView, infoView, ticketInfoView]
+        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView]
         contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
     }
     

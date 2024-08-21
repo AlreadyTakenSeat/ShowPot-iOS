@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */; };
 		70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B092C198E5100F32042 /* LogHelper.swift */; };
 		70107B182C1D53FB00F32042 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */; };
 		70107B192C1D53FB00F32042 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */; };
@@ -214,6 +215,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailArtistInfoView.swift; sourceTree = "<group>"; };
 		70107B092C198E5100F32042 /* LogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -1119,6 +1121,7 @@
 				7DA1CA192C6BA3F600C2752F /* ShowDetailTitleView.swift */,
 				7DA1CA1E2C6BA72D00C2752F /* ShowDetailInfoView.swift */,
 				7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */,
+				700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */,
 			);
 			path = StackSubViews;
 			sourceTree = "<group>";
@@ -1482,6 +1485,7 @@
 				7D29812B2C01F22300A619FB /* FeaturedViewController.swift in Sources */,
 				7D1E5FAF2C0A20A10012504D /* LoginViewModel.swift in Sources */,
 				7D2981332C01F24500A619FB /* SettingsViewController.swift in Sources */,
+				700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

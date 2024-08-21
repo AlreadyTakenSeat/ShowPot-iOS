@@ -20,19 +20,30 @@ final class ShowDetailViewModel: ViewModelType {
     }
     
     struct Input {
-        
+        let viewDidLoad: Observable<Void>
     }
     
     struct Output {
         var ticketList = BehaviorSubject<[String]>(value: [])
+        var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     }
     
     func transform(input: Input) -> Output {
+        
+        input.viewDidLoad
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.requestShowDetailData()
+            }
+            .disposed(by: disposeBag)
         
         let output = Output()
         
         usecase.ticketList
             .bind(to: output.ticketList)
+            .disposed(by: disposeBag)
+        
+        usecase.artistList
+            .bind(to: output.artistList)
             .disposed(by: disposeBag)
         
         return output

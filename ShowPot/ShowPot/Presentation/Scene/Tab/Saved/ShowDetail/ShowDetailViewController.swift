@@ -47,7 +47,7 @@ class ShowDetailViewController: ViewController {
         
         viewHolder.ticketInfoView.ticketSaleCollectionView.delegate = self
         
-        let input = ShowDetailViewModel.Input()
+        let input = ShowDetailViewModel.Input(viewDidLoad: .just(()))
         let output = viewModel.transform(input: input)
         
         output.ticketList
@@ -57,6 +57,15 @@ class ShowDetailViewController: ViewController {
             ) { index, item, cell in
                 let brand = TicketSaleBrand(rawValue: item) ?? TicketSaleBrand.other
                 cell.setData(title: brand.title ?? item, color: brand.color)
+            }
+            .disposed(by: disposeBag)
+        
+        output.artistList
+            .bind(to: viewHolder.artistInfoView.artistCollectionView.rx.items(
+                cellIdentifier: FeaturedSubscribeArtistCell.reuseIdentifier,
+                cellType: FeaturedSubscribeArtistCell.self)
+            ) { index, item, cell in
+                cell.configureUI(state: item.state, artistImageURL: item.artistImageURL, artistName: item.artistName)
             }
             .disposed(by: disposeBag)
     }
