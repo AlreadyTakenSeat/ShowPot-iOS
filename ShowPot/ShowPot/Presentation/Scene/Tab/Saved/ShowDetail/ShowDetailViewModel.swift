@@ -31,6 +31,7 @@ final class ShowDetailViewModel: ViewModelType {
         var ticketList = BehaviorSubject<[String]>(value: [])
         var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
         var genreList = BehaviorSubject<[GenreType]>(value: [])
+        var seatList = BehaviorSubject<[SeatDetailInfo]>(value: [])
     }
     
     func transform(input: Input) -> Output {
@@ -53,6 +54,10 @@ final class ShowDetailViewModel: ViewModelType {
         
         usecase.genreList
             .bind(to: output.genreList)
+            .disposed(by: disposeBag)
+        
+        usecase.seatList
+            .bind(to: output.seatList)
             .disposed(by: disposeBag)
         
         return output

@@ -14,6 +14,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     var ticketList = BehaviorSubject<[String]>(value: [])
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     var genreList = BehaviorRelay<[GenreType]>(value: [])
+    var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
     
     private let disposeBag = DisposeBag()
     
@@ -33,5 +34,14 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
         
         let mockGenreList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"]
         genreList.accept(mockGenreList.compactMap { GenreType(rawValue: $0) })
+        
+        seatList.accept([
+            .init(seatCategoryTitle: "스탠딩 P", seatPrice: "154,000원"),
+            .init(seatCategoryTitle: "스탠딩 R", seatPrice: "143,000원"),
+            .init(seatCategoryTitle: "지정석 P", seatPrice: "176,000원"),
+            .init(seatCategoryTitle: "지정석 R", seatPrice: "165,000원"),
+            .init(seatCategoryTitle: "지정석 S", seatPrice: "143,000원"),
+            .init(seatCategoryTitle: "지정석 A", seatPrice: "132,000원")
+        ])
     }
 }

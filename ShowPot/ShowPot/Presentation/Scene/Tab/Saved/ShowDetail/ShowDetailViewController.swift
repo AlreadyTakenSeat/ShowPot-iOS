@@ -45,8 +45,7 @@ class ShowDetailViewController: ViewController {
         viewHolder.ticketInfoView.preTicketSaleView.setData(description: "6월 20일 (목) 12:00")
         viewHolder.ticketInfoView.normalTicketSaleView.setData(description: "6월 21일 (금) 18:00")
         
-        viewHolder.ticketInfoView.ticketSaleCollectionView.delegate = self
-        viewHolder.genreInfoView.showGenreListView.delegate = self
+        viewHolder.seatInfoView.showSeatListView.delegate = self
         
         let input = ShowDetailViewModel.Input(viewDidLoad: .just(()))
         let output = viewModel.transform(input: input)
@@ -78,22 +77,22 @@ class ShowDetailViewController: ViewController {
                 cell.configureUI(with: item.rawValue)
             }
             .disposed(by: disposeBag)
+        
+        output.seatList
+            .bind(to: viewHolder.seatInfoView.showSeatListView.rx.items(
+                cellIdentifier: ShowSeatCell.reuseIdentifier,
+                cellType: ShowSeatCell.self)
+            ) { index, item, cell in
+                cell.configureUI(seatCategory: item.seatCategoryTitle, seatPrice: item.seatPrice)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 extension ShowDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // TODO: #135 self sizing cell 구현
-        if collectionView == viewHolder.ticketInfoView.ticketSaleCollectionView {
-            return CGSize(width: 80, height: 30)
-        } else if collectionView == viewHolder.genreInfoView.showGenreListView {
-            let label = SPLabel(KRFont.B1_regular).then {
-                $0.setText(viewModel.genreList[indexPath.row].rawValue)
-                $0.sizeToFit()
-            }
-            let size = label.frame.size
-            let additionalWidth: CGFloat = 14 + 14
-            let width = additionalWidth + size.width
-            return CGSize(width: width, height: 40)
+        if collectionView == viewHolder.seatInfoView.showSeatListView {
+            return .init(width: collectionView.frame.width - 24, height: 24)
         }
         return .zero
     }

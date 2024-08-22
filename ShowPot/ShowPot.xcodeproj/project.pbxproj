@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */; };
+		700484FB2C76823500B9A964 /* ShowDetailSeatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484FA2C76823500B9A964 /* ShowDetailSeatInfoView.swift */; };
 		700484FD2C7683A000B9A964 /* ShowDetailGenreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */; };
 		700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700484FE2C768D6B00B9A964 /* AutoSizingCollectionView.swift */; };
 		70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B092C198E5100F32042 /* LogHelper.swift */; };
@@ -218,6 +219,7 @@
 
 /* Begin PBXFileReference section */
 		700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailArtistInfoView.swift; sourceTree = "<group>"; };
+		700484FA2C76823500B9A964 /* ShowDetailSeatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailSeatInfoView.swift; sourceTree = "<group>"; };
 		700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailGenreInfoView.swift; sourceTree = "<group>"; };
 		700484FE2C768D6B00B9A964 /* AutoSizingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSizingCollectionView.swift; sourceTree = "<group>"; };
 		70107B092C198E5100F32042 /* LogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
@@ -1127,6 +1129,7 @@
 				7DA1CA1E2C6BA72D00C2752F /* ShowDetailInfoView.swift */,
 				7DA1CA222C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift */,
 				700484F82C76786900B9A964 /* ShowDetailArtistInfoView.swift */,
+				700484FA2C76823500B9A964 /* ShowDetailSeatInfoView.swift */,
 				700484FC2C7683A000B9A964 /* ShowDetailGenreInfoView.swift */,
 			);
 			path = StackSubViews;
@@ -1432,6 +1435,7 @@
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,
 				7DA1CA1F2C6BA72D00C2752F /* ShowDetailInfoView.swift in Sources */,
+				700484FB2C76823500B9A964 /* ShowDetailSeatInfoView.swift in Sources */,
 				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				7DB9F93B2C662D600097C4F9 /* GradientView.swift in Sources */,
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,

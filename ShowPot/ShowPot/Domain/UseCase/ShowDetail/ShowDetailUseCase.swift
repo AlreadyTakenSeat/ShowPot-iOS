@@ -42,10 +42,16 @@ enum TicketSaleBrand: String {
     }
 }
 
+struct SeatDetailInfo {
+    let seatCategoryTitle: String
+    let seatPrice: String
+}
+
 protocol ShowDetailUseCase {
     var ticketList: BehaviorSubject<[String]> { get set }
     var artistList: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
     var genreList: BehaviorRelay<[GenreType]> { get set }
+    var seatList: BehaviorRelay<[SeatDetailInfo]> { get set }
     
     func requestShowDetailData()
 }
