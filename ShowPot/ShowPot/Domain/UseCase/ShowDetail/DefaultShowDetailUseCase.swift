@@ -10,11 +10,12 @@ import RxSwift
 import RxCocoa
 
 class DefaultShowDetailUseCase: ShowDetailUseCase {
-    
+    var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false))
     var ticketList = BehaviorSubject<[String]>(value: [])
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     var genreList = BehaviorRelay<[GenreType]>(value: [])
     var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
+    var updateInterestResult = PublishSubject<Bool>()
     
     private let disposeBag = DisposeBag()
     
@@ -43,5 +44,12 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
             .init(seatCategoryTitle: "지정석 S", seatPrice: "143,000원"),
             .init(seatCategoryTitle: "지정석 A", seatPrice: "132,000원")
         ])
+        
+        buttonState.accept(.init(isLiked: [true, false].shuffled()[0], isAlarmSet: [true, false].shuffled()[0]))
+    }
+    
+    func updateShowInterest() {
+        LogHelper.debug("공연 관심 등록/취소 요청")
+        updateInterestResult.onNext([true, false].shuffled()[0])
     }
 }

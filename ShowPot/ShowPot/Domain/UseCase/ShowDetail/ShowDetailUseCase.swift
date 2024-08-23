@@ -47,11 +47,19 @@ struct SeatDetailInfo {
     let seatPrice: String
 }
 
+struct ShowDetailButtonState {
+    let isLiked: Bool
+    let isAlarmSet: Bool
+}
+
 protocol ShowDetailUseCase {
     var ticketList: BehaviorSubject<[String]> { get set }
     var artistList: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
     var genreList: BehaviorRelay<[GenreType]> { get set }
     var seatList: BehaviorRelay<[SeatDetailInfo]> { get set }
+    var buttonState: BehaviorRelay<ShowDetailButtonState> { get set }
+    var updateInterestResult: PublishSubject<Bool> { get set }
     
     func requestShowDetailData()
+    func updateShowInterest()
 }

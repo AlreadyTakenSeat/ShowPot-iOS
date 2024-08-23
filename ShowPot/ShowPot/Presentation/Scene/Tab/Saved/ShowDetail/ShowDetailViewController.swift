@@ -47,7 +47,10 @@ class ShowDetailViewController: ViewController {
         
         viewHolder.seatInfoView.showSeatListView.delegate = self
         
-        let input = ShowDetailViewModel.Input(viewDidLoad: .just(()))
+        let input = ShowDetailViewModel.Input(
+            viewDidLoad: .just(()),
+            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable()
+        )
         let output = viewModel.transform(input: input)
         
         output.ticketList
@@ -84,6 +87,21 @@ class ShowDetailViewController: ViewController {
                 cellType: ShowSeatCell.self)
             ) { index, item, cell in
                 cell.configureUI(seatCategory: item.seatCategoryTitle, seatPrice: item.seatPrice)
+            }
+            .disposed(by: disposeBag)
+        
+        output.isLikeButtonSelected
+            .subscribe(viewHolder.footerView.likeButton.rx.isSelected)
+            .disposed(by: disposeBag)
+        
+        output.alarmButtonState
+            .subscribe(with: self) { owner, result in
+                let (isUpdatedBefore, isEnabled) = result
+                if !isEnabled {
+                    owner.viewHolder.footerView.alarmButton.isEnabled = isEnabled
+                    return
+                }
+                owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore
             }
             .disposed(by: disposeBag)
     }

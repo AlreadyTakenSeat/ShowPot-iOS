@@ -31,6 +31,7 @@ final class ShowDetailViewHolder {
     lazy var artistInfoView = ShowDetailArtistInfoView()
     lazy var seatInfoView = ShowDetailSeatInfoView()
     lazy var genreInfoView = ShowDetailGenreInfoView()
+    lazy var footerView = ShowDetailFooterView()
 }
 
 extension ShowDetailViewHolder: ViewHolderType {
@@ -39,9 +40,8 @@ extension ShowDetailViewHolder: ViewHolderType {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView, genreInfoView]
-        contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0])
-        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView, seatInfoView, genreInfoView]
+        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView, seatInfoView, genreInfoView, footerView]
+        contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0, 6])
     }
     
     func configureConstraints(for view: UIView) {

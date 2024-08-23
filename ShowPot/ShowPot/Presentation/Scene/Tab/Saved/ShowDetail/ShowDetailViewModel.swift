@@ -5,18 +5,16 @@
 //  Created by Daegeon Choi on 8/11/24.
 //
 
-import RxSwift
 import UIKit
+
+import RxSwift
+import RxCocoa
 
 final class ShowDetailViewModel: ViewModelType {
     
     var coordinator: ShowDetailCoordinator
     private var usecase: ShowDetailUseCase
     private let disposeBag = DisposeBag()
-    
-    var genreList: [GenreType] {
-        usecase.genreList.value
-    }
     
     init(coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {
         self.coordinator = coordinator
@@ -25,6 +23,7 @@ final class ShowDetailViewModel: ViewModelType {
     
     struct Input {
         let viewDidLoad: Observable<Void>
+        let didTappedLikeButton: Observable<Void>
     }
     
     struct Output {
@@ -32,6 +31,8 @@ final class ShowDetailViewModel: ViewModelType {
         var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
         var genreList = BehaviorSubject<[GenreType]>(value: [])
         var seatList = BehaviorSubject<[SeatDetailInfo]>(value: [])
+        var isLikeButtonSelected = BehaviorSubject<Bool>(value: false)
+        var alarmButtonState = BehaviorSubject<(isUpdatedBefore: Bool, isEnabled: Bool)>(value: (false, true))
     }
     
     func transform(input: Input) -> Output {
@@ -41,8 +42,29 @@ final class ShowDetailViewModel: ViewModelType {
                 owner.usecase.requestShowDetailData()
             }
             .disposed(by: disposeBag)
-        
+                
         let output = Output()
+        
+        input.didTappedLikeButton
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.updateShowInterest()
+            }
+            .disposed(by: disposeBag)
+        
+        usecase.updateInterestResult
+            .subscribe(with: self) { owner, isSuccess in
+                LogHelper.debug("공연 관심 등록/취소 성공여부: \(isSuccess)")
+                output.isLikeButtonSelected.onNext(isSuccess)
+            }
+            .disposed(by: disposeBag)
+        
+        usecase.buttonState
+            .subscribe(with: self) { owner, state in
+                LogHelper.debug("관심등록된 공연인가 ?: \(state.isLiked)\n이전에 알림설정한 공연인가 ?: \(state.isAlarmSet)")
+                output.isLikeButtonSelected.onNext(state.isLiked)
+                output.alarmButtonState.onNext((state.isAlarmSet, true))
+            }
+            .disposed(by: disposeBag)
         
         usecase.ticketList
             .bind(to: output.ticketList)

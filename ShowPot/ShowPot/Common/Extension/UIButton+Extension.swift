@@ -23,4 +23,42 @@ extension UIButton.Configuration {
             button.setText(text)
         }
     }
+    
+    func toggleButtonImageBySelection(
+        backgroundColor: UIColor,
+        normalImage: UIImage,
+        selectedImage: UIImage
+    ) -> UIButton.ConfigurationUpdateHandler {
+        return { button in
+            guard let button = button as? SPButton else { return }
+            button.configuration?.baseBackgroundColor = backgroundColor
+            switch button.state {
+            case .normal:
+                button.configuration?.image = normalImage
+            case .selected:
+                button.configuration?.image = selectedImage
+            default: break
+            }
+        }
+    }
+    
+    func showDetailAlarmButton(
+        label text: String,
+        disabledTitle: String? = nil,
+        selectedTitle: String
+    ) -> UIButton.ConfigurationUpdateHandler {
+        return { button in
+            guard let button = button as? SPButton else { return }
+            switch button.state {
+            case .normal, .selected:
+                button.configuration = SPButtonStyle.accentBottomEnabled.configuration
+                button.setText(button.state == .normal ? text : selectedTitle)
+            case .disabled:
+                button.configuration = SPButtonStyle.bottomDisabled.configuration
+                button.setText(disabledTitle ?? text)
+            default:
+                break
+            }
+        }
+    }
 }
