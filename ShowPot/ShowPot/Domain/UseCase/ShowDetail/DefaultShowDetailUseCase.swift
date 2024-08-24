@@ -23,7 +23,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
         ticketList.onNext(["interpark", "yes24", "melonticket", "티켓링크"])
     }
     
-    func requestShowDetailData() {
+    func requestShowDetailData(showID: String) {
         artistList.onNext([
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),

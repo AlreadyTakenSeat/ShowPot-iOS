@@ -60,6 +60,6 @@ protocol ShowDetailUseCase {
     var buttonState: BehaviorRelay<ShowDetailButtonState> { get set }
     var updateInterestResult: PublishSubject<Bool> { get set }
     
-    func requestShowDetailData()
+    func requestShowDetailData(showID: String)
     func updateShowInterest()
 }

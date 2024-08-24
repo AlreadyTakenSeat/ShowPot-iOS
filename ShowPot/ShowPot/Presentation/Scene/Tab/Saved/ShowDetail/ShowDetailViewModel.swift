@@ -15,8 +15,10 @@ final class ShowDetailViewModel: ViewModelType {
     var coordinator: ShowDetailCoordinator
     private var usecase: ShowDetailUseCase
     private let disposeBag = DisposeBag()
+    let showID: String
     
-    init(coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {
+    init(showID: String, coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {
+        self.showID = showID
         self.coordinator = coordinator
         self.usecase = usecase
     }
@@ -39,7 +41,9 @@ final class ShowDetailViewModel: ViewModelType {
         
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                owner.usecase.requestShowDetailData()
+                owner.usecase.requestShowDetailData(showID: owner.showID)
+            }
+            .disposed(by: disposeBag)
             }
             .disposed(by: disposeBag)
                 

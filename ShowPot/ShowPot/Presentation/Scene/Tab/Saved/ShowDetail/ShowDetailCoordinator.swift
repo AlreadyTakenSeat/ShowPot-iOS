@@ -7,18 +7,21 @@
 
 import UIKit
 
-class ShowDetailCoordinator: Coordinator {
+final class ShowDetailCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    init(navigationController: UINavigationController) {
+    private let showID: String
+    
+    init(showID: String, navigationController: UINavigationController) {
+        self.showID = showID
         self.navigationController = navigationController
     }
     
     func start() {
-        let viewModel = ShowDetailViewModel(coordinator: self, usecase: DefaultShowDetailUseCase())
+        let viewModel = ShowDetailViewModel(showID: showID, coordinator: self, usecase: DefaultShowDetailUseCase())
         let viewController = ShowDetailViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
     }
