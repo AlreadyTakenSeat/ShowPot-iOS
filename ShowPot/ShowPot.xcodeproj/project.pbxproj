@@ -341,7 +341,8 @@
 		7D31963D2C1336A70015F88E /* ShowPot-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ShowPot-Release.xcconfig"; sourceTree = "<group>"; };
 		7D31963E2C1336BE0015F88E /* ShowPot-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ShowPot-Debug.xcconfig"; sourceTree = "<group>"; };
 		7D3196412C133EC90015F88E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		7D3433AA2C7A248F00A82D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7D3433AA2C7A248F00A82D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7D3433AD2C7A408100A82D20 /* ShowPot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShowPot.entitlements; sourceTree = "<group>"; };
 		7D3E96292C061DA3003A6FA9 /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
 		7D43E20A2C5FA0A200D94898 /* SubscribeGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreViewController.swift; sourceTree = "<group>"; };
 		7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGenreViewModel.swift; sourceTree = "<group>"; };
@@ -789,6 +790,7 @@
 		7D2980FE2C01E1D000A619FB /* ShowPot */ = {
 			isa = PBXGroup;
 			children = (
+				7D3433AD2C7A408100A82D20 /* ShowPot.entitlements */,
 				7D3433AA2C7A248F00A82D20 /* GoogleService-Info.plist */,
 				7D2981132C01E70A00A619FB /* Application */,
 				7D2981142C01E71100A619FB /* Presentation */,
@@ -1614,6 +1616,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShowPot/ShowPot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1647,6 +1650,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShowPot/ShowPot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
