@@ -53,6 +53,7 @@ final class SettingViewController: ViewController {
             title: "설정",
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
+        contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.settingListView.delegate = self
         viewHolder.settingListView.dataSource = self
     }
