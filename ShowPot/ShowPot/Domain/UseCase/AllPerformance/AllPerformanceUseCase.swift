@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 struct FeaturedPerformanceWithTicketOnSaleSoonCellModel: Hashable { // TODO: - UseCase모델은 특정 부분에 의존하면 안되므로 네이밍 수정 필요
+    let showID: String
     let performanceState: PerformanceState
     let performanceTitle: String
     let performanceLocation: String

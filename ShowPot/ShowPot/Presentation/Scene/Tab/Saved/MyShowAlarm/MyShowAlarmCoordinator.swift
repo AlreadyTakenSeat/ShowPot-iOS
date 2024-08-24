@@ -34,7 +34,9 @@ final class MyShowAlarmCoordinator: NavigationCoordinator {
         self.childCoordinators.append(coordinator)
     }
     
-    func goToShowDetailScreen() {
-        LogHelper.debug("공연상세화면으로 이동")
+    func goToShowDetailScreen(showID: String) {
+        let coordinator = ShowDetailCoordinator(showID: showID, navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
 }

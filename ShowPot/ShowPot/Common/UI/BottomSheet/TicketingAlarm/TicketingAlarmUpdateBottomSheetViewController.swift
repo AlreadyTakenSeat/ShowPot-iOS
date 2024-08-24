@@ -1,5 +1,5 @@
 //
-//  TicketingAlarmBottomSheetViewController.swift
+//  TicketingAlarmUpdateBottomSheetViewController.swift
 //  ShowPot
 //
 //  Created by 이건준 on 8/9/24.
@@ -11,10 +11,10 @@ import RxSwift
 import SnapKit
 import Then
 
-final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
+final class TicketingAlarmUpdateBottomSheetViewController: BottomSheetViewController {
     
     private let disposeBag = DisposeBag()
-    private let viewModel: TicketingAlarmBottomSheetViewModel
+    private let viewModel: TicketingAlarmUpdateViewModel
     
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
@@ -37,7 +37,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
         $0.configurationUpdateHandler = $0.configuration?.enabledToggleButton(label: Strings.myShowTicketButtonTitle)
     }
     
-    init(viewModel: TicketingAlarmBottomSheetViewModel) {
+    init(viewModel: TicketingAlarmUpdateViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setupStyles()
@@ -82,7 +82,7 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
         
         viewModel.dataSource = makeDataSource()
         
-        let input = TicketingAlarmBottomSheetViewModel.Input(
+        let input = TicketingAlarmUpdateViewModel.Input(
             viewDidLoad: .just(()),
             didTappedTicketingTimeCell: ticketingAlarmCollectionView.rx.itemSelected.asObservable(),
             didTappedUpdateButton: alarmSettingButton.rx.tap.asObservable()
@@ -95,20 +95,20 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
     
 }
 
-extension TicketingAlarmBottomSheetViewController {
-    func makeDataSource() -> TicketingAlarmBottomSheetViewModel.DataSource {
+extension TicketingAlarmUpdateBottomSheetViewController {
+    func makeDataSource() -> TicketingAlarmUpdateViewModel.DataSource {
         let cellRegistration = UICollectionView.CellRegistration<TicketingAlarmCell, TicketingAlarmCellModel> { (cell, indexPath, model) in
             cell.configureUI(with: model)
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<TicketingAlarmBottomSheetViewModel.TicketingAlarmSection, TicketingAlarmCellModel>(collectionView: ticketingAlarmCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<TicketingAlarmUpdateViewModel.TicketingAlarmSection, TicketingAlarmCellModel>(collectionView: ticketingAlarmCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
         return dataSource
     }
 }
 
-extension TicketingAlarmBottomSheetViewController: UICollectionViewDelegateFlowLayout {
+extension TicketingAlarmUpdateBottomSheetViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 32, height: 55)
     }

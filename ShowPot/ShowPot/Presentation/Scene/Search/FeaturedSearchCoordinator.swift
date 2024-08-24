@@ -27,4 +27,10 @@ final class FeaturedSearchCoordinator: NavigationCoordinator {
         self.parentCoordinator?.removeChildCoordinator(child: self)
         self.navigationController.popViewController(animated: true)
     }
+    
+    func goToShowDetailScreen(showID: String) {
+        let coordinator = ShowDetailCoordinator(showID: showID, navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }

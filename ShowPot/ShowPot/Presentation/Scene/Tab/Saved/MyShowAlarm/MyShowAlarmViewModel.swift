@@ -75,8 +75,7 @@ final class MyShowAlarmViewModel: ViewModelType {
         
         input.didTappedMyShow
             .subscribe(with: self) { owner, indexPath in
-                LogHelper.debug("공연 셀 클릭: \(owner.myShowRelay.value[indexPath.row])")
-                owner.coordinator.goToShowDetailScreen()
+                owner.coordinator.goToShowDetailScreen(showID: owner.myShowRelay.value[indexPath.row].showID)
             }
             .disposed(by: disposeBag)
         

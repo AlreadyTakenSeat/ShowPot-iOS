@@ -71,6 +71,7 @@ final class FeaturedRecommendedPerformanceCell: UICollectionViewCell, ReusableCe
 }
 
 struct FeaturedRecommendedPerformanceCellModel {
+    let showID: String
     let recommendedPerformanceThumbnailURL: URL?
     let recommendedPerformanceTitle: String
 }

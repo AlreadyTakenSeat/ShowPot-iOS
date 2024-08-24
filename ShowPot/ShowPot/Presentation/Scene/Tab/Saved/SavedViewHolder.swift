@@ -44,6 +44,7 @@ final class SavedViewHolder {
         $0.register(MenuCell.self)
         $0.backgroundColor = .gray700
         $0.isScrollEnabled = false
+        $0.contentInset = .init(top: .zero, left: .zero, bottom: 60, right: .zero)
     }
     
     lazy var emptyView = MyAlarmEmptyView()
@@ -90,7 +91,7 @@ extension SavedViewHolder: ViewHolderType {
         }
         
         menuCollectionView.snp.makeConstraints {
-            $0.height.equalTo(156)
+            $0.height.equalTo(156 + 60)
         }
 
         containerStackView.setCustomSpacing(24, after: ticketingHeaderView)

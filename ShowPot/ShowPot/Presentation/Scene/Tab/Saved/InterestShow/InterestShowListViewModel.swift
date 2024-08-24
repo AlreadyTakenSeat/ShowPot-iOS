@@ -53,7 +53,7 @@ final class InterestShowListViewModel: ViewModelType {
         
         input.didTappedShowCell
             .subscribe(with: self) { owner, indexPath in
-                LogHelper.debug("공연 셀 클릭: \(owner.showListRelay.value[indexPath.row])")
+                owner.coordinator.goToShowDetailScreen(showID: owner.showListRelay.value[indexPath.row].id)
             }
             .disposed(by: disposeBag)
         

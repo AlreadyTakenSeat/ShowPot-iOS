@@ -83,7 +83,7 @@ final class AllPerformanceViewModel: ViewModelType {
         
         input.didTappedPerformance
             .subscribe(with: self) { owner, indexPath in
-                LogHelper.debug("선택한 공연정보: \(owner.performanceListRelay.value[indexPath.row])")
+                owner.coordinator.goToShowDetailScreen(showID: owner.performanceListRelay.value[indexPath.row].showID)
             }
             .disposed(by: disposeBag)
         

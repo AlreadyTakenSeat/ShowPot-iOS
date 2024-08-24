@@ -1,8 +1,8 @@
 //
-//  TicketingAlarmBottomSheetViewModel.swift
+//  TicketingAlarmViewModel.swift
 //  ShowPot
 //
-//  Created by 이건준 on 8/9/24.
+//  Created by 이건준 on 8/24/24.
 //
 
 import UIKit
@@ -10,17 +10,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class TicketingAlarmBottomSheetViewModel: ViewModelType {
+struct TicketingAlarmState {
+    let isSelected: Bool
+    let isEnabled: Bool
+    let alertTitle: String
+}
+
+final class TicketingAlarmViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
     private let showID: String
     
-    /// 변경하기 이전 기준이 되는 모델
-    private var myTicketingAlarmBeforeModel: [TicketingAlarmCellModel] = []
-    
-    /// 변경 이후에 따른 추적하는 모델
-    private let myTicketingAlarmAfterModel = BehaviorRelay<[TicketingAlarmCellModel]>(value: [])
+    /// 알림 설정을 위한 모델
+    private let myTicketingAlarmModel = BehaviorRelay<[TicketingAlarmCellModel]>(value: [])
     
     var dataSource: DataSource?
     private let usecase: MyShowUseCase
@@ -42,17 +45,9 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let ticketingAlarmModel = usecase.ticketingAlarm.share()
-        
-        ticketingAlarmModel.take(1)
+        usecase.ticketingAlarm
             .subscribe(with: self) { owner, model in
-                owner.myTicketingAlarmBeforeModel = model
-            }
-            .disposed(by: disposeBag)
-        
-        ticketingAlarmModel
-            .subscribe(with: self) { owner, model in
-                owner.myTicketingAlarmAfterModel.accept(model)
+                owner.myTicketingAlarmModel.accept(model)
                 owner.updateDataSource()
             }
             .disposed(by: disposeBag)
@@ -65,41 +60,33 @@ final class TicketingAlarmBottomSheetViewModel: ViewModelType {
         
         input.didTappedTicketingTimeCell
             .subscribe(with: self) { owner, indexPath in
-                var currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
+                var currentTicketingTimeList = owner.myTicketingAlarmModel.value
                 LogHelper.debug("티켓팅 알림 시간 선택: \(currentTicketingTimeList[indexPath.row].ticketingAlertText)")
                 guard currentTicketingTimeList[indexPath.row].isEnabled else { return }
                 currentTicketingTimeList[indexPath.row].isChecked.toggle()
-                owner.myTicketingAlarmAfterModel.accept(currentTicketingTimeList)
+                owner.myTicketingAlarmModel.accept(currentTicketingTimeList)
                 owner.updateDataSource()
             }
             .disposed(by: disposeBag)
         
         input.didTappedUpdateButton
             .subscribe(with: self) { owner, _ in
-                let currentTicketingTimeList = owner.myTicketingAlarmAfterModel.value
+                let currentTicketingTimeList = owner.myTicketingAlarmModel.value
                 owner.usecase.updateTicketingAlarm(model: currentTicketingTimeList, showID: owner.showID)
             }
             .disposed(by: disposeBag)
         
-        /// 변경하기 이전과 이후 상태가 다른지 확인하는 Observable
-        let isCheckedStateDifferent = myTicketingAlarmAfterModel
-            .withUnretained(self)
-            .map { owner, afterModels in
-                let enabledBeforeModels = owner.myTicketingAlarmBeforeModel.filter { $0.isEnabled }
-                let enabledAfterModels = afterModels.filter { $0.isEnabled }
-                
-                // 두 모델의 isChecked 값을 비교하여 하나라도 다르면 true 반환
-                return zip(enabledBeforeModels, enabledAfterModels).contains { $0.isChecked != $1.isChecked }
-            }
+        let isEnabledBottomButton = myTicketingAlarmModel
+            .map { !$0.filter { $0.isEnabled && $0.isChecked }.isEmpty }
             .asDriver(onErrorDriveWith: .empty())
         
-        return Output(isEnabledBottomButton: isCheckedStateDifferent)
+        return Output(isEnabledBottomButton: isEnabledBottomButton)
     }
 }
 
 // MARK: - For NSDiffableDataSource
 
-extension TicketingAlarmBottomSheetViewModel {
+extension TicketingAlarmViewModel {
     
     typealias Item = TicketingAlarmCellModel
     typealias DataSource = UICollectionViewDiffableDataSource<TicketingAlarmSection, Item>
@@ -110,7 +97,7 @@ extension TicketingAlarmBottomSheetViewModel {
     }
     
     private func updateDataSource() {
-        let ticketingTimeList = myTicketingAlarmAfterModel.value
+        let ticketingTimeList = myTicketingAlarmModel.value
         var snapshot = NSDiffableDataSourceSnapshot<TicketingAlarmSection, Item>()
         snapshot.appendSections([.main])
         snapshot.appendItems(ticketingTimeList)

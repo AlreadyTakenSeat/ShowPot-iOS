@@ -114,6 +114,30 @@ public enum Strings {
   public static let searchKeywordTitle = Strings.tr("Localizable", "search_keyword_title", fallback: "최근검색어")
   /// 공연 정보
   public static let searchPerformanceTitle = Strings.tr("Localizable", "search_performance_title", fallback: "공연 정보")
+  /// 아티스트 정보
+  public static let showArtistInfo = Strings.tr("Localizable", "show_artist_info", fallback: "아티스트 정보")
+  /// Model
+  public static let showDate = Strings.tr("Localizable", "show_date", fallback: "기간")
+  /// 알림 시간 변경하기
+  public static let showDetailAlarmUpdateBottomButtonTitle = Strings.tr("Localizable", "show_detail_alarm_update_bottom_button_title", fallback: "알림 시간 변경하기")
+  /// 알림 설정하기
+  public static let showDetailBottomButtonTitle = Strings.tr("Localizable", "show_detail_bottom_button_title", fallback: "알림 설정하기")
+  /// 예매가 오픈된 공연이에요
+  public static let showDetailDisenabledBottomButtonTitle = Strings.tr("Localizable", "show_detail_disenabled_bottom_button_title", fallback: "예매가 오픈된 공연이에요")
+  /// 공연정보
+  public static let showDetailTitle = Strings.tr("Localizable", "show_detail_title", fallback: "공연정보")
+  /// 공연 장르
+  public static let showGenre = Strings.tr("Localizable", "show_genre", fallback: "공연 장르")
+  /// 장소
+  public static let showLoaction = Strings.tr("Localizable", "show_loaction", fallback: "장소")
+  /// 일반예매 오픈
+  public static let showNormalTicketopen = Strings.tr("Localizable", "show_normal_ticketopen", fallback: "일반예매 오픈")
+  /// 선예매 오픈
+  public static let showPreTicketopen = Strings.tr("Localizable", "show_pre_ticketopen", fallback: "선예매 오픈")
+  /// 좌석 가격 정보
+  public static let showSeatPriceInfo = Strings.tr("Localizable", "show_seat_price_info", fallback: "좌석 가격 정보")
+  /// 티켓팅 정보
+  public static let showTicketopenInfo = Strings.tr("Localizable", "show_ticketopen_info", fallback: "티켓팅 정보")
   /// 보러가기
   public static let snackbarActionTitle = Strings.tr("Localizable", "snackbar_action_title", fallback: "보러가기")
   /// 알림 설정이 완료되었습니다

@@ -105,8 +105,10 @@ final class FeaturedViewModel: ViewModelType {
                     owner.coordinator.goToSubscribeArtistScreen()
                 case .subscribeGenre:
                     owner.coordinator.goToSubscribeGenreScreen()
-                default:
-                    return
+                case let .ticketingPerformance(model):
+                    owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].showID)
+                case let .recommendedPerformance(model):
+                    owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].showID)
                 }
             }
             .disposed(by: disposeBag)
@@ -151,29 +153,29 @@ extension FeaturedViewModel {
     private func fetchTicketingPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         ticketingPerformanceModelRelay.accept([
             .init(
-                performanceState: .reserving, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), performanceDate: nil),
+                showID: "40", performanceState: .reserving, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), performanceDate: nil),
             .init(
-                performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60)),
+                showID: "41", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60)),
             .init(
-                performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60)),
+                showID: "42", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60)),
             .init(
-                performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)),
+                showID: "43", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)),
             .init(
-                performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)),
+                showID: "44", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)),
             .init(
-                performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60))
+                showID: "45", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60))
         ])
     }
     
     /// 추천공연 리스트 모델을 위한 API를 호출하는 함수
     private func fetchRecommendedPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         recommendedPerformanceModelRelay.accept([
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d.")
+            .init(showID: "1", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
+            .init(showID: "2", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
+            .init(showID: "3", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
+            .init(showID: "4", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
+            .init(showID: "5", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
+            .init(showID: "6", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d.")
         ])
     }
 }

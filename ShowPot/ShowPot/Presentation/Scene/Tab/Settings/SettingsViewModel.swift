@@ -82,7 +82,7 @@ final class SettingsViewModel: ViewModelType {
                         owner.coordinator.goToSubscribeGenreScreen()
                     }
                 case .recentShow:
-                    LogHelper.debug("선택한 공연 모델: \(owner.recentShowListRelay.value[indexPath.row])")
+                    owner.coordinator.goToShowDetailScreen(showID: owner.recentShowListRelay.value[indexPath.row].id)
                 }
             }
             .disposed(by: disposeBag)
