@@ -25,4 +25,9 @@ final class ShowDetailCoordinator: Coordinator {
         let viewController = ShowDetailViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
 }

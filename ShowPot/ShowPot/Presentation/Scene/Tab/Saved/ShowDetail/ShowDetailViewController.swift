@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class ShowDetailViewController: ViewController {
+final class ShowDetailViewController: ViewController {
     
     let viewHolder: ShowDetailViewHolder = .init()
     let viewModel: ShowDetailViewModel
@@ -47,9 +47,34 @@ class ShowDetailViewController: ViewController {
         
         viewHolder.seatInfoView.showSeatListView.delegate = self
         
+        viewHolder.footerView.alarmButton.rx.tap
+            .subscribe(with: self) { owner, _ in
+                let isAlarmUpdatedBefore = owner.viewHolder.footerView.alarmButton.isSelected
+                
+                if isAlarmUpdatedBefore {
+                    let alarmBottmSheet = TicketingAlarmUpdateBottomSheetViewController(viewModel: TicketingAlarmUpdateViewModel(showID: owner.viewModel.showID, usecase: MyShowAlarmUseCase()))
+                    alarmBottmSheet.alarmSettingButton.rx.tap
+                        .subscribe(onNext: { _ in
+                            alarmBottmSheet.dismissBottomSheet()
+                        })
+                        .disposed(by: owner.disposeBag)
+                    owner.presentBottomSheet(viewController: alarmBottmSheet)
+                } else {
+                    let alarmBottmSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmViewModel(showID: owner.viewModel.showID, usecase: MyShowAlarmUseCase()))
+                    alarmBottmSheet.alarmSettingButton.rx.tap
+                        .subscribe(onNext: { _ in
+                            alarmBottmSheet.dismissBottomSheet()
+                        })
+                        .disposed(by: owner.disposeBag)
+                    owner.presentBottomSheet(viewController: alarmBottmSheet)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         let input = ShowDetailViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable()
+            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(), 
+            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable()
         )
         let output = viewModel.transform(input: input)
         

@@ -26,6 +26,7 @@ final class ShowDetailViewModel: ViewModelType {
     struct Input {
         let viewDidLoad: Observable<Void>
         let didTappedLikeButton: Observable<Void>
+        let didTappedBackButton: Observable<Void>
     }
     
     struct Output {
@@ -44,6 +45,10 @@ final class ShowDetailViewModel: ViewModelType {
                 owner.usecase.requestShowDetailData(showID: owner.showID)
             }
             .disposed(by: disposeBag)
+        
+        input.didTappedBackButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.popViewController()
             }
             .disposed(by: disposeBag)
                 
