@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 final class MainTabController: UITabBarController {
     
+    // MARK: Custom Tab UI
     lazy var customTabBarContainer = UIView().then { view in
         view.backgroundColor = .gray800
     }
@@ -20,6 +22,7 @@ final class MainTabController: UITabBarController {
         stackView.spacing = 32
     }
     
+    // MARK: Tab Bar related properties
     let tabItemViews: [SPTabBarItemView] = [SPTabBarItemView(), SPTabBarItemView(), SPTabBarItemView()]
     
     let tabItems: [SPTabBarItem] = [
@@ -33,6 +36,8 @@ final class MainTabController: UITabBarController {
         SavedCoordinator(navigationController: NavigationController()),
         SettingsCoordinator(navigationController: NavigationController())
     ]
+    
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         
@@ -73,8 +78,11 @@ extension MainTabController {
 
 extension MainTabController: SPTabBarItemViewDelegate {
     private func setUpTabBar() {
-        tabBar.isTranslucent = false
         tabBar.isHidden = true
+        
+        MainTabController.showTabBar.subscribe { isShow in
+            self.updateTabBarVisiblity(isShow)
+        }.disposed(by: disposeBag)
         
         self.view.addSubview(customTabBarContainer)
         customTabBarContainer.snp.makeConstraints { make in
@@ -104,5 +112,15 @@ extension MainTabController: SPTabBarItemViewDelegate {
         self.tabItemViews[self.selectedIndex].isSelected = false
         view.isSelected = true
         self.selectedIndex = self.tabItemViews.firstIndex(where: { $0 == view }) ?? 0
+    }
+}
+
+extension MainTabController {
+    
+    static let showTabBar = PublishSubject<Bool>()
+    
+    private func updateTabBarVisiblity(_ isShow: Bool) {
+        self.customTabBarContainer.isHidden = !isShow
+        self.view.layoutSubviews()
     }
 }

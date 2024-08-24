@@ -32,6 +32,7 @@ class BaseViewController: UIViewController {
     var contentView = UIView()
     
     var showNavigaitonBar: Bool = false
+    var showTabBar: Bool = false
     final let disposeBag = DisposeBag()
     
     deinit {
@@ -45,6 +46,11 @@ class BaseViewController: UIViewController {
         setUpContentView()
         setUpContentLayout()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        MainTabController.showTabBar.onNext(self.showTabBar)
     }
     
     // 빈 영역 터치시 키보드 dismiss를 위한 코드
