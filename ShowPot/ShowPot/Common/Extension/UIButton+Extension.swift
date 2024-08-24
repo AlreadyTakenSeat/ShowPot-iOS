@@ -54,7 +54,7 @@ extension UIButton.Configuration {
                 button.configuration = SPButtonStyle.accentBottomEnabled.configuration
                 button.setText(button.state == .normal ? text : selectedTitle)
             case .disabled:
-                button.configuration = SPButtonStyle.bottomDisabled.configuration
+                button.configuration = SPButtonStyle.showDetailBottomDisabled.configuration
                 button.setText(disabledTitle ?? text)
             default:
                 break

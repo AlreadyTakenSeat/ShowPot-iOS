@@ -43,8 +43,17 @@ extension SPButtonStyle {
     static let bottomDisabled: SPButtonStyle = {
         let textStyle = AttributeStyle(fontType: KRFont.H2, alignment: .center)
         var configuration = UIButton.Configuration.filled()
-        configuration.baseForegroundColor = .gray700
-        configuration.baseBackgroundColor = .gray400
+        configuration.baseForegroundColor = .gray400
+        configuration.baseBackgroundColor = .gray700
+        configuration.background.cornerRadius = 2
+        return SPButtonStyle(textStyle: textStyle, configuration: configuration)
+    }()
+    
+    static let showDetailBottomDisabled: SPButtonStyle = {
+        let textStyle = AttributeStyle(fontType: KRFont.H2, alignment: .center)
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseForegroundColor = .gray400
+        configuration.baseBackgroundColor = .gray600
         configuration.background.cornerRadius = 2
         return SPButtonStyle(textStyle: textStyle, configuration: configuration)
     }()
