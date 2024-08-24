@@ -16,6 +16,7 @@ struct MyShowMenuData {
 }
 
 struct ShowData {
+    let id: String
     let artistName: String
     let remainDay: Int?
     let backgroundImage: UIImage
@@ -117,8 +118,8 @@ final class SavedViewModel: ViewModelType {
         
         input.didTappedUpcomingCell
             .subscribe(with: self) { owner, indexPath in
-                var model = owner.usecase.upcomingShowList.value
-                LogHelper.debug("선택된 셀 모델: \(model[indexPath.row])")
+                let model = owner.upcomingTicketingModelRelay.value
+                owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].id)
             }
             .disposed(by: disposeBag)
         

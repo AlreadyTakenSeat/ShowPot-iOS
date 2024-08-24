@@ -75,8 +75,8 @@ final class FeaturedSearchViewModel: ViewModelType {
                     owner.artistResultListRelay.accept(artistModel)
                     owner.updateSearchResultDataSource()
                 case .performance:
-                    var performanceModel = owner.performanceResultListRelay.value
-                    LogHelper.debug("공연정보 선택\n모델: \(performanceModel[indexPath.row])")
+                    let performanceModel = owner.performanceResultListRelay.value
+                    owner.coordinator.goToShowDetailScreen(showID: performanceModel[indexPath.row].showID)
                 }
             }
             .disposed(by: disposeBag)
