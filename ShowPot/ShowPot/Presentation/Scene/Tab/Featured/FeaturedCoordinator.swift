@@ -19,6 +19,7 @@ final class FeaturedCoordinator: NavigationCoordinator {
     
     func start() {
         let viewController: FeaturedViewController = FeaturedViewController(viewModel: FeaturedViewModel(coordinator: self))
+        viewController.showTabBar = true
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

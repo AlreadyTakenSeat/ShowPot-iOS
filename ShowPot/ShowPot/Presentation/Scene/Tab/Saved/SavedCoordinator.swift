@@ -19,6 +19,7 @@ final class SavedCoordinator: NavigationCoordinator {
     
     func start() {
         let viewController: SavedViewController = SavedViewController(viewModel: SavedViewModel(coordinator: self, usecase: DefaultMyAlarmUseCase()))
+        viewController.showTabBar = true
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

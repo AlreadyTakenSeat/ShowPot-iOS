@@ -117,6 +117,7 @@
 		70F3C1492C6FBB0300786738 /* ClosedShowListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C1482C6FBB0300786738 /* ClosedShowListEmptyView.swift */; };
 		70F3C14B2C6FBBA200786738 /* InterestShowListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14A2C6FBBA200786738 /* InterestShowListEmptyView.swift */; };
 		70F3C1502C70FD5700786738 /* ShowDeleteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */; };
+		7D06FDAE2C7628FC002519E1 /* SPTabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06FDAD2C7628FC002519E1 /* SPTabBarItemView.swift */; };
 		70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C14D2C706A6A00786738 /* iOSDropDown */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
@@ -294,6 +295,7 @@
 		70F3C1482C6FBB0300786738 /* ClosedShowListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedShowListEmptyView.swift; sourceTree = "<group>"; };
 		70F3C14A2C6FBBA200786738 /* InterestShowListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestShowListEmptyView.swift; sourceTree = "<group>"; };
 		70F3C14F2C70FD5700786738 /* ShowDeleteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDeleteButtonView.swift; sourceTree = "<group>"; };
+		7D06FDAD2C7628FC002519E1 /* SPTabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPTabBarItemView.swift; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 				7D45CB602C5956C70018FCB8 /* SPButton.swift */,
 				7D45CB622C5A92920018FCB8 /* SPButtonStyle.swift */,
 				7D43E2142C5FB38D00D94898 /* SPNavigationBarView.swift */,
+				7D06FDAD2C7628FC002519E1 /* SPTabBarItemView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1308,6 +1311,7 @@
 				70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */,
 				7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */,
 				7DD2CB832C2ED5510052ECCD /* SavedCoordinator.swift in Sources */,
+				7D06FDAE2C7628FC002519E1 /* SPTabBarItemView.swift in Sources */,
 				7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */,
 				701467822C5364DE00750A54 /* FeaturedOnlyTitleHeaderView.swift in Sources */,
 				70F3C13D2C6FAF1600786738 /* ClosedShowListViewHolder.swift in Sources */,

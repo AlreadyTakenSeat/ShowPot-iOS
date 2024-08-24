@@ -118,7 +118,7 @@ public enum Strings {
   public static let snackbarActionTitle = Strings.tr("Localizable", "snackbar_action_title", fallback: "보러가기")
   /// 알림 설정이 완료되었습니다
   public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
-  /// Common
+  /// 구독 설정이 완료되었습니다
   public static let snackbarDescriptionSubscribe = Strings.tr("Localizable", "snackbar_description_subscribe", fallback: "구독 설정이 완료되었습니다")
   /// 구독이 취소되었습니다
   public static let snackbarDescriptionSubscribeDelete = Strings.tr("Localizable", "snackbar_description_subscribe_delete", fallback: "구독이 취소되었습니다")
@@ -146,6 +146,12 @@ public enum Strings {
   public static let subscribeGenreDescription = Strings.tr("Localizable", "subscribe_genre_description", fallback: "관심 장르의 내한공연 알림을 보내드려요")
   /// 장르 구독하기
   public static let subscribeGenreTitle = Strings.tr("Localizable", "subscribe_genre_title", fallback: "장르 구독하기")
+  /// Common
+  public static let tabbarHome = Strings.tr("Localizable", "tabbar_home", fallback: "홈")
+  /// 마이
+  public static let tabbarMy = Strings.tr("Localizable", "tabbar_my", fallback: "마이")
+  /// 내 공연
+  public static let tabbarShow = Strings.tr("Localizable", "tabbar_show", fallback: "내 공연")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

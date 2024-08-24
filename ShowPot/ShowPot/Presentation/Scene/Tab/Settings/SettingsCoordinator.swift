@@ -19,6 +19,7 @@ final class SettingsCoordinator: NavigationCoordinator {
     
     func start() {
         let viewController: SettingsViewController = SettingsViewController(viewModel: SettingsViewModel(coordinator: self, usecase: DefaultMyPageUseCase()))
+        viewController.showTabBar = true
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
