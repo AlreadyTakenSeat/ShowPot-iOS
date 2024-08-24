@@ -17,6 +17,7 @@
 		700485122C7A382C00B9A964 /* TicketingAlarmUpdateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004850D2C7A382C00B9A964 /* TicketingAlarmUpdateBottomSheetViewController.swift */; };
 		700485132C7A382C00B9A964 /* TicketingAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004850E2C7A382C00B9A964 /* TicketingAlarmViewModel.swift */; };
 		700485152C7A386D00B9A964 /* ShowDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485142C7A386C00B9A964 /* ShowDetailFooterView.swift */; };
+		7004851B2C7A514400B9A964 /* LabelMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004851A2C7A514400B9A964 /* LabelMenuCell.swift */; };
 		70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70107B092C198E5100F32042 /* LogHelper.swift */; };
 		70107B182C1D53FB00F32042 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */; };
 		70107B192C1D53FB00F32042 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */; };
@@ -247,6 +248,7 @@
 		7004850D2C7A382C00B9A964 /* TicketingAlarmUpdateBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketingAlarmUpdateBottomSheetViewController.swift; sourceTree = "<group>"; };
 		7004850E2C7A382C00B9A964 /* TicketingAlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketingAlarmViewModel.swift; sourceTree = "<group>"; };
 		700485142C7A386C00B9A964 /* ShowDetailFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailFooterView.swift; sourceTree = "<group>"; };
+		7004851A2C7A514400B9A964 /* LabelMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuCell.swift; sourceTree = "<group>"; };
 		70107B092C198E5100F32042 /* LogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		70107B0F2C1D53FB00F32042 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		70107B102C1D53FB00F32042 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -494,6 +496,22 @@
 				7004850E2C7A382C00B9A964 /* TicketingAlarmViewModel.swift */,
 			);
 			path = TicketingAlarm;
+			sourceTree = "<group>";
+		};
+		700485182C7A512800B9A964 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				700485192C7A513C00B9A964 /* CustomView */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		700485192C7A513C00B9A964 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				7004851A2C7A514400B9A964 /* LabelMenuCell.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70107B0E2C1D53DA00F32042 /* Font */ = {
@@ -1006,6 +1024,7 @@
 		7D2981252C01EC5200A619FB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				700485182C7A512800B9A964 /* Setting */,
 				70F3C1202C6CD48D00786738 /* CustomView */,
 				7D2981322C01F24500A619FB /* SettingsViewController.swift */,
 				7D2981342C01F25100A619FB /* SettingsViewModel.swift */,
@@ -1437,6 +1456,7 @@
 				7D43E7DA2C57CFDF0008F349 /* OnboardingUseCase.swift in Sources */,
 				70F3C1092C6A151400786738 /* Date+Extension.swift in Sources */,
 				70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */,
+				7004851B2C7A514400B9A964 /* LabelMenuCell.swift in Sources */,
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
 				70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */,
 				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
