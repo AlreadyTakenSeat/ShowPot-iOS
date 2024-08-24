@@ -9,15 +9,17 @@ import UIKit
 
 import GoogleSignIn
 import KakaoSDKCommon
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        Thread.sleep(forTimeInterval: 1.0)  // 스플래시 화면 최소 표출 시간
-        
+        FirebaseApp.configure()
         KakaoSDK.initSDK(appKey: Environment.kakaoClientID)
+        
+        Thread.sleep(forTimeInterval: 1.0)  // 스플래시 화면 최소 표출 시간
         return true
     }
     
