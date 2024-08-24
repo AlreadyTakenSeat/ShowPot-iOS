@@ -141,3 +141,5 @@ iOSInjectionProject/
 
 # End of https://www.toptal.com/developers/gitignore/api/cocoapods,xcode,swift,macos
 ShowPot/ShowPot.xcodeproj/project.xcworkspace
+ShowPot/ShowPot/GoogleService-Info.plist
+ShowPot/ShowPot/GoogleService-Info.plist

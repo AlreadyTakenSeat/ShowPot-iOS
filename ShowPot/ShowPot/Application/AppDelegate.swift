@@ -17,6 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+        )
+        
+        application.registerForRemoteNotifications()
+        Messaging.messaging().delegate = self
+        
         KakaoSDK.initSDK(appKey: Environment.kakaoClientID)
         
         Thread.sleep(forTimeInterval: 1.0)  // 스플래시 화면 최소 표출 시간
@@ -42,6 +54,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: 구글 소셜로그인을 할때에 인증 프로세스가 끝날 때 애플리케이션이 수신하는 URL을 적절히 처리
         // 참고하면 좋은 사이트 : https://firebase.google.com/docs/auth/ios/google-signin?hl=ko
         return GIDSignIn.sharedInstance.handle(url)
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    // 백그라운드에서 푸시 알림을 탭했을 때 실행
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        LogHelper.info("APNS token: \(deviceToken)")
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    // Foreground(앱 켜진 상태)에서도 알림 오는 설정
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.list, .banner])
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        LogHelper.info("Firebase registration token: \(String(describing: fcmToken))")
     }
     
 }
