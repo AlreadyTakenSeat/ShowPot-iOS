@@ -156,7 +156,7 @@ extension FeaturedViewHolder {
     private func subscribeArtistLayoutSection() -> NSCollectionLayoutSection {
         let groupLayoutSize = NSCollectionLayoutSize(
             widthDimension: .absolute(100),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(129)
         )
         
         let itemLayoutSize = NSCollectionLayoutSize(

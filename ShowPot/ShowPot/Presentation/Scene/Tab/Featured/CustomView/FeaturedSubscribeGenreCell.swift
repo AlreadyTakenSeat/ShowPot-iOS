@@ -53,15 +53,15 @@ final class FeaturedSubscribeGenreCell: UICollectionViewCell, ReusableCell {
 // MARK: Data Configuration
 
 struct FeaturedSubscribeGenreCellModel {
-    let subscribeGenreImageURL: URL?
+    let subscribeGenreImage: UIImage?
 }
 
 extension FeaturedSubscribeGenreCell {
     func configureUI(with model: FeaturedSubscribeGenreCellModel) {
-        subscribeGenreImageView.kf.setImage(with: model.subscribeGenreImageURL)
+        subscribeGenreImageView.image = model.subscribeGenreImage
     }
     
-    func configureUI(subscribeGenreImageURL: URL?) {
-        subscribeGenreImageView.kf.setImage(with: subscribeGenreImageURL)
+    func configureUI(subscribeGenreImage: UIImage?) {
+        subscribeGenreImageView.image = subscribeGenreImage
     }
 }

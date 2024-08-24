@@ -16,7 +16,7 @@ final class FeaturedViewModel: ViewModelType {
     var coordinator: FeaturedCoordinator
     private let disposeBag = DisposeBag()
     
-    private let subscribeGenreModelRelay = BehaviorRelay<[FeaturedSubscribeGenreCellModel]>(value: [])
+    private let subscribeGenreModelRelay = BehaviorRelay<[GenreType]>(value: [])
     private let subscribeArtistModelRelay = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
     private let ticketingPerformanceModelRelay = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
     private let recommendedPerformanceModelRelay = BehaviorRelay<[FeaturedRecommendedPerformanceCellModel]>(value: [])
@@ -121,31 +121,23 @@ extension FeaturedViewModel {
     
     /// 구독 장르 데이터를 위한 API호출하는 함수
     private func fetchSubscribeGenreListModel() {
-        subscribeGenreModelRelay.accept([ // FIXME: - 추후 API연동 후 MockData코드 수정
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg")),
-            .init(subscribeGenreImageURL: URL(string: "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg"))
-        ])
+        let genreList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"]
+        subscribeGenreModelRelay.accept(genreList.compactMap { GenreType(rawValue: $0) })
     }
     
     /// 구독 아티스트 데이터를 위한 API호출하는 함수
     private func fetchSubscribeArtistListModel() {
         
         subscribeArtistModelRelay.accept([ // FIXME: - 추후 API연동 후 MockData코드 수정
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .subscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird")
+            .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "Karina"),
+            .init(state: .none, artistImageURL: URL(string: "https://archive.myvibrary.com/original/1668417270241_975a7ca2e5.jpeg"), artistName: "Promise Nine"),
+            .init(state: .none, artistImageURL: URL(string: "https://i.namu.wiki/i/0JkYJV8U5hmI2TrCSbXXeqR0amYEJFCwL8dhX9ErhuHjKfMqjnLz7tjRfF9xZlxI6u44ubT-GhASuu3MIrLLKw.webp"), artistName: "Post Malone"),
+            .init(state: .none, artistImageURL: URL(string: "https://mblogthumb-phinf.pstatic.net/MjAyMDA2MjVfMTU3/MDAxNTkzMDUyMTM5MTIx.37pQgUlGVqV5UcjyqYX5_vcui9PeJQwY5S3qO5ISYtcg.rji7p3enqW1JjZjuasxxoYK6gvWYALBO2WWCVOFQhB8g.JPEG.iiwasabi/aa575f1c11d21a71b47410a3e477df52b652b2a12d0d5866ecca9b13a689bc9983299996e7c.jpeg?type=w800"), artistName: "Official HIGE DANdism"),
+            .init(state: .none, artistImageURL: URL(string: "https://cdn.hankooki.com/news/photo/202403/146167_199399_1711270059.jpg"), artistName: "Charlie Puth"),
+            .init(state: .none, artistImageURL: URL(string: "https://dimg.donga.com/wps/NEWS/IMAGE/2023/10/16/121678869.2.jpg"), artistName: "Sam Smitth"),
+            .init(state: .none, artistImageURL: URL(string: "https://www.rollingstone.com/wp-content/uploads/2023/09/Doja-Cat-New-album-is-out.jpg"), artistName: "Doja Cat"),
+            .init(state: .none, artistImageURL: URL(string: "https://i.namu.wiki/i/7Uuzidn1EcLXJPolvEHmRR4CDwtQwfgpvXZ0HigeTiW6QCoPWXQ67n5anRe1wRMegTHPRQ5sfBwVdzdJ2MPVWQ.webp"), artistName: "Kanye West"),
+            .init(state: .none, artistImageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/2/22/Mariah_Carey_Library_of_Congress_2023_1_Cropped_3.png"), artistName: "Mariah Carey")
         ])
     }
     
@@ -156,26 +148,18 @@ extension FeaturedViewModel {
                 showID: "40", performanceState: .reserving, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), performanceDate: nil),
             .init(
                 showID: "41", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60)),
-            .init(
-                showID: "42", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60)),
-            .init(
-                showID: "43", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)),
-            .init(
-                showID: "44", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)),
-            .init(
-                showID: "45", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60))
         ])
     }
     
     /// 추천공연 리스트 모델을 위한 API를 호출하는 함수
     private func fetchRecommendedPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         recommendedPerformanceModelRelay.accept([
-            .init(showID: "1", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(showID: "2", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(showID: "3", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(showID: "4", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(showID: "5", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d."),
-            .init(showID: "6", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5NfNwM67Lyk98rVjmz7FHKxaBF4XgoPATw&s"), recommendedPerformanceTitle: "Nothing But Thieves hey.d.")
+            .init(showID: "1", recommendedPerformanceThumbnailURL: URL(string: "https://img1.newsis.com/2017/06/08/NISI20170608_0000003586_web.jpg"), recommendedPerformanceTitle: "Ed Sheeran In Seoul"),
+            .init(showID: "2", recommendedPerformanceThumbnailURL: URL(string: "https://m.segye.com/content/image/2023/04/20/20230420524301.jpg"), recommendedPerformanceTitle: "Bruno Mars Super Concert"),
+            .init(showID: "3", recommendedPerformanceThumbnailURL: URL(string: "https://newsimg-hams.hankookilbo.com/2022/06/23/00f9568a-226c-4b99-b0b1-d44284b7c477.jpg"), recommendedPerformanceTitle: "Bille Eilish Seoul Kaidom"),
+            .init(showID: "4", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL0vSEZjCwFA2APIB_YgRwqovQAs5CJaN_uA&s"), recommendedPerformanceTitle: "FLY BY MIDNIGHT ANEMOLA"),
+            .init(showID: "5", recommendedPerformanceThumbnailURL: URL(string: "https://m.segye.com/content/image/2023/12/07/20231207516433.jpg"), recommendedPerformanceTitle: "NO WAR LIVE IN SEOUL"),
+            .init(showID: "6", recommendedPerformanceThumbnailURL: URL(string: "https://tkfile.yes24.com/upload2/PerfBlog/202407/20240710/20240710-50315.jpg"), recommendedPerformanceTitle: "Novelbright LIVE TOUR 2024")
         ])
     }
 }

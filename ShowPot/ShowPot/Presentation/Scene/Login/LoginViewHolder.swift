@@ -14,6 +14,7 @@ final class LoginViewHolder {
     
     let backButton = SPButton().then {
         $0.setImage(.icArrowLeft.withTintColor(.gray000), for: .normal)
+        $0.configuration?.baseBackgroundColor = .clear
     }
     
     let logoImageView = UIImageView().then {
