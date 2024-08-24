@@ -42,6 +42,13 @@ enum TicketSaleBrand: String {
     }
 }
 
+struct ShowDetailOverView {
+    let posterImageURLString: String
+    let title: String
+    let time: Date?
+    let location: String
+}
+
 struct SeatDetailInfo {
     let seatCategoryTitle: String
     let seatPrice: String
@@ -52,8 +59,15 @@ struct ShowDetailButtonState {
     let isAlarmSet: Bool
 }
 
+struct ShowDetailTicketInfo {
+    let ticketCategory: [String]
+    let prereserveOpenTime: Date?
+    let normalreserveOpenTime: Date?
+}
+
 protocol ShowDetailUseCase {
-    var ticketList: BehaviorSubject<[String]> { get set }
+    var showOverview: BehaviorSubject<ShowDetailOverView> { get set }
+    var ticketList: BehaviorSubject<ShowDetailTicketInfo> { get set }
     var artistList: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
     var genreList: BehaviorRelay<[GenreType]> { get set }
     var seatList: BehaviorRelay<[SeatDetailInfo]> { get set }

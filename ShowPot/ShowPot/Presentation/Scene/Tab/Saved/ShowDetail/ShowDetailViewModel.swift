@@ -30,7 +30,9 @@ final class ShowDetailViewModel: ViewModelType {
     }
     
     struct Output {
-        var ticketList = BehaviorSubject<[String]>(value: [])
+        var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
+        var ticketTimeInfo = BehaviorSubject<(Date?, Date?)>(value: (nil, nil))
+        var ticketBrandList = BehaviorSubject<[String]>(value: [])
         var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
         var genreList = BehaviorSubject<[GenreType]>(value: [])
         var seatList = BehaviorSubject<[SeatDetailInfo]>(value: [])
@@ -60,6 +62,10 @@ final class ShowDetailViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        usecase.showOverview
+            .bind(to: output.showOverview)
+            .disposed(by: disposeBag)
+        
         usecase.updateInterestResult
             .subscribe(with: self) { owner, isSuccess in
                 LogHelper.debug("공연 관심 등록/취소 성공여부: \(isSuccess)")
@@ -76,7 +82,10 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         usecase.ticketList
-            .bind(to: output.ticketList)
+            .subscribe(with: self) { owner, model in
+                output.ticketBrandList.onNext(model.ticketCategory)
+                output.ticketTimeInfo.onNext((model.prereserveOpenTime, model.normalreserveOpenTime))
+            }
             .disposed(by: disposeBag)
         
         usecase.artistList

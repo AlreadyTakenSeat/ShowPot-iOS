@@ -10,8 +10,9 @@ import RxSwift
 import RxCocoa
 
 class DefaultShowDetailUseCase: ShowDetailUseCase {
+    var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
+    var ticketList = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
     var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false))
-    var ticketList = BehaviorSubject<[String]>(value: [])
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     var genreList = BehaviorRelay<[GenreType]>(value: [])
     var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
@@ -20,10 +21,19 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     private let disposeBag = DisposeBag()
     
     init() {
-        ticketList.onNext(["interpark", "yes24", "melonticket", "티켓링크"])
+        ticketList.onNext(
+            .init(
+                ticketCategory: ["interpark", "yes24", "melonticket", "티켓링크"],
+                prereserveOpenTime: Date(timeIntervalSinceNow: 6000),
+                normalreserveOpenTime: Date(timeIntervalSinceNow: 4000)
+            )
+        )
     }
     
     func requestShowDetailData(showID: String) {
+        
+        showOverview.onNext(ShowDetailOverView(posterImageURLString: "https://enfntsterribles.com/wp-content/uploads/2023/08/enfntsterribles-nothing-but-thieves-01.jpg", title: "나씽 벗 띠브스 내한공연 (Nothing But Thieves Live in Seoul)", time: Date(timeIntervalSinceNow: 7000), location: "KBS 아레나홀"))
+        
         artistList.onNext([
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),

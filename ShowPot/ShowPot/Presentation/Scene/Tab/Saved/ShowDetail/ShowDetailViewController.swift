@@ -38,12 +38,6 @@ final class ShowDetailViewController: ViewController {
     }
         
     override func bind() {
-        // TODO: #106 ViewHolder 개발 완료 후 ViewModel 사용하여 데이터 주입
-        viewHolder.posterImageView.setImage(urlString: "https://enfntsterribles.com/wp-content/uploads/2023/08/enfntsterribles-nothing-but-thieves-01.jpg", option: .relativeHeight)
-        viewHolder.titleView.titleLabel.setText("나씽 벗 띠브스 내한공연 (Nothing But Thieves Live in Seoul)")
-        viewHolder.infoView.setData(date: "2024.08.21", location: "KBS 아레나홀")
-        viewHolder.ticketInfoView.preTicketSaleView.setData(description: "6월 20일 (목) 12:00")
-        viewHolder.ticketInfoView.normalTicketSaleView.setData(description: "6월 21일 (금) 18:00")
         
         viewHolder.seatInfoView.showSeatListView.delegate = self
         
@@ -78,13 +72,32 @@ final class ShowDetailViewController: ViewController {
         )
         let output = viewModel.transform(input: input)
         
-        output.ticketList
+        output.showOverview
+            .subscribe(with: self) { owner, model in
+                guard let showTime = model.time else { return }
+                owner.viewHolder.posterImageView.setImage(urlString: model.posterImageURLString, option: .relativeHeight)
+                owner.viewHolder.titleView.titleLabel.setText(model.title)
+                owner.viewHolder.infoView.setData(date: DateFormatterFactory.dateWithDot.string(from: showTime), location: model.location)
+            }
+            .disposed(by: disposeBag)
+        
+        output.ticketBrandList
             .bind(to: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.items(
                 cellIdentifier: TicketSaleCollectionViewCell.reuseIdentifier,
                 cellType: TicketSaleCollectionViewCell.self)
             ) { index, item, cell in
                 let brand = TicketSaleBrand(rawValue: item) ?? TicketSaleBrand.other
                 cell.setData(title: brand.title ?? item, color: brand.color)
+            }
+            .disposed(by: disposeBag)
+        
+        output.ticketTimeInfo
+            .subscribe(with: self) { owner, result in
+                let (preDescription, normalDescription) = result
+                guard let preDescription = preDescription,
+                      let normalDescription = normalDescription else { return }
+                owner.viewHolder.ticketInfoView.preTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: preDescription))
+                owner.viewHolder.ticketInfoView.normalTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: normalDescription))
             }
             .disposed(by: disposeBag)
         
