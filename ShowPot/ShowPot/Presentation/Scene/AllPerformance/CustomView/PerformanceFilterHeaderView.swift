@@ -31,9 +31,9 @@ final class PerformanceFilterHeaderView: UICollectionReusableView, ReusableCell 
     private let disposeBag = DisposeBag()
     private let checkBoxButton = CheckBoxButton(title: Strings.allPerformanceCheckboxTitle)
     private lazy var dropdown = DropDown(frame: .init(x: .zero, y: .zero, width: .zero, height: 25)).then {
-        $0.backgroundColor = .gray500
-        $0.rowBackgroundColor = .gray500
-        $0.textColor = .gray400
+        $0.backgroundColor = .gray700
+        $0.rowBackgroundColor = .gray700
+        $0.textColor = .gray000
         $0.font = KRFont.B1_semibold.font
         $0.itemsColor = .gray000
         $0.arrowColor = .gray200
@@ -41,7 +41,7 @@ final class PerformanceFilterHeaderView: UICollectionReusableView, ReusableCell 
         $0.isSearchEnable = false
         $0.checkMarkEnabled = false
         $0.arrowSize = 12
-        $0.selectedRowColor = .gray500
+        $0.selectedRowColor = .gray700
         $0.rowHeight = 40
         $0.cornerRadius = 2
     }
