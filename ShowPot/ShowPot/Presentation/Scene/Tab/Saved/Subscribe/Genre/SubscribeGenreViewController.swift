@@ -34,8 +34,6 @@ class SubscribeGenreViewController: ViewController {
             title: Strings.subscribeGenreTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
-        
-        self.hidesBottomBarWhenPushed = true
     }
     
     override func bind() {
