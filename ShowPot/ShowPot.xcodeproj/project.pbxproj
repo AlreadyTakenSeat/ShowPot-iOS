@@ -18,6 +18,10 @@
 		700485132C7A382C00B9A964 /* TicketingAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004850E2C7A382C00B9A964 /* TicketingAlarmViewModel.swift */; };
 		700485152C7A386D00B9A964 /* ShowDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485142C7A386C00B9A964 /* ShowDetailFooterView.swift */; };
 		7004851B2C7A514400B9A964 /* LabelMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004851A2C7A514400B9A964 /* LabelMenuCell.swift */; };
+		7004851D2C7A523C00B9A964 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004851C2C7A523C00B9A964 /* SettingViewController.swift */; };
+		7004851F2C7A524B00B9A964 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004851E2C7A524B00B9A964 /* SettingViewModel.swift */; };
+		700485212C7A525D00B9A964 /* SettingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485202C7A525D00B9A964 /* SettingCoordinator.swift */; };
+		700485232C7A528C00B9A964 /* SettingViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485222C7A528C00B9A964 /* SettingViewHolder.swift */; };
 		700485262C7A580F00B9A964 /* WebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485252C7A580F00B9A964 /* WebContentViewController.swift */; };
 		700485282C7A582700B9A964 /* WebContentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485272C7A582700B9A964 /* WebContentCoordinator.swift */; };
 		7004852A2C7A584100B9A964 /* WebContentViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700485292C7A584100B9A964 /* WebContentViewHolder.swift */; };
@@ -253,6 +257,10 @@
 		7004850E2C7A382C00B9A964 /* TicketingAlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketingAlarmViewModel.swift; sourceTree = "<group>"; };
 		700485142C7A386C00B9A964 /* ShowDetailFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailFooterView.swift; sourceTree = "<group>"; };
 		7004851A2C7A514400B9A964 /* LabelMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuCell.swift; sourceTree = "<group>"; };
+		7004851C2C7A523C00B9A964 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		7004851E2C7A524B00B9A964 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		700485202C7A525D00B9A964 /* SettingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCoordinator.swift; sourceTree = "<group>"; };
+		700485222C7A528C00B9A964 /* SettingViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewHolder.swift; sourceTree = "<group>"; };
 		700485252C7A580F00B9A964 /* WebContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentViewController.swift; sourceTree = "<group>"; };
 		700485272C7A582700B9A964 /* WebContentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentCoordinator.swift; sourceTree = "<group>"; };
 		700485292C7A584100B9A964 /* WebContentViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentViewHolder.swift; sourceTree = "<group>"; };
@@ -510,6 +518,10 @@
 			isa = PBXGroup;
 			children = (
 				700485192C7A513C00B9A964 /* CustomView */,
+				7004851C2C7A523C00B9A964 /* SettingViewController.swift */,
+				7004851E2C7A524B00B9A964 /* SettingViewModel.swift */,
+				700485202C7A525D00B9A964 /* SettingCoordinator.swift */,
+				700485222C7A528C00B9A964 /* SettingViewHolder.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1497,6 +1509,7 @@
 				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
 				70F3C1012C68B3E600786738 /* MyShowAlarmUseCase.swift in Sources */,
 				7DB9F9372C63D4A20097C4F9 /* GenreCollectionViewCell.swift in Sources */,
+				7004851F2C7A524B00B9A964 /* SettingViewModel.swift in Sources */,
 				70F3C1102C6B9FD100786738 /* MyUpcomingTicketingCell.swift in Sources */,
 				7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */,
 				7DA112542C689380009DFDB1 /* ShowDetailViewModel.swift in Sources */,
@@ -1592,15 +1605,18 @@
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
 				707FF7842C64A8F00026C82D /* SubscribeArtistUseCase.swift in Sources */,
 				7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */,
+				700485232C7A528C00B9A964 /* SettingViewHolder.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
 				70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */,
+				700485212C7A525D00B9A964 /* SettingCoordinator.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
 				70F3C0E62C663ADC00786738 /* ShowAlarmButtonView.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,
+				7004851D2C7A523C00B9A964 /* SettingViewController.swift in Sources */,
 				7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */,
 				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
 				707FF7542C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift in Sources */,
