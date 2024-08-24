@@ -83,7 +83,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
         switch sectionType {
         case let .subscribeGenre(model):
             let cell = collectionView.dequeueReusableCell(FeaturedSubscribeGenreCell.self, for: indexPath) ?? FeaturedSubscribeGenreCell()
-            cell.configureUI(with: model[indexPath.row])
+            cell.configureUI(subscribeGenreImage: model[indexPath.row].normalImage)
             return cell
         case let .subscribeArtist(model):
             let cell = collectionView.dequeueReusableCell(FeaturedSubscribeArtistCell.self, for: indexPath) ?? FeaturedSubscribeArtistCell()
@@ -161,7 +161,7 @@ extension FeaturedViewController {
 }
 
 enum FeaturedSectionType { // TODO: 추후 Usecase로 코드 전환 예정
-    case subscribeGenre([FeaturedSubscribeGenreCellModel])
+    case subscribeGenre([GenreType])
     case subscribeArtist([FeaturedSubscribeArtistCellModel])
     case ticketingPerformance([FeaturedPerformanceWithTicketOnSaleSoonCellModel])
     case recommendedPerformance([FeaturedRecommendedPerformanceCellModel])
