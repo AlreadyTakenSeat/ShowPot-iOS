@@ -11,15 +11,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>YOUR_SCHEMES</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakao5f1d3dcafd024df7a4ff85d87602ad79:oauth</string>
+				<string>kakao5f1d3dcafd024df7a4ff85d87602ad79z</string>
 			</array>
 		</dict>
 	</array>
