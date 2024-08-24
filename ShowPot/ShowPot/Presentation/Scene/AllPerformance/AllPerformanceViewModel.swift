@@ -17,6 +17,8 @@ final class AllPerformanceViewModel: ViewModelType {
     
     private let usecase: AllPerformanceUseCase
     private let performanceListRelay = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
+    private let showPrioritySubject = BehaviorSubject<ShowFilterType>(value: .popular)
+    private let isUpcomingSubject = BehaviorSubject<Bool>(value: false)
 
     var dataSource: DataSource?
     
@@ -26,25 +28,24 @@ final class AllPerformanceViewModel: ViewModelType {
     }
     
     struct Input {
-        let initializePerformance: Observable<Void>
         let didTappedCheckBoxButton: Observable<Bool>
         let didTappedPerformance: Observable<IndexPath>
         let didTappedBackButton: Observable<Void>
         let didTappedSearchButton: Observable<Void>
+        let didTappedDropDown: Observable<String>
     }
     
-    struct Output {}
+    struct Output {
+        let dropdownOptions: Observable<[String]>
+        let defaultSelectedOption: Observable<String>
+    }
     
-    @discardableResult
     func transform(input: Input) -> Output {
         
         usecase.performanceList
-            .bind(to: performanceListRelay)
-            .disposed(by: disposeBag)
-        
-        input.initializePerformance
-            .subscribe(with: self) { owner, _ in
-                owner.fetchAllPerformanceList()
+            .subscribe(with: self) { owner, model in
+                owner.performanceListRelay.accept(model)
+                owner.updateDataSource()
             }
             .disposed(by: disposeBag)
         
@@ -62,34 +63,35 @@ final class AllPerformanceViewModel: ViewModelType {
         
         input.didTappedCheckBoxButton
             .map { !$0 }
-            .subscribe(with: self) { owner, isChecked in
-                isChecked ? owner.fetchOnlyUpcomingPerformance() : owner.fetchAllPerformanceList()
-            }
+            .bind(to: isUpcomingSubject)
             .disposed(by: disposeBag)
+        
+        input.didTappedDropDown
+            .compactMap { ShowFilterType.from(text: $0) }
+            .bind(to: showPrioritySubject)
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            isUpcomingSubject,
+            showPrioritySubject
+        )
+        .subscribe(with: self) { owner, result in
+            let (isOnlyUpcoming, type) = result
+            owner.usecase.fetchAllPerformance(state: .init(type: type, isOnlyUpcoming: isOnlyUpcoming))
+        }
+        .disposed(by: disposeBag)
         
         input.didTappedPerformance
             .subscribe(with: self) { owner, indexPath in
-                print("선택한 공연정보: \(owner.performanceListRelay.value[indexPath.row])")
+                LogHelper.debug("선택한 공연정보: \(owner.performanceListRelay.value[indexPath.row])")
             }
             .disposed(by: disposeBag)
         
-        return Output()
+        let dropdownOptions = Observable.just([ShowFilterType.upcoming.text])
+        let defaultSelectedOption = Observable.just(ShowFilterType.popular.text)
+        
+        return Output(dropdownOptions: dropdownOptions, defaultSelectedOption: defaultSelectedOption)
     }
-}
-
-extension AllPerformanceViewModel {
-    
-    private func fetchAllPerformanceList() {
-        usecase.fetchAllPerformance(isOnlyUpcoming: false)
-        updateDataSource()
-    }
-    
-    private func fetchOnlyUpcomingPerformance() {
-        usecase.fetchAllPerformance(isOnlyUpcoming: true)
-        updateDataSource()
-
-    }
-    
 }
 
 // MARK: - For NSDiffableDataSource
@@ -111,4 +113,27 @@ extension AllPerformanceViewModel {
         snapshot.appendItems(performanceList)
         dataSource?.apply(snapshot)
     }
+}
+
+enum ShowFilterType: CaseIterable {
+    case popular
+    case upcoming
+    
+    var text: String {
+        switch self {
+        case .popular:
+            return Strings.allShowDropdownPopularTitle
+        case .upcoming:
+            return Strings.allShowDropdownUpcomingTitle
+        }
+    }
+    
+    static func from(text: String) -> Self? {
+        ShowFilterType.allCases.first(where: { $0.text == text })
+    }
+}
+
+struct ShowFilterState {
+    let type: ShowFilterType
+    let isOnlyUpcoming: Bool
 }

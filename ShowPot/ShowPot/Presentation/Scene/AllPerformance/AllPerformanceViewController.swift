@@ -12,6 +12,7 @@ import RxSwift
 final class AllPerformanceViewController: ViewController {
     
     private let didTappedCheckBoxButtonSubject = PublishSubject<Bool>()
+    private let didTappedDropdownSubject = PublishSubject<String>()
     
     let viewHolder: AllPerformanceViewHolder = .init()
     let viewModel: AllPerformanceViewModel
@@ -33,7 +34,7 @@ final class AllPerformanceViewController: ViewController {
     
     override func setupStyles() {
         super.setupStyles()
-
+        
         self.setNavigationBarItem(
             title: Strings.allPerformanceTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000),
@@ -47,14 +48,23 @@ final class AllPerformanceViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = AllPerformanceViewModel.Input(
-            initializePerformance: .just(()),
             didTappedCheckBoxButton: didTappedCheckBoxButtonSubject.asObservable(),
             didTappedPerformance: viewHolder.performanceListView.rx.itemSelected.asObservable(),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
-            didTappedSearchButton: contentNavigationBar.didTapRightButton
+            didTappedSearchButton: contentNavigationBar.didTapRightButton,
+            didTappedDropDown: didTappedDropdownSubject.asObservable()
         )
         
-        viewModel.transform(input: input)
+        let output = viewModel.transform(input: input)
+        Observable.zip(
+            output.defaultSelectedOption,
+            output.dropdownOptions
+        )
+        .subscribe(with: self) { owner, result in
+            let (defaultSelectedOption, dropdownOptions) = result
+            owner.configureHeaderView(dropdownOptions: dropdownOptions, defaultSelectedOption: defaultSelectedOption)
+        }
+        .disposed(by: disposeBag)
     }
 }
 
@@ -75,21 +85,33 @@ extension AllPerformanceViewController {
             cell.configureUI(with: model)
         }
         
-        let headerRegistration = UICollectionView.SupplementaryRegistration<PerformanceFilterHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] supplementaryView, _, _ in
-            guard let self = self else { return }
-            supplementaryView.didTappedCheckBox
-                .bind(to: self.didTappedCheckBoxButtonSubject)
-                .disposed(by: disposeBag)
-        }
-        
         let dataSource = UICollectionViewDiffableDataSource<AllPerformanceViewModel.PerformanceSection, FeaturedPerformanceWithTicketOnSaleSoonCellModel>(collectionView: viewHolder.performanceListView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
         
-        dataSource.supplementaryViewProvider = .init { collectionView, elementKind, indexPath in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+        return dataSource
+    }
+    
+    private func configureHeaderView(dropdownOptions: [String], defaultSelectedOption: String) {
+        let headerRegistration = UICollectionView.SupplementaryRegistration<PerformanceFilterHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] supplementaryView, _, _ in
+            guard let self = self else { return }
+            
+            supplementaryView.configureUI(dropdownOptions: dropdownOptions, defaultSelectedOption: defaultSelectedOption)
+            
+            supplementaryView.delegate = self
+            supplementaryView.didTappedCheckBox
+                .bind(to: self.didTappedCheckBoxButtonSubject)
+                .disposed(by: self.disposeBag)
         }
         
-        return dataSource
+        viewModel.dataSource?.supplementaryViewProvider = .init { collectionView, elementKind, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+        }
+    }
+}
+
+extension AllPerformanceViewController: PerformanceFilterHeaderViewDelegate {
+    func selectedDropdown(text: String) {
+        didTappedDropdownSubject.onNext(text)
     }
 }

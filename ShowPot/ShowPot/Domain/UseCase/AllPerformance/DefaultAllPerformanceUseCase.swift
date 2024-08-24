@@ -13,8 +13,11 @@ final class DefaultAllPerformanceUseCase: AllPerformanceUseCase {
     
     var performanceList: BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]> = BehaviorRelay(value: [])
     
-    func fetchAllPerformance(isOnlyUpcoming: Bool) {
-        if !isOnlyUpcoming {
+    func fetchAllPerformance(state: ShowFilterState) {
+        
+        LogHelper.debug("전체공연 검색\n오픈예정유무: \(state.isOnlyUpcoming)\n어떤필터타입: \(state.type)")
+        
+        if !state.isOnlyUpcoming {
             performanceList.accept(
                 [ // FIXME: - 추후 전체공연조회 API연동예정
                     .init(
