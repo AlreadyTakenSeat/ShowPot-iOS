@@ -11,9 +11,9 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class MenuCell: UICollectionViewCell, ReusableCell {
+class MenuCell: UICollectionViewCell, ReusableCell {
     
-    private let indicatorView = UIImageView().then {
+    let indicatorView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = .icArrowRight.withTintColor(.gray300)
     }
@@ -22,7 +22,7 @@ final class MenuCell: UICollectionViewCell, ReusableCell {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let menuTitleLabel = SPLabel(KRFont.H1).then {
+    let menuTitleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
     }
     

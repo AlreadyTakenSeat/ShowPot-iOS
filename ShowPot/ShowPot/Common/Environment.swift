@@ -39,7 +39,11 @@ public enum Environment {
     static let bundleID: String = {
         return Bundle.main.bundleIdentifier ?? "undefined"
     }()
-
+    
+    /// ShowPot 앱 버전에 해당하는 appVersion
+    static let appVersion: String = {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+    }()
 }
 
 // MARK: I/O 관련 코드

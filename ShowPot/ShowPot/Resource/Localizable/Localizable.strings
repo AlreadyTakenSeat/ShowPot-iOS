@@ -114,6 +114,10 @@
 "closed_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
 "closed_show_empty_button" = "알림 설정한 공연 보러가기";
 "closed_show_navigation_title" = "티켓팅 종료 공연";
+
+// 설정 화면
+"setting_term_notion_url_string" = "https://brassy-client-c0a.notion.site/6584c9436a114162b37f2020f2c4a0e9";
+"setting_policy_notion_url_string" = "https://brassy-client-c0a.notion.site/";
 // ------------------------------------------------------------------------------------
 
 /* Model */
