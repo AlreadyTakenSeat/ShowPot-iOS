@@ -17,6 +17,10 @@ final class ShowDetailViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     let showID: String
     
+    var isLoggedIn: Bool {
+        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+    }
+    
     init(showID: String, coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {
         self.showID = showID
         self.coordinator = coordinator

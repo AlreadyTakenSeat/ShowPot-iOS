@@ -14,6 +14,7 @@ protocol MyShowUseCase {
     
     var showList: BehaviorRelay<[PerformanceInfoCollectionViewCellModel]> { get }
     var ticketingAlarm: PublishRelay<[TicketingAlarmCellModel]> { get }
+    var updateTicketingAlarmResult: PublishRelay<Bool> { get }
     
     func fetchShowList()
     func updateTicketingAlarm(model: [TicketingAlarmCellModel], showID: String)

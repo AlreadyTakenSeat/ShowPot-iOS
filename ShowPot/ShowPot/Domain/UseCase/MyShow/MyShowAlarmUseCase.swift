@@ -9,6 +9,8 @@ import RxSwift
 import RxCocoa
 
 final class MyShowAlarmUseCase: MyShowUseCase {
+    var updateTicketingAlarmResult: RxRelay.PublishRelay<Bool> = PublishRelay<Bool>()
+    
     var ticketingAlarm: RxRelay.PublishRelay<[TicketingAlarmCellModel]> = PublishRelay<[TicketingAlarmCellModel]>()
     var showList: RxRelay.BehaviorRelay<[PerformanceInfoCollectionViewCellModel]> = BehaviorRelay<[PerformanceInfoCollectionViewCellModel]>(value: [])
     
@@ -24,6 +26,9 @@ final class MyShowAlarmUseCase: MyShowUseCase {
     
     func updateTicketingAlarm(model: [TicketingAlarmCellModel], showID: String) { // FIXME: - #6 내 공연 티켓팅정보 업데이트 API 요청
         LogHelper.debug("티켓팅 알림 업데이트 정보: \(model.filter { $0.isEnabled && $0.isChecked })\n업데이트할 공연아이디: \(showID)")
+        let result = [true, false].shuffled()[0]
+        LogHelper.debug("티켓팅 알림 업데이트 결과: \(result)")
+        updateTicketingAlarmResult.accept(result)
     }
     
     func deleteShowAlarm(indexPath: IndexPath) {

@@ -16,6 +16,8 @@ final class TicketingAlarmUpdateBottomSheetViewController: BottomSheetViewContro
     private let disposeBag = DisposeBag()
     private let viewModel: TicketingAlarmUpdateViewModel
     
+    var successAlarmUpdateSubject = PublishSubject<Void>()
+    
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
         $0.setText(Strings.myShowTicketBottomsheetTitle)
@@ -90,6 +92,16 @@ final class TicketingAlarmUpdateBottomSheetViewController: BottomSheetViewContro
         let output = viewModel.transform(input: input)
         output.isEnabledBottomButton
             .drive(alarmSettingButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.alarmUpdateResult
+            .emit(with: self) { owner, success in
+                owner.dismissBottomSheet {
+                    if success {
+                        owner.successAlarmUpdateSubject.onNext(())
+                    }
+                }
+            }
             .disposed(by: disposeBag)
     }
     

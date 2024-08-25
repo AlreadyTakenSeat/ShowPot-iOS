@@ -38,6 +38,7 @@ final class TicketingAlarmUpdateViewModel: ViewModelType {
     
     struct Output {
         let isEnabledBottomButton: Driver<Bool>
+        let alarmUpdateResult: Signal<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -93,7 +94,10 @@ final class TicketingAlarmUpdateViewModel: ViewModelType {
             }
             .asDriver(onErrorDriveWith: .empty())
         
-        return Output(isEnabledBottomButton: isCheckedStateDifferent)
+        return Output(
+            isEnabledBottomButton: isCheckedStateDifferent,
+            alarmUpdateResult: usecase.updateTicketingAlarmResult.asSignal(onErrorSignalWith: .empty())
+        )
     }
 }
 

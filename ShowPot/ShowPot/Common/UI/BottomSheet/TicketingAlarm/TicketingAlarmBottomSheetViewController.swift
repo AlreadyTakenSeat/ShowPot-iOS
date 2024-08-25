@@ -15,6 +15,8 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: TicketingAlarmViewModel
     
+    var successAlarmUpdateSubject = PublishSubject<Void>()
+    
     private let titleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
         $0.setText(Strings.myShowTicketBottomsheetTitle)
@@ -90,6 +92,16 @@ final class TicketingAlarmBottomSheetViewController: BottomSheetViewController {
         output.isEnabledBottomButton
             .drive(alarmSettingButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        output.alarmUpdateResult
+            .emit(with: self) { owner, success in
+                owner.dismissBottomSheet {
+                    if success {
+                        owner.successAlarmUpdateSubject.onNext(())
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
 }
@@ -99,7 +111,7 @@ extension TicketingAlarmBottomSheetViewController {
         let cellRegistration = UICollectionView.CellRegistration<TicketingAlarmCell, TicketingAlarmCellModel> { (cell, indexPath, model) in
             cell.configureUI(with: model)
         }
-
+        
         let dataSource = UICollectionViewDiffableDataSource<TicketingAlarmViewModel.TicketingAlarmSection, TicketingAlarmCellModel>(collectionView: ticketingAlarmCollectionView) { (collectionView, indexPath, model) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: model)
         }
