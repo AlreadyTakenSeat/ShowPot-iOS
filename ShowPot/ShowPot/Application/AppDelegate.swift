@@ -76,6 +76,12 @@ extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         LogHelper.info("Firebase registration token: \(String(describing: fcmToken))")
+        
+        if let pushToken = fcmToken {
+            TokenManager.shared.createPushTokens(pushToken: pushToken)
+        } else {
+            LogHelper.error("Error: No FCM Token")
+        }
     }
     
 }
