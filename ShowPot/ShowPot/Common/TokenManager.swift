@@ -11,8 +11,6 @@ import RxSwift
 class TokenManager {
   
     static let shared = TokenManager()
-
-    var isExpired: Bool = false
     
     private init() {}
     
@@ -25,7 +23,6 @@ class TokenManager {
         do {
             try KeyChainManager.shared.create(account: .accessToken, data: accessToken)
             try KeyChainManager.shared.create(account: .refreshToken, data: refreshToken)
-            self.isExpired = false
         } catch {
             LogHelper.error("\(error.localizedDescription): \(error)")
         }
@@ -42,7 +39,6 @@ class TokenManager {
     func setToken(_ token: String, for account: KeyChainAccount) {
         do {
             try KeyChainManager.shared.create(account: account, data: token)
-            self.isExpired = false
         } catch {
             LogHelper.error("\(error.localizedDescription): \(error)")
         }
@@ -50,7 +46,7 @@ class TokenManager {
     
     func readToken(_ account: KeyChainAccount) -> String? {
         do {
-            let token = try KeyChainManager.shared.read(account: .accessToken)
+            let token = try KeyChainManager.shared.read(account: account)
             return token
         } catch {
             LogHelper.error("\(error.localizedDescription): \(error)")
