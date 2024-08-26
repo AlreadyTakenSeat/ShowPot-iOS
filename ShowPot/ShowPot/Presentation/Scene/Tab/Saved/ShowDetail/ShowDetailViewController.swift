@@ -38,7 +38,6 @@ final class ShowDetailViewController: ViewController {
     }
     
     override func bind() {
-        
         viewHolder.seatInfoView.showSeatListView.delegate = self
         
         viewHolder.footerView.alarmButton.rx.tap
@@ -50,35 +49,7 @@ final class ShowDetailViewController: ViewController {
                     return
                 }
                 
-                if isAlarmUpdatedBefore {
-                    let alarmBottmSheet = TicketingAlarmUpdateBottomSheetViewController(
-                        viewModel: TicketingAlarmUpdateViewModel(
-                            showID: owner.viewModel.showID,
-                            usecase: MyShowAlarmUseCase()
-                        )
-                    )
-                    alarmBottmSheet.successAlarmUpdateSubject
-                        .subscribe(onNext: { _ in
-                            SPSnackBar(contextView: owner.view, type: .alarm)
-                                .show()
-                        })
-                        .disposed(by: owner.disposeBag)
-                    owner.presentBottomSheet(viewController: alarmBottmSheet)
-                } else {
-                    let alarmBottmSheet = TicketingAlarmBottomSheetViewController(
-                        viewModel: TicketingAlarmViewModel(
-                            showID: owner.viewModel.showID,
-                            usecase: MyShowAlarmUseCase()
-                        )
-                    )
-                    alarmBottmSheet.successAlarmUpdateSubject
-                        .subscribe(onNext: { _ in
-                            SPSnackBar(contextView: owner.view, type: .alarm)
-                                .show()
-                        })
-                        .disposed(by: owner.disposeBag)
-                    owner.presentBottomSheet(viewController: alarmBottmSheet)
-                }
+                owner.showAlarmBottomSheet(isAlarmUpdatedBefore: isAlarmUpdatedBefore)
             }
             .disposed(by: disposeBag)
         
@@ -159,6 +130,38 @@ final class ShowDetailViewController: ViewController {
                 owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func showAlarmBottomSheet(isAlarmUpdatedBefore: Bool) {
+        if isAlarmUpdatedBefore {
+            let alarmBottmSheet = TicketingAlarmUpdateBottomSheetViewController(
+                viewModel: TicketingAlarmUpdateViewModel(
+                    showID: viewModel.showID,
+                    usecase: MyShowAlarmUseCase()
+                )
+            )
+            alarmBottmSheet.successAlarmUpdateSubject
+                .subscribe(with: self) { owner, _ in
+                    SPSnackBar(contextView: owner.view, type: .alarm)
+                        .show()
+                }
+                .disposed(by: disposeBag)
+            presentBottomSheet(viewController: alarmBottmSheet)
+        } else {
+            let alarmBottmSheet = TicketingAlarmBottomSheetViewController(
+                viewModel: TicketingAlarmViewModel(
+                    showID: viewModel.showID,
+                    usecase: MyShowAlarmUseCase()
+                )
+            )
+            alarmBottmSheet.successAlarmUpdateSubject
+                .subscribe(with: self) { owner, _ in
+                    SPSnackBar(contextView: owner.view, type: .alarm)
+                        .show()
+                }
+                .disposed(by: disposeBag)
+            presentBottomSheet(viewController: alarmBottmSheet)
+        }
     }
 }
 
