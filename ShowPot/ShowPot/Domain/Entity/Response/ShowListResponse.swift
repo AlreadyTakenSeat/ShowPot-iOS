@@ -8,14 +8,14 @@
 import Foundation
 
 // MARK: - Show
-struct Show: Codable {
+struct ShowListResponse: Codable {
     let size: Int
     let hasNext: Bool
-    let data: [Datum]
+    let data: [ShowListData]
 }
 
 // MARK: - Datum
-struct Datum: Codable {
+struct ShowListData: Codable {
     let id, title, location, posterImageURL: String
     let reservationAt: String
     let hasTicketingOpenSchedule: Bool
