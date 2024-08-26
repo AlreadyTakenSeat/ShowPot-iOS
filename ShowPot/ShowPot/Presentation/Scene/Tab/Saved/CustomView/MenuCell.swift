@@ -122,7 +122,7 @@ enum MyAlarmMenuType: CaseIterable {
         case .alarmPerformance:
             return .icAlarm.withTintColor(.gray300)
         case .interestShow:
-            return .icHeart.withTintColor(.gray300)
+            return .icHeartSmall.withTintColor(.gray300)
         case .closedShow:
             return .icTicketFinish.withTintColor(.gray300)
         }

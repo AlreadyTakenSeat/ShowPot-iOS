@@ -16,7 +16,7 @@ final class ShowDetailFooterView: UIView {
         $0.configuration?.background.cornerRadius = 2
         $0.configurationUpdateHandler = $0.configuration?.toggleButtonImageBySelection(
             backgroundColor: .gray500,
-            normalImage: .icHeart.withTintColor(.gray200),
+            normalImage: .icHeartLarge.withTintColor(.gray200),
             selectedImage: .icHeartFilled.withTintColor(.gray200)
         )
     }
