@@ -36,7 +36,7 @@ final class ShowDetailViewController: ViewController {
         self.contentNavigationBar.titleLabel.textColor = .gray000
         self.contentNavigationBar.backgroundColor = .clear
     }
-        
+    
     override func bind() {
         
         viewHolder.seatInfoView.showSeatListView.delegate = self
@@ -45,19 +45,36 @@ final class ShowDetailViewController: ViewController {
             .subscribe(with: self) { owner, _ in
                 let isAlarmUpdatedBefore = owner.viewHolder.footerView.alarmButton.isSelected
                 
+                guard owner.viewModel.isLoggedIn else {
+                    owner.showLoginBottomSheet()
+                    return
+                }
+                
                 if isAlarmUpdatedBefore {
-                    let alarmBottmSheet = TicketingAlarmUpdateBottomSheetViewController(viewModel: TicketingAlarmUpdateViewModel(showID: owner.viewModel.showID, usecase: MyShowAlarmUseCase()))
-                    alarmBottmSheet.alarmSettingButton.rx.tap
+                    let alarmBottmSheet = TicketingAlarmUpdateBottomSheetViewController(
+                        viewModel: TicketingAlarmUpdateViewModel(
+                            showID: owner.viewModel.showID,
+                            usecase: MyShowAlarmUseCase()
+                        )
+                    )
+                    alarmBottmSheet.successAlarmUpdateSubject
                         .subscribe(onNext: { _ in
-                            alarmBottmSheet.dismissBottomSheet()
+                            SPSnackBar(contextView: owner.view, type: .alarm)
+                                .show()
                         })
                         .disposed(by: owner.disposeBag)
                     owner.presentBottomSheet(viewController: alarmBottmSheet)
                 } else {
-                    let alarmBottmSheet = TicketingAlarmBottomSheetViewController(viewModel: TicketingAlarmViewModel(showID: owner.viewModel.showID, usecase: MyShowAlarmUseCase()))
-                    alarmBottmSheet.alarmSettingButton.rx.tap
+                    let alarmBottmSheet = TicketingAlarmBottomSheetViewController(
+                        viewModel: TicketingAlarmViewModel(
+                            showID: owner.viewModel.showID,
+                            usecase: MyShowAlarmUseCase()
+                        )
+                    )
+                    alarmBottmSheet.successAlarmUpdateSubject
                         .subscribe(onNext: { _ in
-                            alarmBottmSheet.dismissBottomSheet()
+                            SPSnackBar(contextView: owner.view, type: .alarm)
+                                .show()
                         })
                         .disposed(by: owner.disposeBag)
                     owner.presentBottomSheet(viewController: alarmBottmSheet)
@@ -67,7 +84,7 @@ final class ShowDetailViewController: ViewController {
         
         let input = ShowDetailViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(), 
+            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable()
         )
         let output = viewModel.transform(input: input)
