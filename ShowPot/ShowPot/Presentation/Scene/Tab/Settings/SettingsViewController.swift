@@ -51,41 +51,20 @@ final class SettingsViewController: ViewController {
 }
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        MypageSectionType.allCases.count
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch MypageSectionType.allCases[section] {
-        case .menu:
-            return viewModel.menuList.count
-        case .recentShow:
-            return viewModel.recentShowList.count
-        }
+        viewModel.menuList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch MypageSectionType.allCases[indexPath.section] {
-        case .menu:
-            let cell = collectionView.dequeueReusableCell(MenuCell.self, for: indexPath) ?? MenuCell()
-            let model = viewModel.menuList[indexPath.row]
-            cell.configureUI(
-                menuImage: model.type.iconImage,
-                menuTitle: model.type.title,
-                badgeCount: model.badgeCount
-            )
-            return cell
-        case .recentShow:
-            let cell = collectionView.dequeueReusableCell(PerformanceInfoCollectionViewCell.self, for: indexPath) ?? PerformanceInfoCollectionViewCell()
-            let model = viewModel.recentShowList[indexPath.row]
-            cell.configureUI(
-                performanceImageURL: model.thumbnailURL,
-                performanceTitle: model.title,
-                performanceTime: model.time,
-                performanceLocation: model.location
-            )
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(MenuCell.self, for: indexPath) ?? MenuCell()
+        let model = viewModel.menuList[indexPath.row]
+        cell.configureUI(
+            menuImage: model.type.iconImage,
+            menuTitle: model.type.title,
+            badgeCount: model.badgeCount
+        )
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

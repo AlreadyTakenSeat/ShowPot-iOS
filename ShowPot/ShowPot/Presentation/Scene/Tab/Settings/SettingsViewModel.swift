@@ -16,14 +16,9 @@ final class SettingsViewModel: ViewModelType {
     private let usecase: MyPageUseCase
     
     private let menuListRelay = BehaviorRelay<[MypageMenuData]>(value: [])
-    private let recentShowListRelay = BehaviorRelay<[ShowSummary]>(value: [])
     
     var menuList: [MypageMenuData] {
         menuListRelay.value
-    }
-    
-    var recentShowList: [ShowSummary] {
-        recentShowListRelay.value
     }
 
     var nickname: String? {
@@ -42,10 +37,7 @@ final class SettingsViewModel: ViewModelType {
         let didTappedLoginButton: Observable<Void>
     }
     
-    struct Output {
-        let menuData: Driver<[MypageMenuData]>
-        let recentShowData: Driver<[ShowSummary]>
-    }
+    struct Output { }
     
     @discardableResult
     func transform(input: Input) -> Output {
@@ -60,29 +52,19 @@ final class SettingsViewModel: ViewModelType {
             .bind(to: menuListRelay)
             .disposed(by: disposeBag)
         
-        usecase.recentShowData
-            .bind(to: recentShowListRelay)
-            .disposed(by: disposeBag)
-        
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                owner.usecase.requestShowData()
                 owner.usecase.requestMenuData()
             }
             .disposed(by: disposeBag)
         
         input.didTappedCell
             .subscribe(with: self) { owner, indexPath in
-                switch MypageSectionType.allCases[indexPath.section] {
-                case .menu:
-                    switch MypageMenuType.allCases[indexPath.row] {
-                    case .artist:
-                        owner.coordinator.goToSubscribeArtistScreen()
-                    case .genre:
-                        owner.coordinator.goToSubscribeGenreScreen()
-                    }
-                case .recentShow:
-                    owner.coordinator.goToShowDetailScreen(showID: owner.recentShowListRelay.value[indexPath.row].id)
+                switch MypageMenuType.allCases[indexPath.row] {
+                case .artist:
+                    owner.coordinator.goToSubscribeArtistScreen()
+                case .genre:
+                    owner.coordinator.goToSubscribeGenreScreen()
                 }
             }
             .disposed(by: disposeBag)
@@ -99,13 +81,7 @@ final class SettingsViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        let mypageMenuData = menuListRelay.asDriver()
-        let mypageRecentShowData = recentShowListRelay.asDriver()
-        
-        return Output(
-            menuData: mypageMenuData, 
-            recentShowData: mypageRecentShowData
-        )
+        return Output()
     }
 }
 

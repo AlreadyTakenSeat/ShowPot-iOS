@@ -10,8 +10,6 @@ import RxCocoa
 
 protocol MyPageUseCase {
     var menuData: BehaviorRelay<[MypageMenuData]> { get }
-    var recentShowData: BehaviorRelay<[ShowSummary]> { get }
     
-    func requestShowData()
     func requestMenuData()
 }
