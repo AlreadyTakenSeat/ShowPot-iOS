@@ -46,10 +46,4 @@ final class SettingsCoordinator: NavigationCoordinator {
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }
-    
-    func goToShowDetailScreen(showID: String) {
-        let coordinator = ShowDetailCoordinator(showID: showID, navigationController: self.navigationController)
-        coordinator.start()
-        self.childCoordinators.append(coordinator)
-    }
 }
