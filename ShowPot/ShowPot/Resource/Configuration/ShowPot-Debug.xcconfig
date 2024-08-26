@@ -13,8 +13,7 @@
 APP_NAME = ShowPot
 
 // Network Defines
-BASE_URL = https:/$()/baseurl.com
-API_KEY = ---
+BASE_URL = https:/$()/api-dev.showpot.org/api/v1/
 
 // Social Login Token
 KAKAO_CLIENT_ID = ---
