@@ -701,6 +701,15 @@
 			path = SubscribeArtist;
 			sourceTree = "<group>";
 		};
+		709577982C7CD82400176381 /* Show */ = {
+			isa = PBXGroup;
+			children = (
+				7D2981392C01F27300A619FB /* Request */,
+				7D2981382C01F26F00A619FB /* Response */,
+			);
+			path = Show;
+			sourceTree = "<group>";
+		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,8 +1092,7 @@
 		7D2981282C01ECC400A619FB /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				7D2981392C01F27300A619FB /* Request */,
-				7D2981382C01F26F00A619FB /* Response */,
+				709577982C7CD82400176381 /* Show */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
