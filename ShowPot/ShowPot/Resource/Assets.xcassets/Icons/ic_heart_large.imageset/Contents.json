@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ic_alarm_24.png",
+      "filename" : "ic_heart_36.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ic_alarm_24@2x.png",
+      "filename" : "ic_heart_36@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ic_alarm_24@3x.png",
+      "filename" : "ic_heart_36@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
