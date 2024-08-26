@@ -15,6 +15,12 @@ import RxSwift
 final class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
+    private let client = APIClient()
+    
+    private var fcmToken: String {
+        TokenManager.shared.readToken(.pushToken) ?? ""
+    }
+    
     var coordinator: LoginCoordinator
     
     init(coordinator: LoginCoordinator) {
@@ -87,13 +93,23 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
     }
     
     private func loginWithKakao() {
-        let loginClosure: (OAuthToken?, Error?) -> Void = { oauthToken, error in
+        let loginClosure: (OAuthToken?, Error?) -> Void = { [weak self] oauthToken, error in
             guard error == nil else {
                 // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
                 LogHelper.error("Kakao SocialLogin Failed: \(error!)")
                 return
             }
-            
+            guard let self = self,
+                  let identifier = oauthToken?.idToken else { return }
+            self.client.login(request: .init(
+                socialType: SocialLoginType.kakao.rawValue,
+                identifier: identifier,
+                fcmToken: fcmToken
+            ))
+            .subscribe(with: self) { owner, response in
+                TokenManager.shared.createTokens(accessToken: response.accessToken, refreshToken: response.refreshToken)
+            }
+            .disposed(by: disposeBag)
         }
         
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -125,10 +141,10 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
 // MARK: - SocialLoginType
 
 /// 소셜로그인 종류
-enum SocialLoginType { // TODO: 추후 Usecase로 빼서 작업 필요
-    case google
-    case kakao
-    case apple
+enum SocialLoginType: String { // TODO: 추후 Usecase로 빼서 작업 필요
+    case google = "GOOGLE"
+    case kakao = "KAKAO"
+    case apple = "APPLE"
     
     var buttonTitle: String {
         switch self {
