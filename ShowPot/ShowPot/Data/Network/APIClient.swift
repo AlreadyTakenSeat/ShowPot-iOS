@@ -44,4 +44,32 @@ final class APIClient {
             return Disposables.create()
         }
     }
+    
+    func login(request: SignInRequest) -> Observable<SignInResponse> {
+        
+        let target = SPTargetType.login
+        
+        LogHelper.info("[\(target.method)] \(target.url)")
+        LogHelper.debug("로그인 요청값: \(request)")
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                parameters: request,
+                encoder: JSONParameterEncoder.default
+            ).responseDecodable(of: SignInResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
 }
