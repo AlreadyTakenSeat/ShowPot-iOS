@@ -27,6 +27,7 @@ final class ShowDetailArtistInfoView: UIView {
     lazy var artistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: artistCollectionViewLayout).then {
         $0.register(FeaturedSubscribeArtistCell.self)
         $0.backgroundColor = .gray700
+        $0.showsHorizontalScrollIndicator = false
     }
     
     override init(frame: CGRect) {
