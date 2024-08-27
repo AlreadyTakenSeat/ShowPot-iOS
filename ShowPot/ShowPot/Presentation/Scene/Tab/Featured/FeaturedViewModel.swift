@@ -42,9 +42,15 @@ final class FeaturedViewModel: ViewModelType {
     
     struct Output {
         let updateFeaturedLayout: Signal<Void>
+        let showLoginBottomSheet: PublishSubject<Void>
     }
     
     func transform(input: Input) -> Output {
+        
+        let output = Output(
+            updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()),
+            showLoginBottomSheet: PublishSubject<Void>()
+        )
         
         input.requestFeaturedSectionModel
             .subscribe(with: self) { owner, _ in
@@ -63,18 +69,31 @@ final class FeaturedViewModel: ViewModelType {
         
         input.didTappedSubscribeGenreButton
             .subscribe(with: self) { owner, _ in
+                
+                guard LoginState.current == .loggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
                 owner.coordinator.goToSubscribeGenreScreen()
             }
             .disposed(by: disposeBag)
         
         input.didTappedSubscribeArtistButton
             .subscribe(with: self) { owner, _ in
+                guard LoginState.current == .loggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
                 owner.coordinator.goToSubscribeArtistScreen()
             }
             .disposed(by: disposeBag)
         
         input.didTappedWatchTheFullPerformanceButton
             .subscribe(with: self) { owner, _ in
+                guard LoginState.current == .loggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
                 owner.coordinator.goToFullPerformanceScreen()
             }
             .disposed(by: disposeBag)
@@ -102,8 +121,16 @@ final class FeaturedViewModel: ViewModelType {
                 let type = sectionModel[indexPath.section]
                 switch type {
                 case .subscribeArtist:
+                    guard LoginState.current == .loggedIn else {
+                        output.showLoginBottomSheet.onNext(())
+                        return
+                    }
                     owner.coordinator.goToSubscribeArtistScreen()
                 case .subscribeGenre:
+                    guard LoginState.current == .loggedIn else {
+                        output.showLoginBottomSheet.onNext(())
+                        return
+                    }
                     owner.coordinator.goToSubscribeGenreScreen()
                 case let .ticketingPerformance(model):
                     owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].showID)
@@ -113,7 +140,7 @@ final class FeaturedViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()))
+        return output
     }
 }
 
