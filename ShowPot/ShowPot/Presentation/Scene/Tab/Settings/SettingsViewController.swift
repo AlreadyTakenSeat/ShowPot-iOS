@@ -43,6 +43,7 @@ final class SettingsViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400)) // FIXME: - title, rightIcon만 존재하는 경우 inset값 수정 필요
+        contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.mypageCollectionView.dataSource = self
         viewHolder.mypageCollectionView.delegate = self
     }
