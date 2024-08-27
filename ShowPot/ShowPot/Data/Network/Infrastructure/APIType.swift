@@ -20,4 +20,12 @@ extension APIType {
     var url: String {
         return "\(baseURL)\(path)"
     }
+    
+    var header: HTTPHeaders? {
+        guard let accessToken = try? KeyChainManager.shared.read(account: .accessToken) else {
+            return nil
+        }
+        
+        return ["Authorization": "Bearer \(accessToken)"]
+    }
 }
