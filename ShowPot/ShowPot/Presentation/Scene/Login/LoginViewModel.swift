@@ -16,9 +16,8 @@ import RxCocoa
 final class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
-    private let client = APIClient()
     
-    private let signInResultRelay = PublishRelay<Bool>()
+    private let usecase: SignInUseCase
     
     private var fcmToken: String {
         TokenManager.shared.readToken(.pushToken) ?? ""
@@ -26,8 +25,9 @@ final class LoginViewModel: ViewModelType {
     
     var coordinator: LoginCoordinator
     
-    init(coordinator: LoginCoordinator) {
+    init(coordinator: LoginCoordinator, usecase: SignInUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
@@ -38,10 +38,9 @@ final class LoginViewModel: ViewModelType {
     }
     
     struct Output {
-        let trySignInResult: Signal<Bool>
+        let trySignInResult = PublishRelay<Bool>()
     }
     
-    @discardableResult
     func transform(input: Input) -> Output {
         
         let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton
@@ -72,7 +71,12 @@ final class LoginViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(trySignInResult: signInResultRelay.asSignal())
+        let output = Output()
+        usecase.signInResult
+            .bind(to: output.trySignInResult)
+            .disposed(by: disposeBag)
+        
+        return output
     }
 }
 
@@ -100,23 +104,15 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
             guard error == nil else {
                 // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
                 LogHelper.error("Kakao SocialLogin Failed: \(error!)")
-                self?.signInResultRelay.accept(false)
                 return
             }
             guard let self = self,
                   let identifier = oauthToken?.idToken else { return }
-            self.client.login(request: .init(
+            self.usecase.signIn(request: .init(
                 socialType: SocialLoginType.kakao.rawValue,
                 identifier: identifier,
                 fcmToken: fcmToken
             ))
-            .subscribe(with: self) { owner, response in
-                TokenManager.shared.createTokens(accessToken: response.accessToken, refreshToken: response.refreshToken)
-                UserDefaultsManager.shared.set(LoginState.current == .loggedIn, for: .isLoggedIn)
-                NotificationCenter.default.post(name: .userDidLogin, object: nil)
-                owner.signInResultRelay.accept(true)
-            }
-            .disposed(by: disposeBag)
         }
         
         if UserApi.isKakaoTalkLoginAvailable() {

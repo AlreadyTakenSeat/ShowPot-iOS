@@ -26,13 +26,12 @@ final class SettingsViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(userDidLogin), name: .userDidLogin, object: nil)
+        super.viewWillAppear(animated)
+        guard let headerView = viewHolder.mypageCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: 0)) as? MyPageHeaderView else { return }
+        // TODO: - 실제 닉네임 데이터를 받아오면 UserDefaultsManager를 이용해 매핑
+        headerView.configureUI(userNickname: viewModel.nickname ?? "춤추는 고래")
+        headerView.alertTextView.isSelectable = viewModel.nickname != nil
     }
     
     override func viewDidLoad() {
@@ -52,22 +51,16 @@ final class SettingsViewController: ViewController {
         super.bind()
         let input = SettingsViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(), 
-            didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(), 
+            didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(),
+            didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(),
             didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
         )
         viewModel.transform(input: input)
     }
-    
-    @objc private func userDidLogin() {
-        guard let headerView = viewHolder.mypageCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: 0)) as? MyPageHeaderView else { return }
-        // TODO: - 실제 닉네임 데이터를 받아오면 UserDefaultsManager를 이용해 매핑
-        headerView.configureUI(userNickname: viewModel.nickname ?? "춤추는 고래")
-    }
 }
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.menuList.count
     }
