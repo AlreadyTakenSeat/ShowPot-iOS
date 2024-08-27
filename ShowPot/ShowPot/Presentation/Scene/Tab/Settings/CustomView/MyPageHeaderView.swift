@@ -16,6 +16,7 @@ final class MyPageHeaderView: UICollectionReusableView, ReusableCell {
         $0.tintColor = .gray000
         $0.backgroundColor = .gray700
         $0.isScrollEnabled = false
+        $0.isEditable = false
     }
     
     private let bottomLineView = UIView().then {

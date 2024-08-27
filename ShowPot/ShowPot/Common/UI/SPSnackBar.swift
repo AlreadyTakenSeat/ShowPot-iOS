@@ -13,6 +13,8 @@ enum SPSnackBarType {
     case subscribe
     /// 알림 설정 완료
     case alarm
+    /// 로그인 완료
+    case signIn
     
     var icon: UIImage? {
         return .icCheck.withTintColor(.gray200)
@@ -24,6 +26,8 @@ enum SPSnackBarType {
             return Strings.snackbarDescriptionSubscribe
         case .alarm:
             return Strings.snackbarDescriptionAlarm
+        case .signIn:
+            return "로그인 되었습니다."
         }
     }
     

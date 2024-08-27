@@ -14,6 +14,7 @@ import Alamofire
 enum SPTargetType: APIType {
     
     case showList
+    case login
     
     var baseURL: String {
         return Environment.baseURL
@@ -23,6 +24,8 @@ enum SPTargetType: APIType {
         switch self {
         case .showList:
             return .get
+        case .login:
+            return .post
         }
     }
     
@@ -30,6 +33,8 @@ enum SPTargetType: APIType {
         switch self {
         case .showList:
             return "shows"
+        case .login:
+            return "users/login"
         }
     }
 }

@@ -20,9 +20,9 @@ final class SettingsViewModel: ViewModelType {
     var menuList: [MypageMenuData] {
         menuListRelay.value
     }
-
-    var nickname: String? {
-        UserDefaultsManager.shared.get(for: .nickname) 
+    
+    var isLoggedIn: Bool {
+        LoginState.current == .loggedIn
     }
     
     init(coordinator: SettingsCoordinator, usecase: MyPageUseCase) {

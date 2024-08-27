@@ -26,6 +26,14 @@ final class SettingsViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let headerView = viewHolder.mypageCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: 0)) as? MyPageHeaderView else { return }
+        // TODO: - 실제 닉네임 데이터를 받아오면 UserDefaultsManager를 이용해 매핑
+        headerView.configureUI(userNickname: viewModel.isLoggedIn ? "춤추는 고래" : nil) // TODO: - 추후 실제 닉네임데이터로 교체해야함
+        headerView.alertTextView.isSelectable = !viewModel.isLoggedIn
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -34,6 +42,7 @@ final class SettingsViewController: ViewController {
     override func setupStyles() {
         super.setupStyles()
         setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400)) // FIXME: - title, rightIcon만 존재하는 경우 inset값 수정 필요
+        contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.mypageCollectionView.dataSource = self
         viewHolder.mypageCollectionView.delegate = self
     }
@@ -42,8 +51,8 @@ final class SettingsViewController: ViewController {
         super.bind()
         let input = SettingsViewModel.Input(
             viewDidLoad: .just(()),
-            didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(), 
-            didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(), 
+            didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(),
+            didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(),
             didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
         )
         viewModel.transform(input: input)
@@ -51,7 +60,7 @@ final class SettingsViewController: ViewController {
 }
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.menuList.count
     }
@@ -69,7 +78,7 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyPageHeaderView.reuseIdentifier, for: indexPath) as? MyPageHeaderView ?? MyPageHeaderView()
-        headerView.configureUI(userNickname: viewModel.nickname)
+        headerView.configureUI(userNickname: viewModel.isLoggedIn ? "춤추는 고래" : nil) // TODO: - 추후 실제 닉네임데이터로 교체해야함
         headerView.alertTextView.delegate = self
         return headerView
     }

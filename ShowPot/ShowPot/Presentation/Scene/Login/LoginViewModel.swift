@@ -11,14 +11,23 @@ import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKUser
 import RxSwift
+import RxCocoa
 
 final class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
+    
+    private let usecase: SignInUseCase
+    
+    private var fcmToken: String {
+        TokenManager.shared.readToken(.pushToken) ?? ""
+    }
+    
     var coordinator: LoginCoordinator
     
-    init(coordinator: LoginCoordinator) {
+    init(coordinator: LoginCoordinator, usecase: SignInUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
@@ -29,10 +38,9 @@ final class LoginViewModel: ViewModelType {
     }
     
     struct Output {
-        
+        let trySignInResult = PublishRelay<Bool>()
     }
     
-    @discardableResult
     func transform(input: Input) -> Output {
         
         let didTappedGoogleLoginButton = input.didTappedGoogleLoginButton
@@ -63,7 +71,12 @@ final class LoginViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output()
+        let output = Output()
+        usecase.signInResult
+            .bind(to: output.trySignInResult)
+            .disposed(by: disposeBag)
+        
+        return output
     }
 }
 
@@ -87,13 +100,19 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
     }
     
     private func loginWithKakao() {
-        let loginClosure: (OAuthToken?, Error?) -> Void = { oauthToken, error in
+        let loginClosure: (OAuthToken?, Error?) -> Void = { [weak self] oauthToken, error in
             guard error == nil else {
                 // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
                 LogHelper.error("Kakao SocialLogin Failed: \(error!)")
                 return
             }
-            
+            guard let self = self,
+                  let identifier = oauthToken?.idToken else { return }
+            self.usecase.signIn(request: .init(
+                socialType: SocialLoginType.kakao.rawValue,
+                identifier: identifier,
+                fcmToken: fcmToken
+            ))
         }
         
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -125,10 +144,10 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
 // MARK: - SocialLoginType
 
 /// 소셜로그인 종류
-enum SocialLoginType { // TODO: 추후 Usecase로 빼서 작업 필요
-    case google
-    case kakao
-    case apple
+enum SocialLoginType: String { // TODO: 추후 Usecase로 빼서 작업 필요
+    case google = "GOOGLE"
+    case kakao = "KAKAO"
+    case apple = "APPLE"
     
     var buttonTitle: String {
         switch self {
