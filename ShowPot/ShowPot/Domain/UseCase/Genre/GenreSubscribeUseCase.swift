@@ -6,64 +6,58 @@
 //
 
 import RxSwift
+import RxRelay
 
 final class GenreSubscribeUseCase: GenreUseCase {
-    var genreList = BehaviorSubject<[GenreState]>(value: [])
+    
+    private let genreAPI = SPGenreAPI()
+    
+    var genreList = BehaviorRelay<[GenreState]>(value: [])
     var addSubscribtionresult = PublishSubject<Bool>()
     var deleteSubscribtionresult = PublishSubject<Bool>()
     
-    // MARK: Internal properties
-    /// 전체 장르 리스트
-    private var supportedGenreList = BehaviorSubject<[GenreType]>(value: [])
-    /// 구독중인 장르 리스트
-    private var subscribedGenreList = BehaviorSubject<[GenreType]>(value: [])
-    
     private let disposeBag = DisposeBag()
     
-    func requestGenreList() {
-        self.requestSupportedGenreList()
-        self.requestSubscribedGenreList()
+    init() {
+        self.requestGenreList()
     }
     
     func addSubscribtion(list: [GenreType]) {
-        LogHelper.debug("구독 추가 \(list.map { $0.rawValue })")    // TODO: #6 장르 구독 추가 요청
-        addSubscribtionresult.onNext([true, false].shuffled()[0])
+        genreAPI.subscribe(genreIDS: list.map { $0.id })
+            .subscribe { response in
+                self.addSubscribtionresult.onNext(true)
+            } onError: { error in
+                self.addSubscribtionresult.onNext(false)
+            } onCompleted: { 
+                self.requestGenreList()
+            }
+            .disposed(by: disposeBag)
     }
     
     func deleteSubscribtion(genre: GenreType) {
-        LogHelper.debug("구독 삭제 \(genre.rawValue)")  // TODO: #6 장르 구독 삭제 요청
-        deleteSubscribtionresult.onNext([true, false].shuffled()[0])
-    }
-    
-    init() {
-        Observable.zip(supportedGenreList, subscribedGenreList)
-            .map { self.createGenreStateList($0, $1) }
-            .bind(to: genreList)
+        genreAPI.unsubscribe(genreIDS: [genre].map { $0.id })
+            .subscribe { response in
+                self.deleteSubscribtionresult.onNext(true)
+            } onError: { error in
+                self.deleteSubscribtionresult.onNext(false)
+            } onCompleted: {
+                self.requestGenreList()
+            }
             .disposed(by: disposeBag)
-        
-        self.requestGenreList()
-    }
-}
-
-extension GenreSubscribeUseCase {
-    
-    private func requestSupportedGenreList() {
-        let genreList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"]
-        supportedGenreList.onNext(genreList.compactMap { GenreType(rawValue: $0) })
     }
     
-    private func requestSubscribedGenreList() {
-        let subscribedList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"].shuffled()
-    
-        subscribedGenreList.onNext(Array(subscribedList[0...5]).compactMap { GenreType(rawValue: $0) })
-    }
-}
-
-extension GenreSubscribeUseCase {
-    
-    private func createGenreStateList(_ supported: [GenreType], _ subscribed: [GenreType]) -> [GenreState] {
-        return supported.map { type in
-            GenreState(genre: type, isSubscribed: subscribed.contains(type))
-        }
+    func requestGenreList() {
+        genreAPI.genres()
+            .map {
+                $0.data.filter { GenreType(rawValue: $0.name) != nil }
+                    .map {
+                        GenreState(
+                            genre: GenreType(rawValue: $0.name)!,
+                            isSubscribed: $0.isSubscribed ?? false
+                        )
+                    }
+            }
+            .bind(to: self.genreList)
+            .disposed(by: disposeBag)
     }
 }

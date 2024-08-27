@@ -108,9 +108,9 @@ final class SPGenreAPI {
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: ["size": 100]
+                parameters: ["size": 100],
+                headers: target.header
             ).responseDecodable(of: GenreListResponse.self) { response in
-                print("#159 \(response.request?.url?.absoluteString)")
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
