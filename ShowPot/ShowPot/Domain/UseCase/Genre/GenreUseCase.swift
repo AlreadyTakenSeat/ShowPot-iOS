@@ -6,9 +6,10 @@
 //
 
 import RxSwift
+import RxRelay
 
 protocol GenreUseCase {
-    var genreList: BehaviorSubject<[GenreState]> { get set }
+    var genreList: BehaviorRelay<[GenreState]> { get set }
     var addSubscribtionresult: PublishSubject<Bool> { get set }
     var deleteSubscribtionresult: PublishSubject<Bool> { get set }
     

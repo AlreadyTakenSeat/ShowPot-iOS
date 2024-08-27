@@ -55,6 +55,11 @@ final class FeaturedViewController: ViewController {
                 owner.viewHolder.updateCollectionViewLayout(sectionModel: owner.viewModel.featuredSectionModel)
             }
             .disposed(by: disposeBag)
+        
+        output.showLoginBottomSheet.subscribe(with: self) { owner, _ in
+            owner.showLoginBottomSheet()
+        }
+        .disposed(by: disposeBag)
     }
 }
 

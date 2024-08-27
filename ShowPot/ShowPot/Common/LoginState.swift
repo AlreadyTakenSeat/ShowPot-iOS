@@ -16,7 +16,7 @@ enum LoginState {
     case loggedIn
     
     /// 현재 로그인 상태 반환
-    static var current: Self = {
+    static var current: Self {
         
         guard TokenManager.shared.readToken(.refreshToken) != nil else {
             return .notLoggedIn
@@ -27,5 +27,5 @@ enum LoginState {
         }
         
         return .loggedIn
-    }()
+    }
 }

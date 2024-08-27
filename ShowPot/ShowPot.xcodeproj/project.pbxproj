@@ -252,6 +252,12 @@
 		7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEACE502C1ED95E00F37DA3 /* KRFont.swift */; };
 		7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEACE522C1ED96400F37DA3 /* ENFont.swift */; };
 		7DEDA5492C70DFD000B07818 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */; };
+		7DF377862C7E0240005B0DC8 /* SPGenreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377852C7E0240005B0DC8 /* SPGenreAPI.swift */; };
+		7DF377892C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377882C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift */; };
+		7DF3778D2C7E05E4005B0DC8 /* GenreUnsubscribeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3778C2C7E05E4005B0DC8 /* GenreUnsubscribeResponse.swift */; };
+		7DF377902C7E061D005B0DC8 /* GenreSubscribeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3778F2C7E061D005B0DC8 /* GenreSubscribeRequest.swift */; };
+		7DF377922C7E062F005B0DC8 /* GenreSubscribeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377912C7E062F005B0DC8 /* GenreSubscribeResponse.swift */; };
+		7DF377942C7E0795005B0DC8 /* GenreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377932C7E0795005B0DC8 /* GenreListResponse.swift */; };
 		7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF711882C480FDF001406F0 /* ReusableCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -467,6 +473,12 @@
 		7DEACE502C1ED95E00F37DA3 /* KRFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRFont.swift; sourceTree = "<group>"; };
 		7DEACE522C1ED96400F37DA3 /* ENFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENFont.swift; sourceTree = "<group>"; };
 		7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		7DF377852C7E0240005B0DC8 /* SPGenreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPGenreAPI.swift; sourceTree = "<group>"; };
+		7DF377882C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreUnsubscribeRequest.swift; sourceTree = "<group>"; };
+		7DF3778C2C7E05E4005B0DC8 /* GenreUnsubscribeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreUnsubscribeResponse.swift; sourceTree = "<group>"; };
+		7DF3778F2C7E061D005B0DC8 /* GenreSubscribeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSubscribeRequest.swift; sourceTree = "<group>"; };
+		7DF377912C7E062F005B0DC8 /* GenreSubscribeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSubscribeResponse.swift; sourceTree = "<group>"; };
+		7DF377932C7E0795005B0DC8 /* GenreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreListResponse.swift; sourceTree = "<group>"; };
 		7DF711882C480FDF001406F0 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1144,6 +1156,7 @@
 			children = (
 				709577992C7CD86900176381 /* Auth */,
 				709577982C7CD82400176381 /* Show */,
+				7DF3778A2C7E05CF005B0DC8 /* Genre */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1196,6 +1209,7 @@
 			children = (
 				7D2981362C01F25B00A619FB /* APIClient.swift */,
 				7D9545B52C7C95E4005C3623 /* SPTargetType.swift */,
+				7DF377852C7E0240005B0DC8 /* SPGenreAPI.swift */,
 				7D2981292C01EEC600A619FB /* Infrastructure */,
 			);
 			path = Network;
@@ -1362,6 +1376,34 @@
 				7DEACE522C1ED96400F37DA3 /* ENFont.swift */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		7DF3778A2C7E05CF005B0DC8 /* Genre */ = {
+			isa = PBXGroup;
+			children = (
+				7DF3778B2C7E05D6005B0DC8 /* Request */,
+				7DF3778E2C7E05E8005B0DC8 /* Response */,
+			);
+			path = Genre;
+			sourceTree = "<group>";
+		};
+		7DF3778B2C7E05D6005B0DC8 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				7DF377882C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift */,
+				7DF3778F2C7E061D005B0DC8 /* GenreSubscribeRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		7DF3778E2C7E05E8005B0DC8 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				7DF3778C2C7E05E4005B0DC8 /* GenreUnsubscribeResponse.swift */,
+				7DF377912C7E062F005B0DC8 /* GenreSubscribeResponse.swift */,
+				7DF377932C7E0795005B0DC8 /* GenreListResponse.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		7DF7118A2C4810B3001406F0 /* Protocol */ = {
@@ -1604,6 +1646,7 @@
 				7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */,
 				7DA112542C689380009DFDB1 /* ShowDetailViewModel.swift in Sources */,
 				7DEACE512C1ED95E00F37DA3 /* KRFont.swift in Sources */,
+				7DF377902C7E061D005B0DC8 /* GenreSubscribeRequest.swift in Sources */,
 				7D89E54A2C36665F00E6001E /* OnboardingViewModel.swift in Sources */,
 				7D9545C12C7CE271005C3623 /* TokenManager.swift in Sources */,
 				7D29811E2C01EB8A00A619FB /* BaseViewController.swift in Sources */,
@@ -1616,6 +1659,7 @@
 				7D1E5FBA2C0A28080012504D /* MainTabCoordinator.swift in Sources */,
 				7DA112512C689332009DFDB1 /* ShowDetailViewController.swift in Sources */,
 				70F3C0F02C663B2200786738 /* MyShowEmptyView.swift in Sources */,
+				7DF377922C7E062F005B0DC8 /* GenreSubscribeResponse.swift in Sources */,
 				7DA1CA2F2C6DD4AB00C2752F /* SPDividerView.swift in Sources */,
 				707FF74F2C5CC2330026C82D /* PerformanceFilterHeaderView.swift in Sources */,
 				7DD2CB872C2ED63E0052ECCD /* SettingsCoordinator.swift in Sources */,
@@ -1633,13 +1677,16 @@
 				70F3C1412C6FAF3B00786738 /* ClosedShowListCoordinator.swift in Sources */,
 				7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */,
 				70F3C0E42C663ACC00786738 /* ShowAlarmCell.swift in Sources */,
+				7DF377892C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				70F3C13F2C6FAF3100786738 /* ClosedShowListViewModel.swift in Sources */,
+				7DF377862C7E0240005B0DC8 /* SPGenreAPI.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
 				70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */,
 				7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */,
 				7DD2CB832C2ED5510052ECCD /* SavedCoordinator.swift in Sources */,
+				7DF377942C7E0795005B0DC8 /* GenreListResponse.swift in Sources */,
 				7D06FDAE2C7628FC002519E1 /* SPTabBarItemView.swift in Sources */,
 				7D75B9202C4FEABD00C72417 /* UserDefaultsKey.swift in Sources */,
 				7D9545BC2C7CE0BE005C3623 /* KeyChainAccount.swift in Sources */,
@@ -1698,6 +1745,7 @@
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* SettingsViewHolder.swift in Sources */,
 				707FF7842C64A8F00026C82D /* SubscribeArtistUseCase.swift in Sources */,
+				7DF3778D2C7E05E4005B0DC8 /* GenreUnsubscribeResponse.swift in Sources */,
 				7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */,
 				700485232C7A528C00B9A964 /* SettingViewHolder.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,

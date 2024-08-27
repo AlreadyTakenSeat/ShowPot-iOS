@@ -65,8 +65,7 @@ class SubscribeGenreViewController: ViewController {
         
         output.deleteSubscriptionResult
             .subscribe(with: self) { owner, isSuccess in
-                owner.showDeleteSubscribtionSnackbar(isSuccess: isSuccess
-                )
+                owner.showDeleteSubscribtionSnackbar(isSuccess: isSuccess)
             }.disposed(by: disposeBag)
         
         output.subscribeAvailable
