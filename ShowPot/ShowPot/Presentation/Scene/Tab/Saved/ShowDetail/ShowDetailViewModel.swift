@@ -18,7 +18,7 @@ final class ShowDetailViewModel: ViewModelType {
     let showID: String
     
     var isLoggedIn: Bool {
-        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+        LoginState.current == .loggedIn
     }
     
     init(showID: String, coordinator: ShowDetailCoordinator, usecase: ShowDetailUseCase) {

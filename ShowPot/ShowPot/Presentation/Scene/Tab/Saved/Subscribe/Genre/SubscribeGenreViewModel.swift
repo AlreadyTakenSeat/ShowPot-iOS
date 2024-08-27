@@ -19,7 +19,9 @@ final class SubscribeGenreViewModel: ViewModelType {
     private var usecase: GenreUseCase
     private let disposeBag = DisposeBag()
     
-    var isLoggedIn = true  // TODO: #6 API 구현 이후 수정
+    var isLoggedIn: Bool {
+        LoginState.current == .loggedIn
+    } 
     private var selectedGenre = Set<GenreType>()
     
     init(coordinator: SubscribeGenreCoordinator, usecase: GenreUseCase) {

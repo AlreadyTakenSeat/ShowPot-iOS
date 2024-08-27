@@ -21,7 +21,7 @@ final class SubscribeArtistViewModel: ViewModelType {
     var coordinator: SubscribeArtistCoordinator
     var dataSource: DataSource?
     var isLoggedIn: Bool {
-        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+        LoginState.current == .loggedIn
     }
     
     init(coordinator: SubscribeArtistCoordinator, usecase: SubscribeArtistUseCase) {

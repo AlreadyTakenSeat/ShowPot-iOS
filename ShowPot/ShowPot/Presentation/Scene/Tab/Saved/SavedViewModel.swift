@@ -35,7 +35,7 @@ final class SavedViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     
     private var isLoggedIn: Bool {
-        UserDefaultsManager.shared.get(for: .isLoggedIn) ?? false
+        LoginState.current == .loggedIn
     }
     
     private let alarmMenuModelRelay = BehaviorRelay<[MyShowMenuData]>(value: [])
