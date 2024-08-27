@@ -23,7 +23,7 @@ enum SPGenreTargetType: APIType {
     case subscriptions
     
     var baseURL: String {
-        return "\(Environment.baseURL)/genres"
+        return "\(Environment.baseURL)"
     }
     
     var method: Alamofire.HTTPMethod {
@@ -38,15 +38,15 @@ enum SPGenreTargetType: APIType {
     var path: String {
         switch self {
         case .unsubscribe:
-            return "unsubscribe"
+            return "genres/unsubscribe"
         case .subscribe:
-            return "subscribe"
+            return "genres/subscribe"
         case .genres:
             return "genres"
         case .unsubscriptions:
-            return "unsubscriptions"
+            return "genres/unsubscriptions"
         case .subscriptions:
-            return "subscriptions"
+            return "genres/subscriptions"
         }
     }
     
@@ -110,6 +110,7 @@ final class SPGenreAPI {
                 method: target.method,
                 parameters: ["size": 100]
             ).responseDecodable(of: GenreListResponse.self) { response in
+                print("#159 \(response.request?.url?.absoluteString)")
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
