@@ -11,11 +11,14 @@ import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKUser
 import RxSwift
+import RxCocoa
 
 final class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     private let client = APIClient()
+    
+    private let signInResultRelay = PublishRelay<Bool>()
     
     private var fcmToken: String {
         TokenManager.shared.readToken(.pushToken) ?? ""
@@ -35,7 +38,7 @@ final class LoginViewModel: ViewModelType {
     }
     
     struct Output {
-        
+        let trySignInResult: Signal<Bool>
     }
     
     @discardableResult
@@ -69,7 +72,7 @@ final class LoginViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output()
+        return Output(trySignInResult: signInResultRelay.asSignal())
     }
 }
 
@@ -97,6 +100,7 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
             guard error == nil else {
                 // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
                 LogHelper.error("Kakao SocialLogin Failed: \(error!)")
+                self?.signInResultRelay.accept(false)
                 return
             }
             guard let self = self,
@@ -108,6 +112,9 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
             ))
             .subscribe(with: self) { owner, response in
                 TokenManager.shared.createTokens(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                UserDefaultsManager.shared.set(LoginState.current == .loggedIn, for: .isLoggedIn)
+                NotificationCenter.default.post(name: .userDidLogin, object: nil)
+                owner.signInResultRelay.accept(true)
             }
             .disposed(by: disposeBag)
         }

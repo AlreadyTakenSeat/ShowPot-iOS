@@ -26,6 +26,15 @@ final class SettingsViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidLogin), name: .userDidLogin, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -47,6 +56,12 @@ final class SettingsViewController: ViewController {
             didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
         )
         viewModel.transform(input: input)
+    }
+    
+    @objc private func userDidLogin() {
+        guard let headerView = viewHolder.mypageCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: 0)) as? MyPageHeaderView else { return }
+        // TODO: - 실제 닉네임 데이터를 받아오면 UserDefaultsManager를 이용해 매핑
+        headerView.configureUI(userNickname: viewModel.nickname ?? "춤추는 고래")
     }
 }
 

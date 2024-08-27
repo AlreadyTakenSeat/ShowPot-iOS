@@ -94,6 +94,7 @@
 		707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707FF7852C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift */; };
 		7095779D2C7CD89900176381 /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095779C2C7CD89900176381 /* SignInRequest.swift */; };
 		7095779F2C7CD8A900176381 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095779E2C7CD8A900176381 /* SignInResponse.swift */; };
+		70A95B7A2C7DD0CB0007836E /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B792C7DD0CB0007836E /* Notification.Name+Extension.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -326,6 +327,7 @@
 		707FF7852C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSubscribeArtistUseCase.swift; sourceTree = "<group>"; };
 		7095779C2C7CD89900176381 /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
 		7095779E2C7CD8A900176381 /* SignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
+		70A95B792C7DD0CB0007836E /* Notification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extension.swift"; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -1039,6 +1041,7 @@
 				70F3C0F12C663B3C00786738 /* UIButton+Extension.swift */,
 				70F3C1082C6A151400786738 /* Date+Extension.swift */,
 				7DEDA5482C70DFD000B07818 /* UIImageView+Extension.swift */,
+				70A95B792C7DD0CB0007836E /* Notification.Name+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1645,6 +1648,7 @@
 				707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */,
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
 				70F3C14B2C6FBBA200786738 /* InterestShowListEmptyView.swift in Sources */,
+				70A95B7A2C7DD0CB0007836E /* Notification.Name+Extension.swift in Sources */,
 				7D43E20E2C5FA0B700D94898 /* SubscribeGenreViewModel.swift in Sources */,
 				7D29813B2C01F27B00A619FB /* SampleRequest.swift in Sources */,
 				7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */,

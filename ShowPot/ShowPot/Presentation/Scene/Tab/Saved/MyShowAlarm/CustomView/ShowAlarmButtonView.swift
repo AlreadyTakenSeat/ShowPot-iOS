@@ -15,7 +15,7 @@ final class ShowAlarmButtonView: UIView {
     private let containerView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.layoutMargins = .init(top: 7, left: 5, bottom: 7, right: 5)
+        $0.layoutMargins = .init(top: 5, left: 5, bottom: 5, right: 5)
         $0.isLayoutMarginsRelativeArrangement = true
         $0.backgroundColor = .gray500
     }
