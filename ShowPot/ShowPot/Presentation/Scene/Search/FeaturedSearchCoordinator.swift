@@ -18,7 +18,7 @@ final class FeaturedSearchCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: FeaturedSearchViewController = FeaturedSearchViewController(viewModel: FeaturedSearchViewModel(coordinator: self))
+        let viewController: FeaturedSearchViewController = FeaturedSearchViewController(viewModel: FeaturedSearchViewModel(coordinator: self, usecase: DefaultSearchUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

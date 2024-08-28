@@ -143,6 +143,7 @@ extension FeaturedSubscribeArtistCell {
 // MARK: Data Configuration
 
 struct FeaturedSubscribeArtistCellModel: Hashable {
+    let id: String
     var state: FeaturedSubscribeArtistCellState
     let artistImageURL: URL?
     let artistName: String
