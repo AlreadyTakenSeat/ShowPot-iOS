@@ -2055,7 +2055,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AlreadyOccupiedSeat.ShowPot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ShowPot profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ShowPot;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2093,7 +2093,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AlreadyOccupiedSeat.ShowPot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ShowPot profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ShowPot;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;

@@ -53,12 +53,6 @@ final class LoginViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        didTappedAppleLoginButton
-            .subscribe(with: self) { owner, _ in
-                owner.loginWithApple()
-            }
-            .disposed(by: disposeBag)
-        
         didTappedKakaoLoginButton
             .subscribe(with: self) { owner, _ in
                 owner.loginWithKakao()
@@ -123,21 +117,12 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
         }
     }
     
-    private func loginWithApple() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let rootViewController = windowScene.windows.first?.rootViewController as? UINavigationController,
-              let presentingViewController = rootViewController.topViewController as? LoginViewController else {
-            return
-        }
-    
-        let provider = ASAuthorizationAppleIDProvider()
-        let request = provider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-        controller.delegate = presentingViewController
-        controller.presentationContextProvider = presentingViewController
-        controller.performRequests()
+    func loginWithApple(userId: String) {
+        self.usecase.signIn(request: .init(
+            socialType: SocialLoginType.apple.rawValue,
+            identifier: userId,
+            fcmToken: fcmToken
+        ))
     }
 }
 
