@@ -60,6 +60,19 @@ final class LoginViewController: ViewController {
                 }
             }
             .disposed(by: disposeBag)
+        
+        input.didTappedAppleLoginButton
+            .subscribe(with: self) { owner, success in
+                let provider = ASAuthorizationAppleIDProvider()
+                let request = provider.createRequest()
+                request.requestedScopes = [.fullName, .email]
+                
+                let controller = ASAuthorizationController(authorizationRequests: [request])
+                controller.delegate = owner
+                controller.presentationContextProvider = owner
+                controller.performRequests()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -73,6 +86,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         case let credentials as ASAuthorizationAppleIDCredential:
             let authorizationCode = String(decoding: credentials.authorizationCode!, as: UTF8.self)
             let identityToken = String(decoding: credentials.identityToken!, as: UTF8.self)
+            
+            self.viewModel.loginWithApple(userId: identityToken)
             
         default:
             break
