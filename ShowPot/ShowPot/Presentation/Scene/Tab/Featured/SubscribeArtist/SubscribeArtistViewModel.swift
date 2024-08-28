@@ -46,15 +46,14 @@ final class SubscribeArtistViewModel: ViewModelType {
         
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                Task {
-                    do {
-                        let artistList = try await owner.usecase.fetchArtistList()
-                        owner.artistListRelay.accept(artistList)
-                        owner.updateDataSource()
-                    } catch {
-                        // TODO: - 추후 에러 처리필요
-                    }
-                }
+                owner.usecase.fetchArtistList()
+            }
+            .disposed(by: disposeBag)
+        
+        usecase.artistList
+            .subscribe(with: self) { owner, artistList in
+                owner.artistListRelay.accept(artistList)
+                owner.updateDataSource()
             }
             .disposed(by: disposeBag)
         

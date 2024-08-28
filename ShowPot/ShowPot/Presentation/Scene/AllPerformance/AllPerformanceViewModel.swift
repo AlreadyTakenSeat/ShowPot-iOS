@@ -87,7 +87,7 @@ final class AllPerformanceViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        let dropdownOptions = Observable.just([ShowFilterType.upcoming.text])
+        let dropdownOptions = Observable.just([ShowFilterType.recent.text])
         let defaultSelectedOption = Observable.just(ShowFilterType.popular.text)
         
         return Output(dropdownOptions: dropdownOptions, defaultSelectedOption: defaultSelectedOption)
@@ -115,16 +115,16 @@ extension AllPerformanceViewModel {
     }
 }
 
-enum ShowFilterType: CaseIterable {
-    case popular
-    case upcoming
+enum ShowFilterType: String, CaseIterable {
+    case popular = "POPULAR"
+    case recent = "RECENT"
     
     var text: String {
         switch self {
         case .popular:
             return Strings.allShowDropdownPopularTitle
-        case .upcoming:
-            return Strings.allShowDropdownUpcomingTitle
+        case .recent:
+            return Strings.allShowDropdownRecentTitle
         }
     }
     

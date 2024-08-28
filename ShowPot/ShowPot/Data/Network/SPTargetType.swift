@@ -15,6 +15,7 @@ enum SPTargetType: APIType {
     
     case showList
     case login
+    case unsubscribeArtistList
     
     var baseURL: String {
         return Environment.baseURL
@@ -22,7 +23,7 @@ enum SPTargetType: APIType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .showList:
+        case .showList, .unsubscribeArtistList:
             return .get
         case .login:
             return .post
@@ -35,6 +36,8 @@ enum SPTargetType: APIType {
             return "shows"
         case .login:
             return "users/login"
+        case .unsubscribeArtistList:
+            return "artists/unsubscriptions"
         }
     }
 }
