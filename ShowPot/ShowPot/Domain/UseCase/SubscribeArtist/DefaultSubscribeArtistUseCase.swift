@@ -7,9 +7,14 @@
 
 import Foundation
 
+import RxSwift
+import RxRelay
+
 final class DefaultSubscribeArtistUseCase: SubscribeArtistUseCase {
-    func fetchArtistList() async throws -> [FeaturedSubscribeArtistCellModel] { // FIXME: - 추후 API연동 후 에러처리와 같은 동작 추가 필요
-        return [
+    var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
+    
+    func fetchArtistList() { // FIXME: - 추후 API연동 후 에러처리와 같은 동작 추가 필요
+        artistList.accept([
             .init(state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
             .init(state: .none, artistImageURL: URL(string: "https://i.imgur.com/KsEXGAZ.jpg"), artistName: "Marilia Mendonca"),
             .init(state: .none, artistImageURL: URL(string: "https://cdn.mhns.co.kr/news/photo/201901/157199_206779_07.jpg"), artistName: "The Chainsmokers"),
@@ -20,7 +25,7 @@ final class DefaultSubscribeArtistUseCase: SubscribeArtistUseCase {
             .init(state: .none, artistImageURL: URL(string: "https://i.namu.wiki/i/jrUaXffKzxPCo876eNO8GRdQb81OBQuNV99GnN1pDlXkGcvEsyTJaEtCsWzEtjy4yVoOnPqP058LrPswAh7KQQ.webp"), artistName: "Bruno Mars"),
             .init(state: .none, artistImageURL: URL(string: "https://cdn2.ppomppu.co.kr/zboard/data3/2019/0827/m_20190827133411_lrzretxm.jpg"), artistName: "Leo J"),
             .init(state: .none, artistImageURL: URL(string: "https://cdn.slist.kr/news/photo/201912/122164_224649_5110.jpg"), artistName: "Marco Jacimus")
-        ]
+        ])
     }
     
     func subscribeArtists(artistID: [String]) async throws -> [String] { // FIXME: - 추후 API연동 후 에러처리와 같은 동작 추가 필요

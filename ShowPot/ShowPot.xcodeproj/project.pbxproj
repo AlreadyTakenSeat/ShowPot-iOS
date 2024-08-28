@@ -96,6 +96,7 @@
 		7095779F2C7CD8A900176381 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095779E2C7CD8A900176381 /* SignInResponse.swift */; };
 		70A95B7D2C7DEAB30007836E /* SignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */; };
 		70A95B7F2C7DEABE0007836E /* DefaultSignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B7E2C7DEABE0007836E /* DefaultSignInUseCase.swift */; };
+		70A95B852C7E29FD0007836E /* DefaultFeaturedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B842C7E29FD0007836E /* DefaultFeaturedUseCase.swift */; };
 		70A95B8A2C7E35EB0007836E /* ArtistListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B892C7E35EB0007836E /* ArtistListResponse.swift */; };
 		70A95B8C2C7E367C0007836E /* UnsubscribeArtistListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B8B2C7E367C0007836E /* UnsubscribeArtistListRequest.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
@@ -338,6 +339,7 @@
 		7095779E2C7CD8A900176381 /* SignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUseCase.swift; sourceTree = "<group>"; };
 		70A95B7E2C7DEABE0007836E /* DefaultSignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignInUseCase.swift; sourceTree = "<group>"; };
+		70A95B842C7E29FD0007836E /* DefaultFeaturedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeaturedUseCase.swift; sourceTree = "<group>"; };
 		70A95B892C7E35EB0007836E /* ArtistListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListResponse.swift; sourceTree = "<group>"; };
 		70A95B8B2C7E367C0007836E /* UnsubscribeArtistListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeArtistListRequest.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -774,6 +776,14 @@
 				70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		70A95B812C7E29E80007836E /* Featured */ = {
+			isa = PBXGroup;
+			children = (
+				70A95B842C7E29FD0007836E /* DefaultFeaturedUseCase.swift */,
+			);
+			path = Featured;
 			sourceTree = "<group>";
 		};
 		70A95B862C7E34470007836E /* Artist */ = {
@@ -1248,6 +1258,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				70A95B812C7E29E80007836E /* Featured */,
 				70A95B7B2C7DEAA80007836E /* Account */,
 				70F3C1422C6FB9DD00786738 /* ClosedShow */,
 				70F3C1282C6E71FE00786738 /* InterestShow */,
@@ -1740,6 +1751,7 @@
 				7DA112582C6893D4009DFDB1 /* ShowDetailViewHolder.swift in Sources */,
 				7DA1CA2A2C6DD25800C2752F /* ShowDetailUseCase.swift in Sources */,
 				7D43E2152C5FB38D00D94898 /* SPNavigationBarView.swift in Sources */,
+				70A95B852C7E29FD0007836E /* DefaultFeaturedUseCase.swift in Sources */,
 				7DB9F90E2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift in Sources */,
 				707FF74D2C5CC2230026C82D /* CheckBoxButton.swift in Sources */,
 				707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */,

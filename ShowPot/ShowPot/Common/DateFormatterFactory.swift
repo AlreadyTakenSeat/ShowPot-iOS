@@ -30,6 +30,11 @@ enum DateFormatterFactory {
     static var dateWithTicketing: DateFormatter {
         dateFormatter(locale: .kor).then { $0.dateFormat = "MM월 dd일 (EEE) HH:mm" }
     }
+    
+    /// `서버에서 내려주는 공통 날짜 포맷`
+    static var dateTime: DateFormatter {
+        dateFormatter(locale: .eng).then { $0.dateFormat = "yyyy-M-d HH:mm" }
+    }
 }
 
 extension DateFormatterFactory {

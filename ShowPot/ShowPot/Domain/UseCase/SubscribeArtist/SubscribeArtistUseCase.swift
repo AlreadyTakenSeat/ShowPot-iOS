@@ -5,9 +5,13 @@
 //  Created by 이건준 on 8/8/24.
 //
 
-import Foundation
+import RxSwift
+import RxRelay
 
 protocol SubscribeArtistUseCase {
-    func fetchArtistList() async throws -> [FeaturedSubscribeArtistCellModel]
+    
+    var artistList: BehaviorRelay<[FeaturedSubscribeArtistCellModel]> { get }
+    
+    func fetchArtistList()
     func subscribeArtists(artistID: [String]) async throws -> [String]
 }
