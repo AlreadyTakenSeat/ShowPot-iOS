@@ -16,13 +16,8 @@ struct ShowListResponse: Codable {
 
 // MARK: - Datum
 struct ShowListData: Codable {
-    let id, title, location, posterImageURL: String
-    let reservationAt: String
-    let hasTicketingOpenSchedule: Bool
-    let viewCount: Int
-    let artists: [Artist]
-    let genres: [Genre]
-    let showTicketingTimes: [ShowTicketingTime]
+    let id, title, location, posterImageURL, ticketingAt: String
+    let isOpen: Bool
 }
 
 // MARK: - Artist

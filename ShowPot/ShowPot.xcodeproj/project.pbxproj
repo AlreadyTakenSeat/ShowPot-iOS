@@ -96,6 +96,8 @@
 		7095779F2C7CD8A900176381 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095779E2C7CD8A900176381 /* SignInResponse.swift */; };
 		70A95B7D2C7DEAB30007836E /* SignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */; };
 		70A95B7F2C7DEABE0007836E /* DefaultSignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B7E2C7DEABE0007836E /* DefaultSignInUseCase.swift */; };
+		70A95B8A2C7E35EB0007836E /* ArtistListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B892C7E35EB0007836E /* ArtistListResponse.swift */; };
+		70A95B8C2C7E367C0007836E /* UnsubscribeArtistListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95B8B2C7E367C0007836E /* UnsubscribeArtistListRequest.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -336,6 +338,8 @@
 		7095779E2C7CD8A900176381 /* SignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUseCase.swift; sourceTree = "<group>"; };
 		70A95B7E2C7DEABE0007836E /* DefaultSignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignInUseCase.swift; sourceTree = "<group>"; };
+		70A95B892C7E35EB0007836E /* ArtistListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListResponse.swift; sourceTree = "<group>"; };
+		70A95B8B2C7E367C0007836E /* UnsubscribeArtistListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeArtistListRequest.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -772,6 +776,31 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		70A95B862C7E34470007836E /* Artist */ = {
+			isa = PBXGroup;
+			children = (
+				70A95B872C7E34500007836E /* Request */,
+				70A95B882C7E34550007836E /* Response */,
+			);
+			path = Artist;
+			sourceTree = "<group>";
+		};
+		70A95B872C7E34500007836E /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				70A95B8B2C7E367C0007836E /* UnsubscribeArtistListRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		70A95B882C7E34550007836E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				70A95B892C7E35EB0007836E /* ArtistListResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1154,6 +1183,7 @@
 		7D2981282C01ECC400A619FB /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				70A95B862C7E34470007836E /* Artist */,
 				709577992C7CD86900176381 /* Auth */,
 				709577982C7CD82400176381 /* Show */,
 				7DF3778A2C7E05CF005B0DC8 /* Genre */,
@@ -1773,6 +1803,7 @@
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */,
 				7D78036B2C5E19530043A230 /* NavigationController.swift in Sources */,
+				70A95B8A2C7E35EB0007836E /* ArtistListResponse.swift in Sources */,
 				70F3C11C2C6BA64500786738 /* DefaultMyAlarmUseCase.swift in Sources */,
 				707FF75D2C5FF0C20026C82D /* SubscribeArtistViewModel.swift in Sources */,
 				70F3C0F22C663B3C00786738 /* UIButton+Extension.swift in Sources */,
@@ -1786,6 +1817,7 @@
 				701467952C53C16900750A54 /* FeaturedSearchViewHolder.swift in Sources */,
 				7D21953F2C143AAA00A38D2B /* ViewModelType.swift in Sources */,
 				7004852A2C7A584100B9A964 /* WebContentViewHolder.swift in Sources */,
+				70A95B8C2C7E367C0007836E /* UnsubscribeArtistListRequest.swift in Sources */,
 				70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */,
 				7D2195412C143E8400A38D2B /* ViewHolderType.swift in Sources */,
 				7DA1CA232C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift in Sources */,
