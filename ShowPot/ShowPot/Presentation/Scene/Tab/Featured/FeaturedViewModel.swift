@@ -155,13 +155,29 @@ extension FeaturedViewModel {
     
     /// 추천공연 리스트 모델을 위한 API를 호출하는 함수
     private func fetchRecommendedPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
-        recommendedPerformanceModelRelay.accept([
-            .init(showID: "1", recommendedPerformanceThumbnailURL: URL(string: "https://img1.newsis.com/2017/06/08/NISI20170608_0000003586_web.jpg"), recommendedPerformanceTitle: "Ed Sheeran In Seoul"),
-            .init(showID: "2", recommendedPerformanceThumbnailURL: URL(string: "https://m.segye.com/content/image/2023/04/20/20230420524301.jpg"), recommendedPerformanceTitle: "Bruno Mars Super Concert"),
-            .init(showID: "3", recommendedPerformanceThumbnailURL: URL(string: "https://newsimg-hams.hankookilbo.com/2022/06/23/00f9568a-226c-4b99-b0b1-d44284b7c477.jpg"), recommendedPerformanceTitle: "Bille Eilish Seoul Kaidom"),
-            .init(showID: "4", recommendedPerformanceThumbnailURL: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL0vSEZjCwFA2APIB_YgRwqovQAs5CJaN_uA&s"), recommendedPerformanceTitle: "FLY BY MIDNIGHT ANEMOLA"),
-            .init(showID: "5", recommendedPerformanceThumbnailURL: URL(string: "https://m.segye.com/content/image/2023/12/07/20231207516433.jpg"), recommendedPerformanceTitle: "NO WAR LIVE IN SEOUL"),
-            .init(showID: "6", recommendedPerformanceThumbnailURL: URL(string: "https://tkfile.yes24.com/upload2/PerfBlog/202407/20240710/20240710-50315.jpg"), recommendedPerformanceTitle: "Novelbright LIVE TOUR 2024")
-        ])
+        let mockData: [FeaturedRecommendedPerformanceCellModel] = [
+            .init(
+                showID: "1",
+                recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24006288_p.gif"),
+                recommendedPerformanceTitle: "Conan Gray - Found Heaven On Tour in Seoul"
+            ),
+            .init(
+                showID: "2",
+                recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24006714_p.gif"),
+                recommendedPerformanceTitle: "Olivia Rodrigo - GUTS world tour")
+            ,
+            .init(
+                showID: "3",
+                recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24011642_p.gif"),
+                recommendedPerformanceTitle: "OFFICIAL HIGE DANDISM REJOICE ASIA TOUR 2024"
+            ),
+            .init(
+                showID: "4",
+                recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24007623_p.gif"),
+                recommendedPerformanceTitle: "Dua Lipa - Radical Optimism Tour"
+            )
+        ]
+        
+        recommendedPerformanceModelRelay.accept(mockData)
     }
 }
