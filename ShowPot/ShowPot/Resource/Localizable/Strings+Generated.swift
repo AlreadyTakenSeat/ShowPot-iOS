@@ -17,7 +17,7 @@ public enum Strings {
   /// 인기순
   public static let allShowDropdownPopularTitle = Strings.tr("Localizable", "all_show_dropdown_popular_title", fallback: "인기순")
   /// 임박순
-  public static let allShowDropdownUpcomingTitle = Strings.tr("Localizable", "all_show_dropdown_upcoming_title", fallback: "임박순")
+  public static let allShowDropdownRecentTitle = Strings.tr("Localizable", "all_show_dropdown_recent_title", fallback: "임박순")
   /// Localizable.strings
   ///   ShowPot
   /// 
