@@ -35,6 +35,11 @@ enum DateFormatterFactory {
     static var dateTime: DateFormatter {
         dateFormatter(locale: .eng).then { $0.dateFormat = "yyyy-M-d HH:mm" }
     }
+    
+    /// `yyyy-MM-dd`
+    static var dateWithHypen: DateFormatter {
+        dateFormatter(locale: .eng).then { $0.dateFormat = "yyyy-MM-dd" }
+    }
 }
 
 extension DateFormatterFactory {
