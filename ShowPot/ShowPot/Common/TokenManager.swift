@@ -11,12 +11,24 @@ import RxSwift
 class TokenManager {
   
     static let shared = TokenManager()
+    private let userAPI = SPUserAPI()
     
     private init() {}
     
-    func reissue(completion: @escaping (Result<String, Error>) -> Void) {
-        // TODO: refreshToken으로 accessToken 재발행 후 키체인에 저장
-        // TokenManager.shared.setAccessToken(accessToken)
+    func reissueToken() {
+        
+        guard LoginState.current != .notLoggedIn else {
+            print("#162 not login")
+            TokenManager.shared.deleteTokens()
+            return
+        }
+        
+        userAPI.reissueToken()
+            .subscribe { token in
+                TokenManager.shared.createTokens(accessToken: token.accessToken, refreshToken: token.refreshToken)
+            } onError: { error in
+                TokenManager.shared.deleteTokens()
+            }
     }
     
     func createTokens(accessToken: String, refreshToken: String) {
