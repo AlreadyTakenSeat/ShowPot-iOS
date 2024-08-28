@@ -33,6 +33,7 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
         ).subscribe(with: self) { owner, response in
             owner.artistList.accept(response.data.map {
                 FeaturedSubscribeArtistCellModel(
+                    id: $0.id, 
                     state: .none,
                     artistImageURL: URL(string: $0.imageURL),
                     artistName: $0.englishName

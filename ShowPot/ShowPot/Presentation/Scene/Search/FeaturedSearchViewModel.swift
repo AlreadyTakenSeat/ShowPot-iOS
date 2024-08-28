@@ -13,6 +13,7 @@ import RxCocoa
 final class FeaturedSearchViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
+    private let usecase: SearchUseCase
     var coordinator: FeaturedSearchCoordinator
     
     private var recentSearchKeywordList: [String] {
@@ -26,19 +27,19 @@ final class FeaturedSearchViewModel: ViewModelType {
     private let maxSearchCount = 7
     
     private lazy var recentSearchListRelay = BehaviorRelay<[String]>(value: recentSearchKeywordList)
-    private let performanceResultListRelay = BehaviorRelay<[PerformanceInfoCollectionViewCellModel]>(value: [])
-    private let artistResultListRelay = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
+    private let showSearchResultRelay = PublishRelay<Bool>()
     
     var recentSearchKeywordDataSource: RecentSearchKeywordDataSource?
     var searchKeywordResultDataSource: SearchKeywordResultDataSource?
     
-    init(coordinator: FeaturedSearchCoordinator) {
+    init(coordinator: FeaturedSearchCoordinator, usecase: SearchUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
-        let initialSearchKeyword: Observable<Void>
+        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedRemoveAllButton: Observable<Void>
         let didTappedRecentSearchKeyword: Observable<IndexPath>
@@ -51,8 +52,13 @@ final class FeaturedSearchViewModel: ViewModelType {
     
     struct Output {
         let isRecentSearchKeywordEmpty: Driver<Bool>
-        let isSearchResultEmpty: Driver<Bool>
+        let showSearchResult: Driver<Bool>
         let isLoading: Driver<Bool>
+        
+        /// 아티스트 구독 요청 결과
+        var addSubscriptionResult = PublishSubject<Bool>()
+        /// 아티스트 구독 취소 요청 결과
+        var deleteSubscriptionResult = PublishSubject<Bool>()
     }
     
     func transform(input: Input) -> Output {
@@ -64,18 +70,14 @@ final class FeaturedSearchViewModel: ViewModelType {
                 
                 switch sectionIdentifier { // FIXME: - 추후 구독 API 성공 및 실패 시 다음 동작 구현 필요
                 case .artist:
-                    var artistModel = owner.artistResultListRelay.value
-                    if artistModel[indexPath.row].state == .availableSubscription {
-                        LogHelper.debug("아티스트 구독선택\n모델: \(artistModel[indexPath.row])")
-                        artistModel[indexPath.row].state = .subscription
-                    } else if artistModel[indexPath.row].state == .subscription {
-                        LogHelper.debug("아티스트 구독취소선택\n모델: \(artistModel[indexPath.row])")
-                        artistModel[indexPath.row].state = .availableSubscription
+                    var artistModel = owner.usecase.artistSearchResult.value[indexPath.row]
+                    if artistModel.state == .availableSubscription {
+                        owner.usecase.addSubscribtion(artistID: artistModel.id)
+                    } else if artistModel.state == .subscription {
+                        owner.usecase.deleteSubscribtion(artistID: artistModel.id)
                     }
-                    owner.artistResultListRelay.accept(artistModel)
-                    owner.updateSearchResultDataSource()
                 case .performance:
-                    let performanceModel = owner.performanceResultListRelay.value
+                    let performanceModel = owner.usecase.showSearchResult.value
                     owner.coordinator.goToShowDetailScreen(showID: performanceModel[indexPath.row].showID)
                 }
             }
@@ -88,7 +90,7 @@ final class FeaturedSearchViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        input.initialSearchKeyword
+        input.viewDidLoad
             .subscribe(with: self) { owner, _ in
                 owner.updateRecentSearchDataSource()
             }
@@ -104,6 +106,7 @@ final class FeaturedSearchViewModel: ViewModelType {
             .subscribe(with: self) { owner, _ in
                 owner.removeAll()
                 owner.updateRecentSearchDataSource()
+                owner.showSearchResultRelay.accept(false)
             }
             .disposed(by: disposeBag)
         
@@ -124,6 +127,7 @@ final class FeaturedSearchViewModel: ViewModelType {
         )
         .subscribe(with: self) { owner, _ in
             owner.clearSearchResults()
+            owner.showSearchResultRelay.accept(false)
         }
         .disposed(by: disposeBag)
         
@@ -131,20 +135,44 @@ final class FeaturedSearchViewModel: ViewModelType {
             .map { $0.isEmpty }
             .asDriver(onErrorDriveWith: .empty())
         
-        let isSearchResultEmpty = Observable.combineLatest(
-            artistResultListRelay,
-            performanceResultListRelay
+        Observable.combineLatest(
+            usecase.artistSearchResult,
+            usecase.showSearchResult
         )
-            .map { $0.0.isEmpty && $0.1.isEmpty }
-            .asDriver(onErrorDriveWith: .empty())
+        .subscribe(with: self) { owner, _ in
+            owner.isLoadingRelay.accept(false)
+            owner.updateSearchResultDataSource()
+            owner.showSearchResultRelay.accept(true)
+        }
+        .disposed(by: disposeBag)
         
         let isLoading = isLoadingRelay.asDriver()
         
-        return Output(
+        let output = Output(
             isRecentSearchKeywordEmpty: isRecentSearchKeywordEmpty,
-            isSearchResultEmpty: isSearchResultEmpty,
+            showSearchResult: showSearchResultRelay.asDriver(onErrorDriveWith: .empty()),
             isLoading: isLoading
         )
+        
+        usecase.addSubscribtionresult
+            .subscribe(with: self) { owner, result in
+                let (artistID, isSuccess) = result
+                output.addSubscriptionResult.onNext(isSuccess)
+                guard !isSuccess else { return }
+                owner.updateArtistSubscription(to: .subscription, for: artistID)
+            }
+            .disposed(by: disposeBag)
+        
+        usecase.deleteSubscribtionresult
+            .subscribe(with: self) { owner, result in
+                let (artistID, isSuccess) = result
+                output.deleteSubscriptionResult.onNext(isSuccess)
+                guard !isSuccess else { return }
+                owner.updateArtistSubscription(to: .availableSubscription, for: artistID)
+            }
+            .disposed(by: disposeBag)
+        
+        return output
     }
 }
 
@@ -153,40 +181,16 @@ extension FeaturedSearchViewModel {
     /// 검색쿼리를 이용해 검색 API를 호출하는 함수
     private func fetchSearchResult(keyword: String) {
         isLoadingRelay.accept(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // FIXME: - 추후 MockData수정 및 asyncAfter 코드 삭제
-            
-            self.artistResultListRelay.accept([
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://i.imgur.com/KsEXGAZ.jpg"), artistName: "Marilia Mendonca"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://cdn.mhns.co.kr/news/photo/201901/157199_206779_07.jpg"), artistName: "The Chainsmokers"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://t3.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2fG8/image/sxiZQJy0MaesFjfzRRoyNWNRmhM.jpg"), artistName: "Beyonce"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://cdn.redian.org/news/photo/202108/155857_52695_0153.jpg"), artistName: "Adele"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F1709EC404F290F7720"), artistName: "Imagine Dragons"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://mblogthumb-phinf.pstatic.net/MjAxOTEwMzBfMjM1/MDAxNTcyNDI4Mzg2NjI2.vFBBiLlc8YhPuny8BFHTYczJzoR1ObVC8ZHX2iAGye4g.BVn1BX_bMjbib22Ks-l2VCQUd70yU7o8vNBLcBhSH1gg.PNG.alvin5092/1572428385660.png?type=w800"), artistName: "Maluma"),
-                .init(state: .availableSubscription, artistImageURL: URL(string: "https://i.namu.wiki/i/jrUaXffKzxPCo876eNO8GRdQb81OBQuNV99GnN1pDlXkGcvEsyTJaEtCsWzEtjy4yVoOnPqP058LrPswAh7KQQ.webp"), artistName: "Bruno Mars")
-            ])
-            
-            self.performanceResultListRelay.accept([
-                
-                .init(showID: "1", performanceImageURL: URL(string: "https://img.newspim.com/news/2023/09/21/2309210928580280.jpg"), performanceTitle: "에스파단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60), performanceLocation: "KBS 아레나홀"),
-                .init(showID: "2", performanceImageURL: URL(string: "https://image.bugsm.co.kr/essential/images/500/39/3978.jpg"), performanceTitle: "샘스미스단독공연", performanceTime: Date(timeIntervalSinceNow: 24 * 60), performanceLocation: "KBS 아레나홀"),
-                .init(showID: "3", performanceImageURL: URL(string: "https://img.newspim.com/news/2023/03/06/2303060940437270.jpg"), performanceTitle: "안젤리나졸리단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60), performanceLocation: "KBS 아레나홀"),
-                .init(showID: "4", performanceImageURL: URL(string: "https://www.gugakpeople.com/data/gugakpeople_com/mainimages/202407/2024071636209869.jpg"), performanceTitle: "브루노마스단독고연", performanceTime: Date(timeIntervalSinceNow: 24), performanceLocation: "KBS 아레나홀"),
-                .init(showID: "5", performanceImageURL: URL(string: "https://img.newspim.com/news/2023/06/05/2306051642145540.jpg"), performanceTitle: "워시단독고연", performanceTime: Date(timeIntervalSinceNow: 24 * 60 * 60), performanceLocation: "KBS 아레나홀")
-            ])
-            self.isLoadingRelay.accept(false)
-            self.updateSearchResultDataSource()
-        }
+        usecase.searchArtist(search: keyword, cursor: nil)
+        usecase.searchShowList(search: keyword, cursor: nil)
     }
     
-    /// 특정 아티스트를 구독하는 함수
-    private func subscribeArtist() {
-        
-    }
-    
-    /// 특정 아티스트를 구독취소하는 함수
-    private func cancelSubscribeArtist() {
-        
+    private func updateArtistSubscription(to status: FeaturedSubscribeArtistCellState, for artistID: String) {
+        var currentArtistResult = usecase.artistSearchResult.value
+        guard let index = currentArtistResult.firstIndex(where: { $0.id == artistID }) else { return }
+        currentArtistResult[index].state = status
+        usecase.artistSearchResult.accept(currentArtistResult)
+        updateSearchResultDataSource()
     }
 }
 
@@ -221,7 +225,6 @@ extension FeaturedSearchViewModel {
     }
     
     private func removeAll() {
-        LogHelper.debug("모두삭제 버튼 클릭")
         guard !recentSearchListRelay.value.isEmpty else { return }
         recentSearchListRelay.accept([])
         UserDefaultsManager.shared.set([], for: .recentSearchKeywordList)
@@ -231,9 +234,10 @@ extension FeaturedSearchViewModel {
         if currentSearchScreen == .recentSearch {
             coordinator.popViewController()
         } else {
-            performanceResultListRelay.accept([])
-            artistResultListRelay.accept([])
+            usecase.showSearchResult.accept([])
+            usecase.artistSearchResult.accept([])
             currentSearchScreen = .recentSearch
+            showSearchResultRelay.accept(false)
         }
     }
     
@@ -241,14 +245,13 @@ extension FeaturedSearchViewModel {
         add(keyword: keyword)
         fetchSearchResult(keyword: keyword)
         updateRecentSearchDataSource()
-        updateSearchResultDataSource()
         currentSearchScreen = .searchResult
     }
     
     private func clearSearchResults() {
-        if !performanceResultListRelay.value.isEmpty || !artistResultListRelay.value.isEmpty {
-            performanceResultListRelay.accept([])
-            artistResultListRelay.accept([])
+        if !usecase.showSearchResult.value.isEmpty || !usecase.artistSearchResult.value.isEmpty {
+            usecase.showSearchResult.accept([])
+            usecase.artistSearchResult.accept([])
         }
         currentSearchScreen = .recentSearch
     }
@@ -298,8 +301,8 @@ extension FeaturedSearchViewModel {
     }
     
     private func updateSearchResultDataSource() {
-        let artistResultList = artistResultListRelay.value
-        let performanceResultList = performanceResultListRelay.value
+        let artistResultList = usecase.artistSearchResult.value
+        let performanceResultList = usecase.showSearchResult.value
         
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
         snapshot.appendSections([.artist, .performance])

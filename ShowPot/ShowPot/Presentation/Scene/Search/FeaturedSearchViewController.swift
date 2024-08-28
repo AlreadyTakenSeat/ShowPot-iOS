@@ -58,7 +58,7 @@ final class FeaturedSearchViewController: ViewController {
         .disposed(by: disposeBag)
         
         let input = FeaturedSearchViewModel.Input(
-            initialSearchKeyword: .just(()),
+            viewDidLoad: .just(()),
             didTappedBackButton: viewHolder.backButton.rx.tap.asObservable(),
             didTappedRemoveAllButton: didTappedRemoveAllButtonSubject.asObservable(),
             didTappedRecentSearchKeyword: itemSelected,
@@ -75,13 +75,24 @@ final class FeaturedSearchViewController: ViewController {
             .drive(viewHolder.emptyLabel.rx.isHidden)
             .disposed(by: disposeBag)
         
-        output.isSearchResultEmpty
+        output.showSearchResult
+            .map { !$0 }
             .drive(viewHolder.searchKeywordResultCollectionView.rx.isHidden)
             .disposed(by: disposeBag)
         
         output.isLoading
             .drive(viewHolder.indicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
+        
+        output.addSubscriptionResult
+            .subscribe(with: self) { owner, isSuccess in
+                owner.showAddSubscribtionSnackbar(isSuccess: isSuccess)
+            }.disposed(by: disposeBag)
+        
+        output.deleteSubscriptionResult
+            .subscribe(with: self) { owner, isSuccess in
+                owner.showDeleteSubscribtionSnackbar(isSuccess: isSuccess)
+            }.disposed(by: disposeBag)
         
         Observable.merge(
             viewHolder.searchKeywordResultCollectionView.rx.didScroll.map { _ in () },
@@ -132,6 +143,23 @@ extension FeaturedSearchViewController: UICollectionViewDelegateFlowLayout {
             return .init(width: collectionView.frame.width - 32, height: 44)
         }
         return .zero
+    }
+}
+
+extension FeaturedSearchViewController {
+    private func showAddSubscribtionSnackbar(isSuccess: Bool) {
+        SPSnackBar(contextView: self.view, type: .subscribe)
+            .show()
+    }
+    
+    private func showDeleteSubscribtionSnackbar(isSuccess: Bool) {
+        let style = SnackBarStyle(
+            icon: .icCheck.withTintColor(.gray200),
+            message: Strings.snackbarDescriptionSubscribeDelete,
+            actionTitle: ""
+        )
+        SnackBar(contextView: self.view, style: style, duration: .short)
+            .show()
     }
 }
 
