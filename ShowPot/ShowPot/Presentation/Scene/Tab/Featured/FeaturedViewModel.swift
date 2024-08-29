@@ -91,10 +91,6 @@ final class FeaturedViewModel: ViewModelType {
         
         input.didTappedWatchTheFullPerformanceButton
             .subscribe(with: self) { owner, _ in
-                guard LoginState.current == .loggedIn else {
-                    output.showLoginBottomSheet.onNext(())
-                    return
-                }
                 owner.coordinator.goToFullPerformanceScreen()
             }
             .disposed(by: disposeBag)

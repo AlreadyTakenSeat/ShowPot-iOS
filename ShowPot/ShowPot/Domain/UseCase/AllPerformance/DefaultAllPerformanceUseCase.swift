@@ -11,38 +11,27 @@ import RxCocoa
 
 final class DefaultAllPerformanceUseCase: AllPerformanceUseCase {
     
+    private let showAPI = SPShowAPI()
+    private let disposeBag = DisposeBag()
+    
     var performanceList: BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]> = BehaviorRelay(value: [])
     
     func fetchAllPerformance(state: ShowFilterState) {
         
         LogHelper.debug("전체공연 검색\n오픈예정유무: \(state.isOnlyUpcoming)\n어떤필터타입: \(state.type)")
         
-        if !state.isOnlyUpcoming {
-            performanceList.accept(
-                [ // FIXME: - 추후 전체공연조회 API연동예정
-                    .init(
-                        showID: "12", performanceState: .reserving, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), performanceDate: nil),
-                    .init(
-                        showID: "13", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/08/22/15/39/giraffes-901009_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60)),
-                    .init(
-                        showID: "14", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60)),
-                    .init(
-                        showID: "52", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)),
-                    .init(
-                        showID: "16", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)),
-                    .init(
-                        showID: "18", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60))
-                ]
-            )
-        } else {
-            performanceList.accept([ // FIXME: - 추후 오픈예정기준에 대한 프로퍼티를 이용해 스냅샷 필터 예정
-                .init(
-                    showID: "121", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60)),
-                .init(
-                    showID: "123", performanceState: .upcoming, performanceTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceLocation: "KBS 아레나홀", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60)),
-                .init(
-                    showID: "124", performanceState: .upcoming, performanceTitle: "Nothing But Thieves But Thieves ", performanceLocation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a", performanceImageURL: URL(string: "https://cdn.pixabay.com/photo/2024/03/24/14/47/hippopotamus-8653246_1280.png"), performanceDate: Date(timeIntervalSinceNow: 24 * 60 * 60 * 60 * 60 * 60))
-            ])
-        }
+        showAPI.showList(sort: state.type.rawValue, onlyOpen: state.isOnlyUpcoming)
+            .subscribe { response in
+                self.performanceList.accept(response.data.map {
+                    FeaturedPerformanceWithTicketOnSaleSoonCellModel(
+                        showID: $0.id,
+                        performanceState: $0.isOpen ? .reserving : .upcoming,
+                        performanceTitle: $0.title,
+                        performanceLocation: $0.location,
+                        performanceImageURL: URL(string: $0.posterImageURL),
+                        performanceDate: DateFormatterFactory.dateTime.date(from: $0.ticketingAt)
+                    )
+                })
+            }.disposed(by: disposeBag)
     }
 }
