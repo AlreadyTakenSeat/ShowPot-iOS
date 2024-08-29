@@ -13,4 +13,10 @@ protocol SignInUseCase {
     var signInResult: PublishRelay<Bool> { get }
     
     func signIn(request: SignInRequest)
+    func getProfileInfo()
+}
+
+struct UserProfileInfo: Codable {
+    let nickName: String
+    let socialType: String
 }
