@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum Strings {
+  /// 계정
+  public static let accountNavigationTitle = Strings.tr("Localizable", "account_navigation_title", fallback: "계정")
   /// 오픈예정 티켓만 보기
   public static let allPerformanceCheckboxTitle = Strings.tr("Localizable", "all_performance_checkbox_title", fallback: "오픈예정 티켓만 보기")
   /// 전체공연
@@ -114,8 +116,18 @@ public enum Strings {
   public static let searchKeywordTitle = Strings.tr("Localizable", "search_keyword_title", fallback: "최근검색어")
   /// 공연 정보
   public static let searchPerformanceTitle = Strings.tr("Localizable", "search_performance_title", fallback: "공연 정보")
+  /// 계정
+  public static let settingAccountMenuTitle = Strings.tr("Localizable", "setting_account_menu_title", fallback: "계정")
+  /// 알림 설정
+  public static let settingAlarmMenuTitle = Strings.tr("Localizable", "setting_alarm_menu_title", fallback: "알림 설정")
+  /// 카카오 문의하기
+  public static let settingKakaoMenuTitle = Strings.tr("Localizable", "setting_kakao_menu_title", fallback: "카카오 문의하기")
   /// https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4
   public static let settingPolicyNotionUrlString = Strings.tr("Localizable", "setting_policy_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4")
+  /// 개인정보 처리 방침
+  public static let settingPrivacyPolicyMenuTitle = Strings.tr("Localizable", "setting_privacy_policy_menu_title", fallback: "개인정보 처리 방침")
+  /// 이용 약관
+  public static let settingTermMenuTitle = Strings.tr("Localizable", "setting_term_menu_title", fallback: "이용 약관")
   /// https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4
   public static let settingTermNotionUrlString = Strings.tr("Localizable", "setting_term_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4")
   /// 아티스트 정보
@@ -146,10 +158,16 @@ public enum Strings {
   public static let snackbarActionTitle = Strings.tr("Localizable", "snackbar_action_title", fallback: "보러가기")
   /// 알림 설정이 완료되었습니다
   public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
+  /// 로그인 되었습니다.
+  public static let snackbarDescriptionLogin = Strings.tr("Localizable", "snackbar_description_login", fallback: "로그인 되었습니다.")
+  /// 로그아웃 되었습니다.
+  public static let snackbarDescriptionLogout = Strings.tr("Localizable", "snackbar_description_logout", fallback: "로그아웃 되었습니다.")
   /// 구독 설정이 완료되었습니다
   public static let snackbarDescriptionSubscribe = Strings.tr("Localizable", "snackbar_description_subscribe", fallback: "구독 설정이 완료되었습니다")
   /// 구독이 취소되었습니다
   public static let snackbarDescriptionSubscribeDelete = Strings.tr("Localizable", "snackbar_description_subscribe_delete", fallback: "구독이 취소되었습니다")
+  /// 회원 탈퇴 되었습니다.
+  public static let snackbarDescriptionWithdraw = Strings.tr("Localizable", "snackbar_description_withdraw", fallback: "회원 탈퇴 되었습니다.")
   /// Apple로 시작하기
   public static let socialLoginAppleButton = Strings.tr("Localizable", "socialLogin_apple_button", fallback: "Apple로 시작하기")
   /// 잊지않고 내한공연 즐기러가요
