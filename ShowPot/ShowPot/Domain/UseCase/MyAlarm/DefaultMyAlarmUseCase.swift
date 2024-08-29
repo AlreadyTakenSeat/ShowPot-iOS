@@ -33,13 +33,13 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
                     ShowData(
                         id: $1.id,
                         showTitle: $1.title,
-                        remainDay: currentDate.daysUntil(DateFormatterFactory.dateWithHypen.date(from: $1.cursorValue) ?? Date()),
+                        remainDay: currentDate.daysUntil(DateFormatterFactory.dateWithISO.date(from: $1.cursorValue) ?? Date()),
                         backgroundImage: backgroundTicketImageList[$0 % backgroundTicketImageList.count],
                         thubnailURL: URL(string: $1.imageURL),
                         location: $1.location,
                         startTime: DateFormatterFactory.dateWithHypen.date(from: $1.startAt),
                         endTime: DateFormatterFactory.dateWithHypen.date(from: $1.endAt),
-                        ticketingOpenTime: DateFormatterFactory.dateWithHypen.date(from: $1.cursorValue)
+                        ticketingOpenTime: DateFormatterFactory.dateWithISO.date(from: $1.cursorValue)
                     )
                 })
             }
