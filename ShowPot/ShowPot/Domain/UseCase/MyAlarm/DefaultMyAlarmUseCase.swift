@@ -12,6 +12,13 @@ import RxCocoa
 
 final class DefaultMyAlarmUseCase: MyAlarmUseCase {
 
+    private let apiService: SPShowAPI
+    private let disposeBag = DisposeBag()
+    
+    init(apiService: SPShowAPI = SPShowAPI()) {
+        self.apiService = apiService
+    }
+    
     var menuList: RxRelay.BehaviorRelay<[MyShowMenuData]> = BehaviorRelay<[MyShowMenuData]>(value: [])
     var upcomingShowList: RxRelay.BehaviorRelay<[ShowData]> = BehaviorRelay<[ShowData]>(value: [])
 
@@ -20,15 +27,30 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
         let backgroundTicketImageList: [UIImage] = [.orangeTicket, .greenTicket, .blueTicket, .yellowTicket]
         let currentDate = Date()
         
-        upcomingShowList.accept([ // FIXME: - API연동 이후 %연산자로 backgroundImage적용 필요
-            .init(id: "1", artistName: "Dua lipa", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 2).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .orangeTicket, thubnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), name: "OPN(Oneohtrix Point Never)", location: "KBS 아레나홀", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),
-            .init(id: "2", artistName: "Michael Jackson", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .greenTicket, thubnailURL: URL(string: "https://cdn.pixabay.com/photo/2016/03/05/22/17/food-1239231_1280.jpg"), name: "Coldplay - A Head Full of Dreams Tour", location: "NEXTERS 아레나홀", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60+10), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),
-            .init(id: "3", artistName: "Anjelinanana", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 1).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .blueTicket, thubnailURL: URL(string: "https://cdn.pixabay.com/photo/2015/10/10/13/41/polar-bear-980781_1280.jpg"), name: "BTS - Love Yourself Tour", location: "YAPP 레빗홀", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60*9), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),
-            .init(id: "13", artistName: "Tarzan Azars", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .yellowTicket, thubnailURL: URL(string: "https://cdn.pixabay.com/photo/2014/04/05/11/41/butterfly-316740_1280.jpg"), name: "Ed Sheeran - Divide Tour", location: "올림픽스타디움", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60*4), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),
-            .init(id: "14", artistName: "JustLikeThantKR", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .orangeTicket, thubnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), name: "Maroon 5 - Red Pill Blues Tour", location: "하남 스타필드", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60*3), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2)),
-            .init(id: "15", artistName: "ShowPot Team", remainDay: currentDate.daysUntil(Array(86400 * 1...86400 * 20).shuffled().map { Date(timeIntervalSinceNow: TimeInterval($0)) }[0]), backgroundImage: .greenTicket, thubnailURL: URL(string: "https://media.bunjang.co.kr/product/262127257_1_1714651082_w360.jpg"), name: "The Weeknd - Starboy: Legend of the Fall Tour", location: "오리지널 나쵸", startTime: Date(timeIntervalSinceNow: 24), endTime: Date(timeIntervalSinceNow: 24*60*2), ticketingOpenTime: Date(timeIntervalSinceNow: 24*2))
-            
-        ])
+        apiService.showAlarmList(
+            request: .init(
+                size: 100,
+                type: .continued,
+                cursorID: nil,
+                cursorValue: nil
+            )
+        )
+        .subscribe(with: self) { owner, response in
+            owner.upcomingShowList.accept(response.data.enumerated().map {
+                ShowData(
+                    id: $1.id,
+                    showTitle: $1.title,
+                    remainDay: currentDate.daysUntil(DateFormatterFactory.dateWithHypen.date(from: $1.ticketingAt) ?? Date()),
+                    backgroundImage: backgroundTicketImageList[$0 % backgroundTicketImageList.count],
+                    thubnailURL: URL(string: $1.imageURL),
+                    location: $1.location,
+                    startTime: DateFormatterFactory.dateWithHypen.date(from: $1.startAt),
+                    endTime: DateFormatterFactory.dateWithHypen.date(from: $1.endAt),
+                    ticketingOpenTime: DateFormatterFactory.dateWithHypen.date(from: $1.ticketingAt)
+                )
+            })
+        }
+        .disposed(by: disposeBag)
     }
     
     func requestMenuData() {

@@ -17,11 +17,10 @@ struct MyShowMenuData {
 
 struct ShowData {
     let id: String
-    let artistName: String
+    let showTitle: String
     let remainDay: Int?
     let backgroundImage: UIImage
     let thubnailURL: URL?
-    let name: String
     let location: String
     let startTime: Date?
     let endTime: Date?
