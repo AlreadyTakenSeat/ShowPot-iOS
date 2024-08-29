@@ -114,10 +114,10 @@ public enum Strings {
   public static let searchKeywordTitle = Strings.tr("Localizable", "search_keyword_title", fallback: "최근검색어")
   /// 공연 정보
   public static let searchPerformanceTitle = Strings.tr("Localizable", "search_performance_title", fallback: "공연 정보")
-  /// https://brassy-client-c0a.notion.site/
-  public static let settingPolicyNotionUrlString = Strings.tr("Localizable", "setting_policy_notion_url_string", fallback: "https://brassy-client-c0a.notion.site/")
-  /// https://brassy-client-c0a.notion.site/6584c9436a114162b37f2020f2c4a0e9
-  public static let settingTermNotionUrlString = Strings.tr("Localizable", "setting_term_notion_url_string", fallback: "https://brassy-client-c0a.notion.site/6584c9436a114162b37f2020f2c4a0e9")
+  /// https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4
+  public static let settingPolicyNotionUrlString = Strings.tr("Localizable", "setting_policy_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4")
+  /// https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4
+  public static let settingTermNotionUrlString = Strings.tr("Localizable", "setting_term_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4")
   /// 아티스트 정보
   public static let showArtistInfo = Strings.tr("Localizable", "show_artist_info", fallback: "아티스트 정보")
   /// Model
