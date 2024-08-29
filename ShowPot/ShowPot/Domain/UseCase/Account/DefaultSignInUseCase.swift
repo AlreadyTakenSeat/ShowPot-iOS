@@ -21,7 +21,7 @@ final class DefaultSignInUseCase: SignInUseCase {
     
     func signIn(request: SignInRequest) {
         apiSevice.login(request: .init(
-            socialType: SocialLoginType.kakao.rawValue,
+            socialType: request.socialType,
             identifier: request.identifier,
             fcmToken: request.fcmToken
         ))
