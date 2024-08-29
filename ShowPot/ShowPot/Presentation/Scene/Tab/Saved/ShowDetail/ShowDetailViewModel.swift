@@ -80,9 +80,9 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         usecase.updateInterestResult
-            .subscribe(with: self) { owner, isSuccess in
-                LogHelper.debug("공연 관심 등록/취소 성공여부: \(isSuccess)")
-                output.isLikeButtonSelected.onNext(isSuccess)
+            .subscribe(with: self) { owner, result in
+                LogHelper.debug("공연 관심 등록/취소 여부: \(result)")
+                output.isLikeButtonSelected.onNext(result)
             }
             .disposed(by: disposeBag)
         

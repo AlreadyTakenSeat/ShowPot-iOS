@@ -70,7 +70,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 
                 owner.buttonState.accept(.init(
                     isLiked: response.isInterested,
-                    isAlarmSet: false, 
+                    isAlarmSet: false,
                     isAlreadyOpen: false
                 ))
             }
@@ -80,10 +80,8 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
             .subscribe { response in
-                self.updateInterestResult.onNext(true)
-            } onError: { error in
-                self.updateInterestResult.onNext(false)
-            }
+                self.updateInterestResult.onNext(response.hasInterest)
+            } 
             .disposed(by: disposeBag)
     }
 }
