@@ -157,22 +157,22 @@ extension FeaturedViewModel {
     private func fetchRecommendedPerformanceListModel() { // FIXME: - 추후 API연동 후 MockData코드 수정
         let mockData: [FeaturedRecommendedPerformanceCellModel] = [
             .init(
-                showID: "1",
+                showID: "0191948f-0ba0-2a3b-9b19-bd42694ecf58",
                 recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24006288_p.gif"),
                 recommendedPerformanceTitle: "Conan Gray - Found Heaven On Tour in Seoul"
             ),
             .init(
-                showID: "2",
+                showID: "01919906-7fb9-6552-3819-91a5295bb3e6 ",
                 recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24006714_p.gif"),
                 recommendedPerformanceTitle: "Olivia Rodrigo - GUTS world tour")
             ,
             .init(
-                showID: "3",
+                showID: "01919901-105d-b5b2-cbaf-912f20281ce8",
                 recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24011642_p.gif"),
                 recommendedPerformanceTitle: "OFFICIAL HIGE DANDISM REJOICE ASIA TOUR 2024"
             ),
             .init(
-                showID: "4",
+                showID: "019194a4-e4ba-f2d1-79d6-23088c9c3112",
                 recommendedPerformanceThumbnailURL: URL(string: "https://ticketimage.interpark.com/Play/image/large/24/24007623_p.gif"),
                 recommendedPerformanceTitle: "Dua Lipa - Radical Optimism Tour"
             )
