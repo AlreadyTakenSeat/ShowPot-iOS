@@ -18,8 +18,8 @@ enum UserDefaultsKey: String {
     /// 로그인 여부
     case isLoggedIn
     
-    /// 유저 닉네임
-    case nickname
+    /// 유저 프로필 정보
+    case userProfileInfo
     
     var value: String {
         return self.rawValue

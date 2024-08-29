@@ -112,6 +112,14 @@
 		70A95BA52C7F7DDE0007836E /* UnsubscribeArtistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BA42C7F7DDE0007836E /* UnsubscribeArtistResponse.swift */; };
 		70A95BA72C7F7E8E0007836E /* SubscribeArtistRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BA62C7F7E8E0007836E /* SubscribeArtistRequest.swift */; };
 		70A95BA92C7F7E9E0007836E /* UnsubscribeArtistRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BA82C7F7E9E0007836E /* UnsubscribeArtistRequest.swift */; };
+		70A95BAC2C8096E00007836E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BAB2C8096E00007836E /* AccountViewController.swift */; };
+		70A95BAE2C8096F30007836E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BAD2C8096F30007836E /* AccountViewModel.swift */; };
+		70A95BB02C8097040007836E /* AccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BAF2C8097040007836E /* AccountCoordinator.swift */; };
+		70A95BB22C8097130007836E /* AccountViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB12C8097130007836E /* AccountViewHolder.swift */; };
+		70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB42C809EF40007836E /* AccountHeaderView.swift */; };
+		70A95BB72C80A2A00007836E /* DefaultAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */; };
+		70A95BB92C80A2AC0007836E /* AccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB82C80A2AC0007836E /* AccountUseCase.swift */; };
+		70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BBE2C80A49F0007836E /* EmptyModel.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -374,6 +382,14 @@
 		70A95BA42C7F7DDE0007836E /* UnsubscribeArtistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeArtistResponse.swift; sourceTree = "<group>"; };
 		70A95BA62C7F7E8E0007836E /* SubscribeArtistRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeArtistRequest.swift; sourceTree = "<group>"; };
 		70A95BA82C7F7E9E0007836E /* UnsubscribeArtistRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeArtistRequest.swift; sourceTree = "<group>"; };
+		70A95BAB2C8096E00007836E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		70A95BAD2C8096F30007836E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		70A95BAF2C8097040007836E /* AccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoordinator.swift; sourceTree = "<group>"; };
+		70A95BB12C8097130007836E /* AccountViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewHolder.swift; sourceTree = "<group>"; };
+		70A95BB42C809EF40007836E /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
+		70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountUseCase.swift; sourceTree = "<group>"; };
+		70A95BB82C80A2AC0007836E /* AccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUseCase.swift; sourceTree = "<group>"; };
+		70A95BBE2C80A49F0007836E /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -804,6 +820,7 @@
 			children = (
 				70A95B802C7DEB340007836E /* Protocol */,
 				70A95B7E2C7DEABE0007836E /* DefaultSignInUseCase.swift */,
+				70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -812,6 +829,7 @@
 			isa = PBXGroup;
 			children = (
 				70A95B7C2C7DEAB30007836E /* SignInUseCase.swift */,
+				70A95BB82C80A2AC0007836E /* AccountUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -863,6 +881,26 @@
 				70A95B9A2C7F284E0007836E /* DefaultSearchUseCase.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		70A95BAA2C8096CC0007836E /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BB32C809EEB0007836E /* CustomView */,
+				70A95BAB2C8096E00007836E /* AccountViewController.swift */,
+				70A95BAD2C8096F30007836E /* AccountViewModel.swift */,
+				70A95BAF2C8097040007836E /* AccountCoordinator.swift */,
+				70A95BB12C8097130007836E /* AccountViewHolder.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		70A95BB32C809EEB0007836E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BB42C809EF40007836E /* AccountHeaderView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
@@ -1234,6 +1272,7 @@
 		7D2981252C01EC5200A619FB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				70A95BAA2C8096CC0007836E /* Account */,
 				700485182C7A512800B9A964 /* Setting */,
 				70F3C1202C6CD48D00786738 /* CustomView */,
 				7D2981322C01F24500A619FB /* SettingsViewController.swift */,
@@ -1252,6 +1291,7 @@
 				709577982C7CD82400176381 /* Show */,
 				7DF3778A2C7E05CF005B0DC8 /* Genre */,
 				7D6005062C7F595900B670A3 /* Users */,
+				70A95BBE2C80A49F0007836E /* EmptyModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1820,6 +1860,7 @@
 				70A95B9F2C7F7A050007836E /* SPArtistAPI.swift in Sources */,
 				70F3C13F2C6FAF3100786738 /* ClosedShowListViewModel.swift in Sources */,
 				7DF377862C7E0240005B0DC8 /* SPGenreAPI.swift in Sources */,
+				70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
 				70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */,
 				7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */,
@@ -1873,6 +1914,7 @@
 				70F3C12C2C6E724500786738 /* DefaultInterestShowUseCase.swift in Sources */,
 				70F3C0FF2C68B33900786738 /* MyShowUseCase.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
+				70A95BAE2C8096F30007836E /* AccountViewModel.swift in Sources */,
 				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7D9545BA2C7CDB2F005C3623 /* KeyChainManager.swift in Sources */,
@@ -1899,12 +1941,14 @@
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */,
 				700485212C7A525D00B9A964 /* SettingCoordinator.swift in Sources */,
+				70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,
 				70F3C0E62C663ADC00786738 /* ShowAlarmButtonView.swift in Sources */,
 				7D2981352C01F25100A619FB /* SettingsViewModel.swift in Sources */,
 				70A95BA92C7F7E9E0007836E /* UnsubscribeArtistRequest.swift in Sources */,
+				70A95BAC2C8096E00007836E /* AccountViewController.swift in Sources */,
 				7D9545B62C7C95E4005C3623 /* SPTargetType.swift in Sources */,
 				7004851D2C7A523C00B9A964 /* SettingViewController.swift in Sources */,
 				7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */,
@@ -1913,6 +1957,7 @@
 				70A95B7F2C7DEABE0007836E /* DefaultSignInUseCase.swift in Sources */,
 				70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */,
 				707FF7462C5CC1C20026C82D /* AllPerformanceViewHolder.swift in Sources */,
+				70A95BB22C8097130007836E /* AccountViewHolder.swift in Sources */,
 				7DA1CA2D2C6DD28800C2752F /* DefaultShowDetailUseCase.swift in Sources */,
 				7DB9F9352C63B9910097C4F9 /* GenreSubscribeUseCase.swift in Sources */,
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,
@@ -1946,9 +1991,12 @@
 				7DEACE4E2C1ED00100F37DA3 /* LanguageFont.swift in Sources */,
 				7DD2CB852C2ED5A60052ECCD /* SavedViewHolder.swift in Sources */,
 				7D29812B2C01F22300A619FB /* FeaturedViewController.swift in Sources */,
+				70A95BB92C80A2AC0007836E /* AccountUseCase.swift in Sources */,
 				700484FD2C7683A000B9A964 /* ShowDetailGenreInfoView.swift in Sources */,
+				70A95BB02C8097040007836E /* AccountCoordinator.swift in Sources */,
 				7D1E5FAF2C0A20A10012504D /* LoginViewModel.swift in Sources */,
 				7D2981332C01F24500A619FB /* SettingsViewController.swift in Sources */,
+				70A95BB72C80A2A00007836E /* DefaultAccountUseCase.swift in Sources */,
 				700484F92C76786900B9A964 /* ShowDetailArtistInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

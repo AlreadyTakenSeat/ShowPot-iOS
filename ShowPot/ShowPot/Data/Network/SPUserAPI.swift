@@ -48,7 +48,7 @@ enum SPUserTargetType: APIType {
 
 final class SPUserAPI {
     
-    func withdrawal() -> Observable<Void> {
+    func withdrawal() -> Observable<EmptyModel> {
         let target = SPUserTargetType.withdrawal
         let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
         
@@ -57,12 +57,11 @@ final class SPUserAPI {
                 target.url,
                 method: target.method,
                 parameters: request,
-                encoder: JSONParameterEncoder.default,
                 headers: target.header
-            ).responseDecodable(of: GenreUnsubscribeResponse.self) { response in
+            ).responseDecodable(of: EmptyModel.self) { response in
                 switch response.result {
-                case .success:
-                    emitter.onNext(())
+                case .success(let data):
+                    emitter.onNext(data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -110,6 +109,30 @@ final class SPUserAPI {
                 encoder: JSONParameterEncoder.default,
                 headers: target.header
             ).responseDecodable(of: UserTokenResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func logout() -> Observable<EmptyModel> {
+        let target = SPUserTargetType.logout
+        let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                parameters: request,
+                headers: target.header
+            ).responseDecodable(of: EmptyModel.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)

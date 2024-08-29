@@ -15,6 +15,10 @@ enum SPSnackBarType {
     case alarm
     /// 로그인 완료
     case signIn
+    /// 로그아웃 완료
+    case signOut
+    /// 회월탈퇴 완료
+    case deleteAccount
     
     var icon: UIImage? {
         return .icCheck.withTintColor(.gray200)
@@ -27,7 +31,11 @@ enum SPSnackBarType {
         case .alarm:
             return Strings.snackbarDescriptionAlarm
         case .signIn:
-            return "로그인 되었습니다."
+            return Strings.snackbarDescriptionLogin
+        case .signOut:
+            return Strings.snackbarDescriptionLogout
+        case .deleteAccount:
+            return Strings.snackbarDescriptionWithdraw
         }
     }
     

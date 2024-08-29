@@ -33,10 +33,13 @@ final class SettingViewModel: ViewModelType {
     
     struct Output {
         let versionAlertMessage: Signal<String>
+        let showLoginBottomSheet = PublishSubject<Void>()
     }
     
     @discardableResult
     func transform(input: Input) -> Output {
+        
+        let output = Output(versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()))
         
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
@@ -58,6 +61,10 @@ final class SettingViewModel: ViewModelType {
                 case .version:
                     LogHelper.debug("버전 셀 클릭")
                 case .account:
+                    guard LoginState.current == .loggedIn else {
+                        output.showLoginBottomSheet.onNext(())
+                        return
+                    }
                     owner.coordinator.goToAccountScreen()
                 case .alarm:
                     owner.coordinator.goToAppSettings()
@@ -71,7 +78,7 @@ final class SettingViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()))
+        return output
     }
 }
 
@@ -117,15 +124,15 @@ enum SettingType {
         case .version:
             return "버전 \(Environment.appVersion)"
         case .account:
-            return "계정"
+            return Strings.settingAccountMenuTitle
         case .alarm:
-            return "알림 설정"
+            return Strings.settingAlarmMenuTitle
         case .privacyPolicy:
-            return "개인정보 처리 방침"
+            return Strings.settingPrivacyPolicyMenuTitle
         case .term:
-            return "이용 약관"
+            return Strings.settingTermMenuTitle
         case .kakao:
-            return "카카오 문의하기"
+            return Strings.settingKakaoMenuTitle
         }
     }
     
