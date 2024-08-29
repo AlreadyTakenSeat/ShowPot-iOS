@@ -78,7 +78,7 @@ final class AccountViewModel: ViewModelType {
             .do(onNext: { [weak self] success in
                 guard let self = self else { return }
                 if success {
-                    self.coordinator.popViewController()
+                    self.coordinator.popViewController(logoutSuccess: success)
                 }
             })
             .bind(to: output.logoutResult)
@@ -88,7 +88,7 @@ final class AccountViewModel: ViewModelType {
             .do(onNext: { [weak self] success in
                 guard let self = self else { return }
                 if success {
-                    self.coordinator.popViewController()
+                    self.coordinator.popViewController(withdrawSuccess: success)
                 }
             })
             .bind(to: output.deleteAccountResult)

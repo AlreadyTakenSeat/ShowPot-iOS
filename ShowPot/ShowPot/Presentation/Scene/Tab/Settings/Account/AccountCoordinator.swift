@@ -25,4 +25,26 @@ final class AccountCoordinator: NavigationCoordinator {
         self.parentCoordinator?.removeChildCoordinator(child: self)
         self.navigationController.popViewController(animated: true)
     }
+    
+    // TODO: - 추후 스낵바가 최상단 화면에 띄워지게 수정
+    func popViewController(logoutSuccess: Bool) {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+        
+        if let previousViewController = self.navigationController.viewControllers.last {
+            SPSnackBar(contextView: previousViewController.view, type: .signOut)
+                .show()
+        }
+    }
+    
+    // TODO: - 추후 스낵바가 최상단 화면에 띄워지게 수정
+    func popViewController(withdrawSuccess: Bool) {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+        
+        if let previousViewController = self.navigationController.viewControllers.last {
+            SPSnackBar(contextView: previousViewController.view, type: .deleteAccount)
+                .show()
+        }
+    }
 }
