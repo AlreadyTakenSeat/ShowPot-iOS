@@ -112,7 +112,10 @@ final class ShowDetailViewController: ViewController {
                 cellIdentifier: ShowSeatCell.reuseIdentifier,
                 cellType: ShowSeatCell.self)
             ) { index, item, cell in
-                cell.configureUI(seatCategory: item.seatCategoryTitle, seatPrice: item.seatPrice)
+                cell.configureUI(
+                    seatCategory: item.seatCategoryTitle,
+                    seatPrice: NumberformatterFactory.decimal.string(from: item.seatPrice ?? 0)
+                )
             }
             .disposed(by: disposeBag)
         

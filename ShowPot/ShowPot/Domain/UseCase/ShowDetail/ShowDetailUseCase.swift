@@ -51,7 +51,7 @@ struct ShowDetailOverView {
 
 struct SeatDetailInfo {
     let seatCategoryTitle: String
-    let seatPrice: String
+    let seatPrice: NSNumber?
 }
 
 struct ShowDetailButtonState {

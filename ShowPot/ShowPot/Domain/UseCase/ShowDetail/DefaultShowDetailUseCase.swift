@@ -61,7 +61,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 owner.seatList.accept(response.seats.map {
                     SeatDetailInfo(
                         seatCategoryTitle: $0.seatType,
-                        seatPrice: "\($0.price)"
+                        seatPrice: NumberformatterFactory.decimal.number(from: "\($0.price)")
                     )
                 })
                 
