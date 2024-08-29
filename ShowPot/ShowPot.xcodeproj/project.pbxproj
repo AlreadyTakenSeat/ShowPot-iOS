@@ -116,6 +116,7 @@
 		70A95BAE2C8096F30007836E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BAD2C8096F30007836E /* AccountViewModel.swift */; };
 		70A95BB02C8097040007836E /* AccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BAF2C8097040007836E /* AccountCoordinator.swift */; };
 		70A95BB22C8097130007836E /* AccountViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB12C8097130007836E /* AccountViewHolder.swift */; };
+		70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB42C809EF40007836E /* AccountHeaderView.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -382,6 +383,7 @@
 		70A95BAD2C8096F30007836E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		70A95BAF2C8097040007836E /* AccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoordinator.swift; sourceTree = "<group>"; };
 		70A95BB12C8097130007836E /* AccountViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewHolder.swift; sourceTree = "<group>"; };
+		70A95BB42C809EF40007836E /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -876,12 +878,21 @@
 		70A95BAA2C8096CC0007836E /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				70A95BB32C809EEB0007836E /* CustomView */,
 				70A95BAB2C8096E00007836E /* AccountViewController.swift */,
 				70A95BAD2C8096F30007836E /* AccountViewModel.swift */,
 				70A95BAF2C8097040007836E /* AccountCoordinator.swift */,
 				70A95BB12C8097130007836E /* AccountViewHolder.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		70A95BB32C809EEB0007836E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BB42C809EF40007836E /* AccountHeaderView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
@@ -1840,6 +1851,7 @@
 				70A95B9F2C7F7A050007836E /* SPArtistAPI.swift in Sources */,
 				70F3C13F2C6FAF3100786738 /* ClosedShowListViewModel.swift in Sources */,
 				7DF377862C7E0240005B0DC8 /* SPGenreAPI.swift in Sources */,
+				70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */,
 				7D29812F2C01F23400A619FB /* SavedViewController.swift in Sources */,
 				70F3C11E2C6BBCE200786738 /* MyAlarmEmptyView.swift in Sources */,
 				7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */,

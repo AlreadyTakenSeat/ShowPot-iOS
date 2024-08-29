@@ -28,7 +28,9 @@ final class SettingCoordinator: NavigationCoordinator {
     }
     
     func goToAccountScreen() {
-        LogHelper.debug("계정화면으로 이동")
+        let coordinator = AccountCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
     
     func goToAppSettings() {

@@ -18,7 +18,7 @@ final class AccountViewHolder {
     }).then {
         $0.contentInset = .init(top: 16, left: .zero, bottom: .zero, right: .zero)
         $0.register(MenuCell.self)
-        $0.register(MyPageHeaderView.self, of: UICollectionView.elementKindSectionHeader)
+        $0.register(AccountHeaderView.self, of: UICollectionView.elementKindSectionHeader)
         $0.backgroundColor = .gray700
     }
 }
@@ -58,7 +58,7 @@ extension AccountViewHolder {
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .estimated(47)
+                heightDimension: .estimated(47 + 12 + 1)
             ),
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top

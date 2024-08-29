@@ -20,4 +20,9 @@ final class AccountCoordinator: NavigationCoordinator {
         let viewController: AccountViewController = AccountViewController(viewModel: AccountViewModel(coordinator: self))
         self.navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
 }
