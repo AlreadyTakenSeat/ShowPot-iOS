@@ -120,9 +120,6 @@
 		70A95BB72C80A2A00007836E /* DefaultAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */; };
 		70A95BB92C80A2AC0007836E /* AccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB82C80A2AC0007836E /* AccountUseCase.swift */; };
 		70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BBE2C80A49F0007836E /* EmptyModel.swift */; };
-		70A95BC12C80C8570007836E /* SPShowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BC02C80C8570007836E /* SPShowAPI.swift */; };
-		70A95BC32C80CD930007836E /* ShowAlarmListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BC22C80CD930007836E /* ShowAlarmListRequest.swift */; };
-		70A95BC52C80D1020007836E /* ShowAlarmListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BC42C80D1020007836E /* ShowAlarmListResponse.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -929,6 +926,9 @@
 			isa = PBXGroup;
 			children = (
 				701467862C53C0E600750A54 /* LeftAlignedCollectionViewFlowLayout.swift */,
+				70A95BC42C80D1020007836E /* ShowAlarmListResponse.swift */,
+				70A95BC22C80CD930007836E /* ShowAlarmListRequest.swift */,
+				70A95BC02C80C8570007836E /* SPShowAPI.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1888,7 +1888,6 @@
 				70A95B902C7F25260007836E /* SearchShowRequest.swift in Sources */,
 				7DF377892C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
-				70A95BC52C80D1020007836E /* ShowAlarmListResponse.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				70A95B9F2C7F7A050007836E /* SPArtistAPI.swift in Sources */,
 				70F3C13F2C6FAF3100786738 /* ClosedShowListViewModel.swift in Sources */,
@@ -2021,11 +2020,9 @@
 				7004852A2C7A584100B9A964 /* WebContentViewHolder.swift in Sources */,
 				7D60050B2C7F59C500B670A3 /* UserTokenResponse.swift in Sources */,
 				70A95B8C2C7E367C0007836E /* UnsubscribeArtistListRequest.swift in Sources */,
-				70A95BC32C80CD930007836E /* ShowAlarmListRequest.swift in Sources */,
 				70F3C11A2C6BA63D00786738 /* MyAlarmUseCase.swift in Sources */,
 				7D2195412C143E8400A38D2B /* ViewHolderType.swift in Sources */,
 				7DA1CA232C6D0A4D00C2752F /* ShowDetailTicketInfoView.swift in Sources */,
-				70A95BC12C80C8570007836E /* SPShowAPI.swift in Sources */,
 				70A95BA12C7F7CBA0007836E /* SubscribeArtistListRequest.swift in Sources */,
 				707FF7422C5CC1800026C82D /* AllPerformanceCoordinator.swift in Sources */,
 				707FF75B2C5FF0A60026C82D /* SubscribeArtistViewController.swift in Sources */,

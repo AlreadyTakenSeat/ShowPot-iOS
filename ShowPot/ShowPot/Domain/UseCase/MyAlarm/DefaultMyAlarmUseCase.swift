@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class DefaultMyAlarmUseCase: MyAlarmUseCase {
-
+    
     private let apiService: SPShowAPI
     private let disposeBag = DisposeBag()
     
@@ -21,36 +21,29 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
     
     var menuList: RxRelay.BehaviorRelay<[MyShowMenuData]> = BehaviorRelay<[MyShowMenuData]>(value: [])
     var upcomingShowList: RxRelay.BehaviorRelay<[ShowData]> = BehaviorRelay<[ShowData]>(value: [])
-
+    
     func requestUpcomingShow() {
         
         let backgroundTicketImageList: [UIImage] = [.orangeTicket, .greenTicket, .blueTicket, .yellowTicket]
         let currentDate = Date()
         
-        apiService.showAlarmList(
-            request: .init(
-                size: 100,
-                type: .continued,
-                cursorID: nil,
-                cursorValue: nil
-            )
-        )
-        .subscribe(with: self) { owner, response in
-            owner.upcomingShowList.accept(response.data.enumerated().map {
-                ShowData(
-                    id: $1.id,
-                    showTitle: $1.title,
-                    remainDay: currentDate.daysUntil(DateFormatterFactory.dateWithHypen.date(from: $1.ticketingAt) ?? Date()),
-                    backgroundImage: backgroundTicketImageList[$0 % backgroundTicketImageList.count],
-                    thubnailURL: URL(string: $1.imageURL),
-                    location: $1.location,
-                    startTime: DateFormatterFactory.dateWithHypen.date(from: $1.startAt),
-                    endTime: DateFormatterFactory.dateWithHypen.date(from: $1.endAt),
-                    ticketingOpenTime: DateFormatterFactory.dateWithHypen.date(from: $1.ticketingAt)
-                )
-            })
-        }
-        .disposed(by: disposeBag)
+        apiService.alertList()
+            .subscribe(with: self) { owner, response in
+                owner.upcomingShowList.accept(response.data.enumerated().map {
+                    ShowData(
+                        id: $1.id,
+                        showTitle: $1.title,
+                        remainDay: currentDate.daysUntil(DateFormatterFactory.dateWithHypen.date(from: $1.cursorValue) ?? Date()),
+                        backgroundImage: backgroundTicketImageList[$0 % backgroundTicketImageList.count],
+                        thubnailURL: URL(string: $1.imageURL),
+                        location: $1.location,
+                        startTime: DateFormatterFactory.dateWithHypen.date(from: $1.startAt),
+                        endTime: DateFormatterFactory.dateWithHypen.date(from: $1.endAt),
+                        ticketingOpenTime: DateFormatterFactory.dateWithHypen.date(from: $1.cursorValue)
+                    )
+                })
+            }
+            .disposed(by: disposeBag)
     }
     
     func requestMenuData() {

@@ -16,6 +16,7 @@ struct ShowDetailResponse: Codable {
     let ticketingTimes: [TicketingTime]
     let seats: [Seat]
     let ticketingSites: [TicketingSite]
+    let isInterested: Bool
 }
 
 // MARK: - Artist
