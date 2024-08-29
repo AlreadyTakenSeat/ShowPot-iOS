@@ -25,6 +25,11 @@ final class SettingsViewModel: ViewModelType {
         LoginState.current == .loggedIn
     }
     
+    var userProfileInfo: UserProfileInfo? {
+        guard isLoggedIn else { return nil }
+        return UserDefaultsManager.shared.get(objectForkey: .userProfileInfo, type: UserProfileInfo.self)
+    }
+    
     init(coordinator: SettingsCoordinator, usecase: MyPageUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase

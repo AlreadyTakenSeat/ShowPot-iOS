@@ -17,7 +17,7 @@ final class AccountCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: AccountViewController = AccountViewController(viewModel: AccountViewModel(coordinator: self))
+        let viewController: AccountViewController = AccountViewController(viewModel: AccountViewModel(coordinator: self, usecase: DefaultAccountUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     

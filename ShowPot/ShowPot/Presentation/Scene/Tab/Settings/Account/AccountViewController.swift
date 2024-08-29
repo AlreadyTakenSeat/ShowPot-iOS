@@ -29,7 +29,7 @@ final class AccountViewController: ViewController {
         viewHolder.accountCollectionView.dataSource = self
         
         setNavigationBarItem(
-            title: "계정",
+            title: Strings.accountNavigationTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
         contentNavigationBar.titleLabel.textColor = .gray300
@@ -44,6 +44,29 @@ final class AccountViewController: ViewController {
             didTappedCell: viewHolder.accountCollectionView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
+        output.logoutResult
+            .subscribe(with: self) { owner, isSuccess in
+                owner.showLogoutSnackbar(isSuccess: isSuccess)
+            }.disposed(by: disposeBag)
+        
+        output.deleteAccountResult
+            .subscribe(with: self) { owner, isSuccess in
+                owner.showDeleteAccountSnackbar(isSuccess: isSuccess)
+            }.disposed(by: disposeBag)
+    }
+}
+
+extension AccountViewController {
+    private func showLogoutSnackbar(isSuccess: Bool) {
+        guard isSuccess else { return }
+        SPSnackBar(contextView: self.view, type: .signOut)
+            .show()
+    }
+    
+    private func showDeleteAccountSnackbar(isSuccess: Bool) {
+        guard isSuccess else { return }
+        SPSnackBar(contextView: self.view, type: .deleteAccount)
+            .show()
     }
 }
 
@@ -65,9 +88,9 @@ extension AccountViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AccountHeaderView.reuseIdentifier, for: indexPath) as? AccountHeaderView ?? AccountHeaderView()
         headerView.configureUI(
-            nickname: viewModel.isLoggedIn ? "춤추는 고래" : "",
-            socialType: "카카오 로그인"
-        ) // TODO: - 추후 실제 닉네임데이터로 교체해야함
+            nickname: viewModel.userProfileInfo?.nickName ?? "",
+            socialType: viewModel.userProfileInfo?.socialType ?? ""
+        )
         return headerView
     }
 }

@@ -13,18 +13,25 @@ final class AccountViewModel: ViewModelType {
     var coordinator: AccountCoordinator
     
     private let disposeBag = DisposeBag()
+    private let usecase: AccountUseCase
     private let menuListRelay = BehaviorRelay<[AccountMenuType]>(value: [])
     
-    var isLoggedIn: Bool {
+    private var isLoggedIn: Bool {
         LoginState.current == .loggedIn
+    }
+    
+    var userProfileInfo: UserProfileInfo? {
+        guard isLoggedIn else { return nil }
+        return UserDefaultsManager.shared.get(objectForkey: .userProfileInfo, type: UserProfileInfo.self)
     }
     
     var menuList: [AccountMenuType] {
         menuListRelay.value
     }
     
-    init(coordinator: AccountCoordinator) {
+    init(coordinator: AccountCoordinator, usecase: AccountUseCase) {
         self.coordinator = coordinator
+        self.usecase = usecase
     }
     
     struct Input {
@@ -33,7 +40,12 @@ final class AccountViewModel: ViewModelType {
         let didTappedCell: Observable<IndexPath>
     }
     
-    struct Output { }
+    struct Output { 
+        /// 로그아웃 요청 결과
+        var logoutResult = PublishSubject<Bool>()
+        /// 회원 탈퇴 요청 결과
+        var deleteAccountResult = PublishSubject<Bool>()
+    }
     
     func transform(input: Input) -> Output {
         
@@ -53,14 +65,36 @@ final class AccountViewModel: ViewModelType {
             .subscribe(with: self) { owner, indexPath in
                 switch AccountMenuType.allCases[indexPath.row] {
                 case .logout:
-                    LogHelper.debug("로그아웃 클릭")
+                    owner.usecase.logout()
                 case .deleteAccount:
-                    LogHelper.debug("계정 탈퇴 클릭")
+                    owner.usecase.deleteAccount()
                 }
             }
             .disposed(by: disposeBag)
         
-        return Output()
+        let output = Output()
+        
+        usecase.logoutResult
+            .do(onNext: { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    self.coordinator.popViewController()
+                }
+            })
+            .bind(to: output.logoutResult)
+            .disposed(by: disposeBag)
+        
+        usecase.deleteAccountResult
+            .do(onNext: { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    self.coordinator.popViewController()
+                }
+            })
+            .bind(to: output.deleteAccountResult)
+            .disposed(by: disposeBag)
+        
+        return output
     }
 }
 

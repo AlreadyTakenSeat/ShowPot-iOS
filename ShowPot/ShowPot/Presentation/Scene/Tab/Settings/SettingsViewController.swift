@@ -29,8 +29,8 @@ final class SettingsViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let headerView = viewHolder.mypageCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: 0)) as? MyPageHeaderView else { return }
-        // TODO: - 실제 닉네임 데이터를 받아오면 UserDefaultsManager를 이용해 매핑
-        headerView.configureUI(userNickname: viewModel.isLoggedIn ? "춤추는 고래" : nil) // TODO: - 추후 실제 닉네임데이터로 교체해야함
+        
+        headerView.configureUI(userNickname: viewModel.userProfileInfo?.nickName)
         headerView.alertTextView.isSelectable = !viewModel.isLoggedIn
     }
     
@@ -78,7 +78,7 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyPageHeaderView.reuseIdentifier, for: indexPath) as? MyPageHeaderView ?? MyPageHeaderView()
-        headerView.configureUI(userNickname: viewModel.isLoggedIn ? "춤추는 고래" : nil) // TODO: - 추후 실제 닉네임데이터로 교체해야함
+        headerView.configureUI(userNickname: viewModel.userProfileInfo?.nickName) 
         headerView.alertTextView.delegate = self
         return headerView
     }
