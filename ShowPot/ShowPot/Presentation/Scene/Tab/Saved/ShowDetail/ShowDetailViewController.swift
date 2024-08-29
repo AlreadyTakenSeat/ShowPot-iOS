@@ -56,7 +56,8 @@ final class ShowDetailViewController: ViewController {
         let input = ShowDetailViewModel.Input(
             viewDidLoad: .just(()),
             didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(),
-            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable()
+            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 
+            didTappedTicketingCell: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
         
@@ -82,10 +83,13 @@ final class ShowDetailViewController: ViewController {
         output.ticketTimeInfo
             .subscribe(with: self) { owner, result in
                 let (preDescription, normalDescription) = result
-                guard let preDescription = preDescription,
-                      let normalDescription = normalDescription else { return }
-                owner.viewHolder.ticketInfoView.preTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: preDescription))
-                owner.viewHolder.ticketInfoView.normalTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: normalDescription))
+                if let normalDescription = normalDescription {
+                    owner.viewHolder.ticketInfoView.normalTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: normalDescription))
+                }
+                
+                if let preDescription = preDescription {
+                    owner.viewHolder.ticketInfoView.preTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: preDescription))
+                }
             }
             .disposed(by: disposeBag)
         
@@ -125,9 +129,9 @@ final class ShowDetailViewController: ViewController {
         
         output.alarmButtonState
             .subscribe(with: self) { owner, result in
-                let (isUpdatedBefore, isEnabled) = result
-                if !isEnabled {
-                    owner.viewHolder.footerView.alarmButton.isEnabled = isEnabled
+                let (isUpdatedBefore, isAlreadyOpen) = result
+                if isAlreadyOpen {
+                    owner.viewHolder.footerView.alarmButton.isEnabled = !isAlreadyOpen
                     return
                 }
                 owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore

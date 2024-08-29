@@ -15,7 +15,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
     var ticketList = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
-    var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false))
+    var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false, isAlreadyOpen: false))
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     var genreList = BehaviorRelay<[GenreType]>(value: [])
     var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
@@ -25,17 +25,9 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     init(apiService: SPShowAPI = SPShowAPI()) {
         self.apiService = apiService
-        ticketList.onNext(
-            .init(
-                ticketCategory: ["interpark", "yes24", "melonticket", "티켓링크"],
-                prereserveOpenTime: Date(timeIntervalSinceNow: 6000),
-                normalreserveOpenTime: Date(timeIntervalSinceNow: 4000)
-            )
-        )
     }
     
     func requestShowDetailData(showID: String) {
-        
         apiService.showDetail(showId: showID)
             .subscribe(with: self) { owner, response in
                 owner.showOverview.onNext(.init(
@@ -44,6 +36,17 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                     time: DateFormatterFactory.dateWithHypen.date(from: response.startDate),
                     location: response.location
                 ))
+                
+                let normalOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.normal.rawValue })
+                let preOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.pre.rawValue })
+                
+                owner.ticketList.onNext(
+                    ShowDetailTicketInfo(
+                        ticketCategory: response.ticketingSites.map { TicketInfo(categoryName: $0.name, link: $0.link) },
+                        prereserveOpenTime: DateFormatterFactory.dateTime.date(from: preOpenTime?.ticketingAt ?? ""),
+                        normalreserveOpenTime: DateFormatterFactory.dateTime.date(from: normalOpenTime?.ticketingAt ?? "")
+                    )
+                )
                 
                 owner.artistList.onNext(response.artists.map {
                     FeaturedSubscribeArtistCellModel(
@@ -67,14 +70,25 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 
                 owner.buttonState.accept(.init(
                     isLiked: response.isInterested,
-                    isAlarmSet: [true, false].shuffled()[0]
+                    isAlarmSet: false, 
+                    isAlreadyOpen: false
                 ))
             }
             .disposed(by: disposeBag)
     }
     
-    func updateShowInterest() {
-        LogHelper.debug("공연 관심 등록/취소 요청")
-        updateInterestResult.onNext([true, false].shuffled()[0])
+    func updateShowInterest(showID: String) {
+        apiService.updateInterest(showId: showID)
+            .subscribe { response in
+                self.updateInterestResult.onNext(true)
+            } onError: { error in
+                self.updateInterestResult.onNext(false)
+            }
+            .disposed(by: disposeBag)
     }
+}
+
+enum TicketingType: String {
+    case pre = "PRE"
+    case normal = "NORMAL"
 }

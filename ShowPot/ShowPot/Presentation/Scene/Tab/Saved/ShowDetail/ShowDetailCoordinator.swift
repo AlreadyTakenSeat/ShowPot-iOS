@@ -30,4 +30,11 @@ final class ShowDetailCoordinator: Coordinator {
         self.parentCoordinator?.removeChildCoordinator(child: self)
         self.navigationController.popViewController(animated: true)
     }
+    
+    func goToTicketingWebPage(link: String) {
+        let coordinator = WebContentCoordinator(navigationController: self.navigationController)
+        self.childCoordinators.append(coordinator)
+        let webPage = WebContentViewController(viewModel: WebContentViewModel(urlString: link, coordinator: coordinator))
+        navigationController.pushViewController(webPage, animated: true)
+    }
 }

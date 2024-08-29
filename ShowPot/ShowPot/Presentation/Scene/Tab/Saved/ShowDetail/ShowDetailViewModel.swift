@@ -31,6 +31,7 @@ final class ShowDetailViewModel: ViewModelType {
         let viewDidLoad: Observable<Void>
         let didTappedLikeButton: Observable<Void>
         let didTappedBackButton: Observable<Void>
+        let didTappedTicketingCell: Observable<IndexPath>
     }
     
     struct Output {
@@ -52,6 +53,14 @@ final class ShowDetailViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.didTappedTicketingCell
+            .withLatestFrom(usecase.ticketList) { ($0, $1) }
+            .subscribe(with: self) { owner, result in
+                let (indexPath, ticketList) = result
+                owner.coordinator.goToTicketingWebPage(link: ticketList.ticketCategory[indexPath.row].link)
+            }
+            .disposed(by: disposeBag)
+        
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
                 owner.coordinator.popViewController()
@@ -62,7 +71,7 @@ final class ShowDetailViewModel: ViewModelType {
         
         input.didTappedLikeButton
             .subscribe(with: self) { owner, _ in
-                owner.usecase.updateShowInterest()
+                owner.usecase.updateShowInterest(showID: owner.showID)
             }
             .disposed(by: disposeBag)
         
@@ -81,13 +90,13 @@ final class ShowDetailViewModel: ViewModelType {
             .subscribe(with: self) { owner, state in
                 LogHelper.debug("관심등록된 공연인가 ?: \(state.isLiked)\n이전에 알림설정한 공연인가 ?: \(state.isAlarmSet)")
                 output.isLikeButtonSelected.onNext(state.isLiked)
-                output.alarmButtonState.onNext((state.isAlarmSet, true))
+                output.alarmButtonState.onNext((state.isAlarmSet, state.isAlreadyOpen))
             }
             .disposed(by: disposeBag)
         
         usecase.ticketList
             .subscribe(with: self) { owner, model in
-                output.ticketBrandList.onNext(model.ticketCategory)
+                output.ticketBrandList.onNext(model.ticketCategory.map { $0.categoryName })
                 output.ticketTimeInfo.onNext((model.prereserveOpenTime, model.normalreserveOpenTime))
             }
             .disposed(by: disposeBag)

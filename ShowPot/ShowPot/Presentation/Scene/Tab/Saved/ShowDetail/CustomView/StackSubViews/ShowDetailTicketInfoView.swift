@@ -55,7 +55,7 @@ final class ShowDetailTicketInfoView: UIView {
     
     private func setUpView() {
         [titleLabel, ticketSaleCollectionView, subInfoStackView].forEach { self.addSubview($0) }
-        [preTicketSaleView, normalTicketSaleView].forEach { subInfoStackView.addArrangedSubview($0)}
+        [normalTicketSaleView].forEach { subInfoStackView.addArrangedSubview($0)}
     }
     
     private func setUpLayout() {
@@ -115,7 +115,7 @@ final class TicketSaleCollectionViewCell: UICollectionViewCell, ReusableCell {
         iconImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
         iconImageView.snp.makeConstraints { make in
             make.size.equalTo(16)
-            make.leading.equalTo(titleLabel.snp.trailing).inset(1)
+            make.leading.greaterThanOrEqualTo(titleLabel.snp.trailing)
             make.trailing.equalToSuperview().inset(4)
             make.centerY.equalTo(titleLabel)
         }
