@@ -133,11 +133,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
                 return headerView
             }
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWatchTheFullPerformanceFooterView.reuseIdentifier, for: indexPath) as? FeaturedWatchTheFullPerformanceFooterView ?? FeaturedWatchTheFullPerformanceFooterView()
-            footerView.didTappedButton
-                .subscribe(with: self) { owner, _ in
-                    owner.didTappedWatchTheFullPerformanceButtonSubject.onNext(())
-                }
-                .disposed(by: disposeBag)
+            footerView.onButtonTap = { self.didTappedWatchTheFullPerformanceButtonSubject.onNext(()) }
             return footerView
         }
     }
