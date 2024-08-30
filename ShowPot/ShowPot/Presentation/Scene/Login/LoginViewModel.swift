@@ -19,6 +19,8 @@ final class LoginViewModel: ViewModelType {
     
     private let usecase: SignInUseCase
     
+    private let trySignInResultRelay = PublishRelay<Bool>()
+    
     private var fcmToken: String {
         TokenManager.shared.readToken(.pushToken) ?? ""
     }
@@ -38,7 +40,7 @@ final class LoginViewModel: ViewModelType {
     }
     
     struct Output {
-        let trySignInResult = PublishRelay<Bool>()
+        let trySignInResult: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -65,23 +67,22 @@ final class LoginViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        let output = Output()
         usecase.signInResult
             .subscribe(with: self) { owner, isSuccess in
                 if isSuccess {
                     owner.coordinator.popViewController()
                 }
-                output.trySignInResult.accept(isSuccess)
+                owner.trySignInResultRelay.accept(isSuccess)
             }
             .disposed(by: disposeBag)
         
-        return output
+        return Output(trySignInResult: trySignInResultRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }
 
 // MARK: - SocialLogin Logics
 
-extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn, nickname 상태값 처리 필수
+extension LoginViewModel {
     
     private func loginWithGoogle() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -89,9 +90,10 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
               let presentingViewController = rootViewController.topViewController as? LoginViewController else {
             return
         }
-        GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { [weak self] result, error in
             guard error == nil else {
                 LogHelper.error("Google SocialLogin Failed: \(error!)")
+                self?.trySignInResultRelay.accept(false)
                 return
             }
             
@@ -101,8 +103,8 @@ extension LoginViewModel { // TODO: - 로그인 성공시 UserManager isLoggedIn
     private func loginWithKakao() {
         let loginClosure: (OAuthToken?, Error?) -> Void = { [weak self] oauthToken, error in
             guard error == nil else {
-                // TODO: 건준 - 카카오톡 로그인 실패 Alert 띄우기
                 LogHelper.error("Kakao SocialLogin Failed: \(error!)")
+                self?.trySignInResultRelay.accept(false)
                 return
             }
             guard let self = self,
