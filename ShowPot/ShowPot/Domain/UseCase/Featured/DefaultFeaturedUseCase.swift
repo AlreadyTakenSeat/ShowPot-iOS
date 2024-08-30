@@ -15,6 +15,7 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
     
     var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
     var performanceList = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
+    var subscribeArtistResult = PublishSubject<Bool>()
     
     init(apiService: APIClient = APIClient()) {
         self.apiService = apiService
@@ -43,8 +44,8 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
         .disposed(by: disposeBag)
     }
     
-    func subscribeArtists(artistID: [String]) async throws -> [String] {
-        []
+    func subscribeArtists(artistID: [String]) {
+        
     }
     
     func fetchAllPerformance(state: ShowFilterState) {
