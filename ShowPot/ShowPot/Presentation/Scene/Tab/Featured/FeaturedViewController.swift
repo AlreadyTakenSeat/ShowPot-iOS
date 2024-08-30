@@ -124,11 +124,7 @@ extension FeaturedViewController: UICollectionViewDelegate, UICollectionViewData
         case .subscribeGenre, .subscribeArtist:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeaturedWithButtonHeaderView.reuseIdentifier, for: indexPath) as? FeaturedWithButtonHeaderView ?? FeaturedWithButtonHeaderView()
             headerView.configureUI(with: .init(headerTitle: type.headerTitle))
-            headerView.buttonTapped
-                .subscribe(with: self) { owner, _ in
-                    owner.handleHeaderButtonTapped(for: type)
-                }
-                .disposed(by: disposeBag)
+            headerView.onTap = { self.handleHeaderButtonTapped(for: type) }
             return headerView
         case .ticketingPerformance, .recommendedPerformance:
             if kind == UICollectionView.elementKindSectionHeader {
