@@ -35,6 +35,7 @@ class TokenManager {
         do {
             try KeyChainManager.shared.create(account: .accessToken, data: accessToken)
             try KeyChainManager.shared.create(account: .refreshToken, data: refreshToken)
+            LogHelper.info("[Token updated]\naccessToken: \(accessToken)\nrefreshToken: \(refreshToken)")
         } catch {
             LogHelper.error("\(error.localizedDescription): \(error)")
         }
