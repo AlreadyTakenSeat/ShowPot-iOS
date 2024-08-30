@@ -67,7 +67,12 @@ final class LoginViewModel: ViewModelType {
         
         let output = Output()
         usecase.signInResult
-            .bind(to: output.trySignInResult)
+            .subscribe(with: self) { owner, isSuccess in
+                if isSuccess {
+                    owner.coordinator.popViewController()
+                }
+                output.trySignInResult.accept(isSuccess)
+            }
             .disposed(by: disposeBag)
         
         return output

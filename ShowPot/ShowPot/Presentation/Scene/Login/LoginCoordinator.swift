@@ -32,4 +32,9 @@ extension LoginCoordinator {
         navigationController.popViewController(animated: true)
         parentCoordinator?.removeChildCoordinator(child: self)
     }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
 }
