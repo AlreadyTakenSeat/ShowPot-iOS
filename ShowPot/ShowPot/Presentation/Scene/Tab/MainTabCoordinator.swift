@@ -8,28 +8,17 @@
 import Foundation
 import UIKit
 
-class MainTabCoordinator: Coordinator {
-    var navigationController: UINavigationController
+final class MainTabCoordinator: Coordinator {
+    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
+    var rootViewController = MainTabController()
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(window: UIWindow?) {
+        window?.rootViewController = rootViewController
     }
     
     func start() {
-        let viewController: MainTabViewController = MainTabViewController()
-        viewController.coordinator = self
-        viewController.view.backgroundColor = .cyan
-        
-        self.navigationController.pushViewController(viewController, animated: true)
-    }
-    
-}
 
-extension MainTabCoordinator {
-    func didLoggedOut() {
-        self.parentCoordinator?.removeChildCoordinator(child: self)
-        self.navigationController.popViewController(animated: true)
     }
 }

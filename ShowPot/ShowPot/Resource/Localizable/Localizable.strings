@@ -5,3 +5,148 @@
   Created by Daegeon Choi on 5/25/24.
   
 */
+
+"app_name" = "쇼팟";
+
+/* Common */
+
+// 하단 탭바
+"tabbar_home" = "홈";
+"tabbar_show" = "내 공연";
+"tabbar_my" = "마이";
+
+// 스낵바
+"snackbar_description_subscribe" = "구독 설정이 완료되었습니다";
+"snackbar_description_subscribe_delete" = "구독이 취소되었습니다";
+"snackbar_description_alarm" = "알림 설정이 완료되었습니다";
+"snackbar_description_login" = "로그인 되었습니다.";
+"snackbar_description_login_failed" = "로그인 실패했습니다, 다시 시도해주세요.";
+"snackbar_description_logout" = "로그아웃 되었습니다.";
+"snackbar_description_withdraw" = "회원 탈퇴 되었습니다.";
+"snackbar_action_title" = "보러가기";
+
+// Bottom Sheet
+"bottom_sheet_login_message" = "로그인 후 좋아하는\n장르를 구독해보세요!";
+"bottom_sheet_login_button_title" = "3초만에 로그인하기";
+
+// ------------------------------------------------------------------------------------
+
+/* Scene */
+
+// 온보딩 화면
+"onboarding_title_1" = "티켓팅 알림받기";
+"onboarding_description_1" = "중요한 티켓팅, 잊어버리지 않게\n푸쉬 알림을 드릴게요!";
+"onboarding_title_2" = "장르/아티스트 구독하기";
+"onboarding_description_2" = "내가 관심 있는 장르/아티스트의\n내한 소식을 빠르게 받아볼 수 있어요!";
+"onboarding_button" = "쇼팟 시작하기";
+
+// 로그인 화면
+"socialLogin_description" = "잊지않고 내한공연 즐기러가요";
+"socialLogin_kakao_button" = "Kakao로 시작하기";
+"socialLogin_google_button" = "Google로 시작하기";
+"socialLogin_apple_button" = "Apple로 시작하기";
+
+// 홈 화면
+"home_subscribe_genre_title" = "장르 구독하기";
+"home_subscribe_artist_title" = "아티스트 구독하기";
+"home_searchbar_placeholder" = "관심 있는 공연과 가수를 검색해보세요";
+"home_ticketing_performance_title" = "티켓팅이 얼마 남지 않은 공연";
+"home_ticketing_performance_buttonTitle" = "전체공연 보러가기";
+"home_non_login_recommended_title" = "이달의 추천공연";
+
+// 검색 화면
+"search_artist_title" = "아티스트";
+"search_performance_title" = "공연 정보";
+"search_keyword_title" = "최근검색어";
+"search_keyword_button_title" = "모두삭제";
+"search_empty_title" = "검색 기록이 없어요";
+
+// 장르 구독 화면
+"subscribe_genre_title" = "장르 구독하기";
+"subscribe_genre_description" = "관심 장르의 내한공연 알림을 보내드려요";
+"subscribe_genre_add_button_title" = "구독하기";
+"subscribe_genre_delete_button_title" = "구독 취소하기";
+"subscribe_genre_delete_description" = "구독을 취소하시겠습니까?";
+
+// 전체 공연 화면
+"all_performance_title" = "전체공연";
+"all_performance_checkbox_title" = "오픈예정 티켓만 보기";
+"all_show_dropdown_popular_title" = "인기순";
+"all_show_dropdown_recent_title" = "임박순";
+
+// 공연 상세 화면
+"show_detail_title" = "공연정보";
+"show_detail_bottom_button_title" = "알림 설정하기";
+"show_detail_alarm_update_bottom_button_title" = "알림 시간 변경하기";
+"show_detail_disenabled_bottom_button_title" = "예매가 오픈된 공연이에요";
+
+// 아티스트구독 화면
+"subscribe_artist_navigation_title" = "아티스트 구독하기";
+"subscribe_artist_navigation_description" = "관심 있는 아티스트를 선택해주세요";
+"subscribe_artist_button" = "구독하기";
+
+// 내 알림공연설정 화면
+"my_show_navigation_title" = "알림 설정한 공연";
+"my_show_alarm_bottomsheet_title" = "알림";
+"my_show_alarm_bottomsheet_button_1" = "변경하기";
+"my_show_alarm_bottomsheet_button_2" = "해제하기";
+"my_show_ticket_bottomsheet_title" = "티켓팅 알림을 언제 받으실건가요?";
+"my_show_ticket_button_title" = "알림 시간 변경하기";
+"my_show_empty_title" = "알림 설정한\n공연이 없어요";
+"my_show_empty_button_title" = "공연 정보 보러가기";
+"my_show_disenabled_title" = "해당 시간 선택은 불가능해요";
+
+// 내 알림화면
+"my_alarm_menu_button_1" = "알림 설정한 공연";
+"my_alarm_main_title" = "티켓팅이 임박한 공연";
+"my_alarm_ticket_title" = "TICKET OPEN";
+"my_alarm_empty_title" = "알림 설정한\n공연이 없어요";
+"my_alarm_empty_button" = "로그인 하러가기";
+
+// 마이페이지 화면
+"my_page_login_alert" = "로그인 후 다채로운\n내한공연을 만나보세요.";
+"my_page_subscribe_artist_button_title" = "구독한 아티스트";
+"my_page_subscribe_genre_button_title" = "구독한 장르";
+"my_page_navigation_title" = "마이";
+
+// 관심공연 화면
+"interest_show_empty_title" = "관심있는 공연이 없어요";
+"interest_show_empty_button" = "공연 정보 보러가기";
+"interest_show_navigation_title" = "관심공연";
+"interest_show_delete_button" = "삭제";
+
+// 티켓팅종료공연 화면
+"closed_show_empty_title" = "티켓팅이 종료된\n공연이 없어요";
+"closed_show_empty_button" = "알림 설정한 공연 보러가기";
+"closed_show_navigation_title" = "티켓팅 종료 공연";
+
+// 설정 화면
+"setting_term_notion_url_string" = "https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4";
+"setting_policy_notion_url_string" = "https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4";
+"setting_account_menu_title" = "계정";
+"setting_alarm_menu_title" = "알림 설정";
+"setting_privacy_policy_menu_title" = "개인정보 처리 방침";
+"setting_term_menu_title" = "이용 약관";
+"setting_kakao_menu_title" = "카카오 문의하기";
+
+// 계정 화면
+"account_navigation_title" = "계정";
+
+// 구독한 아티스트 화면
+"my_artist_navigation_title" = "구독한 아티스트";
+"my_artist_empty_title" = "구독한\n아티스트가 없어요";
+"my_artist_empty_button" = "아티스트 구독 하러가기";
+
+// ------------------------------------------------------------------------------------
+
+/* Model */
+
+// 공연 관련 정보
+"show_date" = "기간";
+"show_loaction" = "장소";
+"show_ticketopen_info" = "티켓팅 정보";
+"show_pre_ticketopen" = "선예매 오픈";
+"show_normal_ticketopen" = "일반예매 오픈";
+"show_artist_info" = "아티스트 정보";
+"show_seat_price_info" = "좌석 가격 정보";
+"show_genre" = "공연 장르";
