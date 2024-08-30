@@ -125,6 +125,8 @@
 		70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */; };
 		70A95BD22C8185870007836E /* MyArtistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD12C8185870007836E /* MyArtistCoordinator.swift */; };
 		70A95BD42C8185900007836E /* MyArtistViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD32C8185900007836E /* MyArtistViewHolder.swift */; };
+		70A95BDC2C818E980007836E /* DeleteArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BDB2C818E980007836E /* DeleteArtistCell.swift */; };
+		70A95BDE2C81936C0007836E /* MyArtistEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -411,6 +413,8 @@
 		70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistViewModel.swift; sourceTree = "<group>"; };
 		70A95BD12C8185870007836E /* MyArtistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistCoordinator.swift; sourceTree = "<group>"; };
 		70A95BD32C8185900007836E /* MyArtistViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistViewHolder.swift; sourceTree = "<group>"; };
+		70A95BDB2C818E980007836E /* DeleteArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteArtistCell.swift; sourceTree = "<group>"; };
+		70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistEmptyView.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -936,12 +940,22 @@
 		70A95BCC2C8185650007836E /* MyArtist */ = {
 			isa = PBXGroup;
 			children = (
+				70A95BDA2C818E8E0007836E /* CustomView */,
 				70A95BCD2C8185720007836E /* MyArtistViewController.swift */,
 				70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */,
 				70A95BD12C8185870007836E /* MyArtistCoordinator.swift */,
 				70A95BD32C8185900007836E /* MyArtistViewHolder.swift */,
 			);
 			path = MyArtist;
+			sourceTree = "<group>";
+		};
+		70A95BDA2C818E8E0007836E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BDB2C818E980007836E /* DeleteArtistCell.swift */,
+				70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
@@ -1857,6 +1871,7 @@
 				7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */,
 				7D9545B42C7C9074005C3623 /* APIType.swift in Sources */,
 				70F3C1122C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift in Sources */,
+				70A95BDE2C81936C0007836E /* MyArtistEmptyView.swift in Sources */,
 				7D45CB612C5956C70018FCB8 /* SPButton.swift in Sources */,
 				70F3C0E12C663AB700786738 /* MyShowAlarmViewHolder.swift in Sources */,
 				707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */,
@@ -1974,6 +1989,7 @@
 				7D0ED9D72C80C77D00145D86 /* ShowDetailResponse.swift in Sources */,
 				70F3C12C2C6E724500786738 /* DefaultInterestShowUseCase.swift in Sources */,
 				70A95BCE2C8185720007836E /* MyArtistViewController.swift in Sources */,
+				70A95BDC2C818E980007836E /* DeleteArtistCell.swift in Sources */,
 				70F3C0FF2C68B33900786738 /* MyShowUseCase.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
 				70A95BAE2C8096F30007836E /* AccountViewModel.swift in Sources */,

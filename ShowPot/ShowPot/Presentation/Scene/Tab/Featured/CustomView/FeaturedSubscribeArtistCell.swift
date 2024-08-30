@@ -27,7 +27,7 @@ enum FeaturedSubscribeArtistCellState {
     case subscription
 }
 
-final class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
+class FeaturedSubscribeArtistCell: UICollectionViewCell, ReusableCell {
     
     private var state: FeaturedSubscribeArtistCellState = .none {
         didSet {
