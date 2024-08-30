@@ -13,7 +13,7 @@ import UIKit
 enum SPShowTargetType: APIType {
     
     case interest(showId: String)
-    case alert(showId: String)
+    case alert(showId: String, type: String)
     case showList
     case showDetail(showId: String)
     case reservationInfo(showId: String)
@@ -39,8 +39,8 @@ enum SPShowTargetType: APIType {
         switch self {
         case .interest(let showId):
             return "shows/\(showId)/interests"
-        case .alert(let showId):
-            return "\(showId)/alert"
+        case .alert(let showId, let type):
+            return "shows/\(showId)/alert?ticketingApiType=\(type)"
         case .showList:
             return "shows"
         case .showDetail(let showId):
@@ -83,12 +83,16 @@ class SPShowAPI {
         }
     }
     
-    func updateAlert(showId: String) -> Observable<Void> {
-        let target = SPShowTargetType.alert(showId: showId)
+    func updateAlert(showId: String, list: [AlertTime], type: String = "NORMAL") -> Observable<Void> {
+        let target = SPShowTargetType.alert(showId: showId, type: type)
+        let request = ShowAlertRequest(alertTimes: list.map { $0.rawValue })
+        
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
+                parameters: request,
+                encoder: JSONParameterEncoder.default,
                 headers: target.header
             ).response { response in
                 switch response.result {
