@@ -14,11 +14,8 @@ import Then
 
 final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell {
     
+    var onTap: (() -> Void)?
     private let disposeBag = DisposeBag()
-    
-    var buttonTapped: ControlEvent<UITapGestureRecognizer> {
-        tapGesture.rx.event
-    }
     
     private let featuredHeaderTitleLabel = SPLabel(KRFont.H1).then {
         $0.textColor = .gray100
@@ -36,6 +33,11 @@ final class FeaturedWithButtonHeaderView: UICollectionReusableView, ReusableCell
         setupStyles()
         setupLayouts()
         setupConstraints()
+        
+        self.rx.tapGesture()
+            .subscribe { _ in
+                self.onTap?()
+            }.disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

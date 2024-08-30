@@ -6,16 +6,15 @@
 //
 
 import UIKit
-
+import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 
 final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView, ReusableCell {
     
-    var didTappedButton: ControlEvent<Void> {
-        watchTheFullPerformanceButton.rx.tap
-    }
+    var onButtonTap: (() -> Void)?
+    private let disposeBag = DisposeBag()
     
     private let watchTheFullPerformanceButton = SPButton(.disclosureButton).then { button in
         button.setText(Strings.homeTicketingPerformanceButtonTitle)
@@ -25,6 +24,11 @@ final class FeaturedWatchTheFullPerformanceFooterView: UICollectionReusableView,
         super.init(frame: frame)
         setupLayouts()
         setupConstraints()
+        
+        self.watchTheFullPerformanceButton.rx.tap
+            .subscribe { _ in
+                self.onButtonTap?()
+            }.disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
