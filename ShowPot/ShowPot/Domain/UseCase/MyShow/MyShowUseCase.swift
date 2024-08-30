@@ -19,5 +19,5 @@ protocol MyShowUseCase {
     func fetchShowList()
     func updateTicketingAlarm(model: [TicketingAlarmCellModel], showID: String)
     func deleteShowAlarm(indexPath: IndexPath)
-    func requestTicketingAlarm()
+    func requestTicketingAlarm(showId: String)
 }
