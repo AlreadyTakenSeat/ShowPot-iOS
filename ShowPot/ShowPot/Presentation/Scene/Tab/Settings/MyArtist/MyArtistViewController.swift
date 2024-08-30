@@ -25,6 +25,11 @@ final class MyArtistViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchArtistList()
+    }
+    
     override func setupStyles() {
         super.setupStyles()
         viewHolderConfigure()
@@ -43,7 +48,6 @@ final class MyArtistViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = MyArtistViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 
             didTappedEmptyViewButton: viewHolder.emptyView.footerButton.rx.tap.asObservable(), 
             didTappedDeleteButton: didTappedDeleteButtonSubject.asObservable()

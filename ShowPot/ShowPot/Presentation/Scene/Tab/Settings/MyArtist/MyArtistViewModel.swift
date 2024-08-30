@@ -23,7 +23,6 @@ final class MyArtistViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedEmptyViewButton: Observable<Void>
         let didTappedDeleteButton: Observable<IndexPath>
@@ -34,12 +33,6 @@ final class MyArtistViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.usecase.fetchArtistList()
-            }
-            .disposed(by: disposeBag)
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
@@ -78,6 +71,11 @@ final class MyArtistViewModel: ViewModelType {
 }
 
 extension MyArtistViewModel {
+    
+    func fetchArtistList() {
+        usecase.fetchArtistList()
+    }
+    
     /// 구독된 아티스트정보를 가지고 필터하는 함수
     private func filterArtistList(artistID: [String]) {
         let artistList = usecase.artistList.value

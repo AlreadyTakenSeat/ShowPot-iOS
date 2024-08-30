@@ -33,6 +33,7 @@ final class SubscribeArtistViewModel: ViewModelType {
         let didTappedBackButton: Observable<Void>
         let didTappedArtistCell: Observable<IndexPath>
         let didTappedSubscribeButton: Observable<Void>
+        let didTappedSnackbarButton: Observable<Void>
     }
     
     struct Output {
@@ -90,6 +91,12 @@ final class SubscribeArtistViewModel: ViewModelType {
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
                 owner.coordinator.popViewController()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedSnackbarButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToSubscribeArtistScreen()
             }
             .disposed(by: disposeBag)
         

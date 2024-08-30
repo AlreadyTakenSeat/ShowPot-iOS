@@ -26,4 +26,10 @@ final class SubscribeArtistCoordinator: NavigationCoordinator {
         self.parentCoordinator?.removeChildCoordinator(child: self)
         self.navigationController.popViewController(animated: true)
     }
+    
+    func goToSubscribeArtistScreen() {
+        let coordinator = MyArtistCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }
