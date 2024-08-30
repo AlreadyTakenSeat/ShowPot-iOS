@@ -12,7 +12,7 @@ import Then
 
 final class MyUpcomingTicketingHeaderView: UIView {
     
-    private let performanceArtistNameLabel = SPLabel(ENFont.H0).then {
+    private let showTitleLabel = SPLabel(ENFont.H0).then {
         $0.textColor = .gray100
     }
     
@@ -31,18 +31,18 @@ final class MyUpcomingTicketingHeaderView: UIView {
     }
     
     private func setupLayouts() {
-        [performanceArtistNameLabel, upcomingTimeLabel].forEach { addSubview($0) }
+        [showTitleLabel, upcomingTimeLabel].forEach { addSubview($0) }
     }
     
     private func setupConstraints() {
         
-        performanceArtistNameLabel.snp.makeConstraints {
+        showTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.directionalHorizontalEdges.equalToSuperview().inset(16)
         }
         
         upcomingTimeLabel.snp.makeConstraints {
-            $0.top.equalTo(performanceArtistNameLabel.snp.bottom)
+            $0.top.equalTo(showTitleLabel.snp.bottom)
             $0.directionalHorizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
         }
@@ -52,23 +52,23 @@ final class MyUpcomingTicketingHeaderView: UIView {
 // MARK: - Data Configuration
 
 struct MyUpcomingTicketingHeaderViewModel {
-    let artistName: String
+    let showTitle: String
     let remainDay: Int
 }
 
 extension MyUpcomingTicketingHeaderView {
     func configureUI(with model: MyUpcomingTicketingHeaderViewModel) {
         self.configureUI(
-            artistName: model.artistName,
+            showTitle: model.showTitle,
             remainDay: model.remainDay
         )
     }
     
     func configureUI(
-        artistName: String,
+        showTitle: String,
         remainDay: Int
     ) {
-        performanceArtistNameLabel.setText(artistName)
+        showTitleLabel.setText(showTitle)
         let targetText = "D-\(remainDay)"
         applyFontAndColorToText(
             fullText: "공연 티켓팅까지, \(targetText)",

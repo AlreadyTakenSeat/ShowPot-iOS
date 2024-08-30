@@ -38,7 +38,7 @@ enum SPShowTargetType: APIType {
     var path: String {
         switch self {
         case .interest(let showId):
-            return "\(showId)/interests"
+            return "shows/\(showId)/interests"
         case .alert(let showId):
             return "\(showId)/alert"
         case .showList:

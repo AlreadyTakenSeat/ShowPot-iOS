@@ -58,7 +58,7 @@ final class SavedViewController: ViewController {
                 cell.configureUI(
                     backgroundImage: model.backgroundImage,
                     showThubnailURL: model.thubnailURL,
-                    showName: model.name,
+                    showName: model.showTitle,
                     showLocation: model.location,
                     showStartTime: model.startTime,
                     showEndTime: model.endTime,
@@ -71,7 +71,7 @@ final class SavedViewController: ViewController {
             .drive(with: self) { owner, headerModel in
                 guard let remainDay = headerModel.remainDay else { return }
                 owner.viewHolder.ticketingHeaderView.configureUI(
-                    artistName: headerModel.artistName,
+                    showTitle: headerModel.showTitle,
                     remainDay: remainDay
                 )
             }

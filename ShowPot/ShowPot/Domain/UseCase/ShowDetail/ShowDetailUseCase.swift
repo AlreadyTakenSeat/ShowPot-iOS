@@ -10,9 +10,9 @@ import RxCocoa
 import UIKit
 
 enum TicketSaleBrand: String {
-    case yes24
-    case interpark
-    case melonticket
+    case yes24 = "YES24"
+    case interpark = "인터파크"
+    case melonticket = "멜론티켓"
     case other
     
     var title: String? {
@@ -51,18 +51,24 @@ struct ShowDetailOverView {
 
 struct SeatDetailInfo {
     let seatCategoryTitle: String
-    let seatPrice: String
+    let seatPrice: NSNumber?
 }
 
 struct ShowDetailButtonState {
     let isLiked: Bool
     let isAlarmSet: Bool
+    let isAlreadyOpen: Bool
 }
 
 struct ShowDetailTicketInfo {
-    let ticketCategory: [String]
+    let ticketCategory: [TicketInfo]
     let prereserveOpenTime: Date?
     let normalreserveOpenTime: Date?
+}
+
+struct TicketInfo {
+    let categoryName: String
+    let link: String
 }
 
 protocol ShowDetailUseCase {
@@ -75,5 +81,5 @@ protocol ShowDetailUseCase {
     var updateInterestResult: PublishSubject<Bool> { get set }
     
     func requestShowDetailData(showID: String)
-    func updateShowInterest()
+    func updateShowInterest(showID: String)
 }

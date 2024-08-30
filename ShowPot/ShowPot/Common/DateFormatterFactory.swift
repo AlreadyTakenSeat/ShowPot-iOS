@@ -40,6 +40,11 @@ enum DateFormatterFactory {
     static var dateWithHypen: DateFormatter {
         dateFormatter(locale: .eng).then { $0.dateFormat = "yyyy-MM-dd" }
     }
+    
+    /// `ISO8601형식 날짜 포맷`
+    static var dateWithISO: DateFormatter {
+        dateFormatter(locale: .eng).then { $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" }
+    }
 }
 
 extension DateFormatterFactory {

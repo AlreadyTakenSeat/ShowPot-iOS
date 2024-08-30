@@ -111,9 +111,13 @@ final class ShowSeatCell: UICollectionViewCell, ReusableCell {
 extension ShowSeatCell {
     func configureUI(
         seatCategory: String,
-        seatPrice: String
+        seatPrice: String?
     ) {
         seatCategoryLabel.setText(seatCategory)
-        priceLabel.setText(seatPrice)
+        if let seatPrice = seatPrice {
+            priceLabel.setText("\(seatPrice)원")
+        } else {
+            priceLabel.setText("가격정보 없음")
+        }
     }
 }

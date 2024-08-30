@@ -38,15 +38,23 @@ extension ShowDetailViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
         
-        view.addSubview(scrollView)
+        [scrollView, footerView].forEach { view.addSubview($0) }
         scrollView.addSubview(contentStackView)
-        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView, seatInfoView, genreInfoView, footerView]
+
+        let subViews = [posterImageView, titleView, infoView, ticketInfoView, artistInfoView, seatInfoView, genreInfoView]
         contentStackView.addArrangedDividerSubViews(subViews, ecxlude: [0, 6])
     }
     
     func configureConstraints(for view: UIView) {
+        
+        footerView.snp.makeConstraints {
+            $0.bottom.directionalHorizontalEdges.equalToSuperview()
+            $0.height.equalTo(118)
+        }
+        
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.directionalHorizontalEdges.equalToSuperview()
+            make.bottom.equalTo(footerView.snp.top)
         }
         
         contentStackView.snp.makeConstraints { make in

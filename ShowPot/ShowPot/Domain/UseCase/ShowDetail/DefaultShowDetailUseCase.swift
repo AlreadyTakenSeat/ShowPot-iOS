@@ -10,9 +10,12 @@ import RxSwift
 import RxCocoa
 
 class DefaultShowDetailUseCase: ShowDetailUseCase {
+    
+    private let apiService: SPShowAPI
+    
     var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
     var ticketList = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
-    var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false))
+    var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false, isAlreadyOpen: false))
     var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
     var genreList = BehaviorRelay<[GenreType]>(value: [])
     var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
@@ -20,46 +23,70 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     private let disposeBag = DisposeBag()
     
-    init() {
-        ticketList.onNext(
-            .init(
-                ticketCategory: ["interpark", "yes24", "melonticket", "티켓링크"],
-                prereserveOpenTime: Date(timeIntervalSinceNow: 6000),
-                normalreserveOpenTime: Date(timeIntervalSinceNow: 4000)
-            )
-        )
+    init(apiService: SPShowAPI = SPShowAPI()) {
+        self.apiService = apiService
     }
     
     func requestShowDetailData(showID: String) {
-        
-        showOverview.onNext(ShowDetailOverView(posterImageURLString: "https://enfntsterribles.com/wp-content/uploads/2023/08/enfntsterribles-nothing-but-thieves-01.jpg", title: "나씽 벗 띠브스 내한공연 (Nothing But Thieves Live in Seoul)", time: Date(timeIntervalSinceNow: 7000), location: "KBS 아레나홀"))
-        
-        artistList.onNext([
-            .init(id: "1", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(id: "2", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(id: "3", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(id: "4", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(id: "5", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird"),
-            .init(id: "6", state: .none, artistImageURL: URL(string: "https://storage3.ilyo.co.kr/contents/article/images/2022/1013/1665663228269667.jpg"), artistName: "High Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying BirdHigh Flying Bird")
-        ])
-        
-        let mockGenreList = ["rock", "band", "edm", "classic", "hiphop", "house", "opera", "pop", "rnb", "musical", "metal", "jpop", "jazz"]
-        genreList.accept(mockGenreList.compactMap { GenreType(rawValue: $0) })
-        
-        seatList.accept([
-            .init(seatCategoryTitle: "스탠딩 P", seatPrice: "154,000원"),
-            .init(seatCategoryTitle: "스탠딩 R", seatPrice: "143,000원"),
-            .init(seatCategoryTitle: "지정석 P", seatPrice: "176,000원"),
-            .init(seatCategoryTitle: "지정석 R", seatPrice: "165,000원"),
-            .init(seatCategoryTitle: "지정석 S", seatPrice: "143,000원"),
-            .init(seatCategoryTitle: "지정석 A", seatPrice: "132,000원")
-        ])
-        
-        buttonState.accept(.init(isLiked: [true, false].shuffled()[0], isAlarmSet: [true, false].shuffled()[0]))
+        apiService.showDetail(showId: showID)
+            .subscribe(with: self) { owner, response in
+                owner.showOverview.onNext(.init(
+                    posterImageURLString: response.posterImageURL,
+                    title: response.name,
+                    time: DateFormatterFactory.dateWithHypen.date(from: response.startDate),
+                    location: response.location
+                ))
+                
+                let normalOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.normal.rawValue })
+                let preOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.pre.rawValue })
+                
+                owner.ticketList.onNext(
+                    ShowDetailTicketInfo(
+                        ticketCategory: response.ticketingSites.map { TicketInfo(categoryName: $0.name, link: $0.link) },
+                        prereserveOpenTime: DateFormatterFactory.dateTime.date(from: preOpenTime?.ticketingAt ?? ""),
+                        normalreserveOpenTime: DateFormatterFactory.dateTime.date(from: normalOpenTime?.ticketingAt ?? "")
+                    )
+                )
+                
+                owner.artistList.onNext(response.artists.map {
+                    FeaturedSubscribeArtistCellModel(
+                        id: $0.id,
+                        state: .none,
+                        artistImageURL: URL(string: $0.imageURL),
+                        artistName: $0.englishName
+                    )
+                })
+                
+                owner.genreList.accept(response.genres.compactMap {
+                    GenreType(rawValue: $0.name)
+                })
+                
+                owner.seatList.accept(response.seats.map {
+                    SeatDetailInfo(
+                        seatCategoryTitle: $0.seatType,
+                        seatPrice: NumberformatterFactory.decimal.number(from: "\($0.price)")
+                    )
+                })
+                
+                owner.buttonState.accept(.init(
+                    isLiked: response.isInterested,
+                    isAlarmSet: false,
+                    isAlreadyOpen: false
+                ))
+            }
+            .disposed(by: disposeBag)
     }
     
-    func updateShowInterest() {
-        LogHelper.debug("공연 관심 등록/취소 요청")
-        updateInterestResult.onNext([true, false].shuffled()[0])
+    func updateShowInterest(showID: String) {
+        apiService.updateInterest(showId: showID)
+            .subscribe { response in
+                self.updateInterestResult.onNext(response.hasInterest)
+            } 
+            .disposed(by: disposeBag)
     }
+}
+
+enum TicketingType: String {
+    case pre = "PRE"
+    case normal = "NORMAL"
 }
