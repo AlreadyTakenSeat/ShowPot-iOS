@@ -47,11 +47,11 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
     }
     
     func requestMenuData() {
-        // TODO: - #6 badgeCount 적용 필요
+        // TODO: #192 MVP 이후 badeCount 구현 / 종료된 공연 표출
         menuList.accept([
             .init(type: .alarmPerformance, badgeCount: nil),
-            .init(type: .interestShow, badgeCount: nil),
-            .init(type: .closedShow, badgeCount: nil)
+            .init(type: .interestShow, badgeCount: nil)
+            /* .init(type: .closedShow, badgeCount: nil) */
         ])
     }
 }
