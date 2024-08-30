@@ -37,6 +37,8 @@ public enum Strings {
   public static let closedShowEmptyTitle = Strings.tr("Localizable", "closed_show_empty_title", fallback: "티켓팅이 종료된\n공연이 없어요")
   /// 티켓팅 종료 공연
   public static let closedShowNavigationTitle = Strings.tr("Localizable", "closed_show_navigation_title", fallback: "티켓팅 종료 공연")
+  /// 이달의 추천공연
+  public static let homeNonLoginRecommendedTitle = Strings.tr("Localizable", "home_non_login_recommended_title", fallback: "이달의 추천공연")
   /// 관심 있는 공연과 가수를 검색해보세요
   public static let homeSearchbarPlaceholder = Strings.tr("Localizable", "home_searchbar_placeholder", fallback: "관심 있는 공연과 가수를 검색해보세요")
   /// 아티스트 구독하기

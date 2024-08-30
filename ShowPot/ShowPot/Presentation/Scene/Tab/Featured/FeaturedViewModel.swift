@@ -23,6 +23,15 @@ final class FeaturedViewModel: ViewModelType {
     private let featuredSectionModelRelay = BehaviorRelay<[FeaturedSectionType]>(value: [])
     private let updateFeaturedLayoutSubject = BehaviorSubject<Void>(value: ())
     
+    private var isLoggedIn: Bool {
+        LoginState.current == .loggedIn
+    }
+    
+    var userProfileInfo: UserProfileInfo? {
+        guard isLoggedIn else { return nil }
+        return UserDefaultsManager.shared.get(objectForkey: .userProfileInfo, type: UserProfileInfo.self)
+    }
+    
     var featuredSectionModel: [FeaturedSectionType] {
         featuredSectionModelRelay.value
     }

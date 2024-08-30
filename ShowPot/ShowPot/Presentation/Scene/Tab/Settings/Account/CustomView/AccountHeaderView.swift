@@ -53,7 +53,7 @@ extension AccountHeaderView {
         nickname: String,
         socialType: String
     ) {
-        accountInfoView.nicknameLabel.setText(nickname)
+        accountInfoView.nicknameLabel.setText("\(nickname)님")
         accountInfoView.socialTypeLabel.setText(socialType)
     }
 }
