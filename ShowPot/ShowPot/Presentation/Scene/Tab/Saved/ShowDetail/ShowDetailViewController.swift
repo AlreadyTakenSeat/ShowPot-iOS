@@ -24,6 +24,11 @@ final class ShowDetailViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.requestShowDetailData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -54,7 +59,6 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         let input = ShowDetailViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 
             didTappedTicketingCell: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.itemSelected.asObservable()

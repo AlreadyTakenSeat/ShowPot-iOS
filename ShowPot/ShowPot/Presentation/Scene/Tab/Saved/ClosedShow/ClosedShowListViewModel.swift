@@ -23,7 +23,6 @@ final class ClosedShowListViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedShowCell: Observable<IndexPath>
         let didTappedEmptyButton: Observable<Void>
@@ -35,12 +34,6 @@ final class ClosedShowListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, model in
-                owner.usecase.requestClosedShowData()
-            }
-            .disposed(by: disposeBag)
         
         input.didTappedShowCell
             .subscribe(with: self) { owner, indexPath in
@@ -68,5 +61,9 @@ final class ClosedShowListViewModel: ViewModelType {
         let isEmpty = showListRelay.map { $0.isEmpty }.asDriver(onErrorDriveWith: .empty())
         
         return Output(showList: showList, isEmpty: isEmpty)
+    }
+    
+    func fetchClosedShowList() {
+        usecase.requestClosedShowData()
     }
 }

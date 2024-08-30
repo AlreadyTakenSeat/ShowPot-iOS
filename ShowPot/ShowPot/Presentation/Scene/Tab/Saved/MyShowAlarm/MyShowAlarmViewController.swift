@@ -27,6 +27,11 @@ final class MyShowAlarmViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchMyShowList()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -45,7 +50,6 @@ final class MyShowAlarmViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = MyShowAlarmViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedAlarmRemoveButton: didTappedAlarmRemoveButtonSubject.asObservable(), 
             didTappedAlarmUpdateButton: didTappedAlarmUpdateButtonSubject.asObservable(),

@@ -25,7 +25,6 @@ final class InterestShowListViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedDeleteButton: Observable<IndexPath>
         let didTappedShowCell: Observable<IndexPath>
         let didTappedBackButton: Observable<Void>
@@ -37,12 +36,6 @@ final class InterestShowListViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, model in
-                owner.usecase.requestInterestShowData()
-            }
-            .disposed(by: disposeBag)
         
         input.didTappedDeleteButton
             .subscribe(with: self) { owner, indexPath in
@@ -79,6 +72,10 @@ final class InterestShowListViewModel: ViewModelType {
         let isEmpty = showListRelay.map { $0.isEmpty }.asDriver(onErrorDriveWith: .empty())
         
         return Output(isEmpty: isEmpty)
+    }
+    
+    func fetchInterestShowList() {
+        usecase.requestInterestShowData()
     }
 }
 

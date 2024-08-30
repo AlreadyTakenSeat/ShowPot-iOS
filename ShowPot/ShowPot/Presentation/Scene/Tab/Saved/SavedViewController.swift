@@ -29,6 +29,7 @@ final class SavedViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchMyUpcomingShow()
+        viewHolder.emptyView.configureUI(isLoggedIn: LoginState.current == .loggedIn)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -50,7 +51,6 @@ final class SavedViewController: ViewController {
     override func bind() {
         
         let input = SavedViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedMenu: viewHolder.menuCollectionView.rx.itemSelected.asObservable(), 
             didEndScrolling: visiblePerformanceSubject.asObservable(),
             didTappedLoginButton: viewHolder.emptyView.footerButton.rx.tap.asObservable(),
@@ -97,6 +97,12 @@ final class SavedViewController: ViewController {
                 let (isEmpty, isLoggedIn) = result
                 owner.viewHolder.emptyView.isHidden = !isEmpty
                 owner.viewHolder.emptyView.configureUI(isLoggedIn: isLoggedIn)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showLoginBottomSheet
+            .emit(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
             }
             .disposed(by: disposeBag)
     }

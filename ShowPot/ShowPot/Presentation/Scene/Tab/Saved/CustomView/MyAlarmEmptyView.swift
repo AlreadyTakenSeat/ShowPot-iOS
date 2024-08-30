@@ -61,19 +61,28 @@ final class MyAlarmEmptyView: UIView {
     }
     
     func configureUI(isLoggedIn: Bool) {
-        guard !isLoggedIn else { return }
-        addSubview(footerButton)
         
-        emptyLabel.snp.remakeConstraints {
-            $0.top.equalTo(emptyImageView.snp.bottom).offset(16)
-            $0.directionalHorizontalEdges.equalToSuperview()
+        if !isLoggedIn {
+            
+            guard !subviews.contains(footerButton) else { return }
+            
+            addSubview(footerButton)
+            
+            emptyLabel.snp.remakeConstraints {
+                $0.top.equalTo(emptyImageView.snp.bottom).offset(16)
+                $0.directionalHorizontalEdges.equalToSuperview()
+            }
+            
+            footerButton.snp.makeConstraints {
+                $0.top.equalTo(emptyLabel.snp.bottom).offset(96)
+                $0.directionalHorizontalEdges.equalToSuperview().inset(16)
+                $0.height.equalTo(55)
+                $0.bottom.lessThanOrEqualToSuperview()
+            }
+        } else {
+            guard subviews.contains(footerButton) else { return }
+            footerButton.removeFromSuperview()
         }
         
-        footerButton.snp.makeConstraints {
-            $0.top.equalTo(emptyLabel.snp.bottom).offset(96)
-            $0.directionalHorizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(55)
-            $0.bottom.lessThanOrEqualToSuperview()
-        }
     }
 }
