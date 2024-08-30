@@ -178,7 +178,8 @@ class SPShowAPI {
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: ["ticketingApiType": ticketingType]
+                parameters: ["ticketingApiType": ticketingType],
+                headers: target.header
             ).responseDecodable(of: ShowReservationInfoResponse.self) { response in
                 switch response.result {
                 case .success(let data):
