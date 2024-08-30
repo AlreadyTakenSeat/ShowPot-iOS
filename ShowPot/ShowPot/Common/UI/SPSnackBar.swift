@@ -15,6 +15,8 @@ enum SPSnackBarType {
     case alarm
     /// 로그인 완료
     case signIn
+    /// 로그인 실패
+    case signInFailed
     /// 로그아웃 완료
     case signOut
     /// 회월탈퇴 완료
@@ -36,6 +38,8 @@ enum SPSnackBarType {
             return Strings.snackbarDescriptionLogout
         case .deleteAccount:
             return Strings.snackbarDescriptionWithdraw
+        case .signInFailed:
+            return Strings.snackbarDescriptionLoginFailed
         }
     }
     

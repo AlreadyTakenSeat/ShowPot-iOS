@@ -53,9 +53,9 @@ final class LoginViewController: ViewController {
         
         let output = viewModel.transform(input: input)
         output.trySignInResult
-            .subscribe(with: self) { owner, success in
-                if success {
-                    SPSnackBar(contextView: owner.view, type: .signIn)
+            .drive(with: self) { owner, success in
+                if !success {
+                    SPSnackBar(contextView: owner.view, type: .signInFailed)
                         .show()
                 }
             }

@@ -169,6 +169,8 @@ public enum Strings {
   public static let snackbarDescriptionAlarm = Strings.tr("Localizable", "snackbar_description_alarm", fallback: "알림 설정이 완료되었습니다")
   /// 로그인 되었습니다.
   public static let snackbarDescriptionLogin = Strings.tr("Localizable", "snackbar_description_login", fallback: "로그인 되었습니다.")
+  /// 로그인 실패했습니다, 다시 시도해주세요.
+  public static let snackbarDescriptionLoginFailed = Strings.tr("Localizable", "snackbar_description_login_failed", fallback: "로그인 실패했습니다, 다시 시도해주세요.")
   /// 로그아웃 되었습니다.
   public static let snackbarDescriptionLogout = Strings.tr("Localizable", "snackbar_description_logout", fallback: "로그아웃 되었습니다.")
   /// 구독 설정이 완료되었습니다

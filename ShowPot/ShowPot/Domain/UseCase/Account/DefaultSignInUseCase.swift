@@ -24,14 +24,16 @@ final class DefaultSignInUseCase: SignInUseCase {
             socialType: request.socialType,
             identifier: request.identifier
         )
-        .subscribe(with: self) { owner, response in
+        .subscribe(with: self, onNext: { owner, response in
             TokenManager.shared.createTokens(
                 accessToken: response.accessToken,
                 refreshToken: response.refreshToken
             )
             owner.signInResult.accept(true)
             owner.getProfileInfo()
-        }
+        }, onError: { owner, _ in
+            owner.signInResult.accept(false)
+        })
         .disposed(by: disposeBag)
     }
     
