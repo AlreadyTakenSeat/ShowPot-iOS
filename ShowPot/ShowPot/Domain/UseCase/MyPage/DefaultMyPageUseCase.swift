@@ -15,8 +15,8 @@ final class DefaultMyPageUseCase: MyPageUseCase {
     
     func requestMenuData() {
         menuData.accept([
-            .init(type: .artist, badgeCount: 10),
-            .init(type: .genre, badgeCount: 15)
+            .init(type: .artist, badgeCount: nil),
+            .init(type: .genre, badgeCount: nil)
         ])
     }
 }
