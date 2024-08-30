@@ -11,7 +11,8 @@ import RxRelay
 protocol SubscribeArtistUseCase {
     
     var artistList: BehaviorRelay<[FeaturedSubscribeArtistCellModel]> { get }
+    var subscribeArtistResult: PublishSubject<Bool> { get set }
     
     func fetchArtistList()
-    func subscribeArtists(artistID: [String]) async throws -> [String]
+    func subscribeArtists(artistID: [String])
 }

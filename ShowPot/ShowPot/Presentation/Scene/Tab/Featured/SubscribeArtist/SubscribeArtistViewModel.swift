@@ -12,10 +12,9 @@ import RxCocoa
 final class SubscribeArtistViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
-    private let artistListRelay = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
+    
     private let subscribeArtistIDList = BehaviorRelay<[String]>(value: [])
     private let showLoginAlertSubject = PublishSubject<Void>()
-    private let showCompleteAlertSubject = PublishSubject<Void>()
     
     private let usecase: SubscribeArtistUseCase
     var coordinator: SubscribeArtistCoordinator
@@ -39,7 +38,7 @@ final class SubscribeArtistViewModel: ViewModelType {
     struct Output {
         let isShowSubscribeButton: Driver<Bool>
         let showLoginAlert: Driver<Void>
-        let showCompleteAlert: Driver<Void>
+        var subscribeArtistResult = PublishSubject<Bool>()
     }
     
     func transform(input: Input) -> Output {
@@ -52,48 +51,37 @@ final class SubscribeArtistViewModel: ViewModelType {
         
         usecase.artistList
             .subscribe(with: self) { owner, artistList in
-                owner.artistListRelay.accept(artistList)
                 owner.updateDataSource()
             }
             .disposed(by: disposeBag)
         
         input.didTappedArtistCell
             .subscribe(with: self) { owner, indexPath in
-                var idList = owner.subscribeArtistIDList.value
-                var artistList = owner.artistListRelay.value
+                let idList = owner.subscribeArtistIDList.value
+                var artistList = owner.usecase.artistList.value
                 LogHelper.debug("선택한 셀 모델: \(artistList[indexPath.row])")
                 switch artistList[indexPath.row].state {
                 case .none:
                     artistList[indexPath.row].state = .selected
-                    owner.add(artistID: artistList[indexPath.row].artistName) // FIXME: - 추후 아티스트 ID로 수정 필수
+                    owner.add(artistID: artistList[indexPath.row].id)
                 case .selected:
                     artistList[indexPath.row].state = .none
-                    owner.remove(artistID: artistList[indexPath.row].artistName) // FIXME: - 추후 아티스트 ID로 수정 필수
+                    owner.remove(artistID: artistList[indexPath.row].id)
                 default:
                     return
                 }
-                owner.artistListRelay.accept(artistList)
-                owner.updateDataSource()
+                owner.usecase.artistList.accept(artistList)
             }
             .disposed(by: disposeBag)
         
         input.didTappedSubscribeButton
             .subscribe(with: self) { owner, _ in
                 if owner.isLoggedIn {
-                    Task {
-                        do {
-                            let artistID = owner.subscribeArtistIDList.value
-                            LogHelper.debug("구독한 아티스트 아이디: \(artistID)")
-                            let subscribedArtistID = try await owner.usecase.subscribeArtists(artistID: artistID)
-                            var artistList = owner.artistListRelay.value
-                            
-                            owner.filterArtistList(artistID: subscribedArtistID)
-                            owner.showCompleteAlertSubject.onNext(())
-                        } catch {
-                            // TODO: - 구독시도 이후 에러처리 필수
-                        }
-                    }
-                } else {
+                    let artistID = owner.subscribeArtistIDList.value
+                    LogHelper.debug("구독한 아티스트 아이디: \(artistID)")
+                    owner.usecase.subscribeArtists(artistID: artistID)
+                }
+                else {
                     owner.showLoginAlertSubject.onNext(())
                 }
             }
@@ -111,13 +99,23 @@ final class SubscribeArtistViewModel: ViewModelType {
             .asDriver(onErrorDriveWith: .empty())
         
         let showLoginAlert = showLoginAlertSubject.asDriver(onErrorDriveWith: .empty())
-        let showCompleteAlert = showCompleteAlertSubject.asDriver(onErrorDriveWith: .empty())
         
-        return Output(
+        let output = Output(
             isShowSubscribeButton: isShowSubscribeButton,
-            showLoginAlert: showLoginAlert,
-            showCompleteAlert: showCompleteAlert
+            showLoginAlert: showLoginAlert
         )
+        
+        usecase.subscribeArtistResult
+            .subscribe(with: self) { owner, isSuccess in
+                if isSuccess {
+                    owner.filterArtistList(artistID: owner.subscribeArtistIDList.value)
+                    owner.subscribeArtistIDList.accept([])
+                }
+                output.subscribeArtistResult.onNext(isSuccess)
+            }
+            .disposed(by: disposeBag)
+        
+        return output
     }
 }
 
@@ -125,11 +123,10 @@ extension SubscribeArtistViewModel {
     
     /// 구독된 아티스트정보를 가지고 필터하는 함수
     private func filterArtistList(artistID: [String]) {
-        var artistList = artistListRelay.value // TODO: - 추후 구독할 아티스트 ID를 API에 넘겨줄 예정
-        let filteredArtistList = artistList.filter { artist in
-            !artistID.contains(artist.artistName) // FIXME: - 현재 데이터를 구분하는 값 artistName -> artistID로 변경해야함
-        }
-        artistListRelay.accept(filteredArtistList)
+        let artistList = usecase.artistList.value
+        let filteredArtistList = artistList.filter { !artistID.contains($0.id) }
+        
+        usecase.artistList.accept(filteredArtistList)
         subscribeArtistIDList.accept([])
         updateDataSource()
     }
@@ -162,7 +159,7 @@ extension SubscribeArtistViewModel {
     }
     
     private func updateDataSource() {
-        let artistList = artistListRelay.value
+        let artistList = usecase.artistList.value
         var snapshot = NSDiffableDataSourceSnapshot<ArtistSection, Item>()
         snapshot.appendSections([.main])
         snapshot.appendItems(artistList)

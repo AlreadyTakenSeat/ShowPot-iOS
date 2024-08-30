@@ -60,13 +60,23 @@ final class SubscribeArtistViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.showCompleteAlert
-            .drive(with: self) { owner, _ in
-                SPSnackBar(contextView: owner.view, type: .subscribe)
-                    .setAction(action: { LogHelper.debug("설정하기 버튼 클릭") })
-                    .show()
+        output.subscribeArtistResult
+            .subscribe(with: self) { owner, isSuccess in
+                owner.showAddSubscribtionSnackbar(isSuccess: isSuccess)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension SubscribeArtistViewController {
+    private func showAddSubscribtionSnackbar(isSuccess: Bool) {
+        guard isSuccess else { return }
+        
+        SPSnackBar(contextView: self.view, type: .subscribe)
+            .setAction(with: "보러가기") {
+                
+            }
+            .show()
     }
 }
 
