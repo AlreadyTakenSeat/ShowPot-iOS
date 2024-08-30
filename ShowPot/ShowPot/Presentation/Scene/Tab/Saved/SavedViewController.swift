@@ -98,6 +98,12 @@ final class SavedViewController: ViewController {
                 owner.viewHolder.emptyView.configureUI(isLoggedIn: isLoggedIn)
             }
             .disposed(by: disposeBag)
+        
+        output.showLoginBottomSheet
+            .emit(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
+            }
+            .disposed(by: disposeBag)
     }
 }
 

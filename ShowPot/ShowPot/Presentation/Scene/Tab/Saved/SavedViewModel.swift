@@ -40,6 +40,7 @@ final class SavedViewModel: ViewModelType {
     private let alarmMenuModelRelay = BehaviorRelay<[MyShowMenuData]>(value: [])
     private let upcomingTicketingModelRelay = BehaviorRelay<[ShowData]>(value: [])
     private let currentHeaderModelRelay = BehaviorRelay<ShowData?>(value: nil)
+    private let showLoginBottomSheetRelay = PublishRelay<Void>()
     
     init(coordinator: SavedCoordinator, usecase: MyAlarmUseCase) {
         self.coordinator = coordinator
@@ -58,6 +59,7 @@ final class SavedViewModel: ViewModelType {
         let upcomingTicketingModel: Driver<[ShowData]>
         let currentHeaderModel: Driver<ShowData>
         let upcomingIsEmpty: Driver<(Bool, Bool)>
+        let showLoginBottomSheet: Signal<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -90,6 +92,10 @@ final class SavedViewModel: ViewModelType {
         input.didTappedMenu
             .subscribe(with: self) { owner, indexPath in
                 let menuModel = MyAlarmMenuType.allCases[indexPath.row]
+                guard owner.isLoggedIn else {
+                    owner.showLoginBottomSheetRelay.accept(())
+                    return
+                }
                 switch menuModel {
                 case .alarmPerformance:
                     owner.coordinator.goToMyPerformanceAlarmScreen()
@@ -126,7 +132,8 @@ final class SavedViewModel: ViewModelType {
             alarmMenuModel: alarmMenuModelRelay.asDriver(),
             upcomingTicketingModel: upcomingTicketingModelRelay.asDriver(),
             currentHeaderModel: currentHeaderModelRelay.compactMap { $0 }.asDriver(onErrorDriveWith: .empty()), 
-            upcomingIsEmpty: upcomingTicketingModelRelay.map { ($0.isEmpty, self.isLoggedIn) }.asDriver(onErrorDriveWith: .empty())
+            upcomingIsEmpty: upcomingTicketingModelRelay.map { ($0.isEmpty, self.isLoggedIn) }.asDriver(onErrorDriveWith: .empty()), 
+            showLoginBottomSheet: showLoginBottomSheetRelay.asSignal()
         )
     }
 }
