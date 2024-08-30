@@ -18,8 +18,18 @@ final class MyArtistCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: MyArtistViewController = MyArtistViewController(viewModel: MyArtistViewModel(coordinator: self))
-        viewController.showTabBar = true
+        let viewController: MyArtistViewController = MyArtistViewController(viewModel: MyArtistViewModel(coordinator: self, usecase: DefaultMyArtistUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
+    }
+    
+    func goToSubscribeArtistScreen() {
+        let coordinator = SubscribeArtistCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
     }
 }

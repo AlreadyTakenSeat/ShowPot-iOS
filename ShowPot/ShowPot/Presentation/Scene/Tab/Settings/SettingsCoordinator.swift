@@ -24,7 +24,7 @@ final class SettingsCoordinator: NavigationCoordinator {
     }
     
     func goToSubscribeArtistScreen() {
-        let coordinator = SubscribeArtistCoordinator(navigationController: self.navigationController)
+        let coordinator = MyArtistCoordinator(navigationController: self.navigationController)
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }
