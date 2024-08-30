@@ -59,29 +59,28 @@ final class MyShowAlarmUseCase: MyShowUseCase {
             .disposed(by: disposeBag)
     }
     
-    // TODO: #178 show id 인자로 받도록 수정
     func requestTicketingAlarm(showId: String) {
-        let showId = ""
         showAPI.reservationInfo(showId: showId)
             .map { response in
                 let availability = response.alertReservationAvailability
                 let status = response.alertReservationStatus
+                
                 return [
                     TicketingAlarmCellModel(
-                        isChecked: availability.canReserve24,
-                        isEnabled: status.before24,
+                        isChecked: status.before24,
+                        isEnabled: false, // FIXME: - 데모데이이후 false -> availability.canReserve24로 수정
                         ticketingAlertText: "티켓팅 24시간 전"
                     ),
                     TicketingAlarmCellModel(
-                        isChecked: availability.canReserve24,
-                        isEnabled: status.before24,
-                        ticketingAlertText: "티켓팅 24시간 전"
+                        isChecked: status.before6,
+                        isEnabled: false, // FIXME: - 데모데이이후 false -> availability.canReserve6로 수정
+                        ticketingAlertText: "티켓팅 6시간 전"
                     ),
                     TicketingAlarmCellModel(
-                        isChecked: availability.canReserve24,
-                        isEnabled: status.before24,
-                        ticketingAlertText: "티켓팅 24시간 전"
-                    ),
+                        isChecked: status.before1,
+                        isEnabled: availability.canReserve1,
+                        ticketingAlertText: "티켓팅 1시간 전"
+                    )
                 ]
             }
             .bind(to: ticketingAlarm)
