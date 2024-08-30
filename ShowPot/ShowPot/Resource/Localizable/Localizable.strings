@@ -20,6 +20,7 @@
 "snackbar_description_subscribe_delete" = "구독이 취소되었습니다";
 "snackbar_description_alarm" = "알림 설정이 완료되었습니다";
 "snackbar_description_login" = "로그인 되었습니다.";
+"snackbar_description_login_failed" = "로그인 실패했습니다, 다시 시도해주세요.";
 "snackbar_description_logout" = "로그아웃 되었습니다.";
 "snackbar_description_withdraw" = "회원 탈퇴 되었습니다.";
 "snackbar_action_title" = "보러가기";
