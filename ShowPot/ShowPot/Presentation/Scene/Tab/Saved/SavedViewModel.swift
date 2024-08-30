@@ -91,7 +91,7 @@ final class SavedViewModel: ViewModelType {
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
                 owner.usecase.requestMenuData()
-                owner.usecase.requestUpcomingShow()
+//                owner.usecase.requestUpcomingShow()
             }
             .disposed(by: disposeBag)
         
@@ -136,5 +136,11 @@ final class SavedViewModel: ViewModelType {
             currentHeaderModel: currentHeaderModelRelay.compactMap { $0 }.asDriver(onErrorDriveWith: .empty()), 
             upcomingIsEmpty: upcomingTicketingModelRelay.map { ($0.isEmpty, self.isLoggedIn) }.asDriver(onErrorDriveWith: .empty())
         )
+    }
+}
+
+extension SavedViewModel {
+    func fetchMyUpcomingShow() {
+        usecase.requestUpcomingShow()
     }
 }
