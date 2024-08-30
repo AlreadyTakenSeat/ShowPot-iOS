@@ -60,7 +60,7 @@ final class TicketingAlarmUpdateViewModel: ViewModelType {
         
         input.viewDidLoad
             .subscribe(with: self) { owner, _ in
-                owner.usecase.requestTicketingAlarm()
+                owner.usecase.requestTicketingAlarm(showId: owner.showID)
             }
             .disposed(by: disposeBag)
         

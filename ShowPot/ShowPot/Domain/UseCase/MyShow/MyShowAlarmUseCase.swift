@@ -60,7 +60,7 @@ final class MyShowAlarmUseCase: MyShowUseCase {
     }
     
     // TODO: #178 show id 인자로 받도록 수정
-    func requestTicketingAlarm(/*showId: String*/) {
+    func requestTicketingAlarm(showId: String) {
         let showId = ""
         showAPI.reservationInfo(showId: showId)
             .map { response in
