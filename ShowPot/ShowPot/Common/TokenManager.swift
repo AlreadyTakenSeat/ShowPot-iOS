@@ -71,6 +71,7 @@ class TokenManager {
         do {
             try KeyChainManager.shared.delete(account: .accessToken)
             try KeyChainManager.shared.delete(account: .refreshToken)
+            LogHelper.info("[Token Deleted]")
         } catch {
             LogHelper.error("\(error.localizedDescription): \(error)")
         }

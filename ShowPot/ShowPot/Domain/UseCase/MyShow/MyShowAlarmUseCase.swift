@@ -36,7 +36,7 @@ final class MyShowAlarmUseCase: MyShowUseCase {
     
     func updateTicketingAlarm(model: [TicketingAlarmCellModel], showID: String) {
         LogHelper.debug("티켓팅 알림 업데이트 정보: \(model.filter { $0.isEnabled && $0.isChecked })\n업데이트할 공연아이디: \(showID)")
-        showAPI.updateAlert(showId: showID)
+        showAPI.updateAlert(showId: showID, list: enabledAlertTimeList(model))
             .subscribe {
                 self.updateTicketingAlarmResult.accept(true)
             } onError: { error in
@@ -48,7 +48,7 @@ final class MyShowAlarmUseCase: MyShowUseCase {
     func deleteShowAlarm(indexPath: IndexPath) {
         LogHelper.debug("알림 해제한 공연정보: \(showList.value[indexPath.row])")
         let deleteShowID = showList.value[indexPath.row].showID
-        showAPI.updateAlert(showId: deleteShowID)
+        showAPI.updateAlert(showId: deleteShowID, list: [])
             .subscribe {
                 self.updateTicketingAlarmResult.accept(true)
             } onError: { error in
@@ -85,5 +85,19 @@ final class MyShowAlarmUseCase: MyShowUseCase {
             }
             .bind(to: ticketingAlarm)
             .disposed(by: disposeBag)
+    }
+}
+
+extension MyShowAlarmUseCase {
+    private func enabledAlertTimeList(_ models: [TicketingAlarmCellModel]) -> [AlertTime] {
+        let timeList: [AlertTime] = [.before24, .before6, .before1]
+        var enabledTimeList: [AlertTime] = []
+        
+        for (index, model) in models.enumerated() {
+            if model.isChecked {
+                enabledTimeList.append(timeList[index])
+            }
+        }
+        return enabledTimeList
     }
 }
