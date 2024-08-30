@@ -129,6 +129,12 @@
 
 // 계정 화면
 "account_navigation_title" = "계정";
+
+// 구독한 아티스트 화면
+"my_artist_navigation_title" = "구독한 아티스트";
+"my_artist_empty_title" = "구독한\n아티스트가 없어요";
+"my_artist_empty_button" = "아티스트 구독 하러가기";
+
 // ------------------------------------------------------------------------------------
 
 /* Model */
