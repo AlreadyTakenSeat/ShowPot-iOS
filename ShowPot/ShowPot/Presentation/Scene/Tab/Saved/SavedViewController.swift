@@ -29,6 +29,7 @@ final class SavedViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchMyUpcomingShow()
+        viewHolder.emptyView.configureUI(isLoggedIn: LoginState.current == .loggedIn)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
