@@ -146,12 +146,7 @@ class SPShowAPI {
         
         let accessToken = try? KeyChainManager.shared.read(account: .accessToken) 
         let id = UIDevice.current.identifierForVendor?.uuidString
-        let header: HTTPHeaders = [
-            "Authorization": "Bearer \(accessToken ?? "")",
-            "viewIdentifier": id ?? ""
-        ]
-        
-        LogHelper.info("[\(target.method)] \(target.url)")
+        let header: HTTPHeaders = ["viewIdentifier": id ?? ""]
         
         return Observable.create { emitter in
             
