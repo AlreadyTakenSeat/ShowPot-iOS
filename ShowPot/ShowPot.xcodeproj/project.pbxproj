@@ -453,6 +453,7 @@
 		7D0ED9DE2C80C94A00145D86 /* ShowSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchResponse.swift; sourceTree = "<group>"; };
 		7D0ED9E02C80CA4500145D86 /* ShowInterestListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInterestListResponse.swift; sourceTree = "<group>"; };
 		7D0ED9E22C80CB2200145D86 /* ShowAlertListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertListResponse.swift; sourceTree = "<group>"; };
+		7D11A6302C81C76A00EB1D2D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -1108,6 +1109,7 @@
 		7D2980F32C01E1D000A619FB = {
 			isa = PBXGroup;
 			children = (
+				7D11A6302C81C76A00EB1D2D /* PrivacyInfo.xcprivacy */,
 				7DE569ED2C552D8F006724EF /* .swiftlint.yml */,
 				7D8255A42C295DF100D104BE /* swiftgen.yml */,
 				7D2980FE2C01E1D000A619FB /* ShowPot */,
