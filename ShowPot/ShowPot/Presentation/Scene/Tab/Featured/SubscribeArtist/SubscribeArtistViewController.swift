@@ -73,7 +73,7 @@ extension SubscribeArtistViewController {
         guard isSuccess else { return }
         
         SPSnackBar(contextView: self.view, type: .subscribe)
-            .setAction(with: "보러가기") {
+            .setAction(with: Strings.snackbarActionTitle) {
                 
             }
             .show()
