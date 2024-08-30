@@ -34,6 +34,19 @@ final class FeaturedViewController: ViewController {
         viewHolderConfigure()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let headerView = viewHolder.featuredCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(row: 0, section: viewModel.featuredSectionModel.endIndex - 1)) as? FeaturedOnlyTitleHeaderView else { return }
+        
+        let headerTitle: String
+        if let nickName = viewModel.userProfileInfo?.nickName {
+            headerTitle = "\(nickName)님을 위한 추천 공연"
+        } else {
+            headerTitle = Strings.homeNonLoginRecommendedTitle
+        }
+        headerView.configureUI(with: headerTitle)
+    }
+    
     override func setupStyles() {
         super.setupStyles()
         viewHolder.featuredCollectionView.delegate = self
@@ -180,7 +193,8 @@ enum FeaturedSectionType { // TODO: 추후 Usecase로 코드 전환 예정
         case .ticketingPerformance:
             return Strings.homeTicketingPerformanceTitle
         case .recommendedPerformance:
-            return "춤추는 고래님을 위한 추천 공연" // TODO: - 추후 헤더타이틀 확정되면 수정 필요
+            guard let userprofile = UserDefaultsManager.shared.get(objectForkey: .userProfileInfo, type: UserProfileInfo.self) else { return Strings.homeNonLoginRecommendedTitle }
+            return "\(userprofile.nickName)님을 위한 추천 공연"
         }
     }
 }

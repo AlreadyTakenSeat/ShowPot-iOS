@@ -121,6 +121,14 @@
 		70A95BB92C80A2AC0007836E /* AccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB82C80A2AC0007836E /* AccountUseCase.swift */; };
 		70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BBE2C80A49F0007836E /* EmptyModel.swift */; };
 		70A95BCB2C80E5F50007836E /* NumberFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCA2C80E5F50007836E /* NumberFormatterFactory.swift */; };
+		70A95BCE2C8185720007836E /* MyArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCD2C8185720007836E /* MyArtistViewController.swift */; };
+		70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */; };
+		70A95BD22C8185870007836E /* MyArtistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD12C8185870007836E /* MyArtistCoordinator.swift */; };
+		70A95BD42C8185900007836E /* MyArtistViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD32C8185900007836E /* MyArtistViewHolder.swift */; };
+		70A95BD72C818AEE0007836E /* MyArtistUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD62C818AEE0007836E /* MyArtistUseCase.swift */; };
+		70A95BD92C818B000007836E /* DefaultMyArtistUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BD82C818B000007836E /* DefaultMyArtistUseCase.swift */; };
+		70A95BDC2C818E980007836E /* DeleteArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BDB2C818E980007836E /* DeleteArtistCell.swift */; };
+		70A95BDE2C81936C0007836E /* MyArtistEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */; };
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
@@ -403,6 +411,14 @@
 		70A95BC22C80CD930007836E /* ShowAlarmListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmListRequest.swift; sourceTree = "<group>"; };
 		70A95BC42C80D1020007836E /* ShowAlarmListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmListResponse.swift; sourceTree = "<group>"; };
 		70A95BCA2C80E5F50007836E /* NumberFormatterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterFactory.swift; sourceTree = "<group>"; };
+		70A95BCD2C8185720007836E /* MyArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistViewController.swift; sourceTree = "<group>"; };
+		70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistViewModel.swift; sourceTree = "<group>"; };
+		70A95BD12C8185870007836E /* MyArtistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistCoordinator.swift; sourceTree = "<group>"; };
+		70A95BD32C8185900007836E /* MyArtistViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistViewHolder.swift; sourceTree = "<group>"; };
+		70A95BD62C818AEE0007836E /* MyArtistUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistUseCase.swift; sourceTree = "<group>"; };
+		70A95BD82C818B000007836E /* DefaultMyArtistUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyArtistUseCase.swift; sourceTree = "<group>"; };
+		70A95BDB2C818E980007836E /* DeleteArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteArtistCell.swift; sourceTree = "<group>"; };
+		70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyArtistEmptyView.swift; sourceTree = "<group>"; };
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
@@ -925,6 +941,36 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		70A95BCC2C8185650007836E /* MyArtist */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BDA2C818E8E0007836E /* CustomView */,
+				70A95BCD2C8185720007836E /* MyArtistViewController.swift */,
+				70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */,
+				70A95BD12C8185870007836E /* MyArtistCoordinator.swift */,
+				70A95BD32C8185900007836E /* MyArtistViewHolder.swift */,
+			);
+			path = MyArtist;
+			sourceTree = "<group>";
+		};
+		70A95BD52C818AD00007836E /* MyArtist */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BD62C818AEE0007836E /* MyArtistUseCase.swift */,
+				70A95BD82C818B000007836E /* DefaultMyArtistUseCase.swift */,
+			);
+			path = MyArtist;
+			sourceTree = "<group>";
+		};
+		70A95BDA2C818E8E0007836E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70A95BDB2C818E980007836E /* DeleteArtistCell.swift */,
+				70A95BDD2C81936C0007836E /* MyArtistEmptyView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		70B81D5C2C580D6100665EDD /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1299,6 +1345,7 @@
 		7D2981252C01EC5200A619FB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				70A95BCC2C8185650007836E /* MyArtist */,
 				70A95BAA2C8096CC0007836E /* Account */,
 				700485182C7A512800B9A964 /* Setting */,
 				70F3C1202C6CD48D00786738 /* CustomView */,
@@ -1393,6 +1440,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				70A95BD52C818AD00007836E /* MyArtist */,
 				70A95B972C7F27BE0007836E /* Search */,
 				70A95B812C7E29E80007836E /* Featured */,
 				70A95B7B2C7DEAA80007836E /* Account */,
@@ -1837,6 +1885,7 @@
 				7D45CB5D2C591D640018FCB8 /* SPLabel.swift in Sources */,
 				7D9545B42C7C9074005C3623 /* APIType.swift in Sources */,
 				70F3C1122C6B9FE200786738 /* MyUpcomingTicketingHeaderView.swift in Sources */,
+				70A95BDE2C81936C0007836E /* MyArtistEmptyView.swift in Sources */,
 				7D45CB612C5956C70018FCB8 /* SPButton.swift in Sources */,
 				70F3C0E12C663AB700786738 /* MyShowAlarmViewHolder.swift in Sources */,
 				707FF7612C5FF1030026C82D /* SubscribeArtistViewHolder.swift in Sources */,
@@ -1846,6 +1895,7 @@
 				7095779F2C7CD8A900176381 /* SignInResponse.swift in Sources */,
 				70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */,
 				7014678F2C53C13500750A54 /* FeaturedRecentSearchCell.swift in Sources */,
+				70A95BD72C818AEE0007836E /* MyArtistUseCase.swift in Sources */,
 				70F3C1012C68B3E600786738 /* MyShowAlarmUseCase.swift in Sources */,
 				7D6005092C7F599A00B670A3 /* UserRefreshRequest.swift in Sources */,
 				7DB9F9372C63D4A20097C4F9 /* GenreCollectionViewCell.swift in Sources */,
@@ -1953,11 +2003,14 @@
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,
 				7D0ED9D72C80C77D00145D86 /* ShowDetailResponse.swift in Sources */,
 				70F3C12C2C6E724500786738 /* DefaultInterestShowUseCase.swift in Sources */,
+				70A95BCE2C8185720007836E /* MyArtistViewController.swift in Sources */,
+				70A95BDC2C818E980007836E /* DeleteArtistCell.swift in Sources */,
 				70F3C0FF2C68B33900786738 /* MyShowUseCase.swift in Sources */,
 				7D3196422C133EC90015F88E /* Environment.swift in Sources */,
 				70A95BAE2C8096F30007836E /* AccountViewModel.swift in Sources */,
 				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				7D0ED9D92C80C82E00145D86 /* ShowReservationInfoResponse.swift in Sources */,
+				70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7D9545BA2C7CDB2F005C3623 /* KeyChainManager.swift in Sources */,
 				7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */,
@@ -1971,6 +2024,7 @@
 				70A95B962C7F26850007836E /* SearchArtistResponse.swift in Sources */,
 				700485152C7A386D00B9A964 /* ShowDetailFooterView.swift in Sources */,
 				70A95B8E2C7F23D90007836E /* SPSearchAPI.swift in Sources */,
+				70A95BD92C818B000007836E /* DefaultMyArtistUseCase.swift in Sources */,
 				70A95B922C7F25750007836E /* SearchShowResponse.swift in Sources */,
 				70F3C1352C6E72B300786738 /* InterestShowListViewHolder.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
@@ -1980,6 +2034,7 @@
 				7D43E2172C5FDCA700D94898 /* UIStackView+Extension.swift in Sources */,
 				700485232C7A528C00B9A964 /* SettingViewHolder.swift in Sources */,
 				701467392C3EFC8500750A54 /* FeaturedWithButtonHeaderView.swift in Sources */,
+				70A95BD22C8185870007836E /* MyArtistCoordinator.swift in Sources */,
 				70F3C1252C6CE4DD00786738 /* MyPageUseCase.swift in Sources */,
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */,
@@ -1996,6 +2051,7 @@
 				7D9545B62C7C95E4005C3623 /* SPTargetType.swift in Sources */,
 				7004851D2C7A523C00B9A964 /* SettingViewController.swift in Sources */,
 				7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */,
+				70A95BD42C8185900007836E /* MyArtistViewHolder.swift in Sources */,
 				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
 				707FF7542C5DFD2E0026C82D /* DefaultAllPerformanceUseCase.swift in Sources */,
 				70A95B7F2C7DEABE0007836E /* DefaultSignInUseCase.swift in Sources */,

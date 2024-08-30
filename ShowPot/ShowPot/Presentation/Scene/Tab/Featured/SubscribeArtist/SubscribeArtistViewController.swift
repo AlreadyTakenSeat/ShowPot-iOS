@@ -7,9 +7,13 @@
 
 import UIKit
 
+import RxSwift
+
 final class SubscribeArtistViewController: ViewController {
     let viewHolder: SubscribeArtistViewHolder = .init()
     let viewModel: SubscribeArtistViewModel
+    
+    private let didTappedSnackbarButtonSubject = PublishSubject<Void>()
     
     init(viewModel: SubscribeArtistViewModel) {
         self.viewModel = viewModel
@@ -43,7 +47,8 @@ final class SubscribeArtistViewController: ViewController {
             viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedArtistCell: viewHolder.artistCollectionView.rx.itemSelected.asObservable(),
-            didTappedSubscribeButton: viewHolder.subscribeFooterView.bottomButton.rx.tap.asObservable()
+            didTappedSubscribeButton: viewHolder.subscribeFooterView.bottomButton.rx.tap.asObservable(), 
+            didTappedSnackbarButton: didTappedSnackbarButtonSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -74,7 +79,7 @@ extension SubscribeArtistViewController {
         
         SPSnackBar(contextView: self.view, type: .subscribe)
             .setAction(with: Strings.snackbarActionTitle) {
-                
+                self.didTappedSnackbarButtonSubject.onNext(())
             }
             .show()
     }

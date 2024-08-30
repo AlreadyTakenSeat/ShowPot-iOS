@@ -1,13 +1,13 @@
 //
-//  SubscribeArtistCoordinator.swift
+//  MyArtistCoordinator.swift
 //  ShowPot
 //
-//  Created by 이건준 on 8/5/24.
+//  Created by 이건준 on 8/30/24.
 //
 
 import UIKit
 
-final class SubscribeArtistCoordinator: NavigationCoordinator {
+final class MyArtistCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class SubscribeArtistCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: SubscribeArtistViewController = SubscribeArtistViewController(viewModel: SubscribeArtistViewModel(coordinator: self, usecase: DefaultSubscribeArtistUseCase()))
+        let viewController: MyArtistViewController = MyArtistViewController(viewModel: MyArtistViewModel(coordinator: self, usecase: DefaultMyArtistUseCase()))
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
@@ -28,7 +28,7 @@ final class SubscribeArtistCoordinator: NavigationCoordinator {
     }
     
     func goToSubscribeArtistScreen() {
-        let coordinator = MyArtistCoordinator(navigationController: self.navigationController)
+        let coordinator = SubscribeArtistCoordinator(navigationController: self.navigationController)
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }

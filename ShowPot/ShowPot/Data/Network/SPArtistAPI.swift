@@ -51,9 +51,37 @@ enum SPArtistTargetType: APIType {
 
 final class SPArtistAPI {
     
+    func subscriptions(request: SubscribeArtistListRequest) -> Observable<ArtistListResponse> {
+        
+        let target = SPArtistTargetType.subscriptions
+        
+        LogHelper.info("[\(target.method)] \(target.url)")
+        LogHelper.info("구독안한아티스트리스트 요청정보: \(request)")
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                parameters: request,
+                headers: target.header
+            ).responseDecodable(of: ArtistListResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
     func unsubscriptions(request: UnsubscribeArtistListRequest) -> Observable<ArtistListResponse> {
         
-        let target = SPTargetType.unsubscribeArtistList
+        let target = SPArtistTargetType.unsubscriptions
         
         LogHelper.info("[\(target.method)] \(target.url)")
         LogHelper.info("구독안한아티스트리스트 요청정보: \(request)")

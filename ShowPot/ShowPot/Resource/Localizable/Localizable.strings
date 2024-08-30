@@ -51,6 +51,7 @@
 "home_searchbar_placeholder" = "관심 있는 공연과 가수를 검색해보세요";
 "home_ticketing_performance_title" = "티켓팅이 얼마 남지 않은 공연";
 "home_ticketing_performance_buttonTitle" = "전체공연 보러가기";
+"home_non_login_recommended_title" = "이달의 추천공연";
 
 // 검색 화면
 "search_artist_title" = "아티스트";
@@ -129,6 +130,12 @@
 
 // 계정 화면
 "account_navigation_title" = "계정";
+
+// 구독한 아티스트 화면
+"my_artist_navigation_title" = "구독한 아티스트";
+"my_artist_empty_title" = "구독한\n아티스트가 없어요";
+"my_artist_empty_button" = "아티스트 구독 하러가기";
+
 // ------------------------------------------------------------------------------------
 
 /* Model */

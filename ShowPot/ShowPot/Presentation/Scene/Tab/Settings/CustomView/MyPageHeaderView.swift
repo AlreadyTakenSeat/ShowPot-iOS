@@ -57,7 +57,7 @@ extension MyPageHeaderView {
     
     func configureUI(userNickname: String?) {
         if let userNickname = userNickname {
-            let attributedString = NSAttributedString("\(userNickname),\n안녕하세요!", fontType: KRFont.H0, multiline: true)
+            let attributedString = NSAttributedString("\(userNickname)님,\n안녕하세요!", fontType: KRFont.H0, multiline: true)
                 .setForegroundColor(color: .gray000)
             
             alertTextView.attributedText = attributedString

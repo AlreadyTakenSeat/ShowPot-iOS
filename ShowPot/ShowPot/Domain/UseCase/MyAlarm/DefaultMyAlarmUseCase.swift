@@ -49,9 +49,9 @@ final class DefaultMyAlarmUseCase: MyAlarmUseCase {
     func requestMenuData() {
         // TODO: - #6 badgeCount 적용 필요
         menuList.accept([
-            .init(type: .alarmPerformance, badgeCount: Array(1...10).shuffled()[0]),
-            .init(type: .interestShow, badgeCount: Array(1...10).shuffled()[0]),
-            .init(type: .closedShow, badgeCount: Array(1...10).shuffled()[0])
+            .init(type: .alarmPerformance, badgeCount: nil),
+            .init(type: .interestShow, badgeCount: nil),
+            .init(type: .closedShow, badgeCount: nil)
         ])
     }
 }
