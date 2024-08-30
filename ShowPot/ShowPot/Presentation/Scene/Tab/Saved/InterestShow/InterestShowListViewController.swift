@@ -26,6 +26,11 @@ final class InterestShowListViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchInterestShowList()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -45,7 +50,6 @@ final class InterestShowListViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = InterestShowListViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedDeleteButton: didTappedDeleteButtonSubject.asObservable(),
             didTappedShowCell: viewHolder.showListView.rx.itemSelected.asObservable(), 
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 

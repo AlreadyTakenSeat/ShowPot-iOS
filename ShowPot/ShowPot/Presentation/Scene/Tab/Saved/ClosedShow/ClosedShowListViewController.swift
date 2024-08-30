@@ -24,6 +24,11 @@ final class ClosedShowListViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchClosedShowList()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -41,7 +46,6 @@ final class ClosedShowListViewController: ViewController {
     override func bind() {
         
         let input = ClosedShowListViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton,
             didTappedShowCell: viewHolder.showListView.rx.itemSelected.asObservable(), 
             didTappedEmptyButton: viewHolder.emptyView.footerButton.rx.tap.asObservable()

@@ -50,7 +50,6 @@ final class SavedViewController: ViewController {
     override func bind() {
         
         let input = SavedViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedMenu: viewHolder.menuCollectionView.rx.itemSelected.asObservable(), 
             didEndScrolling: visiblePerformanceSubject.asObservable(),
             didTappedLoginButton: viewHolder.emptyView.footerButton.rx.tap.asObservable(),

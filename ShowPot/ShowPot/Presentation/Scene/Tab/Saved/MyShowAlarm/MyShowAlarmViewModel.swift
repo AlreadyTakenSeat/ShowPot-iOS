@@ -27,7 +27,6 @@ final class MyShowAlarmViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedAlarmRemoveButton: Observable<IndexPath>
         let didTappedAlarmUpdateButton: Observable<IndexPath>
@@ -46,12 +45,6 @@ final class MyShowAlarmViewModel: ViewModelType {
             .subscribe(with: self) { owner, model in
                 owner.myShowRelay.accept(model)
                 owner.updateDataSource()
-            }
-            .disposed(by: disposeBag)
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, model in
-                owner.usecase.fetchShowList()
             }
             .disposed(by: disposeBag)
         
@@ -95,6 +88,10 @@ final class MyShowAlarmViewModel: ViewModelType {
             isEmptyViewHidden: isEmptyViewHidden,
             showTicketingAlarmBottomSheet: showTicketingAlarmBottomSheetRelay.map { $0.showID }.asSignal(onErrorSignalWith: .empty())
         )
+    }
+    
+    func fetchMyShowList() {
+        usecase.fetchShowList()
     }
 }
 

@@ -28,7 +28,6 @@ final class ShowDetailViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedLikeButton: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedTicketingCell: Observable<IndexPath>
@@ -46,12 +45,6 @@ final class ShowDetailViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.usecase.requestShowDetailData(showID: owner.showID)
-            }
-            .disposed(by: disposeBag)
         
         input.didTappedTicketingCell
             .withLatestFrom(usecase.ticketList) { ($0, $1) }
@@ -114,5 +107,9 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         return output
+    }
+    
+    func requestShowDetailData() {
+        usecase.requestShowDetailData(showID: self.showID)
     }
 }

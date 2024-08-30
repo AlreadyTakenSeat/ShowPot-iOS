@@ -29,7 +29,6 @@ final class SubscribeArtistViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedArtistCell: Observable<IndexPath>
         let didTappedSubscribeButton: Observable<Void>
@@ -43,12 +42,6 @@ final class SubscribeArtistViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.usecase.fetchArtistList()
-            }
-            .disposed(by: disposeBag)
         
         usecase.artistList
             .subscribe(with: self) { owner, artistList in
@@ -124,7 +117,12 @@ final class SubscribeArtistViewModel: ViewModelType {
         
         return output
     }
+    
+    func fetchArtistList() {
+        usecase.fetchArtistList()
+    }
 }
+
 
 extension SubscribeArtistViewModel {
     

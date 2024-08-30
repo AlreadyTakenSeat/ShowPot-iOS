@@ -25,6 +25,11 @@ final class SubscribeArtistViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchArtistList()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -44,7 +49,6 @@ final class SubscribeArtistViewController: ViewController {
         viewModel.dataSource = makeDataSource()
         
         let input = SubscribeArtistViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedArtistCell: viewHolder.artistCollectionView.rx.itemSelected.asObservable(),
             didTappedSubscribeButton: viewHolder.subscribeFooterView.bottomButton.rx.tap.asObservable(), 

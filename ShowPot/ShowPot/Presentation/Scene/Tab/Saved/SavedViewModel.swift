@@ -47,7 +47,6 @@ final class SavedViewModel: ViewModelType {
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedMenu: Observable<IndexPath>
         let didEndScrolling: Observable<IndexPath>
         let didTappedLoginButton: Observable<Void>
@@ -86,13 +85,6 @@ final class SavedViewModel: ViewModelType {
         
         usecase.menuList
             .bind(to: alarmMenuModelRelay)
-            .disposed(by: disposeBag)
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.usecase.requestMenuData()
-//                owner.usecase.requestUpcomingShow()
-            }
             .disposed(by: disposeBag)
         
         input.didTappedMenu
@@ -142,5 +134,6 @@ final class SavedViewModel: ViewModelType {
 extension SavedViewModel {
     func fetchMyUpcomingShow() {
         usecase.requestUpcomingShow()
+        usecase.requestMenuData()
     }
 }
