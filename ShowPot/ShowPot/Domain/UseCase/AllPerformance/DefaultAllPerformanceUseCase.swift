@@ -21,15 +21,15 @@ final class DefaultAllPerformanceUseCase: AllPerformanceUseCase {
         LogHelper.debug("전체공연 검색\n오픈예정유무: \(state.isOnlyUpcoming)\n어떤필터타입: \(state.type)")
         
         showAPI.showList(sort: state.type.rawValue, onlyOpen: state.isOnlyUpcoming)
-            .subscribe { response in
-                self.performanceList.accept(response.data.map {
+            .subscribe(with: self) { owner, response in
+                owner.performanceList.accept(response.data.map {
                     FeaturedPerformanceWithTicketOnSaleSoonCellModel(
                         showID: $0.id,
                         performanceState: $0.isOpen ? .reserving : .upcoming,
                         performanceTitle: $0.title,
                         performanceLocation: $0.location,
                         performanceImageURL: URL(string: $0.posterImageURL),
-                        performanceDate: DateFormatterFactory.dateTime.date(from: $0.ticketingAt)
+                        performanceDate: $0.isOpen ? nil : DateFormatterFactory.dateTime.date(from: $0.ticketingAt)
                     )
                 })
             }.disposed(by: disposeBag)
