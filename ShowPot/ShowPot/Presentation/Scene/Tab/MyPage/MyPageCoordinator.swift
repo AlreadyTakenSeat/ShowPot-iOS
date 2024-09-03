@@ -1,5 +1,5 @@
 //
-//  SettingsCoordinator.swift
+//  MyPageCoordinator.swift
 //  ShowPot
 //
 //  Created by Daegeon Choi on 6/28/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SettingsCoordinator: NavigationCoordinator {
+final class MyPageCoordinator: NavigationCoordinator {
     
     var navigationController: UINavigationController
     var parentCoordinator: Coordinator?
@@ -18,7 +18,7 @@ final class SettingsCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController: SettingsViewController = SettingsViewController(viewModel: SettingsViewModel(coordinator: self, usecase: DefaultMyPageUseCase()))
+        let viewController: MyPageViewController = MyPageViewController(viewModel: MyPageViewModel(coordinator: self, usecase: DefaultMyPageUseCase()))
         viewController.showTabBar = true
         self.navigationController.pushViewController(viewController, animated: true)
     }

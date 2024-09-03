@@ -1,5 +1,5 @@
 //
-//  SettingViewModel.swift
+//  MyPageViewModel.swift
 //  ShowPot
 //
 //  Created by Daegeon Choi on 5/25/24.
@@ -9,9 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class SettingsViewModel: ViewModelType {
+final class MyPageViewModel: ViewModelType {
     
-    var coordinator: SettingsCoordinator
+    var coordinator: MyPageCoordinator
     private let disposeBag = DisposeBag()
     private let usecase: MyPageUseCase
     
@@ -30,7 +30,7 @@ final class SettingsViewModel: ViewModelType {
         return UserDefaultsManager.shared.get(objectForkey: .userProfileInfo, type: UserProfileInfo.self)
     }
     
-    init(coordinator: SettingsCoordinator, usecase: MyPageUseCase) {
+    init(coordinator: MyPageCoordinator, usecase: MyPageUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
     }

@@ -34,7 +34,7 @@ final class MainTabController: UITabBarController {
     let tabCoordinators: [NavigationCoordinator] = [
         FeaturedCoordinator(navigationController: NavigationController()),
         SavedCoordinator(navigationController: NavigationController()),
-        SettingsCoordinator(navigationController: NavigationController())
+        MyPageCoordinator(navigationController: NavigationController())
     ]
     
     private let disposeBag = DisposeBag()
