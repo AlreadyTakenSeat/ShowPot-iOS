@@ -16,9 +16,6 @@ final class SettingViewModel: ViewModelType {
     
     var coordinator: SettingCoordinator
     
-    private let versionAlertRelay = PublishRelay<(index: Int, alert: String)>()
-    private let settingModelRelay = BehaviorRelay<[SettingType]>(value: [])
-    
     init(coordinator: SettingCoordinator) {
         self.coordinator = coordinator
     }
@@ -26,20 +23,17 @@ final class SettingViewModel: ViewModelType {
     struct Input {
         let didTappedBackButton: Observable<Void>
         let didTappedSettingCell: Observable<IndexPath>
+        let refreshSettings: Observable<Void>
     }
     
     struct Output {
-        let versionAlertMessage: Signal<(index: Int, alert: String)>
-        let settingModel: Driver<[SettingType]>
+        let versionDescription = PublishRelay<(index: Int, description: String)>()
+        let settingModel = BehaviorRelay<[SettingType]>(value: [])
     }
     
-    @discardableResult
     func transform(input: Input) -> Output {
         
-        let output = Output(
-            versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()),
-            settingModel: settingModelRelay.asDriver()
-        )
+        let output = Output()
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
@@ -49,7 +43,7 @@ final class SettingViewModel: ViewModelType {
         
         input.didTappedSettingCell
             .subscribe(with: self) { owner, indexPath in
-                switch owner.settingModelRelay.value[indexPath.row] {
+                switch output.settingModel.value[indexPath.row] {
                 case .version:
                     LogHelper.debug("버전 셀 클릭")
                 case .account:
@@ -66,20 +60,20 @@ final class SettingViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.refreshSettings
+            .subscribe(with: self) { owner, _ in
+                owner.isUpdateAvailable {
+                    let settingModel = output.settingModel.value
+                    guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
+                    let description = $0 ? Strings.settingVersionOutOfDateTitle : Strings.settingVersionUpToDateTitle
+                    output.versionDescription.accept((versionIndex, description))
+                }
+
+                output.settingModel.accept(LoginState.current == .loggedIn ? [.version, .account, .alarm, .privacyPolicy, .term, .kakao] : [.version, .alarm, .privacyPolicy, .term, .kakao])
+            }
+            .disposed(by: disposeBag)
+        
         return output
-    }
-    
-    func refreshSettingModel() {
-        
-        isUpdateAvailable { [weak self] in
-            guard let self = self else { return }
-            var settingModel = self.settingModelRelay.value
-            guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
-            let alert = $0 ? Strings.settingVersionOutOfDateTitle : Strings.settingVersionUpToDateTitle
-            self.versionAlertRelay.accept((versionIndex, alert))
-        }
-        
-        settingModelRelay.accept(LoginState.current == .loggedIn ? [.version, .account, .alarm, .privacyPolicy, .term, .kakao] : [.version, .alarm, .privacyPolicy, .term, .kakao])
     }
 }
 

@@ -14,6 +14,8 @@ final class SettingViewController: ViewController {
     let viewHolder: SettingViewHolder = .init()
     let viewModel: SettingViewModel
     
+    private let refreshTrigger = PublishSubject<Void>()
+    
     init(viewModel: SettingViewModel) {
         self.viewModel = viewModel
         
@@ -26,7 +28,7 @@ final class SettingViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.refreshSettingModel()
+        refreshTrigger.onNext(())
     }
     
     override func viewDidLoad() {
@@ -38,21 +40,23 @@ final class SettingViewController: ViewController {
         super.bind()
         let input = SettingViewModel.Input(
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
-            didTappedSettingCell: viewHolder.settingListView.rx.itemSelected.asObservable()
+            didTappedSettingCell: viewHolder.settingListView.rx.itemSelected.asObservable(), 
+            refreshSettings: refreshTrigger.asObservable()
         )
         let output = viewModel.transform(input: input)
         
-        output.versionAlertMessage
-            .emit(with: self) { owner, result in
-                let (row, message) = result
-                let firstIndexPath = IndexPath(row: row, section: 0)
-                guard let firstCell = owner.viewHolder.settingListView.cellForItem(at: firstIndexPath) as? LabelMenuCell else { return }
-                firstCell.configureUI(menuAlert: message)
+        output.versionDescription
+            .subscribe(with: self) { owner, result in
+                let (row, description) = result
+                let versionIndexPath = IndexPath(row: row, section: 0)
+                guard let firstCell = owner.viewHolder.settingListView.cellForItem(at: versionIndexPath) as? LabelMenuCell else { return }
+                firstCell.configureUI(description: description)
             }
             .disposed(by: disposeBag)
         
+        // TODO: - 추후 RxDataSources로 리팩토링 필요
         output.settingModel
-            .drive(viewHolder.settingListView.rx.items) { collectionView, index, item in
+            .bind(to: viewHolder.settingListView.rx.items) { collectionView, index, item in
                 let indexPath = IndexPath(item: index, section: 0)
                 
                 if item == .version {
