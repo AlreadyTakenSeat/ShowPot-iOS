@@ -17,6 +17,8 @@ final class MyArtistViewModel: ViewModelType {
     var coordinator: MyArtistCoordinator
     var dataSource: DataSource?
     
+    private let showLoginBottomSheetRelay = PublishRelay<Void>()
+    
     init(coordinator: MyArtistCoordinator, usecase: MyArtistUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
@@ -30,6 +32,7 @@ final class MyArtistViewModel: ViewModelType {
     
     struct Output { 
         let isEmpty: Driver<Bool>
+        let showLoginBottomSheet: Signal<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -50,6 +53,10 @@ final class MyArtistViewModel: ViewModelType {
         
         input.didTappedEmptyViewButton
             .subscribe(with: self) { owner, _ in
+                guard LoginState.current == .loggedIn else {
+                    owner.showLoginBottomSheetRelay.accept(())
+                    return
+                }
                 owner.coordinator.goToSubscribeArtistScreen()
             }
             .disposed(by: disposeBag)
@@ -66,7 +73,7 @@ final class MyArtistViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(isEmpty: usecase.artistList.map { $0.isEmpty }.asDriver(onErrorDriveWith: .empty()))
+        return Output(isEmpty: usecase.artistList.map { $0.isEmpty }.asDriver(onErrorDriveWith: .empty()), showLoginBottomSheet: showLoginBottomSheetRelay.asSignal())
     }
 }
 

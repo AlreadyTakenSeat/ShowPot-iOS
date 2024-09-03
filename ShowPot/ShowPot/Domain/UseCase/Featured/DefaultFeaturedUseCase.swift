@@ -62,7 +62,7 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
                     performanceTitle: $0.title,
                     performanceLocation: $0.location,
                     performanceImageURL: URL(string: $0.posterImageURL),
-                    performanceDate: DateFormatterFactory.dateTime.date(from: $0.ticketingAt)
+                    performanceDate: $0.isOpen ? nil : DateFormatterFactory.dateTime.date(from: $0.ticketingAt)
                 )
             })
         }

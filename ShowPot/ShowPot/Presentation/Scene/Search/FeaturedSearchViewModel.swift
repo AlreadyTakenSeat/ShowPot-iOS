@@ -29,6 +29,7 @@ final class FeaturedSearchViewModel: ViewModelType {
     private lazy var recentSearchListRelay = BehaviorRelay<[String]>(value: recentSearchKeywordList)
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let showSearchResultRelay = PublishRelay<Bool>()
+    private let showLoginBottomSheetRelay = PublishRelay<Void>()
     
     var recentSearchKeywordDataSource: RecentSearchKeywordDataSource?
     var searchKeywordResultDataSource: SearchKeywordResultDataSource?
@@ -54,6 +55,7 @@ final class FeaturedSearchViewModel: ViewModelType {
         let isRecentSearchKeywordEmpty: Driver<Bool>
         let showSearchResult: Driver<Bool>
         let isLoading: Driver<Bool>
+        let showLoginBottomSheet: Signal<Void>
         
         /// 아티스트 구독 요청 결과
         var addSubscriptionResult = PublishSubject<Bool>()
@@ -62,15 +64,18 @@ final class FeaturedSearchViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
         input.didTappedSearchResultCell
             .subscribe(with: self) { owner, indexPath in
                 guard let dataSource = owner.searchKeywordResultDataSource else { return }
                 let sectionIdentifier = dataSource.snapshot().sectionIdentifiers[indexPath.section]
                 
-                switch sectionIdentifier { // FIXME: - 추후 구독 API 성공 및 실패 시 다음 동작 구현 필요
+                switch sectionIdentifier {
                 case .artist:
-                    var artistModel = owner.usecase.artistSearchResult.value[indexPath.row]
+                    guard LoginState.current == .loggedIn else {
+                        owner.showLoginBottomSheetRelay.accept(())
+                        return
+                    }
+                    let artistModel = owner.usecase.artistSearchResult.value[indexPath.row]
                     if artistModel.state == .availableSubscription {
                         owner.usecase.addSubscribtion(artistID: artistModel.id)
                     } else if artistModel.state == .subscription {
@@ -146,19 +151,18 @@ final class FeaturedSearchViewModel: ViewModelType {
         }
         .disposed(by: disposeBag)
         
-        let isLoading = isLoadingRelay.asDriver()
-        
         let output = Output(
             isRecentSearchKeywordEmpty: isRecentSearchKeywordEmpty,
             showSearchResult: showSearchResultRelay.asDriver(onErrorDriveWith: .empty()),
-            isLoading: isLoading
+            isLoading: isLoadingRelay.asDriver(),
+            showLoginBottomSheet: showLoginBottomSheetRelay.asSignal()
         )
         
         usecase.addSubscribtionresult
             .subscribe(with: self) { owner, result in
                 let (artistID, isSuccess) = result
                 output.addSubscriptionResult.onNext(isSuccess)
-                guard !isSuccess else { return }
+                guard isSuccess else { return }
                 owner.updateArtistSubscription(to: .subscription, for: artistID)
             }
             .disposed(by: disposeBag)
@@ -167,7 +171,7 @@ final class FeaturedSearchViewModel: ViewModelType {
             .subscribe(with: self) { owner, result in
                 let (artistID, isSuccess) = result
                 output.deleteSubscriptionResult.onNext(isSuccess)
-                guard !isSuccess else { return }
+                guard isSuccess else { return }
                 owner.updateArtistSubscription(to: .availableSubscription, for: artistID)
             }
             .disposed(by: disposeBag)

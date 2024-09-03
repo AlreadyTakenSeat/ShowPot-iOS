@@ -90,7 +90,8 @@ final class SPArtistAPI {
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request
+                parameters: request,
+                headers: target.header
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
