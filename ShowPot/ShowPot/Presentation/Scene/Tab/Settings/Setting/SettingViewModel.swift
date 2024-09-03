@@ -16,38 +16,30 @@ final class SettingViewModel: ViewModelType {
     
     var coordinator: SettingCoordinator
     
-    private let versionAlertRelay = PublishRelay<String>()
-    var settingModel: [SettingType] {
-        [.version, .account, .alarm, .privacyPolicy, .term, .kakao]
-    }
+    private let versionAlertRelay = PublishRelay<(index: Int, alert: String)>()
+    private let settingModelRelay = BehaviorRelay<[SettingType]>(value: [])
     
     init(coordinator: SettingCoordinator) {
         self.coordinator = coordinator
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedSettingCell: Observable<IndexPath>
     }
     
     struct Output {
-        let versionAlertMessage: Signal<String>
-        let showLoginBottomSheet = PublishSubject<Void>()
+        let versionAlertMessage: Signal<(index: Int, alert: String)>
+        let settingModel: Driver<[SettingType]>
     }
     
     @discardableResult
     func transform(input: Input) -> Output {
         
-        let output = Output(versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()))
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.isUpdateAvailable {
-                    owner.versionAlertRelay.accept($0 ? "업데이트가 필요합니다" : "최신버전 입니다")
-                }
-            }
-            .disposed(by: disposeBag)
+        let output = Output(
+            versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()),
+            settingModel: settingModelRelay.asDriver()
+        )
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
@@ -57,14 +49,10 @@ final class SettingViewModel: ViewModelType {
         
         input.didTappedSettingCell
             .subscribe(with: self) { owner, indexPath in
-                switch owner.settingModel[indexPath.row] {
+                switch owner.settingModelRelay.value[indexPath.row] {
                 case .version:
                     LogHelper.debug("버전 셀 클릭")
                 case .account:
-                    guard LoginState.current == .loggedIn else {
-                        output.showLoginBottomSheet.onNext(())
-                        return
-                    }
                     owner.coordinator.goToAccountScreen()
                 case .alarm:
                     owner.coordinator.goToAppSettings()
@@ -79,6 +67,19 @@ final class SettingViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         return output
+    }
+    
+    func refreshSettingModel() {
+        
+        isUpdateAvailable { [weak self] in
+            guard let self = self else { return }
+            var settingModel = self.settingModelRelay.value
+            guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
+            let alert = $0 ? Strings.settingVersionOutOfDateTitle : Strings.settingVersionUpToDateTitle
+            self.versionAlertRelay.accept((versionIndex, alert))
+        }
+        
+        settingModelRelay.accept(LoginState.current == .loggedIn ? [.version, .account, .alarm, .privacyPolicy, .term, .kakao] : [.version, .alarm, .privacyPolicy, .term, .kakao])
     }
 }
 

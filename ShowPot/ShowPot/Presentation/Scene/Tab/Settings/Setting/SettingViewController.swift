@@ -24,6 +24,11 @@ final class SettingViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.refreshSettingModel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
@@ -32,63 +37,56 @@ final class SettingViewController: ViewController {
     override func bind() {
         super.bind()
         let input = SettingViewModel.Input(
-            viewDidLoad: .just(()),
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedSettingCell: viewHolder.settingListView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
         
         output.versionAlertMessage
-            .emit(with: self) { owner, message in
-                let firstIndexPath = IndexPath(row: 0, section: 0)
+            .emit(with: self) { owner, result in
+                let (row, message) = result
+                let firstIndexPath = IndexPath(row: row, section: 0)
                 guard let firstCell = owner.viewHolder.settingListView.cellForItem(at: firstIndexPath) as? LabelMenuCell else { return }
                 firstCell.configureUI(menuAlert: message)
             }
             .disposed(by: disposeBag)
         
-        output.showLoginBottomSheet.subscribe(with: self) { owner, _ in
-            owner.showLoginBottomSheet()
-        }
-        .disposed(by: disposeBag)
+        output.settingModel
+            .drive(viewHolder.settingListView.rx.items) { collectionView, index, item in
+                let indexPath = IndexPath(item: index, section: 0)
+                
+                if item == .version {
+                    let labelMenuCell = collectionView.dequeueReusableCell(LabelMenuCell.self, for: indexPath) ?? LabelMenuCell()
+                    labelMenuCell.configureUI(
+                        menuImage: item.iconImage,
+                        menuTitle: item.title
+                    )
+                    return labelMenuCell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(MenuCell.self, for: indexPath) ?? MenuCell()
+                    cell.configureUI(
+                        menuImage: item.iconImage,
+                        menuTitle: item.title
+                    )
+                    return cell
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     override func setupStyles() {
         super.setupStyles()
         setNavigationBarItem(
-            title: "설정",
+            title: Strings.settingNavigationTitle,
             leftIcon: .icArrowLeft.withTintColor(.gray000)
         )
         contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.settingListView.delegate = self
-        viewHolder.settingListView.dataSource = self
     }
 }
 
-extension SettingViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.settingModel.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = viewModel.settingModel[indexPath.row]
-        if model == .version {
-            let cell = collectionView.dequeueReusableCell(LabelMenuCell.self, for: indexPath) ?? LabelMenuCell()
-            cell.configureUI(
-                menuImage: model.iconImage,
-                menuTitle: model.title
-            )
-            return cell
-        }
-        let cell = collectionView.dequeueReusableCell(MenuCell.self, for: indexPath) ?? MenuCell()
-        cell.configureUI(
-            menuImage: model.iconImage,
-            menuTitle: model.title
-        )
-        return cell
-    }
-    
+extension SettingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width, height: 44)
     }
 }
-
