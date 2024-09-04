@@ -63,13 +63,10 @@ final class SettingViewModel: ViewModelType {
         input.refreshSettings
             .subscribe(with: self) { owner, _ in
                 owner.isUpdateAvailable {
-                    let settingModel = output.settingModel.value
-                    guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
-                    let description = $0 ? Strings.settingVersionOutOfDateTitle : Strings.settingVersionUpToDateTitle
-                    output.versionDescription.accept((versionIndex, description))
+                    owner.updateVersionDescription(isUpdateAvailable: $0, output: output)
                 }
 
-                output.settingModel.accept(LoginState.current == .loggedIn ? [.version, .account, .alarm, .privacyPolicy, .term, .kakao] : [.version, .alarm, .privacyPolicy, .term, .kakao])
+                owner.updateSettingModel(output: output)
             }
             .disposed(by: disposeBag)
         
@@ -78,6 +75,24 @@ final class SettingViewModel: ViewModelType {
 }
 
 extension SettingViewModel {
+    
+    private func updateVersionDescription(isUpdateAvailable: Bool, output: Output) {
+        let settingModel = output.settingModel.value
+        guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
+
+        let description = isUpdateAvailable
+            ? Strings.settingVersionOutOfDateTitle
+            : Strings.settingVersionUpToDateTitle
+
+        output.versionDescription.accept((versionIndex, description))
+    }
+
+    private func updateSettingModel(output: Output) {
+        let loggedInSettings: [SettingType] = [.version, .account, .alarm, .privacyPolicy, .term, .kakao]
+        let loggedOutSettings: [SettingType] = [.version, .alarm, .privacyPolicy, .term, .kakao]
+
+        output.settingModel.accept(LoginState.current == .loggedIn ? loggedInSettings : loggedOutSettings)
+    }
     
     private func isUpdateAvailable(completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(Environment.bundleID)") else {
