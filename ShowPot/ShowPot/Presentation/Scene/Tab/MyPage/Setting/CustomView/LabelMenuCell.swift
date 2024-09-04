@@ -44,13 +44,9 @@ extension LabelMenuCell {
     func configureUI(
         menuImage: UIImage,
         menuTitle: String,
-        menuAlert: String
+        description: String
     ) {
         super.configureUI(menuImage: menuImage, menuTitle: menuTitle)
-        descriptionLabel.setText(menuAlert)
-    }
-    
-    func configureUI(description: String) {
         descriptionLabel.setText(description)
     }
 }

@@ -49,8 +49,12 @@ final class SettingViewController: ViewController {
             .subscribe(with: self) { owner, result in
                 let (row, description) = result
                 let versionIndexPath = IndexPath(row: row, section: 0)
-                guard let firstCell = owner.viewHolder.settingListView.cellForItem(at: versionIndexPath) as? LabelMenuCell else { return }
-                firstCell.configureUI(description: description)
+                guard let versionCell = owner.viewHolder.settingListView.cellForItem(at: versionIndexPath) as? LabelMenuCell else { return }
+                versionCell.configureUI(
+                    menuImage: SettingType.version.iconImage,
+                    menuTitle: SettingType.version.title,
+                    description: description
+                )
             }
             .disposed(by: disposeBag)
         
@@ -63,7 +67,8 @@ final class SettingViewController: ViewController {
                     let labelMenuCell = collectionView.dequeueReusableCell(LabelMenuCell.self, for: indexPath) ?? LabelMenuCell()
                     labelMenuCell.configureUI(
                         menuImage: item.iconImage,
-                        menuTitle: item.title
+                        menuTitle: item.title,
+                        description: ""
                     )
                     return labelMenuCell
                 } else {
