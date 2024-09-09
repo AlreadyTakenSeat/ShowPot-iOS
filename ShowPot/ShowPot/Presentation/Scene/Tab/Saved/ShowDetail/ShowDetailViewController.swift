@@ -24,19 +24,14 @@ final class ShowDetailViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.requestShowDetailData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
+        viewHolder.seatInfoView.showSeatListView.delegate = self
     }
     
     override func setupStyles() {
         super.setupStyles()
-        viewHolder.seatInfoView.showSeatListView.delegate = self
         self.setNavigationBarItem(title: Strings.showDetailTitle, leftIcon: .icArrowLeft.withTintColor(.gray000))
         self.contentNavigationBar.titleLabel.textColor = .gray000
         self.contentNavigationBar.backgroundColor = .clear
@@ -57,14 +52,47 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         let input = ShowDetailViewModel.Input(
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in Void() },
             didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(),
-            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 
+            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedTicketingCell: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
         
+        bindShowDetailInfo(output)
+        bindButtonState(output)
+        
+        output.showLoginBottomSheet
+            .asSignal()
+            .emit(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindButtonState(_ output: ShowDetailViewModel.Output) {
+        output.isLikeButtonSelected
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(viewHolder.footerView.likeButton.rx.isSelected)
+            .disposed(by: disposeBag)
+        
+        output.alarmButtonState
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, result in
+                let (isUpdatedBefore, isAlreadyOpen) = result
+                guard !isAlreadyOpen else {
+                    owner.viewHolder.footerView.alarmButton.isEnabled = false
+                    return
+                }
+                owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindShowDetailInfo(_ output: ShowDetailViewModel.Output) {
         output.showOverview
-            .subscribe(with: self) { owner, model in
+            .asDriver()
+            .drive(with: self) { owner, model in
                 guard let showTime = model.time else { return }
                 owner.viewHolder.posterImageView.setImage(urlString: model.posterImageURLString, option: .relativeHeight)
                 owner.viewHolder.titleView.titleLabel.setText(model.title)
@@ -73,7 +101,8 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.ticketBrandList
-            .bind(to: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.items(
+            .asDriver(onErrorJustReturn: [])
+            .drive(viewHolder.ticketInfoView.ticketSaleCollectionView.rx.items(
                 cellIdentifier: TicketSaleCollectionViewCell.reuseIdentifier,
                 cellType: TicketSaleCollectionViewCell.self)
             ) { index, item, cell in
@@ -83,7 +112,8 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.ticketTimeInfo
-            .subscribe(with: self) { owner, result in
+            .asDriver()
+            .drive(with: self) { owner, result in
                 let (preDescription, normalDescription) = result
                 if let normalDescription = normalDescription {
                     owner.viewHolder.ticketInfoView.normalTicketSaleView.setData(description: DateFormatterFactory.dateWithTicketing.string(from: normalDescription))
@@ -96,7 +126,8 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.artistList
-            .bind(to: viewHolder.artistInfoView.artistCollectionView.rx.items(
+            .asDriver(onErrorJustReturn: [])
+            .drive(viewHolder.artistInfoView.artistCollectionView.rx.items(
                 cellIdentifier: FeaturedSubscribeArtistCell.reuseIdentifier,
                 cellType: FeaturedSubscribeArtistCell.self)
             ) { index, item, cell in
@@ -105,7 +136,8 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.genreList
-            .bind(to: viewHolder.genreInfoView.showGenreListView.rx.items(
+            .asDriver(onErrorJustReturn: [])
+            .drive(viewHolder.genreInfoView.showGenreListView.rx.items(
                 cellIdentifier: ShowGenreCell.reuseIdentifier,
                 cellType: ShowGenreCell.self)
             ) { index, item, cell in
@@ -114,7 +146,8 @@ final class ShowDetailViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.seatList
-            .bind(to: viewHolder.seatInfoView.showSeatListView.rx.items(
+            .asDriver(onErrorJustReturn: [])
+            .drive(viewHolder.seatInfoView.showSeatListView.rx.items(
                 cellIdentifier: ShowSeatCell.reuseIdentifier,
                 cellType: ShowSeatCell.self)
             ) { index, item, cell in
@@ -122,27 +155,6 @@ final class ShowDetailViewController: ViewController {
                     seatCategory: item.seatCategoryTitle,
                     seatPrice: NumberformatterFactory.decimal.string(from: item.seatPrice ?? 0)
                 )
-            }
-            .disposed(by: disposeBag)
-        
-        output.isLikeButtonSelected
-            .subscribe(viewHolder.footerView.likeButton.rx.isSelected)
-            .disposed(by: disposeBag)
-        
-        output.alarmButtonState
-            .subscribe(with: self) { owner, result in
-                let (isUpdatedBefore, isAlreadyOpen) = result
-                if isAlreadyOpen {
-                    owner.viewHolder.footerView.alarmButton.isEnabled = !isAlreadyOpen
-                    return
-                }
-                owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore
-            }
-            .disposed(by: disposeBag)
-        
-        output.showLoginBottomSheet
-            .subscribe(with: self) { owner, _ in
-                owner.showLoginBottomSheet()
             }
             .disposed(by: disposeBag)
     }

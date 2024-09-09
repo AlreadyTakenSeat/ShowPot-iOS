@@ -28,26 +28,35 @@ final class ShowDetailViewModel: ViewModelType {
     }
     
     struct Input {
+        let viewWillAppear: Observable<Void>
         let didTappedLikeButton: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedTicketingCell: Observable<IndexPath>
     }
     
     struct Output {
-        var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
-        var ticketTimeInfo = BehaviorSubject<(Date?, Date?)>(value: (nil, nil))
-        var ticketBrandList = BehaviorSubject<[String]>(value: [])
-        var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
-        var genreList = BehaviorSubject<[GenreType]>(value: [])
-        var seatList = BehaviorSubject<[SeatDetailInfo]>(value: [])
-        var isLikeButtonSelected = BehaviorSubject<Bool>(value: false)
-        var alarmButtonState = BehaviorSubject<(isUpdatedBefore: Bool, isEnabled: Bool)>(value: (false, true))
-        var showLoginBottomSheet = PublishSubject<Void>()
+        var showOverview = BehaviorRelay<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
+        var ticketTimeInfo = BehaviorRelay<(Date?, Date?)>(value: (nil, nil))
+        var ticketBrandList = BehaviorRelay<[String]>(value: [])
+        var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
+        var genreList = BehaviorRelay<[GenreType]>(value: [])
+        var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
+        var isLikeButtonSelected = BehaviorRelay<Bool>(value: false)
+        var alarmButtonState = BehaviorRelay<(isUpdatedBefore: Bool, isEnabled: Bool)>(value: (false, true))
+        var showLoginBottomSheet = PublishRelay<Void>()
     }
     
     func transform(input: Input) -> Output {
-        
-        let output = Output()
+        self.configureInput(input)
+        return self.createOutput(from: input)
+    }
+    
+    private func configureInput(_ input: Input) {
+        input.viewWillAppear
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.requestShowDetailData(showID: owner.showID)
+            }
+            .disposed(by: disposeBag)
         
         input.didTappedTicketingCell
             .withLatestFrom(usecase.ticketList) { ($0, $1) }
@@ -62,11 +71,16 @@ final class ShowDetailViewModel: ViewModelType {
                 owner.coordinator.popViewController()
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func createOutput(from input: Input) -> Output {
+        
+        let output = Output()
         
         input.didTappedLikeButton
             .subscribe(with: self) { owner, _ in
                 guard owner.isLoggedIn else {
-                    output.showLoginBottomSheet.onNext(())
+                    output.showLoginBottomSheet.accept(())
                     return
                 }
                 owner.usecase.updateShowInterest(showID: owner.showID)
@@ -78,24 +92,21 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         usecase.updateInterestResult
-            .subscribe(with: self) { owner, result in
-                LogHelper.debug("공연 관심 등록/취소 여부: \(result)")
-                output.isLikeButtonSelected.onNext(result)
-            }
+            .bind(to: output.isLikeButtonSelected)
             .disposed(by: disposeBag)
         
         usecase.buttonState
             .subscribe(with: self) { owner, state in
                 LogHelper.debug("관심등록된 공연인가 ?: \(state.isLiked)\n이전에 알림설정한 공연인가 ?: \(state.isAlarmSet)\n 이미 오픈된 공연인가: \(state.isAlreadyOpen)")
-                output.isLikeButtonSelected.onNext(state.isLiked)
-                output.alarmButtonState.onNext((state.isAlarmSet, state.isAlreadyOpen))
+                output.isLikeButtonSelected.accept(state.isLiked)
+                output.alarmButtonState.accept((state.isAlarmSet, state.isAlreadyOpen))
             }
             .disposed(by: disposeBag)
         
         usecase.ticketList
             .subscribe(with: self) { owner, model in
-                output.ticketBrandList.onNext(model.ticketCategory.map { $0.categoryName })
-                output.ticketTimeInfo.onNext((model.prereserveOpenTime, model.normalreserveOpenTime))
+                output.ticketBrandList.accept(model.ticketCategory.map { $0.categoryName })
+                output.ticketTimeInfo.accept((model.prereserveOpenTime, model.normalreserveOpenTime))
             }
             .disposed(by: disposeBag)
         
@@ -112,9 +123,5 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         return output
-    }
-    
-    func requestShowDetailData() {
-        usecase.requestShowDetailData(showID: self.showID)
     }
 }
