@@ -36,15 +36,13 @@ final class ShowDetailViewController: ViewController {
     
     override func setupStyles() {
         super.setupStyles()
-        
+        viewHolder.seatInfoView.showSeatListView.delegate = self
         self.setNavigationBarItem(title: Strings.showDetailTitle, leftIcon: .icArrowLeft.withTintColor(.gray000))
         self.contentNavigationBar.titleLabel.textColor = .gray000
         self.contentNavigationBar.backgroundColor = .clear
     }
     
     override func bind() {
-        viewHolder.seatInfoView.showSeatListView.delegate = self
-        
         viewHolder.footerView.alarmButton.rx.tap
             .subscribe(with: self) { owner, _ in
                 let isAlarmUpdatedBefore = owner.viewHolder.footerView.alarmButton.isSelected
@@ -139,6 +137,12 @@ final class ShowDetailViewController: ViewController {
                     return
                 }
                 owner.viewHolder.footerView.alarmButton.isSelected = isUpdatedBefore
+            }
+            .disposed(by: disposeBag)
+        
+        output.showLoginBottomSheet
+            .subscribe(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
             }
             .disposed(by: disposeBag)
     }

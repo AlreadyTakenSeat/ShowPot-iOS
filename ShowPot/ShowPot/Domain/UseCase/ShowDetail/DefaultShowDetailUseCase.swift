@@ -79,9 +79,9 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
-            .subscribe { response in
-                self.updateInterestResult.onNext(response.hasInterest)
-            } 
+            .subscribe(with: self) { owner, response in
+                owner.updateInterestResult.onNext(response.hasInterest)
+            }
             .disposed(by: disposeBag)
     }
 }

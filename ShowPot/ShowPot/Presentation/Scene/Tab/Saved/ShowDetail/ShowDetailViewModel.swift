@@ -42,9 +42,12 @@ final class ShowDetailViewModel: ViewModelType {
         var seatList = BehaviorSubject<[SeatDetailInfo]>(value: [])
         var isLikeButtonSelected = BehaviorSubject<Bool>(value: false)
         var alarmButtonState = BehaviorSubject<(isUpdatedBefore: Bool, isEnabled: Bool)>(value: (false, true))
+        var showLoginBottomSheet = PublishSubject<Void>()
     }
     
     func transform(input: Input) -> Output {
+        
+        let output = Output()
         
         input.didTappedTicketingCell
             .withLatestFrom(usecase.ticketList) { ($0, $1) }
@@ -59,11 +62,13 @@ final class ShowDetailViewModel: ViewModelType {
                 owner.coordinator.popViewController()
             }
             .disposed(by: disposeBag)
-                
-        let output = Output()
         
         input.didTappedLikeButton
             .subscribe(with: self) { owner, _ in
+                guard owner.isLoggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
                 owner.usecase.updateShowInterest(showID: owner.showID)
             }
             .disposed(by: disposeBag)
@@ -81,7 +86,7 @@ final class ShowDetailViewModel: ViewModelType {
         
         usecase.buttonState
             .subscribe(with: self) { owner, state in
-                LogHelper.debug("관심등록된 공연인가 ?: \(state.isLiked)\n이전에 알림설정한 공연인가 ?: \(state.isAlarmSet)")
+                LogHelper.debug("관심등록된 공연인가 ?: \(state.isLiked)\n이전에 알림설정한 공연인가 ?: \(state.isAlarmSet)\n 이미 오픈된 공연인가: \(state.isAlreadyOpen)")
                 output.isLikeButtonSelected.onNext(state.isLiked)
                 output.alarmButtonState.onNext((state.isAlarmSet, state.isAlreadyOpen))
             }
