@@ -12,7 +12,7 @@ import Then
 
 final class LabelMenuCell: MenuCell {
     
-    private let alertLabel = SPLabel(KRFont.B1_regular, alignment: .right).then {
+    private let descriptionLabel = SPLabel(KRFont.B1_regular, alignment: .right).then {
         $0.textColor = .gray200
     }
     
@@ -28,11 +28,11 @@ final class LabelMenuCell: MenuCell {
     
     private func setupLayouts() {
         indicatorView.removeFromSuperview()
-        contentView.addSubview(alertLabel)
+        contentView.addSubview(descriptionLabel)
     }
     
     private func setupConstraints() {
-        alertLabel.snp.makeConstraints {
+        descriptionLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(menuTitleLabel.snp.trailing)
@@ -44,14 +44,10 @@ extension LabelMenuCell {
     func configureUI(
         menuImage: UIImage,
         menuTitle: String,
-        menuAlert: String
+        description: String
     ) {
         super.configureUI(menuImage: menuImage, menuTitle: menuTitle)
-        alertLabel.setText(menuAlert)
-    }
-    
-    func configureUI(menuAlert: String) {
-        alertLabel.setText(menuAlert)
+        descriptionLabel.setText(description)
     }
 }
 

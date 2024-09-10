@@ -16,38 +16,24 @@ final class SettingViewModel: ViewModelType {
     
     var coordinator: SettingCoordinator
     
-    private let versionAlertRelay = PublishRelay<String>()
-    var settingModel: [SettingType] {
-        [.version, .account, .alarm, .privacyPolicy, .term, .kakao]
-    }
-    
     init(coordinator: SettingCoordinator) {
         self.coordinator = coordinator
     }
     
     struct Input {
-        let viewDidLoad: Observable<Void>
         let didTappedBackButton: Observable<Void>
         let didTappedSettingCell: Observable<IndexPath>
+        let refreshSettings: Observable<Void>
     }
     
     struct Output {
-        let versionAlertMessage: Signal<String>
-        let showLoginBottomSheet = PublishSubject<Void>()
+        let versionDescription = PublishRelay<(index: Int, description: String)>()
+        let settingModel = BehaviorRelay<[SettingType]>(value: [])
     }
     
-    @discardableResult
     func transform(input: Input) -> Output {
         
-        let output = Output(versionAlertMessage: versionAlertRelay.asSignal(onErrorSignalWith: .empty()))
-        
-        input.viewDidLoad
-            .subscribe(with: self) { owner, _ in
-                owner.isUpdateAvailable {
-                    owner.versionAlertRelay.accept($0 ? "업데이트가 필요합니다" : "최신버전 입니다")
-                }
-            }
-            .disposed(by: disposeBag)
+        let output = Output()
         
         input.didTappedBackButton
             .subscribe(with: self) { owner, _ in
@@ -57,14 +43,10 @@ final class SettingViewModel: ViewModelType {
         
         input.didTappedSettingCell
             .subscribe(with: self) { owner, indexPath in
-                switch owner.settingModel[indexPath.row] {
+                switch output.settingModel.value[indexPath.row] {
                 case .version:
                     LogHelper.debug("버전 셀 클릭")
                 case .account:
-                    guard LoginState.current == .loggedIn else {
-                        output.showLoginBottomSheet.onNext(())
-                        return
-                    }
                     owner.coordinator.goToAccountScreen()
                 case .alarm:
                     owner.coordinator.goToAppSettings()
@@ -78,11 +60,39 @@ final class SettingViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.refreshSettings
+            .subscribe(with: self) { owner, _ in
+                owner.isUpdateAvailable {
+                    owner.updateVersionDescription(isUpdateAvailable: $0, output: output)
+                }
+
+                owner.updateSettingModel(output: output)
+            }
+            .disposed(by: disposeBag)
+        
         return output
     }
 }
 
 extension SettingViewModel {
+    
+    private func updateVersionDescription(isUpdateAvailable: Bool, output: Output) {
+        let settingModel = output.settingModel.value
+        guard let versionIndex = settingModel.firstIndex(where: { $0 == .version }) else { return }
+
+        let description = isUpdateAvailable
+            ? Strings.settingVersionOutOfDateTitle
+            : Strings.settingVersionUpToDateTitle
+
+        output.versionDescription.accept((versionIndex, description))
+    }
+
+    private func updateSettingModel(output: Output) {
+        let loggedInSettings: [SettingType] = [.version, .account, .alarm, .privacyPolicy, .term, .kakao]
+        let loggedOutSettings: [SettingType] = [.version, .alarm, .privacyPolicy, .term, .kakao]
+
+        output.settingModel.accept(LoginState.current == .loggedIn ? loggedInSettings : loggedOutSettings)
+    }
     
     private func isUpdateAvailable(completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(Environment.bundleID)") else {

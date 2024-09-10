@@ -1,5 +1,5 @@
 //
-//  SettingsViewHolder.swift
+//  MyPageViewHolder.swift
 //  ShowPot
 //
 //  Created by Daegeon Choi on 6/28/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SettingsViewHolder {
+final class MyPageViewHolder {
     
     lazy var mypageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sec, env -> NSCollectionLayoutSection? in
         guard let self = self else { return nil }
@@ -20,7 +20,7 @@ final class SettingsViewHolder {
     }
 }
 
-extension SettingsViewHolder: ViewHolderType {
+extension MyPageViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
         view.addSubview(mypageCollectionView)
@@ -33,7 +33,7 @@ extension SettingsViewHolder: ViewHolderType {
     }
 }
 
-extension SettingsViewHolder {
+extension MyPageViewHolder {
     
     private func setupMypageCollectionViewLayoutSection() -> NSCollectionLayoutSection {
         let groupLayoutSize = NSCollectionLayoutSize(
