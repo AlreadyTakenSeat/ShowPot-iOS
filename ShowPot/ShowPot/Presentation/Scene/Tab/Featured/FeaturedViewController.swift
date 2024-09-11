@@ -163,7 +163,7 @@ extension FeaturedViewController {
         
         viewHolder.updateSearchFieldConstraint(for: self.view, isAppear: isAppear)
                 
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
 
