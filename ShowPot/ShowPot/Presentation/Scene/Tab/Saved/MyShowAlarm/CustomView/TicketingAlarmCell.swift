@@ -84,6 +84,7 @@ final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
                 $0.leading.equalTo(timeInfoLabel)
             }
             timeInfoLabel.textColor = .gray400
+            contentView.layer.borderColor = UIColor.gray500.cgColor
             return
         }
         
