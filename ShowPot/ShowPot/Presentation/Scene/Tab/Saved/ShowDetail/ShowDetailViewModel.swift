@@ -78,6 +78,7 @@ final class ShowDetailViewModel: ViewModelType {
         let output = Output()
         
         input.didTappedLikeButton
+            .throttle(.milliseconds(500), latest: false, scheduler: ConcurrentDispatchQueueScheduler.init(qos: .default))
             .subscribe(with: self) { owner, _ in
                 guard owner.isLoggedIn else {
                     output.showLoginBottomSheet.accept(())
