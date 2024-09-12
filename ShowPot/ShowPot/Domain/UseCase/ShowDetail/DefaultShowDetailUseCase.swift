@@ -29,6 +29,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     func requestShowDetailData(showID: String) {
         apiService.showDetail(showId: showID)
+            .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
                 owner.showOverview.onNext(.init(
                     posterImageURLString: response.posterImageURL,
@@ -79,6 +80,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
+            .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
                 owner.updateInterestResult.onNext(response.hasInterest)
             }
