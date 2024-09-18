@@ -100,7 +100,7 @@ final class ShowDetailViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.ticketBrandList
+        output.ticketBrandModel
             .asDriver(onErrorJustReturn: [])
             .drive(viewHolder.ticketInfoView.ticketSaleCollectionView.rx.items(
                 cellIdentifier: TicketSaleCollectionViewCell.reuseIdentifier,
@@ -125,7 +125,7 @@ final class ShowDetailViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.artistList
+        output.artistModel
             .asDriver(onErrorJustReturn: [])
             .drive(viewHolder.artistInfoView.artistCollectionView.rx.items(
                 cellIdentifier: FeaturedSubscribeArtistCell.reuseIdentifier,
@@ -135,7 +135,7 @@ final class ShowDetailViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.genreList
+        output.genreModel
             .asDriver(onErrorJustReturn: [])
             .drive(viewHolder.genreInfoView.showGenreListView.rx.items(
                 cellIdentifier: ShowGenreCell.reuseIdentifier,
@@ -145,7 +145,7 @@ final class ShowDetailViewController: ViewController {
             }
             .disposed(by: disposeBag)
         
-        output.seatList
+        output.seatModel
             .asDriver(onErrorJustReturn: [])
             .drive(viewHolder.seatInfoView.showSeatListView.rx.items(
                 cellIdentifier: ShowSeatCell.reuseIdentifier,

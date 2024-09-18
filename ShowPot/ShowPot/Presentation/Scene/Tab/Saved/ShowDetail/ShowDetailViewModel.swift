@@ -37,10 +37,10 @@ final class ShowDetailViewModel: ViewModelType {
     struct Output {
         var showOverview = BehaviorRelay<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
         var ticketTimeInfo = BehaviorRelay<(Date?, Date?)>(value: (nil, nil))
-        var ticketBrandList = BehaviorRelay<[String]>(value: [])
-        var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
-        var genreList = BehaviorRelay<[GenreType]>(value: [])
-        var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
+        var ticketBrandModel = BehaviorRelay<[String]>(value: [])
+        var artistModel = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
+        var genreModel = BehaviorRelay<[GenreType]>(value: [])
+        var seatModel = BehaviorRelay<[SeatDetailInfo]>(value: [])
         var isLikeButtonSelected = BehaviorRelay<Bool>(value: false)
         var alarmButtonState = BehaviorRelay<(isUpdatedBefore: Bool, isEnabled: Bool)>(value: (false, true))
         var showLoginBottomSheet = PublishRelay<Void>()
@@ -59,10 +59,10 @@ final class ShowDetailViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         input.didTappedTicketingCell
-            .withLatestFrom(usecase.ticketList) { ($0, $1) }
+            .withLatestFrom(usecase.ticketModel) { ($0, $1) }
             .subscribe(with: self) { owner, result in
-                let (indexPath, ticketList) = result
-                owner.coordinator.goToTicketingWebPage(link: ticketList.ticketCategory[indexPath.row].link)
+                let (indexPath, ticketModel) = result
+                owner.coordinator.goToTicketingWebPage(link: ticketModel.ticketCategory[indexPath.row].link)
             }
             .disposed(by: disposeBag)
         
@@ -92,7 +92,7 @@ final class ShowDetailViewModel: ViewModelType {
             .bind(to: output.showOverview)
             .disposed(by: disposeBag)
         
-        usecase.updateInterestResult
+        usecase.updatedShowInterestResult
             .bind(to: output.isLikeButtonSelected)
             .disposed(by: disposeBag)
         
@@ -104,23 +104,23 @@ final class ShowDetailViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        usecase.ticketList
+        usecase.ticketModel
             .subscribe(with: self) { owner, model in
-                output.ticketBrandList.accept(model.ticketCategory.map { $0.categoryName })
+                output.ticketBrandModel.accept(model.ticketCategory.map { $0.categoryName })
                 output.ticketTimeInfo.accept((model.prereserveOpenTime, model.normalreserveOpenTime))
             }
             .disposed(by: disposeBag)
         
-        usecase.artistList
-            .bind(to: output.artistList)
+        usecase.artistModel
+            .bind(to: output.artistModel)
             .disposed(by: disposeBag)
         
-        usecase.genreList
-            .bind(to: output.genreList)
+        usecase.genreModel
+            .bind(to: output.genreModel)
             .disposed(by: disposeBag)
         
-        usecase.seatList
-            .bind(to: output.seatList)
+        usecase.seatModel
+            .bind(to: output.seatModel)
             .disposed(by: disposeBag)
         
         return output

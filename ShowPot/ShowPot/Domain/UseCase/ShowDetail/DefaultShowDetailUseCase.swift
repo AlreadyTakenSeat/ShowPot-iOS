@@ -14,12 +14,12 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     private let apiService: SPShowAPI
     
     var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
-    var ticketList = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
+    var ticketModel = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
     var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false, isAlreadyOpen: false))
-    var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
-    var genreList = BehaviorRelay<[GenreType]>(value: [])
-    var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
-    var updateInterestResult = PublishSubject<Bool>()
+    var artistModel = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
+    var genreModel = BehaviorRelay<[GenreType]>(value: [])
+    var seatModel = BehaviorRelay<[SeatDetailInfo]>(value: [])
+    var updatedShowInterestResult = PublishSubject<Bool>()
     
     private let disposeBag = DisposeBag()
     
@@ -41,7 +41,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 let normalOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.normal.rawValue })
                 let preOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.pre.rawValue })
                 
-                owner.ticketList.onNext(
+                owner.ticketModel.onNext(
                     ShowDetailTicketInfo(
                         ticketCategory: response.ticketingSites.map { TicketInfo(categoryName: $0.name, link: $0.link) },
                         prereserveOpenTime: DateFormatterFactory.dateTime.date(from: preOpenTime?.ticketingAt ?? ""),
@@ -49,7 +49,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                     )
                 )
                 
-                owner.artistList.onNext(response.artists.map {
+                owner.artistModel.onNext(response.artists.map {
                     FeaturedSubscribeArtistCellModel(
                         id: $0.id,
                         state: .none,
@@ -58,11 +58,11 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                     )
                 })
                 
-                owner.genreList.accept(response.genres.compactMap {
+                owner.genreModel.accept(response.genres.compactMap {
                     GenreType(rawValue: $0.name)
                 })
                 
-                owner.seatList.accept(response.seats.map {
+                owner.seatModel.accept(response.seats.map {
                     SeatDetailInfo(
                         seatCategoryTitle: $0.seatType,
                         seatPrice: NumberformatterFactory.decimal.number(from: "\($0.price)")
@@ -82,7 +82,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
         apiService.updateInterest(showId: showID)
             .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
-                owner.updateInterestResult.onNext(response.hasInterest)
+                owner.updatedShowInterestResult.onNext(response.hasInterest)
             }
             .disposed(by: disposeBag)
     }
