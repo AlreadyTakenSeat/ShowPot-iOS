@@ -12,17 +12,8 @@ import Then
 
 final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
     
-    private var isChecked: Bool = false {
-        didSet {
-            updateLayoutIfNeeded()
-        }
-    }
-    
-    private var isEnabled: Bool = true {
-        didSet {
-            updateLayoutIfNeeded()
-        }
-    }
+    private var isChecked: Bool = false
+    private var isEnabled: Bool = true
     
     private let timeInfoLabel = SPLabel(KRFont.H2).then {
         $0.textColor = .gray000
@@ -121,5 +112,6 @@ extension TicketingAlarmCell {
         self.isEnabled = isEnabled
         self.isChecked = isChecked
         timeInfoLabel.setText(ticketingAlertText)
+        updateIfNeeded()
     }
 }
