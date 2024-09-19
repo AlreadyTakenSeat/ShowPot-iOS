@@ -15,9 +15,7 @@ final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
     private var isChecked: Bool = false
     private var isEnabled: Bool = true
     
-    private let timeInfoLabel = SPLabel(KRFont.H2).then {
-        $0.textColor = .gray000
-    }
+    private let timeInfoLabel = SPLabel(KRFont.H2)
     
     private lazy var checkImageView = UIImageView().then {
         $0.image = .icCheckboxOff
@@ -38,6 +36,15 @@ final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        timeInfoLabel.text = nil
+        checkImageView.image = nil
+        contentView.layer.borderColor = nil
+        disEnabledAlertLabel.removeFromSuperview()
     }
     
     private func setupStyles() {
@@ -63,23 +70,37 @@ final class TicketingAlarmCell: UICollectionViewCell, ReusableCell {
             $0.centerY.equalToSuperview()
         }
     }
+}
+
+extension TicketingAlarmCell {
+    private func updateCellStateChanges() {
+        updateLayout()
+        updateUI()
+    }
     
-    private func updateLayoutIfNeeded() {
+    private func updateLayout() {
         if !isEnabled {
-            checkImageView.removeFromSuperview()
-            checkImageView.snp.removeConstraints()
-            contentView.addSubview(disEnabledAlertLabel)
-            disEnabledAlertLabel.snp.makeConstraints {
-                $0.trailing.equalToSuperview().inset(18)
-                $0.centerY.equalToSuperview()
-                $0.leading.equalTo(timeInfoLabel)
+            if disEnabledAlertLabel.superview == nil {
+                contentView.addSubview(disEnabledAlertLabel)
+                disEnabledAlertLabel.snp.makeConstraints {
+                    $0.trailing.equalToSuperview().inset(18)
+                    $0.centerY.equalToSuperview()
+                    $0.leading.equalTo(timeInfoLabel)
+                }
             }
-            timeInfoLabel.textColor = .gray400
-            contentView.layer.borderColor = UIColor.gray500.cgColor
-            return
+            checkImageView.removeFromSuperview()
+        } else {
+            if checkImageView.superview == nil {
+                contentView.addSubview(checkImageView)
+                setupConstraints()
+            }
+            disEnabledAlertLabel.removeFromSuperview()
         }
-        
-        contentView.layer.borderColor = isChecked ? UIColor.mainOrange.cgColor : UIColor.gray500.cgColor
+    }
+    
+    private func updateUI() {
+        timeInfoLabel.textColor = isEnabled ? .gray000 : .gray400
+        contentView.layer.borderColor = isEnabled ? (isChecked ? UIColor.mainOrange.cgColor : UIColor.gray500.cgColor) : UIColor.gray500.cgColor
         checkImageView.image = isChecked ? .icCheckboxOn : .icCheckboxOff
     }
 }
@@ -112,6 +133,6 @@ extension TicketingAlarmCell {
         self.isEnabled = isEnabled
         self.isChecked = isChecked
         timeInfoLabel.setText(ticketingAlertText)
-        updateIfNeeded()
+        updateCellStateChanges()
     }
 }
