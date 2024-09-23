@@ -5,7 +5,7 @@
 //  Created by 이건준 on 9/23/24.
 //
 
-import Foundation
+import UIKit
 
 final class MyAlarmListViewController: ViewController {
     let viewHolder: MyAlarmListViewHolder = .init()
@@ -14,7 +14,7 @@ final class MyAlarmListViewController: ViewController {
     init(viewModel: MyAlarmListViewModel) {
         self.viewModel = viewModel
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil) 
     }
 
     required init?(coder: NSCoder) {
@@ -24,13 +24,25 @@ final class MyAlarmListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
+        
+        viewHolder.alarmListView.delegate = self
     }
 
     override func setupStyles() {
-
+        super.setupStyles()
+        setNavigationBarItem(
+            title: Strings.myAlarmListNavigationTitle,
+            leftIcon: .icArrowLeft.withTintColor(.gray000)
+        )
     }
 
     override func bind() {
+        
+    }
+}
 
+extension MyAlarmListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        .init(width: collectionView.frame.width - 32, height: 80)
     }
 }

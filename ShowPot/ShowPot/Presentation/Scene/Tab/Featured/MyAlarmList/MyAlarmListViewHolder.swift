@@ -12,21 +12,27 @@ import Then
 
 final class MyAlarmListViewHolder {
 
-    let label = UILabel().then { label in
-        label.text = "MyAlarmList"
-        label.textColor = .gray000
+    private let alarmListViewLayout = UICollectionViewFlowLayout().then {
+        $0.sectionInset = .init(top: 12, left: 16, bottom: 12, right: 16)
+        $0.minimumLineSpacing = 12
+    }
+    
+    lazy var alarmListView = UICollectionView(frame: .zero, collectionViewLayout: alarmListViewLayout).then {
+        $0.register(AlarmCollectionViewCell.self)
+        $0.backgroundColor = .gray700
+        $0.alwaysBounceVertical = true
     }
 }
 
 extension MyAlarmListViewHolder: ViewHolderType {
 
     func place(in view: UIView) {
-        view.addSubview(label)
+        view.addSubview(alarmListView)
     }
 
     func configureConstraints(for view: UIView) {
-        label.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        alarmListView.snp.makeConstraints {
+            $0.directionalEdges.equalToSuperview()
         }
     }
 
