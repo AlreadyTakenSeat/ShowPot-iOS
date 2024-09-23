@@ -990,6 +990,13 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		70DC8F622CA1AC70006DDAF7 /* MyAlarmList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyAlarmList;
+			sourceTree = "<group>";
+		};
 		70F3C0D92C663A7700786738 /* MyShowAlarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1315,6 +1322,7 @@
 		7D29811F2C01EC0C00A619FB /* Featured */ = {
 			isa = PBXGroup;
 			children = (
+				70DC8F622CA1AC70006DDAF7 /* MyAlarmList */,
 				707FF7592C5FF0920026C82D /* SubscribeArtist */,
 				7014672D2C3EFBB000750A54 /* CustomView */,
 				7D29812A2C01F22300A619FB /* FeaturedViewController.swift */,
