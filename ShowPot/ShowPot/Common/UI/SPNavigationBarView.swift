@@ -84,7 +84,11 @@ final class SPNavigationBarView: UIStackView {
     }
     
     private func updateSubView() {
-        if style.leftIcon != nil { self.addArrangedSubview(leftButtonItem) }
+        if style.leftIcon != nil {
+            self.addArrangedSubview(leftButtonItem)
+        } else {
+            self.layoutMargins = .init(top: 12, left: 16, bottom: 0, right: 6)
+        }
         self.addArrangedSubview(titleLabel)
         if style.rightIcon != nil { self.addArrangedSubview(rightButtonItem) }
     }
