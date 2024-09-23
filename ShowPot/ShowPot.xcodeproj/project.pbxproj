@@ -136,6 +136,7 @@
 		70DC8F662CA1AD64006DDAF7 /* MyAlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */; };
 		70DC8F682CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */; };
 		70DC8F6A2CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */; };
+		70DC8F6D2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F6C2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift */; };
 		70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */; };
 		70F3C0DD2C663A9C00786738 /* MyShowAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */; };
 		70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */; };
@@ -430,6 +431,7 @@
 		70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewModel.swift; sourceTree = "<group>"; };
 		70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewHolder.swift; sourceTree = "<group>"; };
 		70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListCoordinator.swift; sourceTree = "<group>"; };
+		70DC8F6C2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewController.swift; sourceTree = "<group>"; };
 		70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewModel.swift; sourceTree = "<group>"; };
 		70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -1001,12 +1003,21 @@
 		70DC8F622CA1AC70006DDAF7 /* MyAlarmList */ = {
 			isa = PBXGroup;
 			children = (
+				70DC8F6B2CA1B342006DDAF7 /* CustomView */,
 				70DC8F632CA1ACCA006DDAF7 /* MyAlarmListViewController.swift */,
 				70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */,
 				70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */,
 				70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */,
 			);
 			path = MyAlarmList;
+			sourceTree = "<group>";
+		};
+		70DC8F6B2CA1B342006DDAF7 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				70DC8F6C2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		70F3C0D92C663A7700786738 /* MyShowAlarm */ = {
@@ -2039,6 +2050,7 @@
 				70A95BA72C7F7E8E0007836E /* SubscribeArtistRequest.swift in Sources */,
 				7004852C2C7A585300B9A964 /* WebContentViewModel.swift in Sources */,
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
+				70DC8F6D2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift in Sources */,
 				70F3C1442C6FB9E600786738 /* ClosedShowUseCase.swift in Sources */,
 				7D0ED9D32C80C57800145D86 /* ShowInterestResponse.swift in Sources */,
 				70DC8F662CA1AD64006DDAF7 /* MyAlarmListViewModel.swift in Sources */,
