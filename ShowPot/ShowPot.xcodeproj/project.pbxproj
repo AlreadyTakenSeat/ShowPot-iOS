@@ -132,6 +132,10 @@
 		70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		70B81D602C58D9CB00665EDD /* UIView+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */; };
 		70B81D672C5A2C9400665EDD /* PerformanceStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */; };
+		70DC8F642CA1ACCA006DDAF7 /* MyAlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F632CA1ACCA006DDAF7 /* MyAlarmListViewController.swift */; };
+		70DC8F662CA1AD64006DDAF7 /* MyAlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */; };
+		70DC8F682CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */; };
+		70DC8F6A2CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */; };
 		70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */; };
 		70F3C0DD2C663A9C00786738 /* MyShowAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */; };
 		70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */; };
@@ -422,6 +426,10 @@
 		70B81D5D2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		70B81D5F2C58D9CB00665EDD /* UIView+CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CALayer.swift"; sourceTree = "<group>"; };
 		70B81D662C5A2C9400665EDD /* PerformanceStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceStateView.swift; sourceTree = "<group>"; };
+		70DC8F632CA1ACCA006DDAF7 /* MyAlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewController.swift; sourceTree = "<group>"; };
+		70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewModel.swift; sourceTree = "<group>"; };
+		70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewHolder.swift; sourceTree = "<group>"; };
+		70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListCoordinator.swift; sourceTree = "<group>"; };
 		70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewController.swift; sourceTree = "<group>"; };
 		70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewModel.swift; sourceTree = "<group>"; };
 		70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -993,6 +1001,10 @@
 		70DC8F622CA1AC70006DDAF7 /* MyAlarmList */ = {
 			isa = PBXGroup;
 			children = (
+				70DC8F632CA1ACCA006DDAF7 /* MyAlarmListViewController.swift */,
+				70DC8F652CA1AD64006DDAF7 /* MyAlarmListViewModel.swift */,
+				70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */,
+				70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */,
 			);
 			path = MyAlarmList;
 			sourceTree = "<group>";
@@ -2021,6 +2033,7 @@
 				70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7D9545BA2C7CDB2F005C3623 /* KeyChainManager.swift in Sources */,
+				70DC8F682CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift in Sources */,
 				7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */,
 				7D9545C32C7CE4EA005C3623 /* LoginState.swift in Sources */,
 				70A95BA72C7F7E8E0007836E /* SubscribeArtistRequest.swift in Sources */,
@@ -2028,6 +2041,7 @@
 				7014673B2C3EFC9300750A54 /* FeaturedSubscribeGenreCell.swift in Sources */,
 				70F3C1442C6FB9E600786738 /* ClosedShowUseCase.swift in Sources */,
 				7D0ED9D32C80C57800145D86 /* ShowInterestResponse.swift in Sources */,
+				70DC8F662CA1AD64006DDAF7 /* MyAlarmListViewModel.swift in Sources */,
 				70F3C12A2C6E723900786738 /* InterestShowUseCase.swift in Sources */,
 				70A95B962C7F26850007836E /* SearchArtistResponse.swift in Sources */,
 				700485152C7A386D00B9A964 /* ShowDetailFooterView.swift in Sources */,
@@ -2058,6 +2072,7 @@
 				70A95BAC2C8096E00007836E /* AccountViewController.swift in Sources */,
 				7D9545B62C7C95E4005C3623 /* SPTargetType.swift in Sources */,
 				7004851D2C7A523C00B9A964 /* SettingViewController.swift in Sources */,
+				70DC8F642CA1ACCA006DDAF7 /* MyAlarmListViewController.swift in Sources */,
 				7DB9F90C2C60860F0097C4F9 /* BottomSheetViewController.swift in Sources */,
 				70A95BD42C8185900007836E /* MyArtistViewHolder.swift in Sources */,
 				7014671B2C3D8D3C00750A54 /* SocialLoginButton.swift in Sources */,
@@ -2081,6 +2096,7 @@
 				7D29812D2C01F22B00A619FB /* FeaturedViewModel.swift in Sources */,
 				70F3C1332C6E72AC00786738 /* InterestShowListCoordinator.swift in Sources */,
 				707FF7442C5CC1AF0026C82D /* AllPerformanceViewController.swift in Sources */,
+				70DC8F6A2CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift in Sources */,
 				7D75B91D2C4FE9F500C72417 /* UserDefaultsManager.swift in Sources */,
 				7DB9F9102C60FFF10097C4F9 /* BaseViewController+BottomSheet.swift in Sources */,
 				701467912C53C14600750A54 /* PerformanceInfoCollectionViewCell.swift in Sources */,
