@@ -143,10 +143,14 @@ class SPShowAPI {
     
     func showDetail(showId: String) -> Observable<ShowDetailResponse> {
         let target = SPShowTargetType.showDetail(showId: showId)
-        
-        let accessToken = try? KeyChainManager.shared.read(account: .accessToken) 
         let id = UIDevice.current.identifierForVendor?.uuidString
-        let header: HTTPHeaders = ["viewIdentifier": id ?? ""]
+        
+        var header: HTTPHeaders = ["viewIdentifier": id ?? ""]
+        if let targetHeader = target.header {
+            targetHeader.forEach { headerItem in
+                header[headerItem.name] = headerItem.value
+            }
+        }
         
         return Observable.create { emitter in
             
