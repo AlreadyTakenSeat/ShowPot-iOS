@@ -120,7 +120,7 @@ enum MyAlarmMenuType: CaseIterable {
     var menuImage: UIImage {
         switch self {
         case .alarmPerformance:
-            return .icAlarm.withTintColor(.gray300)
+            return .icAlarmSmall.withTintColor(.gray300)
         case .interestShow:
             return .icHeartSmall.withTintColor(.gray300)
         case .closedShow:

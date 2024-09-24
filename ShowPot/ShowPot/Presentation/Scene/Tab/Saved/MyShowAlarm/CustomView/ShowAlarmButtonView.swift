@@ -21,7 +21,7 @@ final class ShowAlarmButtonView: UIView {
     }
     
     private let alarmView = UIImageView().then {
-        $0.image = .icAlarm.withTintColor(.gray000)
+        $0.image = .icAlarmSmall.withTintColor(.gray000)
         $0.contentMode = .scaleAspectFit
     }
     

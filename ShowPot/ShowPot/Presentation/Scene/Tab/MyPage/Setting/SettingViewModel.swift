@@ -153,7 +153,7 @@ enum SettingType {
         case .account:
             return .icProfile.withTintColor(.gray400)
         case .alarm:
-            return .icAlarm.withTintColor(.gray400)
+            return .icAlarmSmall.withTintColor(.gray400)
         case .privacyPolicy:
             return .icPrivacy.withTintColor(.gray400)
         case .term:
