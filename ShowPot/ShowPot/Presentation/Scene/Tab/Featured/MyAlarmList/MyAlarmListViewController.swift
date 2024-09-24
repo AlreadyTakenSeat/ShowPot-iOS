@@ -24,8 +24,6 @@ final class MyAlarmListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewHolderConfigure()
-        
-        viewHolder.alarmListView.delegate = self
     }
 
     override func setupStyles() {
@@ -37,7 +35,30 @@ final class MyAlarmListViewController: ViewController {
     }
 
     override func bind() {
+        let input = MyAlarmListViewModel.Input(
+            didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(), 
+            didTappedAlarmCell: viewHolder.alarmListView.rx.itemSelected.asObservable()
+        )
         
+        let output = viewModel.transform(input: input)
+        output.myAlarmModel
+            .asDriver()
+            .drive(viewHolder.alarmListView.rx.items(
+                cellIdentifier: AlarmCollectionViewCell.reuseIdentifier,
+                cellType: AlarmCollectionViewCell.self)
+            ) { index, item, cell in
+                cell.configureUI(
+                    thumbnailImageURL: item.thumbnailImageURL, 
+                    mainAlarm: item.mainAlarm,
+                    subAlarm: item.subAlarm,
+                    timeLeft: item.timeLeft
+                )
+            }
+            .disposed(by: disposeBag)
+        
+        viewHolder.alarmListView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
     }
 }
 

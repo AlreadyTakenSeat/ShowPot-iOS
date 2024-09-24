@@ -137,6 +137,8 @@
 		70DC8F682CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */; };
 		70DC8F6A2CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */; };
 		70DC8F6D2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F6C2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift */; };
+		70DC8F712CA27E37006DDAF7 /* MyAlarmListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F702CA27E37006DDAF7 /* MyAlarmListUseCase.swift */; };
+		70DC8F732CA27E42006DDAF7 /* DefaultMyAlarmListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC8F722CA27E42006DDAF7 /* DefaultMyAlarmListUseCase.swift */; };
 		70F3C0DB2C663A8900786738 /* MyShowAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */; };
 		70F3C0DD2C663A9C00786738 /* MyShowAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */; };
 		70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */; };
@@ -432,6 +434,8 @@
 		70DC8F672CA1AD6B006DDAF7 /* MyAlarmListViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewHolder.swift; sourceTree = "<group>"; };
 		70DC8F692CA1AD73006DDAF7 /* MyAlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListCoordinator.swift; sourceTree = "<group>"; };
 		70DC8F6C2CA1B351006DDAF7 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
+		70DC8F702CA27E37006DDAF7 /* MyAlarmListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListUseCase.swift; sourceTree = "<group>"; };
+		70DC8F722CA27E42006DDAF7 /* DefaultMyAlarmListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmListUseCase.swift; sourceTree = "<group>"; };
 		70F3C0DA2C663A8900786738 /* MyShowAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewController.swift; sourceTree = "<group>"; };
 		70F3C0DC2C663A9C00786738 /* MyShowAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmViewModel.swift; sourceTree = "<group>"; };
 		70F3C0DE2C663AA900786738 /* MyShowAlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowAlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -1020,6 +1024,15 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		70DC8F6F2CA27D69006DDAF7 /* MyAlarmList */ = {
+			isa = PBXGroup;
+			children = (
+				70DC8F702CA27E37006DDAF7 /* MyAlarmListUseCase.swift */,
+				70DC8F722CA27E42006DDAF7 /* DefaultMyAlarmListUseCase.swift */,
+			);
+			path = MyAlarmList;
+			sourceTree = "<group>";
+		};
 		70F3C0D92C663A7700786738 /* MyShowAlarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1471,6 +1484,7 @@
 		7D3E96262C061C61003A6FA9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				70DC8F6F2CA27D69006DDAF7 /* MyAlarmList */,
 				70A95BD52C818AD00007836E /* MyArtist */,
 				70A95B972C7F27BE0007836E /* Search */,
 				70A95B812C7E29E80007836E /* Featured */,
@@ -2027,9 +2041,11 @@
 				70A95BA52C7F7DDE0007836E /* UnsubscribeArtistResponse.swift in Sources */,
 				7DEACE532C1ED96400F37DA3 /* ENFont.swift in Sources */,
 				701467802C53645900750A54 /* FeaturedWatchTheFullPerformanceFooterView.swift in Sources */,
+				70DC8F732CA27E42006DDAF7 /* DefaultMyAlarmListUseCase.swift in Sources */,
 				7DA1CA1F2C6BA72D00C2752F /* ShowDetailInfoView.swift in Sources */,
 				700484FB2C76823500B9A964 /* ShowDetailSeatInfoView.swift in Sources */,
 				70B81D5E2C580E8F00665EDD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				70DC8F712CA27E37006DDAF7 /* MyAlarmListUseCase.swift in Sources */,
 				7DB9F93B2C662D600097C4F9 /* GradientView.swift in Sources */,
 				7D2981022C01E1D000A619FB /* SceneDelegate.swift in Sources */,
 				7D0ED9D72C80C77D00145D86 /* ShowDetailResponse.swift in Sources */,

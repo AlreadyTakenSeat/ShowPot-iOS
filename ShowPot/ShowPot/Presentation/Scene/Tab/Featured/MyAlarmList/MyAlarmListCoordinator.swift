@@ -18,8 +18,13 @@ final class MyAlarmListCoordinator: Coordinator {
     }
 
     func start() {
-        let viewModel = MyAlarmListViewModel(coordinator: self)
+        let viewModel = MyAlarmListViewModel(coordinator: self, usecase: DefaultMyAlarmListUseCase())
         let viewController = MyAlarmListViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popViewController() {
+        self.parentCoordinator?.removeChildCoordinator(child: self)
+        self.navigationController.popViewController(animated: true)
     }
 }
