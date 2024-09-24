@@ -13,10 +13,18 @@ final class FeaturedViewHolder {
     
     private let searchAreaHeight: CGFloat = 66
     
+    lazy var alarmRightBarButton = SPButton().then {
+        $0.configuration?.baseBackgroundColor = .clear
+        $0.setImage(.icAlarmLarge.withTintColor(.gray000), for: .normal)
+        $0.snp.makeConstraints {
+            $0.size.equalTo(36)
+        }
+    }
+    
     lazy var logoTopView = UIStackView().then { stackView in
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.layoutMargins = .init(top: 13, left: 17, bottom: 18, right: 17)
+        stackView.layoutMargins = .init(top: 13, left: 17, bottom: 18, right: 10)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.backgroundColor = .gray700
         
@@ -81,6 +89,7 @@ extension FeaturedViewHolder: ViewHolderType {
     
     func place(in view: UIView) {
         [featuredCollectionView, searchFieldTopView, logoTopView].forEach { view.addSubview($0) }
+        logoTopView.addArrangedSubview(alarmRightBarButton)
     }
     
     func configureConstraints(for view: UIView) {
