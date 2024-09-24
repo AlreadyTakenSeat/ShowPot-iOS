@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+// TODO: #129 MyAlarmList -> MyAlarm 네이밍 변경
 final class DefaultMyAlarmListUseCase: MyAlarmListUseCase {
     
     private let apiService: SPShowAPI
