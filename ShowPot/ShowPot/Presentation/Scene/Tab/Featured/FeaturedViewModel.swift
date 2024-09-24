@@ -56,12 +56,11 @@ final class FeaturedViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        
-        let output = Output(
-            updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()),
-            showLoginBottomSheet: PublishSubject<Void>()
-        )
-        
+        self.configureInput(input)
+        return self.createOutput(from: input)
+    }
+    
+    private func configureInput(_ input: Input) {
         input.requestFeaturedSectionModel
             .subscribe(with: self) { owner, _ in
                 owner.fetchSubscribeGenreListModel()
@@ -74,27 +73,6 @@ final class FeaturedViewModel: ViewModelType {
         input.didTapSearchField
             .subscribe(with: self) { owner, _ in
                 owner.coordinator.goToFeaturedSearchScreen()
-            }
-            .disposed(by: disposeBag)
-        
-        input.didTappedSubscribeGenreButton
-            .subscribe(with: self) { owner, _ in
-                
-                guard LoginState.current == .loggedIn else {
-                    output.showLoginBottomSheet.onNext(())
-                    return
-                }
-                owner.coordinator.goToSubscribeGenreScreen()
-            }
-            .disposed(by: disposeBag)
-        
-        input.didTappedSubscribeArtistButton
-            .subscribe(with: self) { owner, _ in
-                guard LoginState.current == .loggedIn else {
-                    output.showLoginBottomSheet.onNext(())
-                    return
-                }
-                owner.coordinator.goToSubscribeArtistScreen()
             }
             .disposed(by: disposeBag)
         
@@ -119,7 +97,35 @@ final class FeaturedViewModel: ViewModelType {
             owner.updateFeaturedLayoutSubject.onNext(())
         }
         .disposed(by: disposeBag)
-            
+    }
+    
+    private func createOutput(from input: Input) -> Output {
+        let output = Output(
+            updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()),
+            showLoginBottomSheet: PublishSubject<Void>()
+        )
+        
+        input.didTappedSubscribeGenreButton
+            .subscribe(with: self) { owner, _ in
+                
+                guard LoginState.current == .loggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
+                owner.coordinator.goToSubscribeGenreScreen()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedSubscribeArtistButton
+            .subscribe(with: self) { owner, _ in
+                guard LoginState.current == .loggedIn else {
+                    output.showLoginBottomSheet.onNext(())
+                    return
+                }
+                owner.coordinator.goToSubscribeArtistScreen()
+            }
+            .disposed(by: disposeBag)
+        
         input.didTappedFeaturedCell
             .withLatestFrom(featuredSectionModelRelay) { ($0, $1) }
             .subscribe(with: self) { owner, result in
