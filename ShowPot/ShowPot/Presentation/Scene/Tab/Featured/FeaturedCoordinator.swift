@@ -25,7 +25,6 @@ final class FeaturedCoordinator: NavigationCoordinator {
     
 }
 
-// TODO: 각 화면 개발 이후, 실제 로직 추가 필요
 extension FeaturedCoordinator {
     
     func goToFeaturedSearchScreen() {
@@ -54,6 +53,12 @@ extension FeaturedCoordinator {
     
     func goToShowDetailScreen(showID: String) {
         let coordinator = ShowDetailCoordinator(showID: showID, navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
+    
+    func goToMyAlarmListViewController() {
+        let coordinator = MyAlarmListCoordinator(navigationController: self.navigationController)
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }

@@ -55,12 +55,14 @@ final class FeaturedViewController: ViewController {
     
     override func bind() {
         let input = FeaturedViewModel.Input(
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in Void() },
             requestFeaturedSectionModel: .just(()),
             didTapSearchField: viewHolder.searchFieldTopView.rx.tapGesture().when(.recognized),
             didTappedSubscribeGenreButton: didTappedSubscribeGenreButtonSubject,
             didTappedSubscribeArtistButton: didTappedSubscribeArtistButtonSubject, 
             didTappedFeaturedCell: viewHolder.featuredCollectionView.rx.itemSelected.asObservable(), 
-            didTappedWatchTheFullPerformanceButton: didTappedWatchTheFullPerformanceButtonSubject.asObservable()
+            didTappedWatchTheFullPerformanceButton: didTappedWatchTheFullPerformanceButtonSubject.asObservable(), 
+            didTappedRightBarButton: viewHolder.alarmRightBarButton.rx.tap.asObservable()
         )
         let output = viewModel.transform(input: input)
         output.updateFeaturedLayout
@@ -73,6 +75,12 @@ final class FeaturedViewController: ViewController {
             owner.showLoginBottomSheet()
         }
         .disposed(by: disposeBag)
+        
+        output.hasNewNotifications
+            .subscribe(with: self) { owner, hasNewNotifications in
+                owner.viewHolder.alarmRightBarButton.setImage(hasNewNotifications ? .icAlarmLargeOn : .icAlarmLarge, for: .normal)
+            }
+            .disposed(by: disposeBag)
     }
 }
 

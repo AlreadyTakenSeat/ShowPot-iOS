@@ -16,7 +16,7 @@ final class FeaturedViewModel: ViewModelType {
     var coordinator: FeaturedCoordinator
     private let disposeBag = DisposeBag()
     
-    private let usecase: SubscribeArtistUseCase & AllPerformanceUseCase
+    private let usecase: SubscribeArtistUseCase & AllPerformanceUseCase & FetchNotificationUpdatesUseCase
     
     private let subscribeGenreModelRelay = BehaviorRelay<[GenreType]>(value: [])
     private let recommendedPerformanceModelRelay = BehaviorRelay<[FeaturedRecommendedPerformanceCellModel]>(value: [])
@@ -36,23 +36,26 @@ final class FeaturedViewModel: ViewModelType {
         featuredSectionModelRelay.value
     }
     
-    init(coordinator: FeaturedCoordinator, usecase: SubscribeArtistUseCase & AllPerformanceUseCase) {
+    init(coordinator: FeaturedCoordinator, usecase: SubscribeArtistUseCase & AllPerformanceUseCase & FetchNotificationUpdatesUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
     }
     
     struct Input {
+        let viewWillAppear: Observable<Void>
         let requestFeaturedSectionModel: Observable<Void>
         let didTapSearchField: Observable<UITapGestureRecognizer>
         let didTappedSubscribeGenreButton: PublishSubject<Void>
         let didTappedSubscribeArtistButton: PublishSubject<Void>
         let didTappedFeaturedCell: Observable<IndexPath>
         let didTappedWatchTheFullPerformanceButton: Observable<Void>
+        let didTappedRightBarButton: Observable<Void>
     }
     
     struct Output {
         let updateFeaturedLayout: Signal<Void>
         let showLoginBottomSheet: PublishSubject<Void>
+        let hasNewNotifications = PublishRelay<Bool>()
     }
     
     func transform(input: Input) -> Output {
@@ -82,6 +85,12 @@ final class FeaturedViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.didTappedRightBarButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToMyAlarmListViewController()
+            }
+            .disposed(by: disposeBag)
+        
         Observable.combineLatest(
             subscribeGenreModelRelay,
             usecase.artistList,
@@ -97,6 +106,12 @@ final class FeaturedViewModel: ViewModelType {
             owner.updateFeaturedLayoutSubject.onNext(())
         }
         .disposed(by: disposeBag)
+        
+        input.viewWillAppear
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.fetchNotificationUpdates()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func createOutput(from input: Input) -> Output {
@@ -150,6 +165,10 @@ final class FeaturedViewModel: ViewModelType {
                     owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].showID)
                 }
             }
+            .disposed(by: disposeBag)
+        
+        usecase.hasNewNotifications
+            .bind(to: output.hasNewNotifications)
             .disposed(by: disposeBag)
         
         return output
