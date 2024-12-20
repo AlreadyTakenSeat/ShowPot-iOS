@@ -119,7 +119,7 @@
 		70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB42C809EF40007836E /* AccountHeaderView.swift */; };
 		70A95BB72C80A2A00007836E /* DefaultAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */; };
 		70A95BB92C80A2AC0007836E /* AccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BB82C80A2AC0007836E /* AccountUseCase.swift */; };
-		70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BBE2C80A49F0007836E /* EmptyModel.swift */; };
+		70A95BBF2C80A49F0007836E /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BBE2C80A49F0007836E /* CommonResponse.swift */; };
 		70A95BCB2C80E5F50007836E /* NumberFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCA2C80E5F50007836E /* NumberFormatterFactory.swift */; };
 		70A95BCE2C8185720007836E /* MyArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCD2C8185720007836E /* MyArtistViewController.swift */; };
 		70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A95BCF2C81857F0007836E /* MyArtistViewModel.swift */; };
@@ -406,7 +406,7 @@
 		70A95BB42C809EF40007836E /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		70A95BB62C80A2A00007836E /* DefaultAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountUseCase.swift; sourceTree = "<group>"; };
 		70A95BB82C80A2AC0007836E /* AccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUseCase.swift; sourceTree = "<group>"; };
-		70A95BBE2C80A49F0007836E /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
+		70A95BBE2C80A49F0007836E /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
 		70A95BC02C80C8570007836E /* SPShowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPShowAPI.swift; sourceTree = "<group>"; };
 		70A95BC22C80CD930007836E /* ShowAlarmListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmListRequest.swift; sourceTree = "<group>"; };
 		70A95BC42C80D1020007836E /* ShowAlarmListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlarmListResponse.swift; sourceTree = "<group>"; };
@@ -1365,7 +1365,7 @@
 				709577982C7CD82400176381 /* Show */,
 				7DF3778A2C7E05CF005B0DC8 /* Genre */,
 				7D6005062C7F595900B670A3 /* Users */,
-				70A95BBE2C80A49F0007836E /* EmptyModel.swift */,
+				70A95BBE2C80A49F0007836E /* CommonResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2039,7 +2039,7 @@
 				7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */,
 				700484FF2C768D6B00B9A964 /* AutoSizingCollectionView.swift in Sources */,
 				700485212C7A525D00B9A964 /* SettingCoordinator.swift in Sources */,
-				70A95BBF2C80A49F0007836E /* EmptyModel.swift in Sources */,
+				70A95BBF2C80A49F0007836E /* CommonResponse.swift in Sources */,
 				707FF7522C5DFCFD0026C82D /* AllPerformanceUseCase.swift in Sources */,
 				70F3C1142C6B9FF200786738 /* MenuCell.swift in Sources */,
 				7D1E5FB42C0A23700012504D /* AppCoordinator.swift in Sources */,

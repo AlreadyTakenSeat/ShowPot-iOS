@@ -7,8 +7,14 @@
 
 import Foundation
 
-// MARK: - Show
 struct ShowDetailResponse: Codable {
+    let code: Int
+    let message: String
+    let data: ShowDetailData?
+}
+
+// MARK: - Show
+struct ShowDetailData: Codable {
     let id, name, startDate, endDate: String
     let location, posterImageURL: String
     let artists: [ShowDetailArtist]

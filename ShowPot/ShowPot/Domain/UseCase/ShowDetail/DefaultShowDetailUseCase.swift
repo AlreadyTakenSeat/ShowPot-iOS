@@ -28,6 +28,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     }
     
     func requestShowDetailData(showID: String) {
+        /* TODO: [SPT-4] 변경된 알람 설정 모델 적용 필요
         apiService.showDetail(showId: showID)
             .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
@@ -76,13 +77,16 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 ))
             }
             .disposed(by: disposeBag)
+         */
     }
     
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
             .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
+                /* TODO: [SPT-4] 변경된 알람 설정 모델 적용 필요
                 owner.updatedShowInterestResult.onNext(response.hasInterest)
+                 */
             }
             .disposed(by: disposeBag)
     }

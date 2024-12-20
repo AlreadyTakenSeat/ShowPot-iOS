@@ -48,7 +48,7 @@ enum SPUserTargetType: APIType {
 
 final class SPUserAPI {
     
-    func withdrawal() -> Observable<EmptyModel> {
+    func withdrawal() -> Observable<CommonResponse> {
         let target = SPUserTargetType.withdrawal
         let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
         
@@ -58,7 +58,7 @@ final class SPUserAPI {
                 method: target.method,
                 parameters: request,
                 headers: target.header
-            ).responseDecodable(of: EmptyModel.self) { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
@@ -122,7 +122,7 @@ final class SPUserAPI {
         }
     }
     
-    func logout() -> Observable<EmptyModel> {
+    func logout() -> Observable<CommonResponse> {
         let target = SPUserTargetType.logout
         let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
         
@@ -132,7 +132,7 @@ final class SPUserAPI {
                 method: target.method,
                 parameters: request,
                 headers: target.header
-            ).responseDecodable(of: EmptyModel.self) { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)

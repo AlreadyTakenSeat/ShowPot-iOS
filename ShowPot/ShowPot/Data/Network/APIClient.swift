@@ -13,7 +13,7 @@ import RxSwift
 
 final class APIClient {
     
-    func showList(sort: String, onlyOpen: Bool = false, size: Int = 100) -> Observable<ShowListResponse> {
+    func showList(sort: String, onlyOpen: Bool = false, size: Int = 100) -> Observable<ShowListData> {
         
         let target = SPTargetType.showList
         let param: Parameters = [
@@ -33,7 +33,7 @@ final class APIClient {
             ).responseDecodable(of: ShowListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
