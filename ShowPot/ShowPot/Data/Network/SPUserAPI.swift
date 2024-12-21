@@ -16,6 +16,8 @@ enum SPUserTargetType: APIType {
     case logout
     case login
     case profileInfo
+    case notificaitons
+    case notificationExist
     
     var baseURL: String {
         return Environment.baseURL
@@ -23,7 +25,7 @@ enum SPUserTargetType: APIType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .profileInfo:
+        case .profileInfo, .notificaitons, .notificationExist:
             return .get
         default:
             return .post
@@ -42,6 +44,10 @@ enum SPUserTargetType: APIType {
             return "users/login"
         case .profileInfo:
             return "users/profile"
+        case .notificaitons:
+            return "users/notifications"
+        case .notificationExist:
+            return "users/notifications/exist"
         }
     }
 }
@@ -163,6 +169,50 @@ final class SPUserAPI {
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data.data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func notificationList() -> Observable<UserNotificationData> {
+        let target = SPUserTargetType.notificaitons
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: UserNotificationResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func notificationExist() -> Observable<Bool> {
+        let target = SPUserTargetType.notificaitons
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: UserNotificationExistResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data.isExist)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

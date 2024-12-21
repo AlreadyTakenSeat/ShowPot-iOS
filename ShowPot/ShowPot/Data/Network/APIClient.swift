@@ -73,7 +73,7 @@ final class APIClient {
         }
     }
     
-    func unsubcribeArtistList(request: UnsubscribeArtistListRequest) -> Observable<ArtistListResponse> {
+    func unsubcribeArtistList(request: UnsubscribeArtistListRequest) -> Observable<ArtistListData> {
         
         let target = SPTargetType.unsubscribeArtistList
         
@@ -88,7 +88,7 @@ final class APIClient {
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

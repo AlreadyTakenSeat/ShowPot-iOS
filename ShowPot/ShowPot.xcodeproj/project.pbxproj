@@ -291,6 +291,8 @@
 		7DD2CB852C2ED5A60052ECCD /* SavedViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2CB842C2ED5A60052ECCD /* SavedViewHolder.swift */; };
 		7DD2CB872C2ED63E0052ECCD /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2CB862C2ED63E0052ECCD /* MyPageCoordinator.swift */; };
 		7DD2CB892C2ED6550052ECCD /* MyPageViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2CB882C2ED6550052ECCD /* MyPageViewHolder.swift */; };
+		7DD9AFA92D1734A900B44A99 /* UserNotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9AFA82D1734A900B44A99 /* UserNotificationResponse.swift */; };
+		7DD9AFAB2D17353200B44A99 /* UserNotificationExistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9AFAA2D17353200B44A99 /* UserNotificationExistResponse.swift */; };
 		7DE569F42C5569DF006724EF /* SnackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE569F32C5569DF006724EF /* SnackBar.swift */; };
 		7DE569F62C557892006724EF /* UIView+UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE569F52C557892006724EF /* UIView+UIGestureRecognizer.swift */; };
 		7DE569F82C561CE7006724EF /* UIButton+Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE569F72C561CE7006724EF /* UIButton+Trigger.swift */; };
@@ -562,6 +564,8 @@
 		7DD2CB842C2ED5A60052ECCD /* SavedViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewHolder.swift; sourceTree = "<group>"; };
 		7DD2CB862C2ED63E0052ECCD /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		7DD2CB882C2ED6550052ECCD /* MyPageViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewHolder.swift; sourceTree = "<group>"; };
+		7DD9AFA82D1734A900B44A99 /* UserNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationResponse.swift; sourceTree = "<group>"; };
+		7DD9AFAA2D17353200B44A99 /* UserNotificationExistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationExistResponse.swift; sourceTree = "<group>"; };
 		7DE569ED2C552D8F006724EF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7DE569F32C5569DF006724EF /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
 		7DE569F52C557892006724EF /* UIView+UIGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+UIGestureRecognizer.swift"; sourceTree = "<group>"; };
@@ -1512,6 +1516,8 @@
 			children = (
 				7D60050A2C7F59C500B670A3 /* UserTokenResponse.swift */,
 				7D60050F2C7F5A6200B670A3 /* UserProfileResponse.swift */,
+				7DD9AFA82D1734A900B44A99 /* UserNotificationResponse.swift */,
+				7DD9AFAA2D17353200B44A99 /* UserNotificationExistResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1876,6 +1882,7 @@
 				7D89E54E2C36673E00E6001E /* OnboardingViewHolder.swift in Sources */,
 				70F3C1222C6CD4C500786738 /* MyPageHeaderView.swift in Sources */,
 				7014678D2C53C12400750A54 /* FeaturedRecentSearchHeaderView.swift in Sources */,
+				7DD9AFAB2D17353200B44A99 /* UserNotificationExistResponse.swift in Sources */,
 				70F3C1312C6E72A500786738 /* InterestShowListViewModel.swift in Sources */,
 				7DA112562C6893AC009DFDB1 /* ShowDetailCoordinator.swift in Sources */,
 				7014678B2C53C11200750A54 /* FeaturedSearchTextField.swift in Sources */,
@@ -2059,6 +2066,7 @@
 				707FF7462C5CC1C20026C82D /* AllPerformanceViewHolder.swift in Sources */,
 				70A95BB22C8097130007836E /* AccountViewHolder.swift in Sources */,
 				7DA1CA2D2C6DD28800C2752F /* DefaultShowDetailUseCase.swift in Sources */,
+				7DD9AFA92D1734A900B44A99 /* UserNotificationResponse.swift in Sources */,
 				7DB9F9352C63B9910097C4F9 /* GenreSubscribeUseCase.swift in Sources */,
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,
 				7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */,

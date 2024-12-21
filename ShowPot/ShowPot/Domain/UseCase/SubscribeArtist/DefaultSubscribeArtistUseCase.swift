@@ -39,7 +39,7 @@ final class DefaultSubscribeArtistUseCase: SubscribeArtistUseCase {
                     id: $0.id,
                     state: .none,
                     artistImageURL: URL(string: $0.imageURL),
-                    artistName: $0.englishName
+                    artistName: $0.name
                 )
             })
         }
