@@ -16,11 +16,13 @@ enum SPGenreTargetType: APIType {
     /// 구독 추가
     case subscribe
     /// 장르 리스트
-    case genres
+    case genres(cursor: String?, size: Int)
     /// 미구독 장르 리스트
-    case unsubscriptions
+    case unsubscriptions(cursor: String?, size: Int)
     /// 구독 장르 리스트
-    case subscriptions
+    case subscriptions(cursor: String?, size: Int)
+    /// 구독한 장르 수
+    case subscriptionCount
     
     var baseURL: String {
         return "\(Environment.baseURL)"
@@ -41,12 +43,28 @@ enum SPGenreTargetType: APIType {
             return "genres/unsubscribe"
         case .subscribe:
             return "genres/subscribe"
-        case .genres:
-            return "genres"
-        case .unsubscriptions:
-            return "genres/unsubscriptions"
-        case .subscriptions:
-            return "genres/subscriptions"
+        case .genres(let cursor, let size):
+            if let cursor {
+                return "genres?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres?size=\(size)"
+            }
+            
+        case .unsubscriptions(let cursor, let size):
+            if let cursor {
+                return "genres/unsubscriptions?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres/unsubscriptions?size=\(size)"
+            }
+            
+        case .subscriptions(let cursor, let size):
+            if let cursor {
+                return "genres/subscriptions?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres/subscriptions?size=\(size)"
+            }
+        case .subscriptionCount:
+            return "genres/subscriptions/count"
         }
     }
     
@@ -54,7 +72,7 @@ enum SPGenreTargetType: APIType {
 
 final class SPGenreAPI {
     
-    func unsubscribe(genreIDS: [String]) -> Observable<GenreUnsubscribeResponse> {
+    func unsubscribe(genreIDS: [String]) -> Observable<GenreUnsubscribeData> {
         let target = SPGenreTargetType.unsubscribe
         let request = GenreUnsubscribeRequest(genreIDS: genreIDS)
         return Observable.create { emitter in
@@ -67,7 +85,7 @@ final class SPGenreAPI {
             ).responseDecodable(of: GenreUnsubscribeResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -78,7 +96,7 @@ final class SPGenreAPI {
         }
     }
     
-    func subscribe(genreIDS: [String]) -> Observable<GenreSubscribeResponse> {
+    func subscribe(genreIDS: [String]) -> Observable<GenreSubscribeData> {
         let target = SPGenreTargetType.subscribe
         let request = GenreSubscribeRequest(genreIDS: genreIDS)
         return Observable.create { emitter in
@@ -91,7 +109,7 @@ final class SPGenreAPI {
             ).responseDecodable(of: GenreSubscribeResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -102,18 +120,17 @@ final class SPGenreAPI {
         }
     }
     
-    func genres() -> Observable<GenreListResponse> {
-        let target = SPGenreTargetType.genres
+    func genres() -> Observable<GenreListData> {
+        let target = SPGenreTargetType.genres(cursor: nil, size: 30)
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: ["size": 100],
                 headers: target.header
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -124,17 +141,16 @@ final class SPGenreAPI {
         }
     }
     
-    func unsubscriptions() -> Observable<GenreListResponse> {
-        let target = SPGenreTargetType.unsubscriptions
+    func unsubscriptions() -> Observable<GenreListData> {
+        let target = SPGenreTargetType.unsubscriptions(cursor: nil, size: 30)
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: ["size": 100]
+                method: target.method
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -145,17 +161,16 @@ final class SPGenreAPI {
         }
     }
     
-    func subscriptions() -> Observable<GenreListResponse> {
-        let target = SPGenreTargetType.subscriptions
+    func subscriptions() -> Observable<GenreListData> {
+        let target = SPGenreTargetType.subscriptions(cursor: nil, size: 100)
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: ["size": 100]
+                method: target.method
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -164,5 +179,27 @@ final class SPGenreAPI {
             }
             return Disposables.create()
         }
+    }
+    
+    func subscriptionCount() -> Observable<Int> {
+        let target = SPGenreTargetType.subscriptionCount
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: ShowTerminatedTicketingCountResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data.count)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+
     }
 }

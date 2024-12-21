@@ -16,6 +16,8 @@ enum SPUserTargetType: APIType {
     case logout
     case login
     case profileInfo
+    case notificaitons
+    case notificationExist
     
     var baseURL: String {
         return Environment.baseURL
@@ -23,7 +25,7 @@ enum SPUserTargetType: APIType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .profileInfo:
+        case .profileInfo, .notificaitons, .notificationExist:
             return .get
         default:
             return .post
@@ -42,13 +44,17 @@ enum SPUserTargetType: APIType {
             return "users/login"
         case .profileInfo:
             return "users/profile"
+        case .notificaitons:
+            return "users/notifications"
+        case .notificationExist:
+            return "users/notifications/exist"
         }
     }
 }
 
 final class SPUserAPI {
     
-    func withdrawal() -> Observable<EmptyModel> {
+    func withdrawal() -> Observable<CommonResponse> {
         let target = SPUserTargetType.withdrawal
         let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
         
@@ -58,7 +64,7 @@ final class SPUserAPI {
                 method: target.method,
                 parameters: request,
                 headers: target.header
-            ).responseDecodable(of: EmptyModel.self) { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
@@ -72,20 +78,25 @@ final class SPUserAPI {
         }
     }
     
-    func reissueToken() -> Observable<UserTokenResponse> {
+    func reissueToken() -> Observable<UserTokenData> {
         let target = SPUserTargetType.reissueToken
-        let request = UserRefreshRequest(refreshToken: TokenManager.shared.readToken(.refreshToken) ?? "")
+        
+        var header: HTTPHeaders = ["Refresh": TokenManager.shared.readToken(.refreshToken) ?? ""]
+        if let targetHeader = target.header {
+            targetHeader.forEach { headerItem in
+                header[headerItem.name] = headerItem.value
+            }
+        }
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request,
-                encoder: JSONParameterEncoder.default
+                headers: header
             ).responseDecodable(of: UserTokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -96,7 +107,7 @@ final class SPUserAPI {
         }
     }
     
-    func login(socialType: String, identifier: String) -> Observable<UserTokenResponse> {
+    func login(socialType: String, identifier: String) -> Observable<UserTokenData> {
         let target = SPUserTargetType.login
         let fcmToken = TokenManager.shared.readToken(.pushToken) ?? ""
         let request = UserLoginRequest(socialType: socialType, identifier: identifier, fcmToken: fcmToken)
@@ -111,7 +122,7 @@ final class SPUserAPI {
             ).responseDecodable(of: UserTokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -122,7 +133,7 @@ final class SPUserAPI {
         }
     }
     
-    func logout() -> Observable<EmptyModel> {
+    func logout() -> Observable<CommonResponse> {
         let target = SPUserTargetType.logout
         let request = UserAccessRequest(accessToken: TokenManager.shared.readToken(.accessToken) ?? "")
         
@@ -132,7 +143,7 @@ final class SPUserAPI {
                 method: target.method,
                 parameters: request,
                 headers: target.header
-            ).responseDecodable(of: EmptyModel.self) { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
@@ -146,7 +157,7 @@ final class SPUserAPI {
         }
     }
     
-    func profileInfo() -> Observable<UserProfileResponse> {
+    func profileInfo() -> Observable<UserProfileData> {
         let target = SPUserTargetType.profileInfo
         
         return Observable.create { emitter in
@@ -157,7 +168,51 @@ final class SPUserAPI {
             ).responseDecodable(of: UserProfileResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func notificationList() -> Observable<UserNotificationData> {
+        let target = SPUserTargetType.notificaitons
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: UserNotificationResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func notificationExist() -> Observable<Bool> {
+        let target = SPUserTargetType.notificaitons
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: UserNotificationExistResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data.isExist)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

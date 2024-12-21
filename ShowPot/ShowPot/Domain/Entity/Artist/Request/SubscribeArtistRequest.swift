@@ -11,6 +11,6 @@ struct SubscribeArtistRequest: Codable {
     let artistIDS: [String]
     
     enum CodingKeys: String, CodingKey {
-        case artistIDS = "artistIds"
+        case artistIDS = "spotifyArtistIds"
     }
 }

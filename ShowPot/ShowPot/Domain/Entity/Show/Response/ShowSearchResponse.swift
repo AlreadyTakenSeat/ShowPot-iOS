@@ -7,15 +7,21 @@
 
 import Foundation
 
-// MARK: - ShowSearchResponse
 struct ShowSearchResponse: Codable {
+    let code: Int
+    let message: String
+    let data: ShowSearchData
+}
+
+// MARK: - ShowSearchResponse
+struct ShowSearchData: Codable {
     let size: Int
     let hasNext: Bool
-    let data: [ShowSearchData]
+    let data: [ShowSearchDataElement]
 }
 
 // MARK: - ShowSearchData
-struct ShowSearchData: Codable {
+struct ShowSearchDataElement: Codable {
     let id, title, startAt, endAt: String
     let location, imageURL: String
 }

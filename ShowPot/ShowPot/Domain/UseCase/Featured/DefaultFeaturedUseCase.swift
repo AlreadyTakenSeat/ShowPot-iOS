@@ -11,45 +11,31 @@ import RxCocoa
 final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCase {
     
     private let disposeBag = DisposeBag()
-    private let apiService: APIClient
+    private let artistAPI = SPArtistAPI()
+    private let showAPI = SPShowAPI()
     
     var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
     var performanceList = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
     var subscribeArtistResult = PublishSubject<Bool>()
     
-    init(apiService: APIClient = APIClient()) {
-        self.apiService = apiService
-    }
-    
     func fetchArtistList() {
-        apiService.unsubcribeArtistList(
-            request: .init(
-                sortStandard: .englishNameAscending,
-                artistGenderApiTypes: [],
-                artistApiTypes: [],
-                genreIds: [],
-                cursor: nil,
-                size: 10
-            )
-        ).subscribe(with: self) { owner, response in
+        artistAPI.unsubscriptions().subscribe(with: self) { owner, response in
             owner.artistList.accept(response.data.map {
                 FeaturedSubscribeArtistCellModel(
                     id: $0.id, 
                     state: .none,
                     artistImageURL: URL(string: $0.imageURL),
-                    artistName: $0.englishName
+                    artistName: $0.name
                 )
             })
         }
         .disposed(by: disposeBag)
     }
     
-    func subscribeArtists(artistID: [String]) {
-        
-    }
+    func subscribeArtists(artistID: [String]) { }
     
     func fetchAllPerformance(state: ShowFilterState) {
-        apiService.showList(
+        showAPI.showList(
             sort: state.type.rawValue,
             onlyOpen: state.isOnlyUpcoming,
             size: 2

@@ -29,7 +29,7 @@ final class ShowDetailViewModel: ViewModelType {
     
     struct Input {
         let viewWillAppear: Observable<Void>
-        let didTappedLikeButton: Observable<Void>
+        let didTappedLikeButton: Observable<UIButton.State>
         let didTappedBackButton: Observable<Void>
         let didTappedTicketingCell: Observable<IndexPath>
     }
@@ -79,12 +79,18 @@ final class ShowDetailViewModel: ViewModelType {
         
         input.didTappedLikeButton
             .throttle(.milliseconds(500), latest: false, scheduler: ConcurrentDispatchQueueScheduler.init(qos: .default))
-            .subscribe(with: self) { owner, _ in
+            .subscribe(with: self) { owner, state in
                 guard owner.isLoggedIn else {
                     output.showLoginBottomSheet.accept(())
                     return
                 }
-                owner.usecase.updateShowInterest(showID: owner.showID)
+                
+                if state == .selected {
+                    owner.usecase.deleteShowInterest(showID: owner.showID)
+                } else {
+                    owner.usecase.updateShowInterest(showID: owner.showID)
+                }
+                
             }
             .disposed(by: disposeBag)
         

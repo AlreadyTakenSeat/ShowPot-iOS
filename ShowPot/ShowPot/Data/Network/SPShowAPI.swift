@@ -12,6 +12,7 @@ import UIKit
 
 enum SPShowTargetType: APIType {
     
+    case uninterest(showId: String)
     case interest(showId: String)
     case alert(showId: String, type: String)
     case showList
@@ -20,7 +21,9 @@ enum SPShowTargetType: APIType {
     case terminatedTicketingCount
     case searchShow
     case interestList
+    case interestCount
     case alertList
+    case alertCount
     
     var baseURL: String {
         return Environment.baseURL
@@ -28,7 +31,7 @@ enum SPShowTargetType: APIType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .interest, .alert:
+        case .interest, .uninterest, .alert:
             return .post
         default:
             return .get
@@ -37,6 +40,8 @@ enum SPShowTargetType: APIType {
     
     var path: String {
         switch self {
+        case .uninterest(let showId):
+            return "shows/\(showId)/uninterested"
         case .interest(let showId):
             return "shows/\(showId)/interests"
         case .alert(let showId, let type):
@@ -53,22 +58,27 @@ enum SPShowTargetType: APIType {
             return "show/search"
         case .interestList:
             return "shows/interests"
+        case .interestCount:
+            return "shows/interests/count"
         case .alertList:
             return "shows/alerts"
+        case .alertCount:
+            return "shows/alerts/count"
         }
     }
 }
 
 class SPShowAPI {
     
-    func updateInterest(showId: String) -> Observable<ShowInterestResponse> {
-        let target = SPShowTargetType.interest(showId: showId)
+    /// 관심 삭제
+    func deleteInterest(showId: String) -> Observable<CommonResponse> {
+        let target = SPShowTargetType.uninterest(showId: showId)
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
                 headers: target.header
-            ).responseDecodable(of: ShowInterestResponse.self) { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     emitter.onNext(data)
@@ -83,21 +93,18 @@ class SPShowAPI {
         }
     }
     
-    func updateAlert(showId: String, list: [AlertTime], type: String = "NORMAL") -> Observable<Void> {
-        let target = SPShowTargetType.alert(showId: showId, type: type)
-        let request = ShowAlertRequest(alertTimes: list.map { $0.rawValue })
-        
+    /// 관심 등록
+    func updateInterest(showId: String) -> Observable<CommonResponse> {
+        let target = SPShowTargetType.interest(showId: showId)
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request,
-                encoder: JSONParameterEncoder.default,
                 headers: target.header
-            ).response { response in
+            ).responseDecodable(of: CommonResponse.self) { response in
                 switch response.result {
-                case .success:
-                    emitter.onNext(())
+                case .success(let data):
+                    emitter.onNext(data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -109,7 +116,33 @@ class SPShowAPI {
         }
     }
     
-    func showList(sort: String, onlyOpen: Bool = false, size: Int = 100) -> Observable<ShowListResponse> {
+    /// 알람 시간 요청
+    func updateAlert(showId: String, date: Date, type: String = "NORMAL") -> Observable<CommonResponse> {
+        let target = SPShowTargetType.alert(showId: showId, type: type)
+        let request = ShowAlertRequest(alertDate: date)
+        
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                parameters: request,
+                encoder: JSONParameterEncoder.default,
+                headers: target.header
+            ).responseDecodable(of: CommonResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func showList(sort: String, onlyOpen: Bool = false, cursorId: String? = nil, size: Int = 30) -> Observable<ShowListData> {
         
         let target = SPShowTargetType.showList
         let param: Parameters = [
@@ -129,7 +162,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -141,11 +174,11 @@ class SPShowAPI {
         }
     }
     
-    func showDetail(showId: String) -> Observable<ShowDetailResponse> {
+    func showDetail(showId: String) -> Observable<ShowDetailData> {
         let target = SPShowTargetType.showDetail(showId: showId)
         let id = UIDevice.current.identifierForVendor?.uuidString
         
-        var header: HTTPHeaders = ["viewIdentifier": id ?? ""]
+        var header: HTTPHeaders = ["Device-Token": id ?? ""]
         if let targetHeader = target.header {
             targetHeader.forEach { headerItem in
                 header[headerItem.name] = headerItem.value
@@ -161,7 +194,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowDetailResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -173,7 +206,7 @@ class SPShowAPI {
         }
     }
     
-    func reservationInfo(showId: String, ticketingType: String = "NORMAL") -> Observable<ShowReservationInfoResponse> {
+    func reservationInfo(showId: String, ticketingType: String = "NORMAL") -> Observable<ShowReservationInfoData> {
         let target = SPShowTargetType.reservationInfo(showId: showId)
         
         return Observable.create { emitter in
@@ -186,7 +219,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowReservationInfoResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -198,7 +231,7 @@ class SPShowAPI {
         }
     }
     
-    func terminatedTicketingCount() -> Observable<ShowTerminatedTicketingCountResponse> {
+    func terminatedTicketingCount() -> Observable<ShowTerminatedTicketingCountData> {
         let target = SPShowTargetType.terminatedTicketingCount
         return Observable.create { emitter in
             
@@ -209,7 +242,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowTerminatedTicketingCountResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -221,7 +254,7 @@ class SPShowAPI {
         }
     }
     
-    func search(keyword: String) -> Observable<ShowSearchResponse> {
+    func search(keyword: String) -> Observable<ShowSearchData> {
         let target = SPShowTargetType.searchShow
         let param: Parameters = [
             "size": 100,
@@ -238,7 +271,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowSearchResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -250,9 +283,9 @@ class SPShowAPI {
         }
     }
     
-    func interestList() -> Observable<ShowInterestListResponse> {
+    func interestList() -> Observable<ShowInterestListData> {
         let target = SPShowTargetType.interestList
-        let param: Parameters = ["size": 100]
+        let param: Parameters = ["size": 30]
         
         return Observable.create { emitter in
             
@@ -264,7 +297,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowInterestListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -279,7 +312,7 @@ class SPShowAPI {
     func alertList(stateType: String = "CONTINUED") -> Observable<ShowAlertListResponse> {
         let target = SPShowTargetType.alertList
         let param: Parameters = [
-            "size": 100,
+            "size": 30,
             "type": stateType
         ]
         
@@ -304,4 +337,7 @@ class SPShowAPI {
             return Disposables.create()
         }
     }
+    
+    // TODO: 관심 공연 개수 api/v1/shows/interests/count 구현 필요
+    // TODO: 알람 공연 개수 api/v1/shows/alerts/count 구현 필요
 }

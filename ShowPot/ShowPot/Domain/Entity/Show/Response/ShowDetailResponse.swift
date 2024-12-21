@@ -7,21 +7,30 @@
 
 import Foundation
 
-// MARK: - Show
+// MARK: - ShowDetailResponse
 struct ShowDetailResponse: Codable {
+    let code: Int
+    let message: String
+    let data: ShowDetailData
+}
+
+// MARK: - DataClass
+struct ShowDetailData: Codable {
     let id, name, startDate, endDate: String
-    let location, posterImageURL: String
+    let location: String
+    let posterImageURL: String
+    let isInterested: Bool
     let artists: [ShowDetailArtist]
     let genres: [ShowDetailGenre]
-    let ticketingTimes: [TicketingTime]
-    let seats: [Seat]
-    let ticketingSites: [TicketingSite]
-    let isInterested: Bool
+    let ticketingTimes: [ShowDetailTicketingTime]
+    let seats: [ShowDetailSeat]
+    let ticketingSites: [ShowDetailTicketingSite]
 }
 
 // MARK: - Artist
 struct ShowDetailArtist: Codable {
-    let id, koreanName, englishName, imageURL: String
+    let id, name: String
+    let imageURL: String
 }
 
 // MARK: - Genre
@@ -30,18 +39,19 @@ struct ShowDetailGenre: Codable {
 }
 
 // MARK: - Seat
-struct Seat: Codable {
+struct ShowDetailSeat: Codable {
     let seatType: String
     let price: Int
 }
 
 // MARK: - TicketingSite
-struct TicketingSite: Codable {
-    let name, link: String
+struct ShowDetailTicketingSite: Codable {
+    let name: String
+    let link: String
 }
 
 // MARK: - TicketingTime
-struct TicketingTime: Codable {
+struct ShowDetailTicketingTime: Codable {
     let ticketingAPIType, ticketingAt: String
 
     enum CodingKeys: String, CodingKey {

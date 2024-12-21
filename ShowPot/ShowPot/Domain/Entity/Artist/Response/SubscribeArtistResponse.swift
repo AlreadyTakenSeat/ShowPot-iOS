@@ -7,10 +7,29 @@
 
 import Foundation
 
+// MARK: - SubscribeArtistResponse
 struct SubscribeArtistResponse: Codable {
-    let successSubscriptionArtistIDS: [String]
-    
+    let code: Int
+    let message: String
+    let data: SubscribeArtistData
+}
+
+// MARK: - DataClass
+struct SubscribeArtistData: Codable {
+    let subscriptionArtistIDS: [SubscriptionArtistID]
+
     enum CodingKeys: String, CodingKey {
-        case successSubscriptionArtistIDS = "successSubscriptionArtistIds"
+        case subscriptionArtistIDS = "subscriptionArtistIds"
     }
 }
+
+// MARK: - SubscriptionArtistID
+struct SubscriptionArtistID: Codable {
+    let id, artistSpotifyID: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case artistSpotifyID = "artistSpotifyId"
+    }
+}
+

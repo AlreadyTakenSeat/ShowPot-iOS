@@ -7,18 +7,21 @@
 
 import Foundation
 
+// MARK: - Welcome
 struct ShowReservationInfoResponse: Codable {
-    let alertReservationStatus: AlertReservationStatus
-    let alertReservationAvailability: AlertReservationAvailability
+    let code: Int
+    let message: String
+    let data: ShowReservationInfoData
 }
 
-// MARK: - AlertReservationAvailability
-struct AlertReservationAvailability: Codable {
-    let canReserve24, canReserve6, canReserve1: Bool
+// MARK: - DataClass
+struct ShowReservationInfoData: Codable {
+    let times: [ShowReservationTime]
 }
 
-// MARK: - AlertReservationStatus
-struct AlertReservationStatus: Codable {
-    let before24, before6, before1: Bool
+// MARK: - Time
+struct ShowReservationTime: Codable {
+    let beforeMinutes: Int
+    let isReserved, canReserve: Bool
 }
 

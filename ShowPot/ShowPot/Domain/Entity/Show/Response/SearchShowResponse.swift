@@ -8,12 +8,18 @@
 import Foundation
 
 struct SearchShowResponse: Codable {
-    let size: Int
-      let hasNext: Bool
-      let data: [SearchShowData]
+    let code: Int
+    let message: String
+    let data: SearchShowData
 }
 
 struct SearchShowData: Codable {
+    let size: Int
+    let hasNext: Bool
+    let data: [SearchShowDataElement]
+}
+
+struct SearchShowDataElement: Codable {
     let id: String
     let title: String
     let startAt: String

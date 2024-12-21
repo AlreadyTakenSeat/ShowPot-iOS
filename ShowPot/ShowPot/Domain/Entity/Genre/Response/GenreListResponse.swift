@@ -6,16 +6,21 @@
 //
 
 import Foundation
+struct GenreListResponse: Codable {
+    let code: Int
+    let message: String
+    let data: GenreListData
+}
 
 // MARK: - GenreListResponse
-struct GenreListResponse: Codable {
+struct GenreListData: Codable {
     let size: Int
     let hasNext: Bool
-    let data: [GenreData]
+    let data: [GenreDataElement]
 }
 
 // MARK: - Datum
-struct GenreData: Codable {
+struct GenreDataElement: Codable {
     let id, name: String
     let isSubscribed: Bool?
 }

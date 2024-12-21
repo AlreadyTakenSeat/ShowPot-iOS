@@ -7,15 +7,21 @@
 
 import Foundation
 
-// MARK: - Show
 struct ShowListResponse: Codable {
+    let code: Int
+    let message: String
+    let data: ShowListData
+}
+
+// MARK: - Show
+struct ShowListData: Codable {
     let size: Int
     let hasNext: Bool
-    let data: [ShowListData]
+    let data: [ShowListElement]
 }
 
 // MARK: - Datum
-struct ShowListData: Codable {
+struct ShowListElement: Codable {
     let id, title, location, posterImageURL, ticketingAt: String
     let isOpen: Bool
 }

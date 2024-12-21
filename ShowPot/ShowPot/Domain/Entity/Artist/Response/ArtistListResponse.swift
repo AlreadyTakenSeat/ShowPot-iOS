@@ -7,15 +7,31 @@
 
 import Foundation
 
+// MARK: - ArtistListRespons
 struct ArtistListResponse: Codable {
-    let size: Int
-    let hasNext: Bool
-    let data: [ArtistInfo]
+    let code: Int
+    let message: String
+    let data: ArtistListData
 }
 
-struct ArtistInfo: Codable {
-    let id: String
-    let imageURL: String
-    let koreanName: String
-    let englishName: String
+// MARK: - DataClass
+struct ArtistListData: Codable {
+    let size: Int
+    let hasNext: Bool
+    let data: [ArtistListDataElement]
+    let cursor: ArtistListCursor
 }
+
+// MARK: - Cursor
+struct ArtistListCursor: Codable {
+    let id, value: ID
+}
+
+// MARK: - ID
+struct ID: Codable { }
+
+// MARK: - Datum
+struct ArtistListDataElement: Codable {
+    let id, imageURL, name: String
+}
+

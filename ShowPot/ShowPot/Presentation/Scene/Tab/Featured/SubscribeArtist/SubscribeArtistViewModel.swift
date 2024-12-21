@@ -74,8 +74,8 @@ final class SubscribeArtistViewModel: ViewModelType {
                     let artistID = owner.subscribeArtistIDList.value
                     LogHelper.debug("구독한 아티스트 아이디: \(artistID)")
                     owner.usecase.subscribeArtists(artistID: artistID)
-                }
-                else {
+                    
+                } else {
                     owner.showLoginAlertSubject.onNext(())
                 }
             }
