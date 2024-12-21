@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
+// FIXME: 삭제 후 카테고리에 맞는 TargetType 및 API에서만 사용되도록 수정 필요
 enum SPSearchTargetType: APIType {
     
     /// 아티스트 검색
@@ -40,7 +41,7 @@ enum SPSearchTargetType: APIType {
 
 final class SPSearchAPI {
     
-    func searchArtist(request: SearchArtistRequest) -> Observable<SearchArtistResponse> {
+    func searchArtist(request: SearchArtistRequest) -> Observable<SearchArtistData> {
         let target = SPSearchTargetType.searchArtist
 
         return Observable.create { emitter in
@@ -51,7 +52,7 @@ final class SPSearchAPI {
             ).responseDecodable(of: SearchArtistResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -62,7 +63,7 @@ final class SPSearchAPI {
         }
     }
     
-    func searchShowList(request: SearchShowRequest) -> Observable<SearchShowResponse> {
+    func searchShowList(request: SearchShowRequest) -> Observable<SearchShowData> {
         let target = SPSearchTargetType.searchShow
         
         return Observable.create { emitter in
@@ -73,7 +74,7 @@ final class SPSearchAPI {
             ).responseDecodable(of: SearchShowResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

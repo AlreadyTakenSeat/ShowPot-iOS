@@ -8,12 +8,18 @@
 import Foundation
 
 struct SearchArtistResponse: Codable {
-    let size: Int
-    let hasNext: Bool
-    let data: [SearchArtistData]
+    let code: Int
+    let message: String
+    let data: SearchArtistData
 }
 
 struct SearchArtistData: Codable {
+    let size: Int
+    let hasNext: Bool
+    let data: [SearchArtistDataElement]
+}
+
+struct SearchArtistDataElement: Codable {
     let id: String
     let imageURL: String
     let koreanName: String
