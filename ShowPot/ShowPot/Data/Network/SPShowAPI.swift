@@ -142,7 +142,7 @@ class SPShowAPI {
         }
     }
     
-    func showList(sort: String, onlyOpen: Bool = false, cursorId: String? = nil, size: Int = 100) -> Observable<ShowListData> {
+    func showList(sort: String, onlyOpen: Bool = false, cursorId: String? = nil, size: Int = 30) -> Observable<ShowListData> {
         
         let target = SPShowTargetType.showList
         let param: Parameters = [
