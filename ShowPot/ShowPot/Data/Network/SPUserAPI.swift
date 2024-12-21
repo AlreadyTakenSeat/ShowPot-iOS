@@ -72,20 +72,25 @@ final class SPUserAPI {
         }
     }
     
-    func reissueToken() -> Observable<UserTokenResponse> {
+    func reissueToken() -> Observable<UserTokenData> {
         let target = SPUserTargetType.reissueToken
-        let request = UserRefreshRequest(refreshToken: TokenManager.shared.readToken(.refreshToken) ?? "")
+        
+        var header: HTTPHeaders = ["Refresh": TokenManager.shared.readToken(.refreshToken) ?? ""]
+        if let targetHeader = target.header {
+            targetHeader.forEach { headerItem in
+                header[headerItem.name] = headerItem.value
+            }
+        }
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request,
-                encoder: JSONParameterEncoder.default
+                headers: header
             ).responseDecodable(of: UserTokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -96,7 +101,7 @@ final class SPUserAPI {
         }
     }
     
-    func login(socialType: String, identifier: String) -> Observable<UserTokenResponse> {
+    func login(socialType: String, identifier: String) -> Observable<UserTokenData> {
         let target = SPUserTargetType.login
         let fcmToken = TokenManager.shared.readToken(.pushToken) ?? ""
         let request = UserLoginRequest(socialType: socialType, identifier: identifier, fcmToken: fcmToken)
@@ -111,7 +116,7 @@ final class SPUserAPI {
             ).responseDecodable(of: UserTokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -146,7 +151,7 @@ final class SPUserAPI {
         }
     }
     
-    func profileInfo() -> Observable<UserProfileResponse> {
+    func profileInfo() -> Observable<UserProfileData> {
         let target = SPUserTargetType.profileInfo
         
         return Observable.create { emitter in
@@ -157,7 +162,7 @@ final class SPUserAPI {
             ).responseDecodable(of: UserProfileResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
