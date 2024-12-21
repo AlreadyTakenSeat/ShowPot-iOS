@@ -15,7 +15,7 @@ enum SPSearchTargetType: APIType {
     /// 아티스트 검색
     case searchArtist(cursor: Int, size: Int, search: String)
     /// 공연 검색
-    case searchShow
+    case searchShow(cursor: String?, size: Int, search: String)
     
     var baseURL: String {
         return "\(Environment.baseURL)"
@@ -32,8 +32,13 @@ enum SPSearchTargetType: APIType {
         switch self {
         case .searchArtist(let cursor, let size, let search):
             return "artists/search?cursorId=\(cursor)&size=\(size)&search=\(search)"
-        case .searchShow:
-            return "shows/search"
+        case .searchShow(let cursor, let size, let search):
+            if let cursor {
+                return "shows/search?cursorId=\(cursor)&size=\(size)&search=\(search)"
+            } else {
+                return "shows/search?size=\(size)&search=\(search)"
+            }
+            
         }
     }
     
@@ -62,14 +67,14 @@ final class SPSearchAPI {
         }
     }
     
-    func searchShowList(request: SearchShowRequest) -> Observable<SearchShowData> {
-        let target = SPSearchTargetType.searchShow
+    func searchShowList(cursor: String? = nil, size: Int = 30, search: String) -> Observable<SearchShowData> {
+        let target = SPSearchTargetType.searchShow(cursor: cursor, size: size, search: search)
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request
+                headers: target.header
             ).responseDecodable(of: SearchShowResponse.self) { response in
                 switch response.result {
                 case .success(let data):

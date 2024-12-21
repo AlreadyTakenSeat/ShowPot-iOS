@@ -48,10 +48,10 @@ final class DefaultSearchUseCase: SearchUseCase {
         .subscribe(with: self) { owner, response in
             owner.artistSearchResult.accept(response.data.map {
                 FeaturedSubscribeArtistCellModel(
-                    id: $0.id, 
+                    id: $0.id ?? "unknown", 
                     state: $0.isSubscribed ? .subscription : .availableSubscription,
                     artistImageURL: URL(string: $0.imageURL),
-                    artistName: $0.englishName
+                    artistName: $0.name
                 )
             })
         }
@@ -59,13 +59,7 @@ final class DefaultSearchUseCase: SearchUseCase {
     }
     
     func searchShowList(search: String, cursor: String?) {
-        apiService.searchShowList(
-            request: .init(
-                cursor: cursor,
-                size: 100,
-                search: search
-            )
-        )
+        apiService.searchShowList(cursor: cursor, search: search)
         .subscribe(with: self) { owner, response in
             owner.showSearchResult.accept(response.data.map {
                 PerformanceInfoCollectionViewCellModel(
