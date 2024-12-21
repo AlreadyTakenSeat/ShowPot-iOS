@@ -16,11 +16,11 @@ enum SPGenreTargetType: APIType {
     /// 구독 추가
     case subscribe
     /// 장르 리스트
-    case genres
+    case genres(cursor: String?, size: Int)
     /// 미구독 장르 리스트
-    case unsubscriptions
+    case unsubscriptions(cursor: String?, size: Int)
     /// 구독 장르 리스트
-    case subscriptions
+    case subscriptions(cursor: String?, size: Int)
     /// 구독한 장르 수
     case subscriptionCount
     
@@ -43,12 +43,26 @@ enum SPGenreTargetType: APIType {
             return "genres/unsubscribe"
         case .subscribe:
             return "genres/subscribe"
-        case .genres:
-            return "genres"
-        case .unsubscriptions:
-            return "genres/unsubscriptions"
-        case .subscriptions:
-            return "genres/subscriptions"
+        case .genres(let cursor, let size):
+            if let cursor {
+                return "genres?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres?size=\(size)"
+            }
+            
+        case .unsubscriptions(let cursor, let size):
+            if let cursor {
+                return "genres/unsubscriptions?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres/unsubscriptions?size=\(size)"
+            }
+            
+        case .subscriptions(let cursor, let size):
+            if let cursor {
+                return "genres/subscriptions?cursor=\(cursor)&size=\(size)"
+            } else {
+                return "genres/subscriptions?size=\(size)"
+            }
         case .subscriptionCount:
             return "genres/subscriptions/count"
         }
@@ -107,12 +121,11 @@ final class SPGenreAPI {
     }
     
     func genres() -> Observable<GenreListData> {
-        let target = SPGenreTargetType.genres
+        let target = SPGenreTargetType.genres(cursor: nil, size: 30)
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: ["size": 100],
                 headers: target.header
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
@@ -129,12 +142,11 @@ final class SPGenreAPI {
     }
     
     func unsubscriptions() -> Observable<GenreListData> {
-        let target = SPGenreTargetType.unsubscriptions
+        let target = SPGenreTargetType.unsubscriptions(cursor: nil, size: 30)
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: ["size": 100]
+                method: target.method
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
@@ -150,12 +162,11 @@ final class SPGenreAPI {
     }
     
     func subscriptions() -> Observable<GenreListData> {
-        let target = SPGenreTargetType.subscriptions
+        let target = SPGenreTargetType.subscriptions(cursor: nil, size: 100)
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: ["size": 100]
+                method: target.method
             ).responseDecodable(of: GenreListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
@@ -171,17 +182,16 @@ final class SPGenreAPI {
     }
     
     func subscriptionCount() -> Observable<Int> {
-        let target = SPGenreTargetType.genres
+        let target = SPGenreTargetType.subscriptionCount
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: ["size": 100],
                 headers: target.header
-            ).responseDecodable(of: GenreListResponse.self) { response in
+            ).responseDecodable(of: ShowTerminatedTicketingCountResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data.data.data.count)
+                    emitter.onNext(data.data.count)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
