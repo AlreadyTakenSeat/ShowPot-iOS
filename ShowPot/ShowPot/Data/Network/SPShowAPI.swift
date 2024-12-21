@@ -285,7 +285,7 @@ class SPShowAPI {
     
     func interestList() -> Observable<ShowInterestListData> {
         let target = SPShowTargetType.interestList
-        let param: Parameters = ["size": 100]
+        let param: Parameters = ["size": 30]
         
         return Observable.create { emitter in
             
@@ -312,7 +312,7 @@ class SPShowAPI {
     func alertList(stateType: String = "CONTINUED") -> Observable<ShowAlertListResponse> {
         let target = SPShowTargetType.alertList
         let param: Parameters = [
-            "size": 100,
+            "size": 30,
             "type": stateType
         ]
         
