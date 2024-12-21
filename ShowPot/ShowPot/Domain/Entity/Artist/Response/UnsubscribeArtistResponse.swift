@@ -8,6 +8,12 @@
 import Foundation
 
 struct UnsubscribeArtistResponse: Codable {
+    let code: Int
+    let message: String
+    let data: UnsubscribeArtistData
+}
+
+struct UnsubscribeArtistData: Codable {
     let successUnsubscriptionArtistIDS: [String]
     
     enum CodingKeys: String, CodingKey {

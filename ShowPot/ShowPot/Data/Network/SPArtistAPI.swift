@@ -10,17 +10,11 @@ import Alamofire
 
 enum SPArtistTargetType: APIType {
     
-    /// 아티스트 구독
     case subscribe
-    
-    /// 아티스독 구독 해제
     case unsubscribe
-    
-    /// 구독한 아티스트 리스트
     case subscriptions
-    
-    /// 구독하지않은 아티스트 리스트
     case unsubscriptions
+    case subscriptionCount
     
     var baseURL: String {
         return Environment.baseURL
@@ -30,7 +24,7 @@ enum SPArtistTargetType: APIType {
         switch self {
         case .subscriptions, .unsubscriptions:
             return .get
-        case .subscribe, .unsubscribe:
+        default:
             return .post
         }
     }
@@ -45,13 +39,15 @@ enum SPArtistTargetType: APIType {
             return "artists/subscriptions"
         case .unsubscriptions:
             return "artists/unsubscriptions"
+        case .subscriptionCount:
+            return "artists/subscriptions/count"
         }
     }
 }
 
 final class SPArtistAPI {
     
-    func subscriptions(request: SubscribeArtistListRequest) -> Observable<ArtistListResponse> {
+    func subscriptions(request: SubscribeArtistListRequest) -> Observable<ArtistListData> {
         
         let target = SPArtistTargetType.subscriptions
         
@@ -67,7 +63,7 @@ final class SPArtistAPI {
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -79,7 +75,7 @@ final class SPArtistAPI {
         }
     }
     
-    func unsubscriptions(request: UnsubscribeArtistListRequest) -> Observable<ArtistListResponse> {
+    func unsubscriptions(request: UnsubscribeArtistListRequest) -> Observable<ArtistListData> {
         
         let target = SPArtistTargetType.unsubscriptions
         
@@ -95,7 +91,7 @@ final class SPArtistAPI {
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -107,7 +103,7 @@ final class SPArtistAPI {
         }
     }
     
-    func unsubscribe(artistIDS: [String]) -> Observable<UnsubscribeArtistResponse> {
+    func unsubscribe(artistIDS: [String]) -> Observable<UnsubscribeArtistData> {
         let target = SPArtistTargetType.unsubscribe
         let request = UnsubscribeArtistRequest(artistIDS: artistIDS)
         return Observable.create { emitter in
@@ -120,7 +116,7 @@ final class SPArtistAPI {
             ).responseDecodable(of: UnsubscribeArtistResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -131,7 +127,7 @@ final class SPArtistAPI {
         }
     }
     
-    func subscribe(artistIDS: [String]) -> Observable<SubscribeArtistResponse> {
+    func subscribe(artistIDS: [String]) -> Observable<SubscribeArtistData> {
         let target = SPArtistTargetType.subscribe
         let request = SubscribeArtistRequest(artistIDS: artistIDS)
         return Observable.create { emitter in
@@ -144,7 +140,28 @@ final class SPArtistAPI {
             ).responseDecodable(of: SubscribeArtistResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
+                    emitter.onCompleted()
+                case .failure(let error):
+                    LogHelper.error("\(error.localizedDescription): \(error)")
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func subscribtionCount() -> Observable<Int> {
+        let target = SPArtistTargetType.subscriptionCount
+        return Observable.create { emitter in
+            AF.request(
+                target.url,
+                method: target.method,
+                headers: target.header
+            ).responseDecodable(of: ShowTerminatedTicketingCountResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    emitter.onNext(data.data.count)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
