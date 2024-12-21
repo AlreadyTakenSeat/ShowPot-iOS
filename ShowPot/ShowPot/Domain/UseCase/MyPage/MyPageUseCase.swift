@@ -9,7 +9,10 @@ import RxSwift
 import RxCocoa
 
 protocol MyPageUseCase {
+    
     var menuData: BehaviorRelay<[MypageMenuData]> { get }
+    var userProfileData: PublishRelay<UserProfileData> { get }
     
     func requestMenuData()
+    func requestUserProfileData()
 }

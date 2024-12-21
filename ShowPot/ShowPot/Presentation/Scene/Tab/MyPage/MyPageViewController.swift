@@ -41,7 +41,7 @@ final class MyPageViewController: ViewController {
     
     override func setupStyles() {
         super.setupStyles()
-        setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400)) // FIXME: - title, rightIcon만 존재하는 경우 inset값 수정 필요
+        setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400))
         contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.mypageCollectionView.dataSource = self
         viewHolder.mypageCollectionView.delegate = self
@@ -51,11 +51,18 @@ final class MyPageViewController: ViewController {
         super.bind()
         let input = MyPageViewModel.Input(
             viewDidLoad: .just(()),
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in Void() },
             didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(),
             didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(),
             didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
         )
-        viewModel.transform(input: input)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.username.subscribe(with: self) { owner, _ in
+            owner.viewHolder.mypageCollectionView.reloadData()
+        }
+        .disposed(by: disposeBag)
     }
 }
 
