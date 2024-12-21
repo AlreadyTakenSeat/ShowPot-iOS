@@ -44,14 +44,7 @@ final class DefaultSearchUseCase: SearchUseCase {
     }
     
     func searchArtist(search: String, cursor: String?) {
-        apiService.searchArtist(
-            request: .init(
-                sortStandard: .englishNameAscending,
-                cursor: cursor,
-                size: 100,
-                search: search
-            )
-        )
+        apiService.searchArtist(search: search)
         .subscribe(with: self) { owner, response in
             owner.artistSearchResult.accept(response.data.map {
                 FeaturedSubscribeArtistCellModel(

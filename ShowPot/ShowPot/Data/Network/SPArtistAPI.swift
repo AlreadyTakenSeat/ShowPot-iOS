@@ -12,8 +12,8 @@ enum SPArtistTargetType: APIType {
     
     case subscribe
     case unsubscribe
-    case subscriptions
-    case unsubscriptions
+    case subscriptions(size: Int)
+    case unsubscriptions(size: Int)
     case subscriptionCount
     
     var baseURL: String {
@@ -35,10 +35,10 @@ enum SPArtistTargetType: APIType {
             return "artists/subscribe"
         case .unsubscribe:
             return "artists/unsubscribe"
-        case .subscriptions:
-            return "artists/subscriptions"
-        case .unsubscriptions:
-            return "artists/unsubscriptions"
+        case .subscriptions(let size):
+            return "artists/subscriptions?size=\(size)"
+        case .unsubscriptions(let size):
+            return "artists/unsubscriptions?size=\(size)"
         case .subscriptionCount:
             return "artists/subscriptions/count"
         }
@@ -47,18 +47,16 @@ enum SPArtistTargetType: APIType {
 
 final class SPArtistAPI {
     
-    func subscriptions(request: SubscribeArtistListRequest) -> Observable<ArtistListData> {
+    func subscriptions(size: Int = 30) -> Observable<ArtistListData> {
         
-        let target = SPArtistTargetType.subscriptions
+        let target = SPArtistTargetType.subscriptions(size: size)
         
         LogHelper.info("[\(target.method)] \(target.url)")
-        LogHelper.info("구독안한아티스트리스트 요청정보: \(request)")
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request,
                 headers: target.header
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {
@@ -75,18 +73,16 @@ final class SPArtistAPI {
         }
     }
     
-    func unsubscriptions(request: UnsubscribeArtistListRequest) -> Observable<ArtistListData> {
+    func unsubscriptions(size: Int = 30) -> Observable<ArtistListData> {
         
-        let target = SPArtistTargetType.unsubscriptions
+        let target = SPArtistTargetType.unsubscriptions(size: size)
         
         LogHelper.info("[\(target.method)] \(target.url)")
-        LogHelper.info("구독안한아티스트리스트 요청정보: \(request)")
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request,
                 headers: target.header
             ).responseDecodable(of: ArtistListResponse.self) { response in
                 switch response.result {

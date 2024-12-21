@@ -13,7 +13,7 @@ import RxSwift
 enum SPSearchTargetType: APIType {
     
     /// 아티스트 검색
-    case searchArtist
+    case searchArtist(cursor: Int, size: Int, search: String)
     /// 공연 검색
     case searchShow
     
@@ -30,8 +30,8 @@ enum SPSearchTargetType: APIType {
     
     var path: String {
         switch self {
-        case .searchArtist:
-            return "artists/search"
+        case .searchArtist(let cursor, let size, let search):
+            return "artists/search?cursorId=\(cursor)&size=\(size)&search=\(search)"
         case .searchShow:
             return "shows/search"
         }
@@ -41,14 +41,13 @@ enum SPSearchTargetType: APIType {
 
 final class SPSearchAPI {
     
-    func searchArtist(request: SearchArtistRequest) -> Observable<SearchArtistData> {
-        let target = SPSearchTargetType.searchArtist
+    func searchArtist(cursor: Int = 0, size: Int = 30, search: String) -> Observable<SearchArtistData> {
+        let target = SPSearchTargetType.searchArtist(cursor: cursor, size: size, search: search)
 
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: request
+                method: target.method
             ).responseDecodable(of: SearchArtistResponse.self) { response in
                 switch response.result {
                 case .success(let data):

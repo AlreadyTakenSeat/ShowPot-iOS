@@ -23,16 +23,7 @@ final class DefaultSubscribeArtistUseCase: SubscribeArtistUseCase {
     }
     
     func fetchArtistList() {
-        apiService.unsubscriptions(
-            request: .init(
-                sortStandard: .englishNameAscending,
-                artistGenderApiTypes: [],
-                artistApiTypes: [],
-                genreIds: [],
-                cursor: nil,
-                size: 100
-            )
-        )
+        apiService.unsubscriptions()
         .subscribe(with: self) { owner, response in
             owner.artistList.accept(response.data.map {
                 FeaturedSubscribeArtistCellModel(
