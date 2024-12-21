@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  MyPageViewController.swift
 //  ShowPot
 //
 //  Created by Daegeon Choi on 5/25/24.
@@ -10,13 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class SettingsViewController: ViewController {
-    let viewHolder: SettingsViewHolder = .init()
-    let viewModel: SettingsViewModel
+final class MyPageViewController: ViewController {
+    let viewHolder: MyPageViewHolder = .init()
+    let viewModel: MyPageViewModel
     
     private let didTappedLoginButtonSubject = PublishSubject<Void>()
     
-    init(viewModel: SettingsViewModel) {
+    init(viewModel: MyPageViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -41,7 +41,7 @@ final class SettingsViewController: ViewController {
     
     override func setupStyles() {
         super.setupStyles()
-        setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400)) // FIXME: - title, rightIcon만 존재하는 경우 inset값 수정 필요
+        setNavigationBarItem(title: Strings.myPageNavigationTitle, rightIcon: .icSetting.withTintColor(.gray400))
         contentNavigationBar.titleLabel.textColor = .gray300
         viewHolder.mypageCollectionView.dataSource = self
         viewHolder.mypageCollectionView.delegate = self
@@ -49,17 +49,24 @@ final class SettingsViewController: ViewController {
     
     override func bind() {
         super.bind()
-        let input = SettingsViewModel.Input(
+        let input = MyPageViewModel.Input(
             viewDidLoad: .just(()),
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in Void() },
             didTappedCell: viewHolder.mypageCollectionView.rx.itemSelected.asObservable(),
             didTappedSettingButton: contentNavigationBar.didTapRightButton.asObservable(),
             didTappedLoginButton: didTappedLoginButtonSubject.asObservable()
         )
-        viewModel.transform(input: input)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.username.subscribe(with: self) { owner, _ in
+            owner.viewHolder.mypageCollectionView.reloadData()
+        }
+        .disposed(by: disposeBag)
     }
 }
 
-extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.menuList.count
@@ -84,7 +91,7 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 }
 
-extension SettingsViewController: UITextViewDelegate {
+extension MyPageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == MyPageHeaderView.actionID {
             didTappedLoginButtonSubject.onNext(())

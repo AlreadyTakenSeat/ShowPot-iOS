@@ -8,5 +8,11 @@
 import Foundation
 
 struct UserProfileResponse: Codable {
+    let code: Int
+    let message: String
+    let data: UserProfileData
+}
+
+struct UserProfileData: Codable {
     let nickname, type: String
 }

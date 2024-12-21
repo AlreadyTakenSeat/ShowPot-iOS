@@ -8,13 +8,19 @@
 import Foundation
 
 struct ShowInterestListResponse: Codable {
+    let code: Int
+    let message: String
+    let data: ShowInterestListData
+}
+
+struct ShowInterestListData: Codable {
     let size: Int
     let hasNext: Bool
-    let data: [ShowInterestData]
+    let data: [ShowInterestDataElement]
 }
 
 // MARK: - Datum
-struct ShowInterestData: Codable {
+struct ShowInterestDataElement: Codable {
     let id, interestShowID, interestedAt, title: String
     let startAt, endAt, location, posterImageURL: String
 

@@ -131,14 +131,20 @@ public enum Strings {
   public static let settingAlarmMenuTitle = Strings.tr("Localizable", "setting_alarm_menu_title", fallback: "알림 설정")
   /// 카카오 문의하기
   public static let settingKakaoMenuTitle = Strings.tr("Localizable", "setting_kakao_menu_title", fallback: "카카오 문의하기")
-  /// https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4
-  public static let settingPolicyNotionUrlString = Strings.tr("Localizable", "setting_policy_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/d332eb11da37456b818eb596d05015db?pvs=4")
+  /// 설정
+  public static let settingNavigationTitle = Strings.tr("Localizable", "setting_navigation_title", fallback: "설정")
+  /// https://brassy-client-c0a.notion.site/7ba6c9faa3b547e0adaa26bc5379c686?pvs=4
+  public static let settingPolicyNotionUrlString = Strings.tr("Localizable", "setting_policy_notion_url_string", fallback: "https://brassy-client-c0a.notion.site/7ba6c9faa3b547e0adaa26bc5379c686?pvs=4")
   /// 개인정보 처리 방침
   public static let settingPrivacyPolicyMenuTitle = Strings.tr("Localizable", "setting_privacy_policy_menu_title", fallback: "개인정보 처리 방침")
   /// 이용 약관
   public static let settingTermMenuTitle = Strings.tr("Localizable", "setting_term_menu_title", fallback: "이용 약관")
-  /// https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4
-  public static let settingTermNotionUrlString = Strings.tr("Localizable", "setting_term_notion_url_string", fallback: "https://luxuriant-neighbor-e45.notion.site/c9a47093644a49299cfbabe81d8dc66a?pvs=4")
+  /// https://brassy-client-c0a.notion.site/235b826c2d0b4698bedbdb88b2bc0679?pvs=4
+  public static let settingTermNotionUrlString = Strings.tr("Localizable", "setting_term_notion_url_string", fallback: "https://brassy-client-c0a.notion.site/235b826c2d0b4698bedbdb88b2bc0679?pvs=4")
+  /// 업데이트가 필요합니다
+  public static let settingVersionOutOfDateTitle = Strings.tr("Localizable", "setting_version_out_of_date_title", fallback: "업데이트가 필요합니다")
+  /// 최신버전 입니다
+  public static let settingVersionUpToDateTitle = Strings.tr("Localizable", "setting_version_up_to_date_title", fallback: "최신버전 입니다")
   /// 아티스트 정보
   public static let showArtistInfo = Strings.tr("Localizable", "show_artist_info", fallback: "아티스트 정보")
   /// Model

@@ -7,12 +7,14 @@
 
 import Foundation
 
-enum AlertTime: String {
-    case before24 = "BEFORE_24"
-    case before6 = "BEFORE_6"
-    case before1 = "BEFORE_1"
-}
-
 struct ShowAlertRequest: Codable {
-    let alertTimes: [String]
+    /// yyyy-MM-dd'T'HH:mm
+    let alertTimes: String
+    
+    init(alertDate: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        
+        self.alertTimes = dateFormatter.string(from: alertDate)
+    }
 }

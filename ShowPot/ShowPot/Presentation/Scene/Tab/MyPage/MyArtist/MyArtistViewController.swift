@@ -57,6 +57,12 @@ final class MyArtistViewController: ViewController {
             .map { !$0 }
             .drive(viewHolder.emptyView.rx.isHidden)
             .disposed(by: disposeBag)
+        
+        output.showLoginBottomSheet
+            .emit(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
+            }
+            .disposed(by: disposeBag)
     }
 }
 

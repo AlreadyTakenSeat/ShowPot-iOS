@@ -14,12 +14,12 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     private let apiService: SPShowAPI
     
     var showOverview = BehaviorSubject<ShowDetailOverView>(value: .init(posterImageURLString: "", title: "", time: nil, location: ""))
-    var ticketList = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
+    var ticketModel = BehaviorSubject<ShowDetailTicketInfo>(value: .init(ticketCategory: [], prereserveOpenTime: nil, normalreserveOpenTime: nil))
     var buttonState = BehaviorRelay<ShowDetailButtonState>(value: .init(isLiked: false, isAlarmSet: false, isAlreadyOpen: false))
-    var artistList = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
-    var genreList = BehaviorRelay<[GenreType]>(value: [])
-    var seatList = BehaviorRelay<[SeatDetailInfo]>(value: [])
-    var updateInterestResult = PublishSubject<Bool>()
+    var artistModel = BehaviorSubject<[FeaturedSubscribeArtistCellModel]>(value: [])
+    var genreModel = BehaviorRelay<[GenreType]>(value: [])
+    var seatModel = BehaviorRelay<[SeatDetailInfo]>(value: [])
+    var updatedShowInterestResult = PublishSubject<Bool>()
     
     private let disposeBag = DisposeBag()
     
@@ -28,9 +28,11 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     }
     
     func requestShowDetailData(showID: String) {
+        
         apiService.showDetail(showId: showID)
+            .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
-                owner.showOverview.onNext(.init(
+                owner.showOverview.onNext(ShowDetailOverView(
                     posterImageURLString: response.posterImageURL,
                     title: response.name,
                     time: DateFormatterFactory.dateWithHypen.date(from: response.startDate),
@@ -40,7 +42,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 let normalOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.normal.rawValue })
                 let preOpenTime = response.ticketingTimes.first(where: { $0.ticketingAPIType == TicketingType.pre.rawValue })
                 
-                owner.ticketList.onNext(
+                owner.ticketModel.onNext(
                     ShowDetailTicketInfo(
                         ticketCategory: response.ticketingSites.map { TicketInfo(categoryName: $0.name, link: $0.link) },
                         prereserveOpenTime: DateFormatterFactory.dateTime.date(from: preOpenTime?.ticketingAt ?? ""),
@@ -48,20 +50,20 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                     )
                 )
                 
-                owner.artistList.onNext(response.artists.map {
+                owner.artistModel.onNext(response.artists.map {
                     FeaturedSubscribeArtistCellModel(
                         id: $0.id,
                         state: .none,
                         artistImageURL: URL(string: $0.imageURL),
-                        artistName: $0.englishName
+                        artistName: $0.name
                     )
                 })
                 
-                owner.genreList.accept(response.genres.compactMap {
+                owner.genreModel.accept(response.genres.compactMap {
                     GenreType(rawValue: $0.name)
                 })
                 
-                owner.seatList.accept(response.seats.map {
+                owner.seatModel.accept(response.seats.map {
                     SeatDetailInfo(
                         seatCategoryTitle: $0.seatType,
                         seatPrice: NumberformatterFactory.decimal.number(from: "\($0.price)")
@@ -79,9 +81,19 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
-            .subscribe { response in
-                self.updateInterestResult.onNext(response.hasInterest)
-            } 
+            .catch { _ in return .empty() }
+            .subscribe(with: self) { owner, response in
+                owner.updatedShowInterestResult.onNext(response.message == "success")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func deleteShowInterest(showID: String) {
+        apiService.deleteInterest(showId: showID)
+            .catch { _ in return .empty() }
+            .subscribe(with: self) { owner, response in
+                owner.updatedShowInterestResult.onNext(response.message == "success")
+            }
             .disposed(by: disposeBag)
     }
 }

@@ -9,12 +9,13 @@ import Foundation
 import Alamofire
 import RxSwift
 
+// FIXME: 삭제 후 카테고리에 맞는 TargetType 및 API에서만 사용되도록 수정 필요
 enum SPSearchTargetType: APIType {
     
     /// 아티스트 검색
-    case searchArtist
+    case searchArtist(cursor: Int, size: Int, search: String)
     /// 공연 검색
-    case searchShow
+    case searchShow(cursor: String?, size: Int, search: String)
     
     var baseURL: String {
         return "\(Environment.baseURL)"
@@ -29,10 +30,15 @@ enum SPSearchTargetType: APIType {
     
     var path: String {
         switch self {
-        case .searchArtist:
-            return "artists/search"
-        case .searchShow:
-            return "shows/search"
+        case .searchArtist(let cursor, let size, let search):
+            return "artists/search?cursorId=\(cursor)&size=\(size)&search=\(search)"
+        case .searchShow(let cursor, let size, let search):
+            if let cursor {
+                return "shows/search?cursorId=\(cursor)&size=\(size)&search=\(search)"
+            } else {
+                return "shows/search?size=\(size)&search=\(search)"
+            }
+            
         }
     }
     
@@ -40,18 +46,17 @@ enum SPSearchTargetType: APIType {
 
 final class SPSearchAPI {
     
-    func searchArtist(request: SearchArtistRequest) -> Observable<SearchArtistResponse> {
-        let target = SPSearchTargetType.searchArtist
+    func searchArtist(cursor: Int = 0, size: Int = 30, search: String) -> Observable<SearchArtistData> {
+        let target = SPSearchTargetType.searchArtist(cursor: cursor, size: size, search: search)
 
         return Observable.create { emitter in
             AF.request(
                 target.url,
-                method: target.method,
-                parameters: request
+                method: target.method
             ).responseDecodable(of: SearchArtistResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")
@@ -62,18 +67,18 @@ final class SPSearchAPI {
         }
     }
     
-    func searchShowList(request: SearchShowRequest) -> Observable<SearchShowResponse> {
-        let target = SPSearchTargetType.searchShow
+    func searchShowList(cursor: String? = nil, size: Int = 30, search: String) -> Observable<SearchShowData> {
+        let target = SPSearchTargetType.searchShow(cursor: cursor, size: size, search: search)
         
         return Observable.create { emitter in
             AF.request(
                 target.url,
                 method: target.method,
-                parameters: request
+                headers: target.header
             ).responseDecodable(of: SearchShowResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

@@ -18,7 +18,7 @@ final class DefaultInterestShowUseCase: InterestShowUseCase {
     
     func deleteInterestShow(_ show: ShowSummary) {
         LogHelper.debug("공연 관심 해제: \(show)")
-        showAPI.updateInterest(showId: show.id)
+        showAPI.deleteInterest(showId: show.id)
             .subscribe(onDisposed:  {
                 self.requestInterestShowData()
             }).disposed(by: disposeBag)

@@ -73,13 +73,14 @@ struct TicketInfo {
 
 protocol ShowDetailUseCase {
     var showOverview: BehaviorSubject<ShowDetailOverView> { get set }
-    var ticketList: BehaviorSubject<ShowDetailTicketInfo> { get set }
-    var artistList: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
-    var genreList: BehaviorRelay<[GenreType]> { get set }
-    var seatList: BehaviorRelay<[SeatDetailInfo]> { get set }
+    var ticketModel: BehaviorSubject<ShowDetailTicketInfo> { get set }
+    var artistModel: BehaviorSubject<[FeaturedSubscribeArtistCellModel]> { get set }
+    var genreModel: BehaviorRelay<[GenreType]> { get set }
+    var seatModel: BehaviorRelay<[SeatDetailInfo]> { get set }
     var buttonState: BehaviorRelay<ShowDetailButtonState> { get set }
-    var updateInterestResult: PublishSubject<Bool> { get set }
+    var updatedShowInterestResult: PublishSubject<Bool> { get set }
     
     func requestShowDetailData(showID: String)
     func updateShowInterest(showID: String)
+    func deleteShowInterest(showID: String)
 }

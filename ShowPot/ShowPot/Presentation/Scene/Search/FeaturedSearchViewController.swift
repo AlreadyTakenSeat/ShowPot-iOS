@@ -94,6 +94,12 @@ final class FeaturedSearchViewController: ViewController {
                 owner.showDeleteSubscribtionSnackbar(isSuccess: isSuccess)
             }.disposed(by: disposeBag)
         
+        output.showLoginBottomSheet
+            .emit(with: self) { owner, _ in
+                owner.showLoginBottomSheet()
+            }
+            .disposed(by: disposeBag)
+        
         Observable.merge(
             viewHolder.searchKeywordResultCollectionView.rx.didScroll.map { _ in () },
             viewHolder.recentSearchCollectionView.rx.didScroll.map { _ in () },
@@ -148,11 +154,17 @@ extension FeaturedSearchViewController: UICollectionViewDelegateFlowLayout {
 
 extension FeaturedSearchViewController {
     private func showAddSubscribtionSnackbar(isSuccess: Bool) {
+        
+        guard isSuccess else { return }
+        
         SPSnackBar(contextView: self.view, type: .subscribe)
             .show()
     }
     
     private func showDeleteSubscribtionSnackbar(isSuccess: Bool) {
+        
+        guard isSuccess else { return }
+        
         let style = SnackBarStyle(
             icon: .icCheck.withTintColor(.gray200),
             message: Strings.snackbarDescriptionSubscribeDelete,
