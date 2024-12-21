@@ -41,7 +41,7 @@ enum SPShowTargetType: APIType {
     var path: String {
         switch self {
         case .uninterest(let showId):
-            return "shows/\(showId)/uninterest"
+            return "shows/\(showId)/uninterested"
         case .interest(let showId):
             return "shows/\(showId)/interests"
         case .alert(let showId, let type):
@@ -174,7 +174,7 @@ class SPShowAPI {
         }
     }
     
-    func showDetail(showId: String) -> Observable<ShowDetailResponse> {
+    func showDetail(showId: String) -> Observable<ShowDetailData> {
         let target = SPShowTargetType.showDetail(showId: showId)
         let id = UIDevice.current.identifierForVendor?.uuidString
         
@@ -194,7 +194,7 @@ class SPShowAPI {
             ).responseDecodable(of: ShowDetailResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    emitter.onNext(data)
+                    emitter.onNext(data.data)
                     emitter.onCompleted()
                 case .failure(let error):
                     LogHelper.error("\(error.localizedDescription): \(error)")

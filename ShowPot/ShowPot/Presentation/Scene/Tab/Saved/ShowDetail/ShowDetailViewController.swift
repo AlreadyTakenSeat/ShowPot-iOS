@@ -53,7 +53,7 @@ final class ShowDetailViewController: ViewController {
         
         let input = ShowDetailViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in Void() },
-            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable(),
+            didTappedLikeButton: viewHolder.footerView.likeButton.rx.tap.asObservable().map { self.viewHolder.footerView.likeButton.state },
             didTappedBackButton: contentNavigationBar.didTapLeftButton.asObservable(),
             didTappedTicketingCell: viewHolder.ticketInfoView.ticketSaleCollectionView.rx.itemSelected.asObservable()
         )

@@ -28,11 +28,11 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
     }
     
     func requestShowDetailData(showID: String) {
-        /* TODO: [SPT-4] 변경된 알람 설정 모델 적용 필요
+        
         apiService.showDetail(showId: showID)
             .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
-                owner.showOverview.onNext(.init(
+                owner.showOverview.onNext(ShowDetailOverView(
                     posterImageURLString: response.posterImageURL,
                     title: response.name,
                     time: DateFormatterFactory.dateWithHypen.date(from: response.startDate),
@@ -55,7 +55,7 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                         id: $0.id,
                         state: .none,
                         artistImageURL: URL(string: $0.imageURL),
-                        artistName: $0.englishName
+                        artistName: $0.name
                     )
                 })
                 
@@ -77,16 +77,22 @@ class DefaultShowDetailUseCase: ShowDetailUseCase {
                 ))
             }
             .disposed(by: disposeBag)
-         */
     }
     
     func updateShowInterest(showID: String) {
         apiService.updateInterest(showId: showID)
             .catch { _ in return .empty() }
             .subscribe(with: self) { owner, response in
-                /* TODO: [SPT-4] 변경된 알람 설정 모델 적용 필요
-                owner.updatedShowInterestResult.onNext(response.hasInterest)
-                 */
+                owner.updatedShowInterestResult.onNext(response.message == "success")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func deleteShowInterest(showID: String) {
+        apiService.deleteInterest(showId: showID)
+            .catch { _ in return .empty() }
+            .subscribe(with: self) { owner, response in
+                owner.updatedShowInterestResult.onNext(response.message == "success")
             }
             .disposed(by: disposeBag)
     }

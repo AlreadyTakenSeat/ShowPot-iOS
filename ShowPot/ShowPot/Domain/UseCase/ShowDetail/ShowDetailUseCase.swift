@@ -82,4 +82,5 @@ protocol ShowDetailUseCase {
     
     func requestShowDetailData(showID: String)
     func updateShowInterest(showID: String)
+    func deleteShowInterest(showID: String)
 }
