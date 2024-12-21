@@ -8,6 +8,12 @@
 import Foundation
 
 struct GenreSubscribeResponse: Codable {
+    let code: Int
+    let message: String
+    let data: GenreSubscribeData
+}
+
+struct GenreSubscribeData: Codable {
     let successSubscriptionGenreIDS: [String]
 
     enum CodingKeys: String, CodingKey {
