@@ -161,12 +161,19 @@ extension FeaturedViewModel {
     /// 추천공연 리스트 모델을 위한 API를 호출하는 함수
     private func fetchRecommendedPerformanceListModel() {
         
-        // TODO: [SPT-5] 추천 공연 리스트 API 연동 필요
-        let emptyData = FeaturedRecommendedPerformanceCellModel(
-            showID: "",
-            recommendedPerformanceThumbnailURL: nil,
-            recommendedPerformanceTitle: "지금은 추천할게 없어요"
-        )
-        recommendedPerformanceModelRelay.accept([emptyData])
+        // FIXME: usecase로 옮기기
+        let showAPI = SPShowAPI()
+        showAPI.showList(sort: "POPULAR", size: 10)
+            .map { data in
+                data.data.map { show in
+                    FeaturedRecommendedPerformanceCellModel(
+                        showID: show.id,
+                        recommendedPerformanceThumbnailURL: URL(string: show.posterImageURL),
+                        recommendedPerformanceTitle: show.title
+                    )
+                }
+            }
+            .bind(to: recommendedPerformanceModelRelay)
+            .disposed(by: disposeBag)
     }
 }
