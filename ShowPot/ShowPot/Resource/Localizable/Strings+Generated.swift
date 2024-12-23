@@ -62,6 +62,8 @@ public enum Strings {
   /// 알림 설정한
   /// 공연이 없어요
   public static let myAlarmEmptyTitle = Strings.tr("Localizable", "my_alarm_empty_title", fallback: "알림 설정한\n공연이 없어요")
+  /// 알람
+  public static let myAlarmListNavigationTitle = Strings.tr("Localizable", "my_alarm_list_navigation_title", fallback: "알람")
   /// 티켓팅이 임박한 공연
   public static let myAlarmMainTitle = Strings.tr("Localizable", "my_alarm_main_title", fallback: "티켓팅이 임박한 공연")
   /// 알림 설정한 공연

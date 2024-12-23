@@ -54,6 +54,9 @@
 "home_ticketing_performance_buttonTitle" = "전체공연 보러가기";
 "home_non_login_recommended_title" = "이달의 추천공연";
 
+// 알람 리스트 화면
+"my_alarm_list_navigation_title" = "알람";
+
 // 검색 화면
 "search_artist_title" = "아티스트";
 "search_performance_title" = "공연 정보";
