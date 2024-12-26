@@ -16,7 +16,7 @@ final class FeaturedViewModel: ViewModelType {
     var coordinator: FeaturedCoordinator
     private let disposeBag = DisposeBag()
     
-    private let usecase: SubscribeArtistUseCase & AllPerformanceUseCase
+    private let usecase: SubscribeArtistUseCase & AllPerformanceUseCase & FetchNotificationUpdatesUseCase
     
     private let subscribeGenreModelRelay = BehaviorRelay<[GenreType]>(value: [])
     private let recommendedPerformanceModelRelay = BehaviorRelay<[FeaturedRecommendedPerformanceCellModel]>(value: [])
@@ -36,32 +36,34 @@ final class FeaturedViewModel: ViewModelType {
         featuredSectionModelRelay.value
     }
     
-    init(coordinator: FeaturedCoordinator, usecase: SubscribeArtistUseCase & AllPerformanceUseCase) {
+    init(coordinator: FeaturedCoordinator, usecase: SubscribeArtistUseCase & AllPerformanceUseCase & FetchNotificationUpdatesUseCase) {
         self.coordinator = coordinator
         self.usecase = usecase
     }
     
     struct Input {
+        let viewWillAppear: Observable<Void>
         let requestFeaturedSectionModel: Observable<Void>
         let didTapSearchField: Observable<UITapGestureRecognizer>
         let didTappedSubscribeGenreButton: PublishSubject<Void>
         let didTappedSubscribeArtistButton: PublishSubject<Void>
         let didTappedFeaturedCell: Observable<IndexPath>
         let didTappedWatchTheFullPerformanceButton: Observable<Void>
+        let didTappedRightBarButton: Observable<Void>
     }
     
     struct Output {
         let updateFeaturedLayout: Signal<Void>
         let showLoginBottomSheet: PublishSubject<Void>
+        let hasNewNotifications = PublishRelay<Bool>()
     }
     
     func transform(input: Input) -> Output {
-        
-        let output = Output(
-            updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()),
-            showLoginBottomSheet: PublishSubject<Void>()
-        )
-        
+        self.configureInput(input)
+        return self.createOutput(from: input)
+    }
+    
+    private func configureInput(_ input: Input) {
         input.requestFeaturedSectionModel
             .subscribe(with: self) { owner, _ in
                 owner.fetchSubscribeGenreListModel()
@@ -76,6 +78,47 @@ final class FeaturedViewModel: ViewModelType {
                 owner.coordinator.goToFeaturedSearchScreen()
             }
             .disposed(by: disposeBag)
+        
+        input.didTappedWatchTheFullPerformanceButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToFullPerformanceScreen()
+            }
+            .disposed(by: disposeBag)
+        
+        input.didTappedRightBarButton
+            .subscribe(with: self) { owner, _ in
+                owner.coordinator.goToMyAlarmListViewController()
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            subscribeGenreModelRelay,
+            usecase.artistList,
+            usecase.performanceList,
+            recommendedPerformanceModelRelay
+        )
+        .map { result -> [FeaturedSectionType] in
+            let (genreModel, artistModel, ticketingModel, recommendedModel) = result
+            return [.subscribeGenre(genreModel), .subscribeArtist(artistModel), .ticketingPerformance(ticketingModel), .recommendedPerformance(recommendedModel)]
+        }
+        .subscribe(with: self) { owner, sectionModel in
+            owner.featuredSectionModelRelay.accept(sectionModel)
+            owner.updateFeaturedLayoutSubject.onNext(())
+        }
+        .disposed(by: disposeBag)
+        
+        input.viewWillAppear
+            .subscribe(with: self) { owner, _ in
+                owner.usecase.fetchNotificationUpdates()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func createOutput(from input: Input) -> Output {
+        let output = Output(
+            updateFeaturedLayout: updateFeaturedLayoutSubject.asSignal(onErrorSignalWith: .empty()),
+            showLoginBottomSheet: PublishSubject<Void>()
+        )
         
         input.didTappedSubscribeGenreButton
             .subscribe(with: self) { owner, _ in
@@ -98,28 +141,6 @@ final class FeaturedViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        input.didTappedWatchTheFullPerformanceButton
-            .subscribe(with: self) { owner, _ in
-                owner.coordinator.goToFullPerformanceScreen()
-            }
-            .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            subscribeGenreModelRelay,
-            usecase.artistList,
-            usecase.performanceList,
-            recommendedPerformanceModelRelay
-        )
-        .map { result -> [FeaturedSectionType] in
-            let (genreModel, artistModel, ticketingModel, recommendedModel) = result
-            return [.subscribeGenre(genreModel), .subscribeArtist(artistModel), .ticketingPerformance(ticketingModel), .recommendedPerformance(recommendedModel)]
-        }
-        .subscribe(with: self) { owner, sectionModel in
-            owner.featuredSectionModelRelay.accept(sectionModel)
-            owner.updateFeaturedLayoutSubject.onNext(())
-        }
-        .disposed(by: disposeBag)
-            
         input.didTappedFeaturedCell
             .withLatestFrom(featuredSectionModelRelay) { ($0, $1) }
             .subscribe(with: self) { owner, result in
@@ -144,6 +165,10 @@ final class FeaturedViewModel: ViewModelType {
                     owner.coordinator.goToShowDetailScreen(showID: model[indexPath.row].showID)
                 }
             }
+            .disposed(by: disposeBag)
+        
+        usecase.hasNewNotifications
+            .bind(to: output.hasNewNotifications)
             .disposed(by: disposeBag)
         
         return output

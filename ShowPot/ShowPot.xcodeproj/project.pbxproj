@@ -178,6 +178,14 @@
 		7D0ED9E12C80CA4500145D86 /* ShowInterestListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0ED9E02C80CA4500145D86 /* ShowInterestListResponse.swift */; };
 		7D0ED9E32C80CB2200145D86 /* ShowAlertListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0ED9E22C80CB2200145D86 /* ShowAlertListResponse.swift */; };
 		7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13C3512C35A8A30017AE93 /* MainTabController.swift */; };
+		7D16B43F2D1D6C17003D0761 /* FetchNotificationUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B43E2D1D6C17003D0761 /* FetchNotificationUpdatesUseCase.swift */; };
+		7D16B4412D1D6CAF003D0761 /* DefaultMyAlarmListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B4402D1D6CAF003D0761 /* DefaultMyAlarmListUseCase.swift */; };
+		7D16B4432D1D6CD0003D0761 /* MyAlarmListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B4422D1D6CD0003D0761 /* MyAlarmListUseCase.swift */; };
+		7D16B4472D1D7A33003D0761 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B4462D1D7A33003D0761 /* AlarmCollectionViewCell.swift */; };
+		7D16B4492D1D7A66003D0761 /* MyAlarmListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B4482D1D7A66003D0761 /* MyAlarmListCoordinator.swift */; };
+		7D16B44B2D1D7A83003D0761 /* MyAlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B44A2D1D7A83003D0761 /* MyAlarmListViewController.swift */; };
+		7D16B44D2D1D7A97003D0761 /* MyAlarmListViewHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B44C2D1D7A97003D0761 /* MyAlarmListViewHolder.swift */; };
+		7D16B44F2D1D7AB4003D0761 /* MyAlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16B44E2D1D7AB4003D0761 /* MyAlarmListViewModel.swift */; };
 		7D1B56B32C66371500EA70C4 /* GradientImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B56B22C66371500EA70C4 /* GradientImageView.swift */; };
 		7D1E5FAD2C0A20950012504D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAC2C0A20950012504D /* LoginViewController.swift */; };
 		7D1E5FAF2C0A20A10012504D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */; };
@@ -463,6 +471,14 @@
 		7D0ED9E22C80CB2200145D86 /* ShowAlertListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertListResponse.swift; sourceTree = "<group>"; };
 		7D11A6302C81C76A00EB1D2D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7D13C3512C35A8A30017AE93 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		7D16B43E2D1D6C17003D0761 /* FetchNotificationUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchNotificationUpdatesUseCase.swift; sourceTree = "<group>"; };
+		7D16B4402D1D6CAF003D0761 /* DefaultMyAlarmListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyAlarmListUseCase.swift; sourceTree = "<group>"; };
+		7D16B4422D1D6CD0003D0761 /* MyAlarmListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListUseCase.swift; sourceTree = "<group>"; };
+		7D16B4462D1D7A33003D0761 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D16B4482D1D7A66003D0761 /* MyAlarmListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListCoordinator.swift; sourceTree = "<group>"; };
+		7D16B44A2D1D7A83003D0761 /* MyAlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewController.swift; sourceTree = "<group>"; };
+		7D16B44C2D1D7A97003D0761 /* MyAlarmListViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewHolder.swift; sourceTree = "<group>"; };
+		7D16B44E2D1D7AB4003D0761 /* MyAlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlarmListViewModel.swift; sourceTree = "<group>"; };
 		7D1B56B22C66371500EA70C4 /* GradientImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageView.swift; sourceTree = "<group>"; };
 		7D1E5FAC2C0A20950012504D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7D1E5FAE2C0A20A10012504D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -868,6 +884,7 @@
 			isa = PBXGroup;
 			children = (
 				70A95B842C7E29FD0007836E /* DefaultFeaturedUseCase.swift */,
+				7D16B43E2D1D6C17003D0761 /* FetchNotificationUpdatesUseCase.swift */,
 			);
 			path = Featured;
 			sourceTree = "<group>";
@@ -1036,6 +1053,8 @@
 			children = (
 				70F3C1192C6BA63D00786738 /* MyAlarmUseCase.swift */,
 				70F3C11B2C6BA64500786738 /* DefaultMyAlarmUseCase.swift */,
+				7D16B4422D1D6CD0003D0761 /* MyAlarmListUseCase.swift */,
+				7D16B4402D1D6CAF003D0761 /* DefaultMyAlarmListUseCase.swift */,
 			);
 			path = MyAlarm;
 			sourceTree = "<group>";
@@ -1113,6 +1132,26 @@
 			isa = PBXGroup;
 			children = (
 				70F3C1482C6FBB0300786738 /* ClosedShowListEmptyView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		7D16B4442D1D7978003D0761 /* MyAlarmList */ = {
+			isa = PBXGroup;
+			children = (
+				7D16B4452D1D7983003D0761 /* CustomView */,
+				7D16B4482D1D7A66003D0761 /* MyAlarmListCoordinator.swift */,
+				7D16B44A2D1D7A83003D0761 /* MyAlarmListViewController.swift */,
+				7D16B44C2D1D7A97003D0761 /* MyAlarmListViewHolder.swift */,
+				7D16B44E2D1D7AB4003D0761 /* MyAlarmListViewModel.swift */,
+			);
+			path = MyAlarmList;
+			sourceTree = "<group>";
+		};
+		7D16B4452D1D7983003D0761 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				7D16B4462D1D7A33003D0761 /* AlarmCollectionViewCell.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1304,6 +1343,7 @@
 		7D29811F2C01EC0C00A619FB /* Featured */ = {
 			isa = PBXGroup;
 			children = (
+				7D16B4442D1D7978003D0761 /* MyAlarmList */,
 				707FF7592C5FF0920026C82D /* SubscribeArtist */,
 				7014672D2C3EFBB000750A54 /* CustomView */,
 				7D29812A2C01F22300A619FB /* FeaturedViewController.swift */,
@@ -1903,6 +1943,7 @@
 				7DD2CB7F2C2ED3FA0052ECCD /* FeaturedCoordinator.swift in Sources */,
 				7DA1CA1A2C6BA3F600C2752F /* ShowDetailTitleView.swift in Sources */,
 				707FF75F2C5FF0D90026C82D /* SubscribeArtistCoordinator.swift in Sources */,
+				7D16B4412D1D6CAF003D0761 /* DefaultMyAlarmListUseCase.swift in Sources */,
 				70107B0A2C198E5100F32042 /* LogHelper.swift in Sources */,
 				70A95B9B2C7F284E0007836E /* DefaultSearchUseCase.swift in Sources */,
 				70F3C0DF2C663AA900786738 /* MyShowAlarmCoordinator.swift in Sources */,
@@ -1919,6 +1960,7 @@
 				7DD2CB812C2ED4430052ECCD /* FeaturedViewHolder.swift in Sources */,
 				700485112C7A382C00B9A964 /* TicketingAlarmBottomSheetViewController.swift in Sources */,
 				7D93096C2C569DFB000889DE /* SPSnackBar.swift in Sources */,
+				7D16B44F2D1D7AB4003D0761 /* MyAlarmListViewModel.swift in Sources */,
 				700485132C7A382C00B9A964 /* TicketingAlarmViewModel.swift in Sources */,
 				70107BA12C36661200F32042 /* NSAttributedString+Extension.swift in Sources */,
 				7D45CB632C5A92920018FCB8 /* SPButtonStyle.swift in Sources */,
@@ -1929,10 +1971,12 @@
 				70F3C1412C6FAF3B00786738 /* ClosedShowListCoordinator.swift in Sources */,
 				7D43E2122C5FA0CD00D94898 /* SubscribeGenreViewHolder.swift in Sources */,
 				70F3C0E42C663ACC00786738 /* ShowAlarmCell.swift in Sources */,
+				7D16B4492D1D7A66003D0761 /* MyAlarmListCoordinator.swift in Sources */,
 				7DF377892C7E05A0005B0DC8 /* GenreUnsubscribeRequest.swift in Sources */,
 				701467992C53C18C00750A54 /* FeaturedSearchCoordinator.swift in Sources */,
 				7014677E2C5363FB00750A54 /* FeaturedRecommendedPerformanceCell.swift in Sources */,
 				70A95B9F2C7F7A050007836E /* SPArtistAPI.swift in Sources */,
+				7D16B43F2D1D6C17003D0761 /* FetchNotificationUpdatesUseCase.swift in Sources */,
 				70F3C13F2C6FAF3100786738 /* ClosedShowListViewModel.swift in Sources */,
 				7DF377862C7E0240005B0DC8 /* SPGenreAPI.swift in Sources */,
 				70A95BB52C809EF40007836E /* AccountHeaderView.swift in Sources */,
@@ -1970,6 +2014,7 @@
 				7D43E2152C5FB38D00D94898 /* SPNavigationBarView.swift in Sources */,
 				70A95B852C7E29FD0007836E /* DefaultFeaturedUseCase.swift in Sources */,
 				7DB9F90E2C60ED330097C4F9 /* SPDefaultBottomSheetViewController.swift in Sources */,
+				7D16B4472D1D7A33003D0761 /* AlarmCollectionViewCell.swift in Sources */,
 				707FF74D2C5CC2230026C82D /* CheckBoxButton.swift in Sources */,
 				707FF7482C5CC1D20026C82D /* AllPerformanceViewModel.swift in Sources */,
 				7D1E5FB62C0A23AB0012504D /* LoginCoordinator.swift in Sources */,
@@ -1997,6 +2042,7 @@
 				7DB9F9392C651FBF0097C4F9 /* GenreType.swift in Sources */,
 				7D0ED9D92C80C82E00145D86 /* ShowReservationInfoResponse.swift in Sources */,
 				70A95BD02C81857F0007836E /* MyArtistViewModel.swift in Sources */,
+				7D16B44D2D1D7A97003D0761 /* MyAlarmListViewHolder.swift in Sources */,
 				701467972C53C17B00750A54 /* FeaturedSearchViewModel.swift in Sources */,
 				7D9545BA2C7CDB2F005C3623 /* KeyChainManager.swift in Sources */,
 				7DA1CA1D2C6BA41200C2752F /* ShowDetailPosterImageView.swift in Sources */,
@@ -2012,6 +2058,7 @@
 				70A95B8E2C7F23D90007836E /* SPSearchAPI.swift in Sources */,
 				70A95BD92C818B000007836E /* DefaultMyArtistUseCase.swift in Sources */,
 				70A95B922C7F25750007836E /* SearchShowResponse.swift in Sources */,
+				7D16B44B2D1D7A83003D0761 /* MyAlarmListViewController.swift in Sources */,
 				70F3C1352C6E72B300786738 /* InterestShowListViewHolder.swift in Sources */,
 				7D13C3522C35A8A30017AE93 /* MainTabController.swift in Sources */,
 				7DD2CB892C2ED6550052ECCD /* MyPageViewHolder.swift in Sources */,
@@ -2047,6 +2094,7 @@
 				7DD9AFA92D1734A900B44A99 /* UserNotificationResponse.swift in Sources */,
 				7DB9F9352C63B9910097C4F9 /* GenreSubscribeUseCase.swift in Sources */,
 				701467352C3EFC6500750A54 /* FeaturedSubscribeArtistCell.swift in Sources */,
+				7D16B4432D1D6CD0003D0761 /* MyAlarmListUseCase.swift in Sources */,
 				7D43E7DD2C57D2240008F349 /* DefaultOnboardingUseCase.swift in Sources */,
 				7D8255A72C295E3A00D104BE /* Strings+Generated.swift in Sources */,
 				707FF7862C64A8F70026C82D /* DefaultSubscribeArtistUseCase.swift in Sources */,

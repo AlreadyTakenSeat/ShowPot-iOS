@@ -8,7 +8,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCase {
+final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCase, FetchNotificationUpdatesUseCase {
     
     private let disposeBag = DisposeBag()
     private let artistAPI = SPArtistAPI()
@@ -17,6 +17,7 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
     var artistList = BehaviorRelay<[FeaturedSubscribeArtistCellModel]>(value: [])
     var performanceList = BehaviorRelay<[FeaturedPerformanceWithTicketOnSaleSoonCellModel]>(value: [])
     var subscribeArtistResult = PublishSubject<Bool>()
+    var hasNewNotifications = BehaviorRelay<Bool>(value: false)
     
     func fetchArtistList() {
         artistAPI.unsubscriptions().subscribe(with: self) { owner, response in
@@ -53,5 +54,9 @@ final class DefaultFeaturedUseCase: SubscribeArtistUseCase, AllPerformanceUseCas
             })
         }
         .disposed(by: disposeBag)
+    }
+    
+    func fetchNotificationUpdates() {
+        hasNewNotifications.accept([true, false].shuffled()[0])
     }
 }

@@ -57,4 +57,10 @@ extension FeaturedCoordinator {
         coordinator.start()
         self.childCoordinators.append(coordinator)
     }
+    
+    func goToMyAlarmListViewController() {
+        let coordinator = MyAlarmListCoordinator(navigationController: self.navigationController)
+        coordinator.start()
+        self.childCoordinators.append(coordinator)
+    }
 }
