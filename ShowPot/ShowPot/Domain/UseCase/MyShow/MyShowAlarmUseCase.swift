@@ -64,33 +64,33 @@ final class MyShowAlarmUseCase: MyShowUseCase {
     }
     
     func requestTicketingAlarm(showId: String) {
-        /* TODO: [SPT-4] 변경된 알람 설정 모델 적용 필요
         showAPI.reservationInfo(showId: showId)
             .map { response in
-                let availability = response.alertReservationAvailability
-                let status = response.alertReservationStatus
-                
                 return [
                     TicketingAlarmCellModel(
-                        isChecked: status.before24,
-                        isEnabled: false, // FIXME: - 데모데이이후 false -> availability.canReserve24로 수정
-                        ticketingAlertText: "티켓팅 24시간 전"
+                        isChecked: false,
+                        isEnabled: true,
+                        ticketingAlertText: "티켓팅 5분 전"
                     ),
                     TicketingAlarmCellModel(
-                        isChecked: status.before6,
-                        isEnabled: false, // FIXME: - 데모데이이후 false -> availability.canReserve6로 수정
-                        ticketingAlertText: "티켓팅 6시간 전"
+                        isChecked: false,
+                        isEnabled: true,
+                        ticketingAlertText: "티켓팅 10분 전"
                     ),
                     TicketingAlarmCellModel(
-                        isChecked: status.before1,
-                        isEnabled: availability.canReserve1,
+                        isChecked: false,
+                        isEnabled: true,
+                        ticketingAlertText: "티켓팅 30분 전"
+                    ),
+                    TicketingAlarmCellModel(
+                        isChecked: false,
+                        isEnabled: true,
                         ticketingAlertText: "티켓팅 1시간 전"
                     )
                 ]
             }
             .bind(to: ticketingAlarm)
             .disposed(by: disposeBag)
-         */
     }
 }
 
