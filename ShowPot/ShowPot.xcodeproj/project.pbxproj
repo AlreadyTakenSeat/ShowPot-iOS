@@ -42,7 +42,6 @@
 		70107B2A2C1D573900F32042 /* Oswald-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B242C1D573900F32042 /* Oswald-Medium.ttf */; };
 		70107B2B2C1D573900F32042 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B252C1D573900F32042 /* Oswald-Regular.ttf */; };
 		70107B2C2C1D573900F32042 /* Oswald-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70107B262C1D573900F32042 /* Oswald-SemiBold.ttf */; };
-		70107B512C21680400F32042 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B502C21680400F32042 /* Then */; };
 		70107B592C21693E00F32042 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B582C21693E00F32042 /* GoogleSignIn */; };
 		70107B5B2C21693E00F32042 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B5A2C21693E00F32042 /* GoogleSignInSwift */; };
 		70107B5E2C216A4200F32042 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B5D2C216A4200F32042 /* KakaoSDK */; };
@@ -221,9 +220,6 @@
 		7D3433A72C7A242300A82D20 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 7D3433A62C7A242300A82D20 /* FirebaseStorageCombine-Community */; };
 		7D3433A92C7A242300A82D20 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 7D3433A82C7A242300A82D20 /* FirebaseVertexAI-Preview */; };
 		7D3433AB2C7A249000A82D20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D3433AA2C7A248F00A82D20 /* GoogleService-Info.plist */; };
-		7D43E2042C5E790100D94898 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 7D43E2032C5E790100D94898 /* Differentiator */; };
-		7D43E2062C5E790100D94898 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 7D43E2052C5E790100D94898 /* RxDataSources */; };
-		7D43E2092C5E7A5700D94898 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 7D43E2082C5E7A5700D94898 /* RxGesture */; };
 		7D43E20B2C5FA0A200D94898 /* SubscribeGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20A2C5FA0A200D94898 /* SubscribeGenreViewController.swift */; };
 		7D43E20E2C5FA0B700D94898 /* SubscribeGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20D2C5FA0B700D94898 /* SubscribeGenreViewModel.swift */; };
 		7D43E2102C5FA0C200D94898 /* SubscribeGenreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D43E20F2C5FA0C200D94898 /* SubscribeGenreCoordinator.swift */; };
@@ -302,6 +298,7 @@
 		7DF377922C7E062F005B0DC8 /* GenreSubscribeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377912C7E062F005B0DC8 /* GenreSubscribeResponse.swift */; };
 		7DF377942C7E0795005B0DC8 /* GenreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF377932C7E0795005B0DC8 /* GenreListResponse.swift */; };
 		7DF711892C480FDF001406F0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF711882C480FDF001406F0 /* ReusableCell.swift */; };
+		C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */ = {isa = PBXBuildFile; productRef = C9BE83C32D97A3B6003B53E9 /* RxCompose */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -554,7 +551,6 @@
 		7DD2CB882C2ED6550052ECCD /* MyPageViewHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewHolder.swift; sourceTree = "<group>"; };
 		7DD9AFA82D1734A900B44A99 /* UserNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationResponse.swift; sourceTree = "<group>"; };
 		7DD9AFAA2D17353200B44A99 /* UserNotificationExistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationExistResponse.swift; sourceTree = "<group>"; };
-		7DE569ED2C552D8F006724EF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7DE569F32C5569DF006724EF /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
 		7DE569F52C557892006724EF /* UIView+UIGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+UIGestureRecognizer.swift"; sourceTree = "<group>"; };
 		7DE569F72C561CE7006724EF /* UIButton+Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Trigger.swift"; sourceTree = "<group>"; };
@@ -582,21 +578,19 @@
 				7D2DCABE2C269C2100389FBF /* RxRelay in Frameworks */,
 				7D3433A72C7A242300A82D20 /* FirebaseStorageCombine-Community in Frameworks */,
 				70107B592C21693E00F32042 /* GoogleSignIn in Frameworks */,
-				7D43E2042C5E790100D94898 /* Differentiator in Frameworks */,
 				7D3433A12C7A242300A82D20 /* FirebasePerformance in Frameworks */,
 				7D3433952C7A242300A82D20 /* FirebaseAppDistribution-Beta in Frameworks */,
 				7D34338F2C7A242300A82D20 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				70107B602C216A4200F32042 /* KakaoSDKAuth in Frameworks */,
 				7D3433A52C7A242300A82D20 /* FirebaseStorage in Frameworks */,
 				7D2DCAC02C269C2100389FBF /* RxSwift in Frameworks */,
-				70107B512C21680400F32042 /* Then in Frameworks */,
 				70107B722C216A4200F32042 /* KakaoSDKTemplate in Frameworks */,
 				70107B5B2C21693E00F32042 /* GoogleSignInSwift in Frameworks */,
 				7D3433912C7A242300A82D20 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				70107B702C216A4200F32042 /* KakaoSDKTalk in Frameworks */,
 				70107B742C216A4200F32042 /* KakaoSDKUser in Frameworks */,
 				7D34339B2C7A242300A82D20 /* FirebaseCrashlytics in Frameworks */,
-				7D43E2092C5E7A5700D94898 /* RxGesture in Frameworks */,
+				C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */,
 				7D2DCAC32C269C2E00389FBF /* SnapKit in Frameworks */,
 				70107B662C216A4200F32042 /* KakaoSDKCommon in Frameworks */,
 				70107B6C2C216A4200F32042 /* KakaoSDKNavi in Frameworks */,
@@ -612,7 +606,6 @@
 				7D3433A32C7A242300A82D20 /* FirebaseRemoteConfig in Frameworks */,
 				701467402C401C0C00750A54 /* Kingfisher in Frameworks */,
 				70107B5E2C216A4200F32042 /* KakaoSDK in Frameworks */,
-				7D43E2062C5E790100D94898 /* RxDataSources in Frameworks */,
 				7D3433992C7A242300A82D20 /* FirebaseAuthCombine-Community in Frameworks */,
 				70107B622C216A4200F32042 /* KakaoSDKCert in Frameworks */,
 				7D3433932C7A242300A82D20 /* FirebaseAppCheck in Frameworks */,
@@ -1145,7 +1138,6 @@
 			isa = PBXGroup;
 			children = (
 				7D11A6302C81C76A00EB1D2D /* PrivacyInfo.xcprivacy */,
-				7DE569ED2C552D8F006724EF /* .swiftlint.yml */,
 				7D8255A42C295DF100D104BE /* swiftgen.yml */,
 				7D2980FE2C01E1D000A619FB /* ShowPot */,
 				7D2980FD2C01E1D000A619FB /* Products */,
@@ -1168,7 +1160,6 @@
 				7D3433AA2C7A248F00A82D20 /* GoogleService-Info.plist */,
 				7D2981132C01E70A00A619FB /* Application */,
 				7D2981142C01E71100A619FB /* Presentation */,
-				7D2981172C01E7E700A619FB /* Common */,
 				7D2981152C01E71E00A619FB /* Domain */,
 				7D3E96242C06181C003A6FA9 /* Data */,
 				7D2981162C01E7CA00A619FB /* Resource */,
@@ -1189,6 +1180,7 @@
 		7D2981142C01E71100A619FB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				7D2981172C01E7E700A619FB /* DesignSystem */,
 				7D29811B2C01EB5600A619FB /* Common */,
 				7D29811C2C01EB6300A619FB /* Scene */,
 			);
@@ -1217,7 +1209,7 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		7D2981172C01E7E700A619FB /* Common */ = {
+		7D2981172C01E7E700A619FB /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
 				7D2981182C01E90A00A619FB /* UI */,
@@ -1230,7 +1222,7 @@
 				707FF7572C5FD9900026C82D /* DateFormatterFactory.swift */,
 				70A95BCA2C80E5F50007836E /* NumberFormatterFactory.swift */,
 			);
-			path = Common;
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		7D2981182C01E90A00A619FB /* UI */ = {
@@ -1674,7 +1666,6 @@
 			);
 			name = ShowPot;
 			packageProductDependencies = (
-				70107B502C21680400F32042 /* Then */,
 				70107B582C21693E00F32042 /* GoogleSignIn */,
 				70107B5A2C21693E00F32042 /* GoogleSignInSwift */,
 				70107B5D2C216A4200F32042 /* KakaoSDK */,
@@ -1695,9 +1686,6 @@
 				7D2DCABF2C269C2100389FBF /* RxSwift */,
 				7D2DCAC22C269C2E00389FBF /* SnapKit */,
 				7014673F2C401C0C00750A54 /* Kingfisher */,
-				7D43E2032C5E790100D94898 /* Differentiator */,
-				7D43E2052C5E790100D94898 /* RxDataSources */,
-				7D43E2082C5E7A5700D94898 /* RxGesture */,
 				70F3C1162C6BA19700786738 /* ScalingCarousel */,
 				70F3C14D2C706A6A00786738 /* iOSDropDown */,
 				7D34338C2C7A242300A82D20 /* FirebaseAnalytics */,
@@ -1715,6 +1703,7 @@
 				7D3433A42C7A242300A82D20 /* FirebaseStorage */,
 				7D3433A62C7A242300A82D20 /* FirebaseStorageCombine-Community */,
 				7D3433A82C7A242300A82D20 /* FirebaseVertexAI-Preview */,
+				C9BE83C32D97A3B6003B53E9 /* RxCompose */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -1745,19 +1734,16 @@
 			);
 			mainGroup = 7D2980F32C01E1D000A619FB;
 			packageReferences = (
-				70107B4F2C21680400F32042 /* XCRemoteSwiftPackageReference "Then" */,
 				70107B572C21693E00F32042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				70107B5C2C216A4200F32042 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				7D2DCAB72C269BF700389FBF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7D2DCABA2C269C2100389FBF /* XCRemoteSwiftPackageReference "RxSwift" */,
 				7D2DCAC12C269C2E00389FBF /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */,
-				7D43E2072C5E7A5700D94898 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */,
 				70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 				7D34338B2C7A242300A82D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -2319,14 +2305,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		70107B4F2C21680400F32042 /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		70107B572C21693E00F32042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -2399,38 +2377,17 @@
 				minimumVersion = 11.1.0;
 			};
 		};
-		7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+		C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			repositoryURL = "https://github.com/ShapeKim98/RxCompose";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
-			};
-		};
-		7D43E2072C5E7A5700D94898 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.4;
-			};
-		};
-		7DE569EC2C552B6E006724EF /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.55.1;
+				minimumVersion = 0.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		70107B502C21680400F32042 /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 70107B4F2C21680400F32042 /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
-		};
 		70107B582C21693E00F32042 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 70107B572C21693E00F32042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
@@ -2616,20 +2573,10 @@
 			package = 7D34338B2C7A242300A82D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseVertexAI-Preview";
 		};
-		7D43E2032C5E790100D94898 /* Differentiator */ = {
+		C9BE83C32D97A3B6003B53E9 /* RxCompose */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = Differentiator;
-		};
-		7D43E2052C5E790100D94898 /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7D43E2022C5E790100D94898 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
-		};
-		7D43E2082C5E7A5700D94898 /* RxGesture */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7D43E2072C5E7A5700D94898 /* XCRemoteSwiftPackageReference "RxGesture" */;
-			productName = RxGesture;
+			package = C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */;
+			productName = RxCompose;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
