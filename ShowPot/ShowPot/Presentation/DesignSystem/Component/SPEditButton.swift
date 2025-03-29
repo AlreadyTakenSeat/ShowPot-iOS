@@ -27,7 +27,6 @@ final class SPEditButton: UIButton {
         var configuration = UIButton.Configuration.plain()
         configuration.background.cornerRadius = 0
         configuration.background.backgroundColor = .gray700
-        configuration.imagePlacement = .leading
         configuration.imagePadding = 2
         configuration.contentInsets = NSDirectionalEdgeInsets(
             top: 8,
@@ -44,11 +43,16 @@ final class SPEditButton: UIButton {
             .setForegroundColor(color: .gray100)
         configuration?.attributedTitle = AttributedString(nsStr)
         
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 24)
         switch style {
         case .plain:
-            configuration?.image = .icEdit.withRenderingMode(.alwaysTemplate)
+            configuration?.image = .icEdit
+                .withRenderingMode(.alwaysTemplate)
+                .withConfiguration(imageConfiguration)
         case .complete:
-            configuration?.image = .icEdit.withRenderingMode(.alwaysTemplate)
+            configuration?.image = .icCheck
+                .withRenderingMode(.alwaysTemplate)
+                .withConfiguration(imageConfiguration)
         }
     }
 }
@@ -78,5 +82,5 @@ extension Reactive where Base == SPEditButton {
 
 @available(iOS 17.0, *)
 #Preview {
-    SPEditButton(style: .plain)
+    SPEditButton(style: .complete)
 }
