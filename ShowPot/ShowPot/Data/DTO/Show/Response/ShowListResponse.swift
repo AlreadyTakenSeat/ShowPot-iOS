@@ -25,18 +25,3 @@ struct ShowListElement: Codable {
     let id, title, location, posterImageURL, ticketingAt: String
     let isOpen: Bool
 }
-
-// MARK: - Artist
-struct Artist: Codable {
-    let id, koreanName, englishName, imageURL: String
-}
-
-// MARK: - Genre
-struct Genre: Codable {
-    let id, name: String
-}
-
-// MARK: - ShowTicketingTime
-struct ShowTicketingTime: Codable {
-    let ticketingType, ticketingAt: String
-}
