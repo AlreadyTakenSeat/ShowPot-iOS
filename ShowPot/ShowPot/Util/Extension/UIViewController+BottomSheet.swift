@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension BaseViewController {
+extension UIViewController {
     
     /// 로그인 제안 바텀시트 표출
     func showLoginBottomSheet() {

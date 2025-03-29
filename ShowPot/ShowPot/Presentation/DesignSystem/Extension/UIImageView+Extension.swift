@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 extension UIImageView {
     
     enum RelativeSizeOption {
