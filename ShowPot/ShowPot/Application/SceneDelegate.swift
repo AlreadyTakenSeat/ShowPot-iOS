@@ -16,12 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        window.makeKeyAndVisible()
-        self.window = window
-        
-        let coordinator = MainTabCoordinator(window: self.window)
-        coordinator.start()
+        self.window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = UIViewController()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
