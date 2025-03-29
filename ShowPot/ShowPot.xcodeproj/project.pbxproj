@@ -45,6 +45,9 @@
 		7D3433A72C7A242300A82D20 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 7D3433A62C7A242300A82D20 /* FirebaseStorageCombine-Community */; };
 		7D3433A92C7A242300A82D20 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 7D3433A82C7A242300A82D20 /* FirebaseVertexAI-Preview */; };
 		7D8255A52C295DF100D104BE /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7D8255A42C295DF100D104BE /* swiftgen.yml */; };
+		C9BD1E7B2D97A92800839FD7 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = C9BD1E7A2D97A92800839FD7 /* Dependencies */; };
+		C9BD1E7D2D97A92800839FD7 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C9BD1E7C2D97A92800839FD7 /* DependenciesMacros */; };
+		C9BD1E7F2D97A92800839FD7 /* DependenciesTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C9BD1E7E2D97A92800839FD7 /* DependenciesTestSupport */; };
 		C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */ = {isa = PBXBuildFile; productRef = C9BE83C32D97A3B6003B53E9 /* RxCompose */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +102,7 @@
 				70107B662C216A4200F32042 /* KakaoSDKCommon in Frameworks */,
 				70107B6C2C216A4200F32042 /* KakaoSDKNavi in Frameworks */,
 				7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */,
+				C9BD1E7D2D97A92800839FD7 /* DependenciesMacros in Frameworks */,
 				7D34339D2C7A242300A82D20 /* FirebaseDynamicLinks in Frameworks */,
 				7D2DCAB92C269BF700389FBF /* Alamofire in Frameworks */,
 				70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */,
@@ -106,6 +110,7 @@
 				70107B682C216A4200F32042 /* KakaoSDKFriend in Frameworks */,
 				70107B6E2C216A4200F32042 /* KakaoSDKShare in Frameworks */,
 				70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */,
+				C9BD1E7F2D97A92800839FD7 /* DependenciesTestSupport in Frameworks */,
 				70107B6A2C216A4200F32042 /* KakaoSDKFriendCore in Frameworks */,
 				7D3433A32C7A242300A82D20 /* FirebaseRemoteConfig in Frameworks */,
 				701467402C401C0C00750A54 /* Kingfisher in Frameworks */,
@@ -113,6 +118,7 @@
 				7D3433992C7A242300A82D20 /* FirebaseAuthCombine-Community in Frameworks */,
 				70107B622C216A4200F32042 /* KakaoSDKCert in Frameworks */,
 				7D3433932C7A242300A82D20 /* FirebaseAppCheck in Frameworks */,
+				C9BD1E7B2D97A92800839FD7 /* Dependencies in Frameworks */,
 				70107B642C216A4200F32042 /* KakaoSDKCertCore in Frameworks */,
 				7D3433972C7A242300A82D20 /* FirebaseAuth in Frameworks */,
 			);
@@ -211,6 +217,9 @@
 				7D3433A62C7A242300A82D20 /* FirebaseStorageCombine-Community */,
 				7D3433A82C7A242300A82D20 /* FirebaseVertexAI-Preview */,
 				C9BE83C32D97A3B6003B53E9 /* RxCompose */,
+				C9BD1E7A2D97A92800839FD7 /* Dependencies */,
+				C9BD1E7C2D97A92800839FD7 /* DependenciesMacros */,
+				C9BD1E7E2D97A92800839FD7 /* DependenciesTestSupport */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -251,6 +260,7 @@
 				70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 				7D34338B2C7A242300A82D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */,
+				C9BD1E792D97A92800839FD7 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -618,6 +628,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		C9BD1E792D97A92800839FD7 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.1;
+			};
+		};
 		C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ShapeKim98/RxCompose";
@@ -813,6 +831,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7D34338B2C7A242300A82D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseVertexAI-Preview";
+		};
+		C9BD1E7A2D97A92800839FD7 /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9BD1E792D97A92800839FD7 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
+		};
+		C9BD1E7C2D97A92800839FD7 /* DependenciesMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9BD1E792D97A92800839FD7 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesMacros;
+		};
+		C9BD1E7E2D97A92800839FD7 /* DependenciesTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9BD1E792D97A92800839FD7 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesTestSupport;
 		};
 		C9BE83C32D97A3B6003B53E9 /* RxCompose */ = {
 			isa = XCSwiftPackageProductDependency;
