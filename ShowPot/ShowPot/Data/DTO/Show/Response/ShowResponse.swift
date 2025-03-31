@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct ShowSearchResponse: Decodable {
+struct ShowResponse: Decodable {
     let id, title, startAt, endAt: String
     let location, imageURL: String
 }
 
-extension ShowSearchResponse {
-    func toEntity() -> ShowSearchEntity {
+extension ShowResponse {
+    func toEntity() -> ShowEntity {
         let startAt = self.startAt.toDate(.default) ?? .now
         let endAt = self.endAt.toDate(.default) ?? .now
         
-        return ShowSearchEntity(
+        return ShowEntity(
             id: self.id,
             title: self.title,
             startAt: startAt.toString(.showSearchEntity),
@@ -28,8 +28,8 @@ extension ShowSearchResponse {
     }
 }
 
-extension ShowSearchResponse {
-    static let mock = ShowSearchResponse(
+extension ShowResponse {
+    static let mock = ShowResponse(
         id: "01937cf9-9c48-4ac9-1c57-8aba45fd4a96",
         title: "Post malone 공연1",
         startAt: "2025-3-9 00:00",

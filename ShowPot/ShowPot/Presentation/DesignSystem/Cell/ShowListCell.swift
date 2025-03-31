@@ -36,7 +36,7 @@ final class ShowListCell: UICollectionViewCell {
         imageView.updateGradientLayerFrame()
     }
     
-    func registration(showSearch: ShowSearchEntity) {
+    func registration(showSearch: ShowEntity) {
         let url = URL(string: showSearch.imageURL)
         imageView.kf.setImage(
             with: url,
@@ -120,7 +120,7 @@ private extension ShowListCell {
 #Preview {
     let cell = ShowListCell()
     cell.backgroundColor = .gray700
-    cell.registration(showSearch: ShowSearchResponse.mock.toEntity())
+    cell.registration(showSearch: ShowResponse.mock.toEntity())
     cell.snp.makeConstraints { make in
         make.height.equalTo(80)
     }
