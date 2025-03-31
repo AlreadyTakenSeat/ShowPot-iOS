@@ -29,7 +29,7 @@ final class ArtistCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(artist: ArtistEntity) {
+    func registration(artist: ArtistEntity, isDelete: Bool) {
         let url = URL(string: artist.imageURL)
         imageView.kf.setImage(
             with: url,
@@ -43,6 +43,8 @@ final class ArtistCell: UICollectionViewCell {
         } else {
             configureDefaultState()
         }
+        
+        deleteButton.isHidden = !isDelete
     }
 }
 
@@ -82,7 +84,7 @@ private extension ArtistCell {
         }
         
         deleteButton.snp.makeConstraints { make in
-            make.top.trailing.equalTo(imageView)
+            make.top.trailing.equalToSuperview()
         }
     }
     
@@ -120,6 +122,7 @@ private extension ArtistCell {
                 height: 30
             )
         )
+        configuration.contentInsets = .zero
         deleteButton.configuration = configuration
         deleteButton.isHidden = true
         contentView.addSubview(deleteButton)
@@ -161,8 +164,8 @@ private extension ArtistCell {
 @available(iOS 17.0, *)
 #Preview {
     let cell = ArtistCell()
-    cell.registration(artist: ArtistResponse.mock.toEntity())
-    cell.isSelected = true
+    cell.registration(artist: ArtistResponse.mock.toEntity(), isDelete: true)
+    cell.isSelected = false
     cell.snp.makeConstraints { make in
         make.width.equalTo(100)
         make.height.equalTo(129)
