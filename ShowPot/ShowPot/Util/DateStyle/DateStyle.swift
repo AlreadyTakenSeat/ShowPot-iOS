@@ -8,8 +8,9 @@
 import Foundation
 
 enum DateStyle: String, CaseIterable {
-    case showOpenData = "yyyy-M-d HH:mm"
+    case `default` = "yyyy-M-d HH:mm"
     case showOpenEntity = "MM.dd(EEE) HH:mm"
+    case showSearchEntity = "yyyy.M.d"
     
     static var cachedFormatter: [DateStyle: DateFormatter] {
         var formatters = [DateStyle: DateFormatter]()

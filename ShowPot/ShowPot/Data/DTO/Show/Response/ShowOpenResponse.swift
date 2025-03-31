@@ -15,7 +15,7 @@ struct ShowOpenResponse: Decodable {
 
 extension ShowOpenResponse {
     func toEntity() -> ShowOpenEntity {
-        let date = self.ticketingAt.toDate(.showOpenData) ?? .now
+        let date = self.ticketingAt.toDate(.default) ?? .now
         
         return ShowOpenEntity(
             id: self.id,
