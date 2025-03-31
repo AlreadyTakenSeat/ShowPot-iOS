@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: Environment.kakaoClientID)
         
-        TokenManager.shared.reissueToken()
         
         Thread.sleep(forTimeInterval: 1.0)  // 스플래시 화면 최소 표출 시간
         return true
@@ -80,7 +79,7 @@ extension AppDelegate: MessagingDelegate {
         LogHelper.info("Firebase registration token: \(String(describing: fcmToken))")
         
         if let pushToken = fcmToken {
-            TokenManager.shared.createPushTokens(pushToken: pushToken)
+            
         } else {
             LogHelper.error("Error: No FCM Token")
         }
