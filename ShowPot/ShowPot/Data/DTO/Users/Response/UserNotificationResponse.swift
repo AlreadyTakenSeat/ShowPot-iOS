@@ -24,7 +24,7 @@ struct UserNotificationData: Codable {
 
 // MARK: - Cursor
 struct UserNotificationCursor: Codable {
-    let id, value: ID
+    let id: String
 }
 
 // MARK: - ID
