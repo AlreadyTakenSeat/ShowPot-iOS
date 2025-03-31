@@ -28,12 +28,6 @@ final class SPEditButton: UIButton {
         configuration.background.cornerRadius = 0
         configuration.background.backgroundColor = .gray700
         configuration.imagePadding = 2
-        configuration.contentInsets = NSDirectionalEdgeInsets(
-            top: 8,
-            leading: 20,
-            bottom: 8,
-            trailing: 20
-        )
         configuration.baseForegroundColor = .gray100
         self.configuration = configuration
     }
@@ -49,10 +43,22 @@ final class SPEditButton: UIButton {
             configuration?.image = .icEdit
                 .withRenderingMode(.alwaysTemplate)
                 .withConfiguration(imageConfiguration)
+            configuration?.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 20,
+                bottom: 8,
+                trailing: 20
+            )
         case .complete:
             configuration?.image = .icCheck
                 .withRenderingMode(.alwaysTemplate)
                 .withConfiguration(imageConfiguration)
+            configuration?.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 13,
+                bottom: 8,
+                trailing: 20
+            )
         }
     }
 }
