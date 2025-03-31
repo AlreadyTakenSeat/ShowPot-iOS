@@ -9,8 +9,8 @@ import Foundation
 
 enum DateStyle: String, CaseIterable {
     case `default` = "yyyy-M-d HH:mm"
-    case showOpenEntity = "MM.dd(EEE) HH:mm"
-    case showSearchEntity = "yyyy.M.d"
+    case showOpenEntity = "MM.dd(EE) HH:mm"
+    case showEntity = "yyyy.M.d"
     
     static var cachedFormatter: [DateStyle: DateFormatter] {
         var formatters = [DateStyle: DateFormatter]()
@@ -32,6 +32,7 @@ extension Date {
         guard let formatter = DateStyle.cachedFormatter[style] else {
             return ""
         }
+        formatter.locale = Locale(identifier: identifier)
         return formatter.string(from: self)
     }
 }
@@ -44,6 +45,7 @@ extension String {
         guard let formatter = DateStyle.cachedFormatter[style] else {
             return nil
         }
+        formatter.locale = Locale(identifier: identifier)
         return formatter.date(from: self)
     }
 }

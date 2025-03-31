@@ -20,8 +20,8 @@ extension ShowResponse {
         return ShowEntity(
             id: self.id,
             title: self.title,
-            startAt: startAt.toString(.showSearchEntity),
-            endAt: endAt.toString(.showSearchEntity),
+            startAt: startAt.toString(.showEntity),
+            endAt: endAt.toString(.showEntity),
             location: self.location,
             imageURL: self.imageURL
         )

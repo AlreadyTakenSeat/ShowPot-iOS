@@ -25,7 +25,7 @@ extension ShowOpenResponse {
             ticketingAt: date.toString(
                 .showOpenEntity,
                 identifier: "en_US"
-            ),
+            ).uppercased(),
             isOpen: self.isOpen
         )
     }
