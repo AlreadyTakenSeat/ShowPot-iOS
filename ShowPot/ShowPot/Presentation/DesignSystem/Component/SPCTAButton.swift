@@ -8,29 +8,38 @@
 import UIKit
 
 final class SPCTAButton: UIButton {
-    init(title: String) {
+    init(title: String, style: Style = .primary) {
         super.init(frame: .zero)
         
-        configuration(title)
+        configuration()
+        
+        switch style {
+        case .primary: primaryConfiguration(title: title)
+        case .secondary: secondaryConfiguration(title: title)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configuration(_ title: String) {
+    private func configuration() {
         var configuration = UIButton.Configuration.plain()
-        let nsStr = NSAttributedString(title, fontType: KRFont.H2)
-        configuration.attributedTitle = AttributedString(nsStr)
         configuration.contentInsets = NSDirectionalEdgeInsets(
             top: 14,
             leading: 0,
             bottom: 14,
             trailing: 0
         )
-        configuration.background.backgroundColor = .mainOrange
         configuration.background.cornerRadius = 2
         self.configuration = configuration
+    }
+    
+    private func primaryConfiguration(title: String) {
+        let nsStr = NSAttributedString(title, fontType: KRFont.H2)
+            .setForegroundColor(color: .gray800)
+        configuration?.attributedTitle = AttributedString(nsStr)
+        configuration?.background.backgroundColor = .mainOrange
         
         configurationUpdateHandler = { button in
             UIView.fadeAnimate {
@@ -43,5 +52,31 @@ final class SPCTAButton: UIButton {
                 )
             }
         }
+    }
+    
+    private func secondaryConfiguration(title: String) {
+        let nsStr = NSAttributedString(title, fontType: KRFont.H2)
+            .setForegroundColor(color: .gray000)
+        configuration?.attributedTitle = AttributedString(nsStr)
+        configuration?.background.backgroundColor = .gray400
+        
+        configurationUpdateHandler = { button in
+            UIView.fadeAnimate {
+                let isDisabled = button.state == .disabled
+                let backgroundColor: UIColor = isDisabled ? .gray700 : .gray400
+                let titleColor: UIColor = isDisabled ? .gray400 : .gray000
+                button.configuration?.background.backgroundColor = backgroundColor
+                button.configuration?.attributedTitle = AttributedString(
+                    nsStr.setForegroundColor(color: titleColor)
+                )
+            }
+        }
+    }
+}
+
+extension SPCTAButton {
+    enum Style {
+        case primary
+        case secondary
     }
 }
