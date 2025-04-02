@@ -38,14 +38,3 @@ extension Date {
         return daysDifference
     }
 }
-
-extension String {
-    
-    func date(_ dateformat: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateformat
-        
-        return dateFormatter.date(from: self)
-    }
-    
-}
