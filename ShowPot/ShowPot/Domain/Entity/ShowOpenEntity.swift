@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowOpenEntity: Identifiable {
+struct ShowOpenEntity: Identifiable, Hashable {
     let id, title, location, posterImageURL, ticketingAt: String
     let isOpen: Bool
 }

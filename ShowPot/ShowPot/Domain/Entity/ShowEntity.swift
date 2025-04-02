@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowEntity: Identifiable {
+struct ShowEntity: Identifiable, Hashable {
     let id, title, startAt, endAt: String
     let location, imageURL: String
 }

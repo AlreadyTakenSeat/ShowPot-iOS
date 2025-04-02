@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenreEntity: Identifiable {
+struct GenreEntity: Identifiable, Hashable {
     let id: String
     let name: Genre?
     let isSubscribed: Bool?

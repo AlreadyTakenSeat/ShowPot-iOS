@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArtistEntity: Decodable {
+struct ArtistEntity: Identifiable, Hashable {
     let id, imageURL, name: String
     let isSubscribed: Bool?
 }

@@ -44,7 +44,7 @@ final class ShowListOpenCell: UICollectionViewCell {
         )
         
         openLabel.text = showOpen.isOpen ? "예매중" : "오픈예정"
-        let color: UIColor = showOpen.isOpen ? .mainYellow : .mainBlue
+        let color: UIColor = showOpen.isOpen ? .mainBlue : .mainYellow
         openLabel.textColor = color
         openLabelContainer.layer.borderColor = color.cgColor
         
@@ -111,6 +111,7 @@ private extension ShowListOpenCell {
     func configureOpenLabel() {
         openLabelContainer.backgroundColor = .clear
         openLabelContainer.layer.cornerRadius = 2
+        openLabelContainer.layer.borderWidth = 1
         
         openLabel.font = KRFont.B2_regular.font
         
