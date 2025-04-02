@@ -170,6 +170,7 @@ private extension SPDropdownButton {
         }
         
         separatorView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(containerView)
             make.height.equalTo(0)
             make.top.equalTo(containerView.snp.bottom)
         }
@@ -260,7 +261,7 @@ private extension SPDropdownButton {
     }
     
     func configureSeparatorView() {
-        separatorView.backgroundColor = .gray500
+        separatorView.backgroundColor = .gray400
         separatorView.isHidden = true
         addSubview(separatorView)
     }
