@@ -8,9 +8,10 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxCompose
 import SnapKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, Composable {
     // MARK: - Properties
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -19,13 +20,10 @@ final class HomeViewController: UIViewController {
     private let logoImageView = UIImageView(image: .logoTitle)
     private let alarmButton = UIButton()
     private var dataSource: DataSource?
-    private let disposeBag = DisposeBag()
     
-    // 데이터 모델 (예시로 빈 배열 사용, 실제 데이터로 채워야 함)
-    private let genres: [GenreEntity] = [GenreResponse.mock.toEntity()]
-    private let artists: [ArtistEntity] = [ArtistResponse.mock.toEntity()]
-    private let upcomingShows: [ShowOpenEntity] = [ShowOpenResponse.mock.toEntity()]
-    private let recommendedShows: [ShowEntity] = [ShowResponse.mock.toEntity()]
+    @Compose
+    var composer = HomeViewModel()
+    var disposeBag = DisposeBag()
     
     // MARK: - Initialization
     init() {
@@ -122,13 +120,15 @@ private extension HomeViewController {
                 return self?.createHorizontalSection(
                     itemWidth: 100,
                     itemHeight: 100,
-                    headerHeight: 44
+                    headerHeight: 44,
+                    spacing: 10
                 )
             case .artistSubscription:
                 return self?.createHorizontalSection(
                     itemWidth: 100,
                     itemHeight: 129,
-                    headerHeight: 44
+                    headerHeight: 44,
+                    spacing: 12
                 )
             case .upcomingTicketing:
                 return self?.createUpcomingTicketingSection()
@@ -136,7 +136,8 @@ private extension HomeViewController {
                 return self?.createHorizontalSection(
                     itemWidth: 192,
                     itemHeight: 309,
-                    headerHeight: 44
+                    headerHeight: 44,
+                    spacing: 18
                 )
             default: return nil
             }
@@ -167,12 +168,23 @@ private extension HomeViewController {
         return section
     }
     
-    private func createHorizontalSection(itemWidth: CGFloat, itemHeight: CGFloat, headerHeight: CGFloat) -> NSCollectionLayoutSection {
+    private func createHorizontalSection(
+        itemWidth: CGFloat,
+        itemHeight: CGFloat,
+        headerHeight: CGFloat,
+        spacing: CGFloat
+    ) -> NSCollectionLayoutSection {
         let contentItemSize = NSCollectionLayoutSize(
             widthDimension: .absolute(itemWidth),
             heightDimension: .absolute(itemHeight)
         )
         let contentItem = NSCollectionLayoutItem(layoutSize: contentItemSize)
+        contentItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 0,
+            bottom: 0,
+            trailing: spacing
+        )
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -261,6 +273,47 @@ private extension HomeViewController {
     }
 }
 
+// MARK: - Bind
+private extension HomeViewController {
+    func bindAction() {
+        
+    }
+    
+    func bindState() {
+        composer.$state.observable
+            .map(\.genres)
+            .distinctUntilChanged()
+            .drive(with: self) { this, genres in
+                this.applySnapshot()
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.observable
+            .map(\.artists)
+            .distinctUntilChanged()
+            .drive(with: self) { this, artists in
+                this.applySnapshot()
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.observable
+            .map(\.recommendedShows)
+            .distinctUntilChanged()
+            .drive(with: self) { this, artists in
+                this.applySnapshot()
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.observable
+            .map(\.upcomingShows)
+            .distinctUntilChanged()
+            .drive(with: self) { this, upcomingShows in
+                this.applySnapshot()
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
 // MARK: - DataSource and Snapshot
 private extension HomeViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -285,8 +338,13 @@ private extension HomeViewController {
     
     // MARK: - DataSource
     func configureDataSource() {
-        let searchBarCellRegistration = UICollectionView.CellRegistration<SearchBarSection, Void> { cell, _, _ in
-            cell
+        let searchBarCellRegistration = UICollectionView.CellRegistration<SearchBarSection, Void> { [weak self] cell, _, _ in
+            guard let `self` else { return }
+            cell.textField.textField.rx.controlEvent(.editingDidEndOnExit)
+                .withLatestFrom(cell.textField.textField.rx.text.orEmpty)
+                .map { Action.searchTextFieldEditingDidEndOnExit($0) }
+                .bind(to: composer.action)
+                .disposed(by: disposeBag)
         }
         
         let genreCellRegistration = UICollectionView.CellRegistration<GenreCell, GenreEntity> { cell, _, genre in
@@ -295,10 +353,12 @@ private extension HomeViewController {
         
         let artistCellRegistration = UICollectionView.CellRegistration<ArtistCell, ArtistEntity> { cell, _, artist in
             cell.registration(artist: artist, isDelete: false)
+            cell.layoutIfNeeded()
         }
         
         let showListOpenCellRegistration = UICollectionView.CellRegistration<ShowListOpenCell, ShowOpenEntity> { cell, _, show in
             cell.registration(showOpen: show)
+            cell.layoutIfNeeded()
         }
         
         let buttonCellRegistration = UICollectionView.CellRegistration<UpcomingTicketingButtonCell, Void> { cell, _, _ in
@@ -333,8 +393,7 @@ private extension HomeViewController {
                 headerView.registration(title: "티켓팅이 얼마 남지 않은 공연", style: .h1)
             case .recommendedShows:
                 headerView.registration(title: "추천 공연", style: .h1)
-            default:
-                break
+            default: break
             }
         }
         
@@ -404,24 +463,36 @@ private extension HomeViewController {
     func applySnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
-        
         // 검색 바 섹션
         snapshot.appendItems([.searchBar], toSection: .searchBar)
-        
         // 장르 구독하기 섹션
-        snapshot.appendItems(genres.map { .genre($0) }, toSection: .genreSubscription)
-        
+        snapshot.appendItems(
+            composer.state.genres.map { .genre($0) },
+            toSection: .genreSubscription
+        )
         // 아티스트 구독하기 섹션
-        snapshot.appendItems(artists.map { .artist($0) }, toSection: .artistSubscription)
-        
+        snapshot.appendItems(
+            composer.state.artists.map { .artist($0) },
+            toSection: .artistSubscription
+        )
         // 티켓팅이 얼마 남지 않은 공연 섹션
-        snapshot.appendItems(upcomingShows.map { .upcomingShow($0) }, toSection: .upcomingTicketing)
-        snapshot.appendItems([.button], toSection: .upcomingTicketing) // 버튼 추가
-        
+        snapshot.appendItems(
+            composer.state.upcomingShows.map { .upcomingShow($0) },
+            toSection: .upcomingTicketing
+        )
+        snapshot.appendItems(
+            [.button],
+            toSection: .upcomingTicketing
+        ) // 버튼 추가
         // 추천 공연 섹션
-        snapshot.appendItems(recommendedShows.map { .recommendedShow($0) }, toSection: .recommendedShows)
-        
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        snapshot.appendItems(
+            composer.state.recommendedShows.map { .recommendedShow($0) },
+            toSection: .recommendedShows
+        )
+        dataSource?.apply(
+            snapshot,
+            animatingDifferences: false
+        )
     }
 }
 

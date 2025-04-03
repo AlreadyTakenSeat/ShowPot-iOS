@@ -12,9 +12,16 @@ import RxSwift
 import RxCocoa
 
 final class HomeViewModel: Composer {
-    enum Action { }
+    enum Action {
+        case searchTextFieldEditingDidEndOnExit(String)
+    }
     
-    struct State { }
+    struct State {
+        var genres: [GenreEntity] = GenreResponse.mockList.map { $0.toEntity() }
+        var artists: [ArtistEntity] = ArtistResponse.mockList.map { $0.toEntity() }
+        var upcomingShows: [ShowOpenEntity] = [ShowOpenResponse.mock.toEntity()]
+        var recommendedShows: [ShowEntity] = [ShowResponse.mock.toEntity()]
+    }
     
     var disposeBag = DisposeBag()
     
@@ -23,6 +30,9 @@ final class HomeViewModel: Composer {
     var action = PublishRelay<Action>()
     
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
-        return .none
+        switch action {
+        case let .searchTextFieldEditingDidEndOnExit(text):
+            return .none
+        }
     }
 }

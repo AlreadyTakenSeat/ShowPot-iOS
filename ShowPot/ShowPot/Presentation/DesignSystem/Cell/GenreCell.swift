@@ -57,8 +57,8 @@ private extension GenreCell {
     
     func configureLayout() {
         imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.size.equalTo(100)
+            make.width.equalToSuperview()
+            make.height.equalTo(contentView.snp.width)
         }
         
         deleteButton.snp.makeConstraints { make in

@@ -29,6 +29,15 @@ final class ArtistCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        let radius = contentView.frame.width / 2
+        
+        dimmedView.layer.cornerRadius = radius
+        imageView.layer.cornerRadius = radius
+    }
+    
     func registration(artist: ArtistEntity, isDelete: Bool) {
         let url = URL(string: artist.imageURL)
         imageView.kf.setImage(
@@ -67,7 +76,8 @@ private extension ArtistCell {
     func configureLayout() {
         imageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.size.equalTo(100)
+            make.width.equalToSuperview()
+            make.height.equalTo(contentView.snp.width)
         }
         
         dimmedView.snp.makeConstraints { make in
@@ -90,13 +100,11 @@ private extension ArtistCell {
     
     func configureImageView() {
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
     }
     
     func configureDimmedView() {
-        dimmedView.layer.cornerRadius = 50
         dimmedView.clipsToBounds = true
         imageView.addSubview(dimmedView)
     }
@@ -165,10 +173,11 @@ private extension ArtistCell {
 #Preview {
     let cell = ArtistCell()
     cell.registration(artist: ArtistResponse.mock.toEntity(), isDelete: true)
-    cell.isSelected = false
+    cell.isSelected = true
     cell.snp.makeConstraints { make in
         make.width.equalTo(100)
         make.height.equalTo(129)
     }
+    cell.layoutIfNeeded()
     return cell
 }

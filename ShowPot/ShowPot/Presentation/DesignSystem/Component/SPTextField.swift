@@ -57,6 +57,8 @@ private extension SPTextField {
     }
     
     func configureTextField(placeholder: String) {
+        textField.textColor = .gray000
+        
         textField.attributedPlaceholder = NSAttributedString(
             placeholder,
             fontType: KRFont.B1_semibold

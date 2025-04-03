@@ -36,6 +36,12 @@ final class ShowListOpenCell: UICollectionViewCell {
         imageView.updateGradientLayerFrame()
     }
     
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        imageView.updateGradientLayerFrame()
+    }
+    
     func registration(showOpen: ShowOpenEntity) {
         let url = URL(string: showOpen.posterImageURL)
         imageView.kf.setImage(
