@@ -26,6 +26,14 @@ final class SPChip: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setTitle(title: String) {
+        let nsStr = NSMutableAttributedString(
+            title,
+            fontType: KRFont.B1_regular
+        ).setForegroundColor(color: .gray000)
+        configuration?.attributedTitle = AttributedString(nsStr)
+    }
 }
 
 // MARK: - Configuration
