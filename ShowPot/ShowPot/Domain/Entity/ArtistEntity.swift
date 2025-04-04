@@ -9,5 +9,5 @@ import Foundation
 
 struct ArtistEntity: Identifiable, Hashable {
     let id, imageURL, name: String
-    let isSubscribed: Bool?
+    var isSubscribed: Bool?
 }

@@ -38,7 +38,7 @@ final class ArtistCell: UICollectionViewCell {
         imageView.layer.cornerRadius = radius
     }
     
-    func registration(artist: ArtistEntity, isDelete: Bool) {
+    func registration(artist: ArtistEntity, isDelete: Bool, isSelected: Bool? = nil) {
         let url = URL(string: artist.imageURL)
         imageView.kf.setImage(
             with: url,
@@ -49,8 +49,8 @@ final class ArtistCell: UICollectionViewCell {
         
         if let isSubscribed = artist.isSubscribed {
             configureAlarmState(isSubscribed: isSubscribed)
-        } else {
-            configureDefaultState()
+        } else if let isSelected {
+            configureDefaultState(isSelected: isSelected)
         }
         
         deleteButton.isHidden = !isDelete
@@ -148,23 +148,21 @@ private extension ArtistCell {
         iconView.isHidden = false
     }
     
-    func configureDefaultState() {
-        configurationUpdateHandler = { [weak self] cell, state in
-            if state.isSelected {
-                self?.dimmedView.isHidden = false
-                self?.iconView.isHidden = false
-                self?.dimmedView.backgroundColor = .mainOrange.withAlphaComponent(0.7)
-                self?.iconView.image = .icCheck.resized(
-                    to: CGSize(
-                        width: 30,
-                        height: 30
-                    )
+    func configureDefaultState(isSelected: Bool) {
+        if isSelected {
+            dimmedView.isHidden = false
+            iconView.isHidden = false
+            dimmedView.backgroundColor = .mainOrange.withAlphaComponent(0.7)
+            iconView.image = .icCheck.resized(
+                to: CGSize(
+                    width: 30,
+                    height: 30
                 )
-                .withTintColor(.gray000)
-            } else {
-                self?.dimmedView.isHidden = true
-                self?.iconView.isHidden = true
-            }
+            )
+            .withTintColor(.gray000)
+        } else {
+            dimmedView.isHidden = true
+            iconView.isHidden = true
         }
     }
 }
