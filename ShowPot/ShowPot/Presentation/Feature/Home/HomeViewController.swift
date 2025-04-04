@@ -40,6 +40,10 @@ final class HomeViewController: UIViewController, Composable {
         configureUI()
         
         configureLayout()
+        
+        bindState()
+        
+        bindAction()
     }
     
     @objc private func buttonTapped() {
