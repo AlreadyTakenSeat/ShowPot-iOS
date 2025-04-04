@@ -15,8 +15,9 @@ final class SearchViewModel: Composer {
     enum Action {
         case searchTextFieldOnSubmit(String)
         case clearButtonTapped
-        case recentSearchesCollectionViewItemSelected(Int)
+        case recentSearchesItemSelected(Int)
         case searchTextFieldButtonTapped
+        case recentSearchesCancelButtonTapped(Int)
         /// 임시
         case mutatedRecents
     }
@@ -57,7 +58,7 @@ final class SearchViewModel: Composer {
         case .mutatedRecents:
             state.showSearchResult = true
             return .none
-        case let .recentSearchesCollectionViewItemSelected(item):
+        case let .recentSearchesItemSelected(item):
             state.query = state.recentQueries?[item] ?? ""
             return .send(.mutatedRecents)
         case .searchTextFieldButtonTapped:
@@ -70,6 +71,9 @@ final class SearchViewModel: Composer {
                 state.recentQueries?.append(query)
                 return .send(.mutatedRecents)
             }
+        case let .recentSearchesCancelButtonTapped(item):
+            state.recentQueries?.remove(at: item)
+            return .none
         }
     }
 }

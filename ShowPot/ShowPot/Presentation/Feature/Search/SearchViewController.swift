@@ -126,6 +126,7 @@ private extension SearchViewController {
         configuration.background.backgroundColor = .clear
         configuration.contentInsets = .zero
         clearAllButton.configuration = configuration
+        clearAllButton.isHidden = true
         view.addSubview(clearAllButton)
     }
     
@@ -287,11 +288,11 @@ private extension SearchViewController {
         UIView.fadeAnimate(duration: 0.2) { [weak self] in
             self?.searchResultsCollectionView.alpha = !showSearchResult ? 0 : 1
             self?.recentSearchesCollectionView.alpha = showSearchResult ? 0 : 1
-            self?.clearAllButton.alpha = showSearchResult ? 0 : 1
+//            self?.clearAllButton.alpha = showSearchResult ? 0 : 1
         } completion: { [weak self] _ in
             self?.searchResultsCollectionView.isHidden = !showSearchResult
             self?.recentSearchesCollectionView.isHidden = showSearchResult
-            self?.clearAllButton.isHidden = showSearchResult
+//            self?.clearAllButton.isHidden = showSearchResult
         }
     }
 }
@@ -318,21 +319,24 @@ private extension SearchViewController {
     
     func configureDataSources() {
         // 최근 검색어 DataSource
-        let recentSearchCellRegistration = UICollectionView.CellRegistration<SPChipCell, String> { cell, indexPath, title in
+        let recentSearchCellRegistration = UICollectionView.CellRegistration<SPChipCell, String> { [weak self] cell, indexPath, title in
+            guard let `self` else { return }
             cell.configure(title: title)
             cell.chipButton.rx.tap
-                .bind(with: self) { this, _ in
-                    this.composer.action.accept(
-                        .recentSearchesCollectionViewItemSelected(indexPath.item)
-                    )
-                }
+                .map { _ in Action.recentSearchesItemSelected(indexPath.item) }
+                .bind(to: composer.action)
+                .disposed(by: cell.disposeBag)
+            
+            cell.chipButton.cancelButton.rx.tap
+                .map { _ in Action.recentSearchesCancelButtonTapped(indexPath.item) }
+                .bind(to: composer.action)
                 .disposed(by: cell.disposeBag)
         }
         
         let recentSearchesHeaderRegistration = UICollectionView.SupplementaryRegistration<SPMenuCell>(
             elementKind: UICollectionView.elementKindSectionHeader
         ) { headerView, _, _ in
-            headerView.registration(title: "최근검색어", style: .h2)
+            headerView.registration(title: "", style: .h2)
         }
         
         recentSearchesDataSource = RecentSearchesDataSource(
@@ -460,7 +464,8 @@ private extension SearchViewController {
             .compactMap(\.recentQueries)
             .distinctUntilChanged()
             .drive(with: self) { this, recentQueries in
-                this.applyRecentSearchesSnapshot(recentQueries: recentQueries)
+                this.applyRecentSearchesSnapshot(recentQueries: [])
+//                this.recentSearchesCollectionView.collectionViewLayout = this.createRecentSearchesLayout()
             }
             .disposed(by: disposeBag)
         

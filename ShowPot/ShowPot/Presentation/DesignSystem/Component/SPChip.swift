@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SnapKit // SnapKit 임포트 추가
 
 final class SPChip: UIButton {
+    let cancelButton = UIButton() // 별도의 이미지 뷰
+    
     init(title: String, style: Style) {
         super.init(frame: .zero)
         
@@ -15,7 +18,7 @@ final class SPChip: UIButton {
         
         switch style {
         case .default: break
-        case .cancel: cancelConfiguration()
+        case .cancel: cancelConfiguration(title: title)
         case .filter:
             configurationUpdateHandler = { [weak self] _ in
                 self?.filterConfiguration(title: title)
@@ -29,24 +32,22 @@ final class SPChip: UIButton {
     
     func setTitle(title: String) {
         let nsStr = NSMutableAttributedString(
-            title,
-            fontType: KRFont.B1_regular
+            string: title,
+            attributes: [.font: KRFont.B1_regular]
         ).setForegroundColor(color: .gray000)
         configuration?.attributedTitle = AttributedString(nsStr)
     }
-}
-
-// MARK: - Configuration
-private extension SPChip {
-    func configuration(title: String) {
+    
+    // MARK: - Configuration
+    private func configuration(title: String) {
         var configuration = UIButton.Configuration.plain()
         configuration.cornerStyle = .capsule
         configuration.background.backgroundColor = .gray700
         configuration.background.strokeColor = .gray400
         configuration.background.strokeWidth = 1
         let nsStr = NSMutableAttributedString(
-            title,
-            fontType: KRFont.B1_regular
+            string: title,
+            attributes: [.font: KRFont.B1_regular]
         ).setForegroundColor(color: .gray000)
         configuration.attributedTitle = AttributedString(nsStr)
         configuration.contentInsets = NSDirectionalEdgeInsets(
@@ -58,25 +59,42 @@ private extension SPChip {
         self.configuration = configuration
     }
     
-    func cancelConfiguration() {
-        configuration?.imagePlacement = .trailing
-        configuration?.imagePadding = 0
-        configuration?.image = .icCancel
-            .withTintColor(.gray300)
-            .resized(to: CGSize(width: 24, height: 24))
-        configuration?.contentInsets = NSDirectionalEdgeInsets(
+    private func cancelConfiguration(title: String) {
+        // 기존 버튼 설정
+        var config = self.configuration ?? UIButton.Configuration.plain()
+        config.contentInsets = NSDirectionalEdgeInsets(
             top: 8,
             leading: 14,
             bottom: 8,
-            trailing: 8
+            trailing: 8 + 24 + 0 // 이미지 크기(24) + 패딩(0)
         )
+        self.configuration = config
+        
+        var configuration = UIButton.Configuration.plain()
+        
+        // cancelImageView 설정
+        configuration.image = .icCancel
+            .withTintColor(.gray300)
+            .resized(to: CGSize(width: 24, height: 24))
+        configuration.contentInsets = .zero
+        cancelButton.configuration = configuration
+        addSubview(cancelButton)
+        
+        // SnapKit으로 레이아웃 설정
+        cancelButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-8)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 24, height: 24))
+        }
     }
     
-    func filterConfiguration(title: String) {
+    private func filterConfiguration(title: String) {
         let strokeColor: UIColor = isSelected ? .gray000 : .gray600
         configuration?.background.strokeColor = strokeColor
-        let nsStr = NSAttributedString(title, fontType: KRFont.B1_regular)
-            .setForegroundColor(color: isSelected ? .gray000 : .gray400)
+        let nsStr = NSAttributedString(
+            string: title,
+            attributes: [.font: KRFont.B1_regular]
+        ).setForegroundColor(color: isSelected ? .gray000 : .gray400)
         configuration?.attributedTitle = AttributedString(nsStr)
     }
 }
@@ -92,6 +110,6 @@ extension SPChip {
 @available(iOS 17.0, *)
 #Preview {
     let chip = SPChip(title: "크리스토퍼", style: .cancel)
-    chip.isSelected = true
+    chip.isSelected = false
     return chip
 }
