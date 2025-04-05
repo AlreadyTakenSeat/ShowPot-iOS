@@ -155,11 +155,11 @@ private extension ShowDetailViewController {
             case .ticketingInfo:
                 return self?.createTicketingInfoSection()
             case .ticketingTimes:
-                return self?.createTicketingTimesSection()
+                return self?.createTicketingTimesSection(environment: environment)
             case .artists:
                 return self?.createArtistsSection()
             case .seatPrices:
-                return self?.createSeatPricesSection()
+                return self?.createSeatPricesSection(environment: environment)
             case .genres:
                 return self?.createGenresSection()
             default:
@@ -276,27 +276,16 @@ private extension ShowDetailViewController {
         return section
     }
     
-    private func createTicketingTimesSection() -> NSCollectionLayoutSection {
-        let ticketingTimeItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(20)
-        )
-        let ticketingTimeItem = NSCollectionLayoutItem(
-            layoutSize: ticketingTimeItemSize
-        )
+    private func createTicketingTimesSection(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = false
+        configuration.backgroundColor = .clear
         
-        let count = dataSource?.snapshot(for: .ticketingTimes).items.count ?? 0
-        let ticketingTimeGroupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(20 * CGFloat(count) + 4 * CGFloat(max(0, count - 1)))
+        let section = NSCollectionLayoutSection.list(
+            using: configuration,
+            layoutEnvironment: environment
         )
-        let ticketingTimeGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: ticketingTimeGroupSize,
-            subitems: [ticketingTimeItem]
-        )
-        ticketingTimeGroup.interItemSpacing = .fixed(4)
-        
-        let section = NSCollectionLayoutSection(group: ticketingTimeGroup)
+        section.interGroupSpacing = 4
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 0,
             leading: 16,
@@ -352,28 +341,20 @@ private extension ShowDetailViewController {
         return section
     }
     
-    private func createSeatPricesSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(30)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func createSeatPricesSection(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = false
+        configuration.backgroundColor = .clear
         
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(30)
+        let section = NSCollectionLayoutSection.list(
+            using: configuration,
+            layoutEnvironment: environment
         )
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 24,
-            leading: 16,
+            top: 12,
+            leading: 12,
             bottom: 24,
-            trailing: 16
+            trailing: 12
         )
         section.interGroupSpacing = 4
         
@@ -385,6 +366,12 @@ private extension ShowDetailViewController {
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top
+        )
+        header.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 0,
+            trailing: 16
         )
         section.boundarySupplementaryItems = [header]
         
