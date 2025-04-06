@@ -11,7 +11,7 @@ import RxCompose
 import RxSwift
 import RxCocoa
 
-final class ShowListViewModel: Composer {
+final class ShowOpenListViewModel: Composer {
     enum Action {
         case filterCheckBoxTapped
     }

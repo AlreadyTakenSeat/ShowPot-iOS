@@ -12,7 +12,7 @@ import RxCompose
 import RxSwift
 import RxCocoa
 
-final class ShowListViewController: UIViewController, Composable {
+final class ShowOpenListViewController: UIViewController, Composable {
     
     // MARK: - Properties
     private let navigationBar = SPNavigationBar(title: "전체공연")
@@ -29,7 +29,7 @@ final class ShowListViewController: UIViewController, Composable {
     private var isFilterEnabled: Bool = true
     
     @Compose
-    var composer = ShowListViewModel()
+    var composer = ShowOpenListViewModel()
     var disposeBag = DisposeBag()
     
     // MARK: - Initialization
@@ -58,7 +58,7 @@ final class ShowListViewController: UIViewController, Composable {
 }
 
 // MARK: - Configure View
-private extension ShowListViewController {
+private extension ShowOpenListViewController {
     private func configureUI() {
         view.backgroundColor = .gray700
         
@@ -175,7 +175,7 @@ private extension ShowListViewController {
 }
 
 // MARK: - DataSource and Snapshot
-private extension ShowListViewController {
+private extension ShowOpenListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     typealias Registration = UICollectionView.CellRegistration<ShowListOpenCell, ShowOpenEntity>
@@ -217,7 +217,7 @@ private extension ShowListViewController {
 }
 
 // MARK: - Bindings and Actions
-private extension ShowListViewController {
+private extension ShowOpenListViewController {
     func bindAction() {
         filterCheckBox.rx.tap
             .map { Action.filterCheckBoxTapped }
@@ -244,5 +244,5 @@ private extension ShowListViewController {
 
 @available(iOS 17.0, *)
 #Preview {
-    ShowListViewController()
+    ShowOpenListViewController()
 }
