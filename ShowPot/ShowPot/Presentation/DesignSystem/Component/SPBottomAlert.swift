@@ -8,6 +8,8 @@
 import UIKit
 
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class SPBottomAlert: UIViewController {
     private let messageLabel = UILabel()
@@ -17,13 +19,18 @@ final class SPBottomAlert: UIViewController {
     
     private let message: String
     private let buttonTitle: String
+    private let primaryAction: (() -> Void)?
+    
+    private let disposeBag = DisposeBag()
     
     init(
         message: String,
-        buttonTitle: String
+        buttonTitle: String,
+        primaryAction: (() -> Void)? = nil
     ) {
         self.message = message
         self.buttonTitle = buttonTitle
+        self.primaryAction = primaryAction
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,6 +45,20 @@ final class SPBottomAlert: UIViewController {
         configureUI()
         
         configureLayout()
+        
+        configurePresentation()
+        
+        cancelButton.rx.tap
+            .bind(with: self) { this, _ in
+                this.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        primaryButton.rx.tap
+            .bind(with: self) { this, _ in
+                this.primaryAction?()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -49,8 +70,6 @@ private extension SPBottomAlert {
         configureMessageLabel()
         
         configureStackView()
-        
-        configurePresentation()
     }
     
     func configureLayout() {
@@ -78,9 +97,8 @@ private extension SPBottomAlert {
     func configurePresentation() {
         sheetPresentationController?.preferredCornerRadius = 0
         if #available(iOS 16.0, *) {
-            let height = view.bounds.height
             sheetPresentationController?.detents = [
-                .custom { _ in return height }
+                .custom { _ in return 217 }
             ]
         } else {
             sheetPresentationController?.detents = [.medium()]

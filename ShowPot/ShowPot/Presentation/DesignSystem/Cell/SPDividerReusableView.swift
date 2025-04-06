@@ -21,6 +21,10 @@ final class SPDividerReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setStyle(_ style: SPDivider.Style) {
+        divider.setStyle(style)
+    }
 }
 
 // MARK: - Configure Views

@@ -22,6 +22,13 @@ final class SPDivider: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setStyle(_ style: Style) {
+        backgroundColor = style.color
+        snp.updateConstraints { make in
+            make.height.equalTo(style.height)
+        }
+    }
 }
 
 extension SPDivider {
