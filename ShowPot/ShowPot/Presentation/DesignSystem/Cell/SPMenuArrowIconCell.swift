@@ -55,7 +55,7 @@ private extension SPMenuArrowIconCell {
         iconImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(12)
             make.centerY.equalToSuperview()
-            make.size.equalTo(20)
+            make.size.equalTo(24)
         }
         
         titleLabel.snp.makeConstraints { make in

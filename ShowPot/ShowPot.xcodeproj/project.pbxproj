@@ -22,6 +22,7 @@
 		C92D86582D97B277001A6557 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C92D86572D97B277001A6557 /* DependenciesMacros */; };
 		C9BD1F2A2D97B0A200839FD7 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C9BD1F292D97B0A200839FD7 /* FirebaseMessaging */; };
 		C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */ = {isa = PBXBuildFile; productRef = C9BE83C32D97A3B6003B53E9 /* RxCompose */; };
+		C9D9F7A92DA2548B00A9A0E2 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = C9D9F7A82DA2548B00A9A0E2 /* RxGesture */; };
 		C9F908532D97B12D00E1611D /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = C9F908522D97B12D00E1611D /* KakaoSDK */; };
 		C9F908552D97B12D00E1611D /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C9F908542D97B12D00E1611D /* KakaoSDKAuth */; };
 		C9F908572D97B12D00E1611D /* KakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = C9F908562D97B12D00E1611D /* KakaoSDKCert */; };
@@ -68,6 +69,7 @@
 				C9F908552D97B12D00E1611D /* KakaoSDKAuth in Frameworks */,
 				C9F908572D97B12D00E1611D /* KakaoSDKCert in Frameworks */,
 				7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */,
+				C9D9F7A92DA2548B00A9A0E2 /* RxGesture in Frameworks */,
 				7D2DCAB92C269BF700389FBF /* Alamofire in Frameworks */,
 				70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */,
 				C92D86562D97B277001A6557 /* Dependencies in Frameworks */,
@@ -139,6 +141,7 @@
 				C9F9085C2D97B12D00E1611D /* KakaoSDKUser */,
 				C92D86552D97B277001A6557 /* Dependencies */,
 				C92D86572D97B277001A6557 /* DependenciesMacros */,
+				C9D9F7A82DA2548B00A9A0E2 /* RxGesture */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -180,6 +183,7 @@
 				C9BD1F282D97B0A200839FD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C9F908512D97B12D00E1611D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				C92D86542D97B277001A6557 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+				C9D9F7A72DA2548B00A9A0E2 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -507,6 +511,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		C9D9F7A72DA2548B00A9A0E2 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 		C9F908512D97B12D00E1611D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
@@ -587,6 +599,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */;
 			productName = RxCompose;
+		};
+		C9D9F7A82DA2548B00A9A0E2 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9D9F7A72DA2548B00A9A0E2 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 		C9F908522D97B12D00E1611D /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
