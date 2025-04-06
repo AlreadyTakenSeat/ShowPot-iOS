@@ -27,10 +27,10 @@ final class SPMenuArrowIconCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(title: String, count: Int, icon: UIImage) {
+    func registration(title: String, count: Int, icon: UIImage?) {
         titleLabel.text = title
         
-        iconImageView.image = icon
+        iconImageView.image = icon?
             .withTintColor(.gray300)
         
         countLabel.text = "\(count)"

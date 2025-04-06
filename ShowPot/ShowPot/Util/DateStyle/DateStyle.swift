@@ -9,7 +9,7 @@ import Foundation
 
 enum DateStyle: String, CaseIterable {
     case `default` = "yyyy-M-d HH:mm"
-    case showOpenEntity = "MM.dd(EE) HH:mm"
+    case showOpenEntity = "MM.dd(EEE) HH:mm"
     case showEntity = "yyyy.M.d"
     case ticketTime = "M월 d일 (E) HH:mm"
     case showDetail = "yyyy.MM.dd"
