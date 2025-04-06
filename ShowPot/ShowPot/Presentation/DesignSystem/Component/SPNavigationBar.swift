@@ -26,6 +26,10 @@ final class SPNavigationBar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setTitleColor(_ color: UIColor) {
+        titleLabel.textColor = color
+    }
 }
 
 // MARK: - Configure Views
@@ -40,12 +44,13 @@ private extension SPNavigationBar {
     
     func configureLayout() {
         backButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).inset(12)
+            make.bottom.equalToSuperview().inset(12)
             make.leading.equalToSuperview().inset(6)
-            make.verticalEdges.equalToSuperview().inset(4)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(backButton)
             make.leading.equalTo(backButton.snp.trailing).offset(4)
             make.trailing.lessThanOrEqualToSuperview()
         }

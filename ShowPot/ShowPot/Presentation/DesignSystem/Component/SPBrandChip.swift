@@ -48,7 +48,7 @@ private extension SPBrandChip {
 }
 
 extension SPBrandChip {
-    enum Style {
+    enum Style: Hashable {
         case `default`(String)
         case yes24
         case interpark

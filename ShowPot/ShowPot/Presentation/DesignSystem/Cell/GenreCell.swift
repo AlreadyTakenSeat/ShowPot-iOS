@@ -30,15 +30,10 @@ final class GenreCell: UICollectionViewCell {
     
     func registration(genre: GenreEntity, isDelete: Bool) {
         if let isSubscribed = genre.isSubscribed {
+            isSelected = isSubscribed
             imageView.image = isSubscribed
             ? genre.name?.subscribedImage
             : genre.name?.image
-        } else {
-            configurationUpdateHandler = { [weak self] cell, state in
-                self?.imageView.image = state.isSelected
-                ? genre.name?.selectedImage
-                : genre.name?.image
-            }
         }
         
         deleteButton.isHidden = !isDelete
@@ -57,8 +52,8 @@ private extension GenreCell {
     
     func configureLayout() {
         imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.size.equalTo(100)
+            make.width.equalToSuperview()
+            make.height.equalTo(contentView.snp.width)
         }
         
         deleteButton.snp.makeConstraints { make in

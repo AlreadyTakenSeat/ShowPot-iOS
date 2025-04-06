@@ -42,10 +42,11 @@ final class SPCTAButton: UIButton {
         configuration?.background.backgroundColor = .mainOrange
         
         configurationUpdateHandler = { button in
+            let isDisabled = button.state == .disabled
+            let backgroundColor: UIColor = isDisabled ? .gray700 : .mainOrange
+            let titleColor: UIColor = isDisabled ? .gray400 : .gray800
+            
             UIView.fadeAnimate {
-                let isDisabled = button.state == .disabled
-                let backgroundColor: UIColor = isDisabled ? .gray700 : .mainOrange
-                let titleColor: UIColor = isDisabled ? .gray400 : .gray800
                 button.configuration?.background.backgroundColor = backgroundColor
                 button.configuration?.attributedTitle = AttributedString(
                     nsStr.setForegroundColor(color: titleColor)
@@ -61,10 +62,11 @@ final class SPCTAButton: UIButton {
         configuration?.background.backgroundColor = .gray400
         
         configurationUpdateHandler = { button in
+            let isDisabled = button.state == .disabled
+            let backgroundColor: UIColor = isDisabled ? .gray700 : .gray400
+            let titleColor: UIColor = isDisabled ? .gray400 : .gray000
+            
             UIView.fadeAnimate {
-                let isDisabled = button.state == .disabled
-                let backgroundColor: UIColor = isDisabled ? .gray700 : .gray400
-                let titleColor: UIColor = isDisabled ? .gray400 : .gray000
                 button.configuration?.background.backgroundColor = backgroundColor
                 button.configuration?.attributedTitle = AttributedString(
                     nsStr.setForegroundColor(color: titleColor)

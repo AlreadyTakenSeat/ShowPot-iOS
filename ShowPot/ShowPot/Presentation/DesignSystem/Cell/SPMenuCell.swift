@@ -52,7 +52,8 @@ private extension SPMenuCell {
     
     func configureLayout() {
         titleLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview()
+            make.verticalEdges.equalToSuperview().inset(0)
         }
     }
     

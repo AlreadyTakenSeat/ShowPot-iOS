@@ -33,14 +33,12 @@ final class SPMenuArrowCell: UICollectionViewCell {
             titleLabel.font = KRFont.H1.font
             arrowImageView.snp.updateConstraints { make in
                 make.verticalEdges.equalToSuperview().inset(4)
-                make.trailing.equalToSuperview().inset(7)
                 make.size.equalTo(36)
             }
         case .h2:
             titleLabel.font = KRFont.H2.font
             arrowImageView.snp.updateConstraints { make in
                 make.verticalEdges.equalToSuperview().inset(9)
-                make.trailing.equalToSuperview().inset(12)
                 make.size.equalTo(24)
             }
         }
@@ -59,9 +57,15 @@ private extension SPMenuArrowCell {
     
     func configureLayout() {
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.equalToSuperview()
             make.trailing.equalTo(arrowImageView.snp.leading)
             make.centerY.equalToSuperview()
+        }
+        
+        arrowImageView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview().inset(0)
+            make.trailing.equalToSuperview()
+            make.size.equalTo(0)
         }
     }
     

@@ -29,7 +29,16 @@ final class ArtistCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(artist: ArtistEntity, isDelete: Bool) {
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        let radius = contentView.frame.width / 2
+        
+        dimmedView.layer.cornerRadius = radius
+        imageView.layer.cornerRadius = radius
+    }
+    
+    func registration(artist: ArtistEntity, isDelete: Bool, isSelected: Bool? = nil) {
         let url = URL(string: artist.imageURL)
         imageView.kf.setImage(
             with: url,
@@ -40,8 +49,8 @@ final class ArtistCell: UICollectionViewCell {
         
         if let isSubscribed = artist.isSubscribed {
             configureAlarmState(isSubscribed: isSubscribed)
-        } else {
-            configureDefaultState()
+        } else if let isSelected {
+            configureDefaultState(isSelected: isSelected)
         }
         
         deleteButton.isHidden = !isDelete
@@ -67,7 +76,8 @@ private extension ArtistCell {
     func configureLayout() {
         imageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.size.equalTo(100)
+            make.width.equalToSuperview()
+            make.height.equalTo(contentView.snp.width)
         }
         
         dimmedView.snp.makeConstraints { make in
@@ -90,13 +100,11 @@ private extension ArtistCell {
     
     func configureImageView() {
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
     }
     
     func configureDimmedView() {
-        dimmedView.layer.cornerRadius = 50
         dimmedView.clipsToBounds = true
         imageView.addSubview(dimmedView)
     }
@@ -140,23 +148,21 @@ private extension ArtistCell {
         iconView.isHidden = false
     }
     
-    func configureDefaultState() {
-        configurationUpdateHandler = { [weak self] cell, state in
-            if state.isSelected {
-                self?.dimmedView.isHidden = false
-                self?.iconView.isHidden = false
-                self?.dimmedView.backgroundColor = .mainOrange.withAlphaComponent(0.7)
-                self?.iconView.image = .icCheck.resized(
-                    to: CGSize(
-                        width: 30,
-                        height: 30
-                    )
+    func configureDefaultState(isSelected: Bool) {
+        if isSelected {
+            dimmedView.isHidden = false
+            iconView.isHidden = false
+            dimmedView.backgroundColor = .mainOrange.withAlphaComponent(0.7)
+            iconView.image = .icCheck.resized(
+                to: CGSize(
+                    width: 30,
+                    height: 30
                 )
-                .withTintColor(.gray000)
-            } else {
-                self?.dimmedView.isHidden = true
-                self?.iconView.isHidden = true
-            }
+            )
+            .withTintColor(.gray000)
+        } else {
+            dimmedView.isHidden = true
+            iconView.isHidden = true
         }
     }
 }
@@ -165,10 +171,11 @@ private extension ArtistCell {
 #Preview {
     let cell = ArtistCell()
     cell.registration(artist: ArtistResponse.mock.toEntity(), isDelete: true)
-    cell.isSelected = false
+    cell.isSelected = true
     cell.snp.makeConstraints { make in
         make.width.equalTo(100)
         make.height.equalTo(129)
     }
+    cell.layoutIfNeeded()
     return cell
 }

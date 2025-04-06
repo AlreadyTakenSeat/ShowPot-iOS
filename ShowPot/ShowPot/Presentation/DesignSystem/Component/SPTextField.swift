@@ -15,8 +15,6 @@ final class SPTextField: UIView {
     let textField = UITextField()
     let button = UIButton()
     
-    private let disposeBag = DisposeBag()
-    
     init(placeholder: String) {
         super.init(frame: .zero)
         
@@ -27,6 +25,10 @@ final class SPTextField: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateButtonImage(_ image: UIImage?) {
+        button.configuration?.image = image?.withRenderingMode(.alwaysTemplate)
     }
 }
 
@@ -57,23 +59,14 @@ private extension SPTextField {
     }
     
     func configureTextField(placeholder: String) {
+        textField.textColor = .gray000
+        
         textField.attributedPlaceholder = NSAttributedString(
             placeholder,
             fontType: KRFont.B1_semibold
         )
         .setForegroundColor(color: .gray300)
         textField.tintColor = .gray000
-        
-        textField.rx.controlEvent(.editingDidBegin)
-            .bind(with: self) { this, _ in
-                this.updateButtonImage(.icCancel)
-            }
-            .disposed(by: disposeBag)
-        textField.rx.controlEvent(.editingDidEnd)
-            .bind(with: self) { this, _ in
-                this.updateButtonImage(.icMagnifier)
-            }
-            .disposed(by: disposeBag)
         
         addSubview(textField)
     }
@@ -83,11 +76,8 @@ private extension SPTextField {
         configuration.image = .icMagnifier.withRenderingMode(.alwaysTemplate)
         configuration.baseForegroundColor = .gray000
         button.configuration = configuration
+        
         addSubview(button)
-    }
-    
-    func updateButtonImage(_ image: UIImage?) {
-        button.configuration?.image = image?.withRenderingMode(.alwaysTemplate)
     }
 }
 
