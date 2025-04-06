@@ -27,12 +27,30 @@ final class SPMenuArrowIconCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(title: String, count: Int, icon: UIImage?) {
+    func registration(
+        title: String,
+        count: Int? = nil,
+        icon: UIImage?,
+        style: Style = .h1
+    ) {
         titleLabel.text = title
         
-        iconImageView.image = icon?
-            .withTintColor(.gray300)
+        switch style {
+        case .h1:
+            titleLabel.font = KRFont.H1.font
+            iconImageView.image = icon?
+                .withTintColor(.gray300)
+            arrowImageView.image = .icArrowRight
+                .withTintColor(.gray300)
+        case .h2:
+            titleLabel.font = KRFont.H2.font
+            iconImageView.image = icon?
+                .withTintColor(.gray400)
+            arrowImageView.image = .icArrowRight
+                .withTintColor(.gray100)
+        }
         
+        guard let count else { return }
         countLabel.text = "\(count)"
     }
 }
@@ -55,7 +73,7 @@ private extension SPMenuArrowIconCell {
         iconImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(12)
             make.centerY.equalToSuperview()
-            make.size.equalTo(20)
+            make.size.equalTo(24)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -100,6 +118,14 @@ private extension SPMenuArrowIconCell {
         contentView.addSubview(arrowImageView)
     }
 }
+
+extension SPMenuArrowIconCell {
+    enum Style {
+        case h1
+        case h2
+    }
+}
+
 
 @available(iOS 17.0, *)
 #Preview {
