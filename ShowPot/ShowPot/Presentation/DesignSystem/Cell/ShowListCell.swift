@@ -36,18 +36,32 @@ final class ShowListCell: UICollectionViewCell {
         imageView.updateGradientLayerFrame()
     }
     
-    func registration(showSearch: ShowEntity) {
+    func registration(showSearch: ShowEntity, isNotification: Bool = false) {
         let url = URL(string: showSearch.imageURL)
         imageView.kf.setImage(
             with: url,
             options: [.transition(.fade(0.3))]
         )
         
-        titleLabel.text = showSearch.title
+        titleLabel.attributedText = NSAttributedString(
+            showSearch.title,
+            fontType: isNotification ? KRFont.B1_semibold : ENFont.H3
+        )
+        .setForegroundColor(color: .gray000)
         
-        startAtLabel.text = showSearch.startAt
+        startAtLabel.attributedText = NSAttributedString(
+            showSearch.startAt,
+            fontType: KRFont.B2_regular,
+            multiline: true
+        )
+        .setForegroundColor(color: .gray300)
         
-        locationLabel.text = showSearch.location
+        locationLabel.attributedText = NSAttributedString(
+            showSearch.location,
+            fontType: KRFont.B2_regular,
+            multiline: true
+        )
+        .setForegroundColor(color: .gray300)
     }
 }
 
@@ -92,20 +106,14 @@ private extension ShowListCell {
     }
     
     func configureTitleLabel() {
-        titleLabel.font = ENFont.H3.font
-        titleLabel.textColor = .gray000
         contentView.addSubview(titleLabel)
     }
     
     func configureStartAtLabel() {
-        startAtLabel.font = KRFont.B2_regular.font
-        startAtLabel.textColor = .gray300
         contentView.addSubview(startAtLabel)
     }
     
     func configureLocationLabel() {
-        locationLabel.font = KRFont.B2_regular.font
-        locationLabel.textColor = .gray300
         contentView.addSubview(locationLabel)
     }
     
