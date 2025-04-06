@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowAlarmEntity: Identifiable {
+struct ShowAlarmEntity: Identifiable, Hashable {
     let id: String
     let title: String
     let startAt: String

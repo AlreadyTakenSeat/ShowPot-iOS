@@ -112,6 +112,19 @@ extension NSAttributedString {
         
         return attributedString
     }
+    
+    func addAttributes(
+        _ attributes: [NSAttributedString.Key : Any],
+        at matchedString: String...
+    ) -> NSAttributedString {
+        let string = NSMutableAttributedString(attributedString: self)
+        for matched in matchedString {
+            let range = string.mutableString.range(of: matched)
+            string.addAttributes(attributes, range: range)
+        }
+        
+        return string
+    }
 }
 
 // MARK: 커스텀 attributes 사용하는 커스텀 생성자

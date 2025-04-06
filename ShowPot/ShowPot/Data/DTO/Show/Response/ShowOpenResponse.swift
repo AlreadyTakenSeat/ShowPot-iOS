@@ -22,10 +22,7 @@ extension ShowOpenResponse {
             title: self.title,
             location: self.location,
             posterImageURL: self.posterImageURL,
-            ticketingAt: date.toString(
-                .showOpenEntity,
-                identifier: "en_US"
-            ).uppercased(),
+            ticketingAt: self.ticketingAt,
             isOpen: self.isOpen
         )
     }
