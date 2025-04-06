@@ -30,12 +30,6 @@ final class ShowListOpenCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        imageView.updateGradientLayerFrame()
-    }
-    
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
         
@@ -165,5 +159,6 @@ private extension ShowListOpenCell {
     cell.snp.makeConstraints { make in
         make.height.equalTo(100)
     }
+    cell.layoutIfNeeded()
     return cell
 }

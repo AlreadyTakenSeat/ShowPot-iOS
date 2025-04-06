@@ -102,22 +102,10 @@ final class SPDropdownButton: UIView {
                 .layerMaxXMaxYCorner
             ]
         }
-    }
-    
-    // MARK: - 액션
-    @objc private func toggleDropdown() {
-        isDropdownVisible.toggle()
         
-        // 화살표 회전
-        UIView.springAnimate { [weak self] in
-            guard let `self` else { return }
-            arrowImageView.transform = isDropdownVisible
-            ? CGAffineTransform(rotationAngle: .pi)
-            : .identity
-        }
-        
-        // 컬렉션 뷰 표시/숨김
+        // optionsCollectionView 표시/숨김 처리 개선
         optionsCollectionView.isHidden = false
+        optionsCollectionView.isUserInteractionEnabled = true
         separatorView.isHidden = false
         
         separatorView.snp.updateConstraints { make in
@@ -127,16 +115,36 @@ final class SPDropdownButton: UIView {
             make.height.equalTo(isDropdownVisible ? ((options.count - 1) * 40) : 0)
         }
         
+        // 레이아웃 강제 업데이트
+        layoutIfNeeded()
+        
         UIView.springAnimate { [weak self] in
-            guard let `self` else { return }
-            layoutIfNeeded()
+            guard let self else { return }
             separatorView.alpha = isDropdownVisible ? 1 : 0
             optionsCollectionView.alpha = isDropdownVisible ? 1 : 0
         } completion: { [weak self] completed in
-            guard let `self` else { return }
-            guard !isDropdownVisible else { return }
-            optionsCollectionView.isHidden = true
-            separatorView.isHidden = true
+            guard let self else { return }
+            if !isDropdownVisible {
+                optionsCollectionView.isHidden = true
+                optionsCollectionView.isUserInteractionEnabled = false
+                separatorView.isHidden = true
+            }
+        }
+        
+        // 디버깅: 터치 가능 여부 확인
+        print("Dropdown visible: \(isDropdownVisible), optionsCollectionView frame: \(optionsCollectionView.frame)")
+    }
+    
+    // MARK: - 액션
+    @objc private func toggleDropdown() {
+        isDropdownVisible.toggle()
+        
+        // 화살표 회전
+        UIView.springAnimate { [weak self] in
+            guard let self else { return }
+            arrowImageView.transform = isDropdownVisible
+            ? CGAffineTransform(rotationAngle: .pi)
+            : .identity
         }
     }
 }
@@ -222,6 +230,7 @@ private extension SPDropdownButton {
         optionsCollectionView.backgroundColor = .gray500
         optionsCollectionView.isScrollEnabled = false
         optionsCollectionView.isHidden = true
+        optionsCollectionView.isUserInteractionEnabled = true // 터치 활성화 보장
         addSubview(optionsCollectionView)
         
         // 셀 등록
@@ -292,6 +301,7 @@ private extension SPDropdownButton {
         // 컬렉션 뷰 아이템 선택 처리
         optionsCollectionView.rx.itemSelected
             .bind(with: self) { this, indexPath in
+                print("Item selected at indexPath: \(indexPath)") // 디버깅 로그 추가
                 let item = this.dataSource.itemIdentifier(for: indexPath)
                 let index = this.options.firstIndex(where: { $0.id == item?.id })
                 guard let index else { return }
