@@ -235,7 +235,7 @@ private extension SPTabBar {
         )
         
         // 레이아웃과 인디케이터를 함께 애니메이션
-        UIView.springAnimate(duration: 0.8, damping: 0.8) {
+        UIView.springAnimate {
             // stackView 레이아웃 업데이트 (버튼 크기 변경 애니메이션)
             self.stackView.layoutIfNeeded()
             // 선택 인디케이터 이동 애니메이션
