@@ -6,9 +6,11 @@
 //
 
 import UIKit
+
 import RxSwift
 import RxCocoa
 import RxCompose
+import RxGesture
 import SnapKit
 
 final class HomeViewController: UIViewController, Composable {
@@ -83,7 +85,8 @@ private extension HomeViewController {
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(18)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaInsets)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().inset(80)
         }
     }
     
@@ -202,7 +205,7 @@ private extension HomeViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 8,
             leading: 16,
             bottom: 36,
             trailing: 16
@@ -280,7 +283,27 @@ private extension HomeViewController {
 // MARK: - Bind
 private extension HomeViewController {
     func bindAction() {
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case .searchBar:
+                    return SearchViewController(viewModel: SearchViewModel(query: ""))
+                case let .upcomingShow(showOpen):
+                    return ShowDetailViewController()
+                case let .recommendedShow(show):
+                    return ShowDetailViewController()
+                default: return nil
+                }
+            }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
         
+        alarmButton.rx.tap
+            .map { ShowListViewController() }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
@@ -365,8 +388,12 @@ private extension HomeViewController {
             cell.layoutIfNeeded()
         }
         
-        let buttonCellRegistration = UICollectionView.CellRegistration<UpcomingTicketingButtonCell, Void> { cell, _, _ in
-            cell.button.addTarget(self, action: #selector(self.buttonTapped), for: .touchUpInside)
+        let buttonCellRegistration = UICollectionView.CellRegistration<UpcomingTicketingButtonCell, Void> { [weak self] cell, _, _ in
+            guard let `self` else { return }
+            cell.button.rx.tap
+                .map { ShowOpenListViewController() }
+                .bind(to: rx.pushViewController(animated: true))
+                .disposed(by: cell.disposeBag)
         }
         
         let showCardCellRegistration = UICollectionView.CellRegistration<ShowCardCell, ShowEntity> { cell, _, show in
@@ -376,13 +403,25 @@ private extension HomeViewController {
         // 헤더 등록
         let titleArrowHeaderRegistration = UICollectionView.SupplementaryRegistration<SPMenuArrowCell>(
             elementKind: UICollectionView.elementKindSectionHeader
-        ) { headerView, _, indexPath in
+        ) { [weak self] headerView, _, indexPath in
+            guard let `self` else { return }
             let section = Section(rawValue: indexPath.section)
             switch section {
             case .genreSubscription:
                 headerView.registration(title: "장르 구독하기", style: .h1)
+                headerView.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in GenreViewController() }
+                    .bind(to: rx.pushViewController(animated: true))
+                    .disposed(by: headerView.disposeBag)
+                
             case .artistSubscription:
                 headerView.registration(title: "아티스트 구독하기", style: .h1)
+                headerView.rx.tapGesture()
+                    .when(.recognized)
+                    .map { _ in ArtistViewController() }
+                    .bind(to: rx.pushViewController(animated: true))
+                    .disposed(by: headerView.disposeBag)
             default:
                 break
             }
@@ -458,8 +497,7 @@ private extension HomeViewController {
                     using: titleHeaderRegistration,
                     for: indexPath
                 )
-            default:
-                return nil
+            default: return nil
             }
         }
     }

@@ -156,9 +156,14 @@ private extension MyPageViewController {
 // MARK: - Bind
 private extension MyPageViewController {
     func bindAction() {
+//        settingButton.rx.tap
+//            .map { Action.settingButtonTapped }
+//            .bind(to: composer.action)
+//            .disposed(by: disposeBag)
+        
         settingButton.rx.tap
-            .map { Action.settingButtonTapped }
-            .bind(to: composer.action)
+            .map { SettingViewController() }
+            .bind(to: rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
         
         // UILabel의 탭 제스처를 Rx로 바인딩
@@ -178,6 +183,19 @@ private extension MyPageViewController {
             .filter { $0 } // "로그인" 텍스트가 탭된 경우만 처리
             .map { _ in Action.loginButtonTapped }
             .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath -> UIViewController? in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case .subscribedArtists: return ArtistViewController()
+                case .subscribedGenres: return GenreViewController()
+                default: return nil
+                }
+            }
+            .bind(to: rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
     }
     

@@ -37,6 +37,7 @@ final class MyShowViewController: UIViewController, Composable {
     
     private var dataSource: DataSource?
     
+    @Compose
     var composer = MyShowViewModel()
     var disposeBag = DisposeBag()
     
@@ -397,7 +398,18 @@ private extension MyShowViewController {
 // MARK: - Bindings
 private extension MyShowViewController {
     func bindAction() {
-        
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath -> UIViewController? in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case let .show(showAlarm):
+                    return ShowDetailViewController()
+                default: return nil
+                }
+            }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {

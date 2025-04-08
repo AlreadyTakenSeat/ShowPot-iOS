@@ -59,10 +59,6 @@ final class GenreViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         bottomGradientView.layoutIfNeeded()
     }
@@ -292,6 +288,10 @@ private extension GenreViewController {
         collectionView.rx.itemSelected
             .map { Action.collectionViewItemSelected($0.item) }
             .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
     }
     

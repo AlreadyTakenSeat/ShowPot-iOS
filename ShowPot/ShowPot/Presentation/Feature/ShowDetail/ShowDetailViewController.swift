@@ -622,6 +622,10 @@ private extension ShowDetailViewController {
 // MARK: - Bindings
 private extension ShowDetailViewController {
     func bindAction() {
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
         favoriteButton.rx.tap
             .map { Action.favoriteButtonTapped }
             .bind(to: composer.action)

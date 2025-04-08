@@ -223,6 +223,15 @@ private extension ShowOpenListViewController {
             .map { Action.filterCheckBoxTapped }
             .bind(to: composer.action)
             .disposed(by: disposeBag)
+        
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
+        searchButton.rx.tap
+            .map { SearchViewController(viewModel: SearchViewModel(query: "")) }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {

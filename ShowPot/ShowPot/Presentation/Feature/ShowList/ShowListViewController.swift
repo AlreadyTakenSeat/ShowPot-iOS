@@ -192,7 +192,9 @@ private extension ShowListViewController {
 // MARK: - Bindings and Actions
 private extension ShowListViewController {
     func bindAction() {
-        
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {

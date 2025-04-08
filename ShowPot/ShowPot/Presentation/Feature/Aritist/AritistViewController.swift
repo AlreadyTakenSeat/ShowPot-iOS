@@ -60,10 +60,6 @@ final class ArtistViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         bottomGradientView.layoutIfNeeded()
     }
@@ -261,10 +257,13 @@ private extension ArtistViewController {
 // MARK: - Binding
 private extension ArtistViewController {
     func bindAction() {
-        // 아티스트 선택 시 상태 업데이트
         collectionView.rx.itemSelected
             .map { Action.collectionViewItemSelected($0.item) }
             .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
     }
     
