@@ -67,12 +67,32 @@ private extension SettingViewController {
     
     private func configureNavigationBar() {
         navigationBar.setTitleColor(.gray300)
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
         view.addSubview(navigationBar)
     }
     
     private func configureCollectionView() {
         collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = true
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath -> UIViewController? in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case .account: return AccountViewController()
+                case .notificationSettings: return nil
+                case .privacyPolicy: return nil
+                case .termsOfService: return nil
+                case .contactKakao: return nil
+                default: return nil
+                }
+            }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
+        
         view.addSubview(collectionView)
     }
     

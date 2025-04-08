@@ -457,6 +457,11 @@ private extension SearchViewController {
             .map { _ in Action.clearButtonTapped }
             .bind(to: composer.action)
             .disposed(by: disposeBag)
+        
+        backButton.rx.tap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
     }
     
     func bindState() {

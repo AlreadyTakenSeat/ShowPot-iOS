@@ -17,6 +17,7 @@ class SearchBarSection: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(textField)
+        textField.isUserInteractionEnabled = false
         textField.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

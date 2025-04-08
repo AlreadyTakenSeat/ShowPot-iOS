@@ -119,6 +119,10 @@ private extension AccountViewController {
             }
             .bind(to: composer.action)
             .disposed(by: disposeBag)
+        
+        navigationBar.rx.backButtonTap
+            .bind(to: rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
