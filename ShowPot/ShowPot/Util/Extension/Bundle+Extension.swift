@@ -19,4 +19,8 @@ extension Bundle {
     var baseURL: String {
         infoDictionary?["BASE_URL"] as? String ?? ""
     }
+    
+    var kakaoNativeAppKey: String {
+        infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String ?? ""
+    }
 }

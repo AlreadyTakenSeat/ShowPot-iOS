@@ -60,4 +60,5 @@ enum SharedType<T> {
 
 enum UserDefaultKey: String {
     case recentQueries
+    case loginPlatform
 }
