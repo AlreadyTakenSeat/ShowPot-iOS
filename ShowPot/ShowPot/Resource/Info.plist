@@ -11,16 +11,20 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao11e18f86fa3892cb4be70ca7588284f1</string>
+				<string>kakao$(KAKAO_NATIVE_APP_KEY)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
 	</array>
-	<key>GOOGLE_CLIENT_ID</key>
-	<string>$(GOOGLE_CLIENT_ID)</string>
-	<key>GOOGLE_URL_SCHEMES</key>
-	<string>$(GOOGLE_URL_SCHEMES)</string>
-	<key>KAKAO_CLIENT_ID</key>
-	<string>$(KAKAO_CLIENT_ID)</string>
+	<key>KAKAO_NATIVE_APP_KEY</key>
+	<string>$(KAKAO_NATIVE_APP_KEY)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>

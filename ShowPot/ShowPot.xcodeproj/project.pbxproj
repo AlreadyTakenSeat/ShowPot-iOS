@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 71;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,7 @@
 		7D8255A52C295DF100D104BE /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7D8255A42C295DF100D104BE /* swiftgen.yml */; };
 		C92D86562D97B277001A6557 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = C92D86552D97B277001A6557 /* Dependencies */; };
 		C92D86582D97B277001A6557 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C92D86572D97B277001A6557 /* DependenciesMacros */; };
+		C936D3082DA5430A00CD4848 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = C936D3072DA5430A00CD4848 /* SwiftJWT */; };
 		C9BD1F2A2D97B0A200839FD7 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C9BD1F292D97B0A200839FD7 /* FirebaseMessaging */; };
 		C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */ = {isa = PBXBuildFile; productRef = C9BE83C32D97A3B6003B53E9 /* RxCompose */; };
 		C9D9F7A92DA2548B00A9A0E2 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = C9D9F7A82DA2548B00A9A0E2 /* RxGesture */; };
@@ -66,6 +67,7 @@
 				C9BE83C42D97A3B6003B53E9 /* RxCompose in Frameworks */,
 				7D2DCAC32C269C2E00389FBF /* SnapKit in Frameworks */,
 				C9F9085B2D97B12D00E1611D /* KakaoSDKCommon in Frameworks */,
+				C936D3082DA5430A00CD4848 /* SwiftJWT in Frameworks */,
 				C9F908552D97B12D00E1611D /* KakaoSDKAuth in Frameworks */,
 				C9F908572D97B12D00E1611D /* KakaoSDKCert in Frameworks */,
 				7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */,
@@ -142,6 +144,7 @@
 				C92D86552D97B277001A6557 /* Dependencies */,
 				C92D86572D97B277001A6557 /* DependenciesMacros */,
 				C9D9F7A82DA2548B00A9A0E2 /* RxGesture */,
+				C936D3072DA5430A00CD4848 /* SwiftJWT */,
 			);
 			productName = ShowPot;
 			productReference = 7D2980FC2C01E1D000A619FB /* ShowPot.app */;
@@ -184,6 +187,7 @@
 				C9F908512D97B12D00E1611D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				C92D86542D97B277001A6557 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 				C9D9F7A72DA2548B00A9A0E2 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				C936D3062DA5430A00CD4848 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
 			);
 			productRefGroup = 7D2980FD2C01E1D000A619FB /* Products */;
 			projectDirPath = "";
@@ -218,6 +222,8 @@
 /* Begin XCBuildConfiguration section */
 		7D29810E2C01E1D300A619FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C9BD1DB42D97A57700839FD7 /* ShowPot */;
+			baseConfigurationReferenceRelativePath = Resource/Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -281,6 +287,8 @@
 		};
 		7D29810F2C01E1D300A619FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C9BD1DB42D97A57700839FD7 /* ShowPot */;
+			baseConfigurationReferenceRelativePath = Resource/Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -337,6 +345,8 @@
 		};
 		7D2981112C01E1D300A619FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C9BD1DB42D97A57700839FD7 /* ShowPot */;
+			baseConfigurationReferenceRelativePath = Resource/Secret.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -373,6 +383,8 @@
 		};
 		7D2981122C01E1D300A619FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C9BD1DB42D97A57700839FD7 /* ShowPot */;
+			baseConfigurationReferenceRelativePath = Resource/Secret.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -495,6 +507,14 @@
 				minimumVersion = 1.8.1;
 			};
 		};
+		C936D3062DA5430A00CD4848 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.2;
+			};
+		};
 		C9BD1F282D97B0A200839FD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -589,6 +609,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C92D86542D97B277001A6557 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
 			productName = DependenciesMacros;
+		};
+		C936D3072DA5430A00CD4848 /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C936D3062DA5430A00CD4848 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
 		};
 		C9BD1F292D97B0A200839FD7 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

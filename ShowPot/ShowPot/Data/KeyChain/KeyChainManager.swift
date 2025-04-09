@@ -1,67 +1,148 @@
 //
-//  KeyChainManager.swift
-//  ShowPot
+//  KeychainManager.swift
+//  Data
 //
-//  Created by Daegeon Choi on 8/27/24.
+//  Created by 김도형 on 9/3/24.
 //
 
 import Foundation
 
-class KeyChainManager {
+import Dependencies
+
+final class KeychainManager {
+    private let service: String = "ShowPot"
     
-    static let shared = KeyChainManager()
-    private let service = Bundle.main.bundleIdentifier
-    
-    private init() { }
-    
-    func create(account: KeyChainAccount, data: String) throws {
-        let query = [kSecAttrService: service,
-                     kSecClass: account.keyChainClass,
-                     kSecAttrAccount: account.description,
-                     kSecValueData: data.data(using: .utf8, allowLossyConversion: false)!] as CFDictionary
-        
-        SecItemDelete(query)
-        
-        let status = SecItemAdd(query, nil)
-        
-        guard status == noErr else {
-            throw KeyChainError.unhandledError(status: status)
+    func save(_ data: String, key: Key) {
+        guard read(key) == nil else {
+            update(data.data(using: .utf8), key: key)
+            return
         }
+        create(data.data(using: .utf8), key: key)
     }
-    
-    func read(account: KeyChainAccount) throws -> String {
-        let query = [kSecAttrService: service,
-                     kSecClass: account.keyChainClass,
-                     kSecAttrAccount: account.description,
-                     kSecReturnData: true] as CFDictionary
-        
-        var dataTypeRef: AnyObject?
-        let status = SecItemCopyMatching(query, &dataTypeRef)
-        
-        
+
+    // MARK: Read Item
+    func read(_ key: Key) -> String? {
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: key.rawValue,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecReturnData: true
+        ]
+
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query, &result)
         guard status != errSecItemNotFound else {
-            throw KeyChainError.itemNotFound
+            print("🗝️ '\(key)' 항목을 찾을 수 없어요.")
+            return nil
         }
-        
-        if status == errSecSuccess,
-           let item = dataTypeRef as? Data,
-           let data = String(data: item, encoding: String.Encoding.utf8) {
-            return data
-        } else {
-            throw KeyChainError.unhandledError(status: status)
-        }
+        guard status == errSecSuccess else { return nil }
+        print("🗝️ '\(key)' 성공!")
+        guard let result = result as? Data else { return nil }
+        return String(data: result, encoding: .utf8)
     }
-    
-    func delete(account: KeyChainAccount) throws {
-        let query = [kSecAttrService: service,
-                     kSecClass: account.keyChainClass,
-                     kSecAttrAccount: account.description] as CFDictionary
-        
+
+    // MARK: Delete Item
+
+    public func delete(_ key: Key) {
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: key.rawValue
+        ]
+
         let status = SecItemDelete(query)
-        
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeyChainError.unhandledError(status: status)
+        guard status != errSecItemNotFound else {
+            print("🗝️ '\(key)' 항목을 찾을 수 없어요.")
+            return
         }
+        guard status == errSecSuccess else { return }
+        print("🗝️ '\(key)' 성공!")
     }
     
+    private func create(_ data: Data?, key: Key) {
+        guard let data = data else {
+            print("🗝️ '\(key)' 값이 없어요.")
+            return
+        }
+
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: key.rawValue,
+            kSecValueData: data
+        ]
+
+        let status = SecItemAdd(query, nil)
+        guard status == errSecSuccess else {
+            print("🗝️ '\(key)' 상태 = \(status)")
+            return
+        }
+        print("🗝️ '\(key)' 성공!")
+    }
+    
+    // MARK: Update Item
+    private func update(_ data: Data?, key: Key) {
+        guard let data = data else {
+            print("🗝️ '\(key)' 값이 없어요.")
+            return
+        }
+
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: key.rawValue
+        ]
+        let attributes: NSDictionary = [
+            kSecValueData: data
+        ]
+
+        let status = SecItemUpdate(query, attributes)
+        guard status == errSecSuccess else {
+            print("🗝️ '\(key)' 상태 = \(status)")
+            return
+        }
+        print("🗝️ '\(key)' 성공!")
+    }
+}
+
+struct KeychainProvider {
+    var save: (
+        _ data: String,
+        _ key: KeychainManager.Key
+    ) -> Void
+    var read: (
+        _ key: KeychainManager.Key
+    ) -> String?
+    var delete: (
+        _ key: KeychainManager.Key
+    ) -> Void
+}
+
+extension KeychainManager {
+    enum Key: String {
+        case accessToken
+        case refreshToken
+        case appleRefreshToken
+        case appleAuthorizationCode
+    }
+}
+
+extension KeychainProvider: DependencyKey {
+    static let liveValue: KeychainProvider = {
+        let manager = KeychainManager()
+        
+        return KeychainProvider(
+            save: manager.save,
+            read: manager.read,
+            delete: manager.delete
+        )
+    }()
+}
+
+extension DependencyValues {
+    var keychainProvider: KeychainProvider {
+        get { self[KeychainProvider.self] }
+        set { self[KeychainProvider.self] = newValue }
+    }
 }
