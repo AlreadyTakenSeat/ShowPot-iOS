@@ -24,7 +24,7 @@ extension UIImageView {
                 guard let option else { return }
                 self.setRelativeSize(imageSize: value.image.size, option: option)
             case .failure(let error):
-                LogHelper.debug(error.localizedDescription)
+                return
             }
         }
     }
