@@ -33,7 +33,9 @@ final class SPAccountHeaderCell: UICollectionViewCell {
             fontType: KRFont.H2
         ).setForegroundColor(color: .gray100)
         
-        switch profile.platform {
+        guard let platform = profile.platform else { return }
+        
+        switch platform {
         case .kakao:
             platformIcon.image = .icKakao.withTintColor(.gray100)
         case .google:
@@ -43,7 +45,7 @@ final class SPAccountHeaderCell: UICollectionViewCell {
         }
         
         platformLabel.attributedText = NSAttributedString(
-            profile.platform.name + "로그인",
+            platform.name + "로그인",
             fontType: KRFont.B1_regular
         )
         .setForegroundColor(color: .gray000)

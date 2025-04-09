@@ -136,11 +136,11 @@ private extension LoginViewController {
         buttonStackView.distribution = .fillEqually
         
         configureKakaoLoginButton()
-        configureGoogleLoginButton()
+//        configureGoogleLoginButton()
         configureAppleLoginButton()
         
         buttonStackView.addArrangedSubview(kakaoLoginButton)
-        buttonStackView.addArrangedSubview(googleLoginButton)
+//        buttonStackView.addArrangedSubview(googleLoginButton)
         buttonStackView.addArrangedSubview(appleLoginButton)
         
         view.addSubview(buttonStackView)

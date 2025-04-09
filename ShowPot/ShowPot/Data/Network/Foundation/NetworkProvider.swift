@@ -95,7 +95,7 @@ struct NetworkProvider<E: EndPoint>: Sendable {
     
     func requestNonToken(_ endPoint: E) async throws {
 #if DEBUG
-        try NetworkLogger.request(endPoint)
+//        try NetworkLogger.request(endPoint)
 #endif
         let response = await AF.request(endPoint)
             .validate(statusCode: 200..<300)

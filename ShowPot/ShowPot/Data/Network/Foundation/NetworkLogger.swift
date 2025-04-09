@@ -25,8 +25,10 @@ enum NetworkLogger {
         }
         print("],\n")
         if let body = request.httpBody {
-            let data: Data = try JSONSerialization.data(
-                withJSONObject: body,
+            // httpBody를 먼저 역직렬화하여 Foundation 객체로 변환
+            let jsonObject = try JSONSerialization.jsonObject(with: body, options: [.fragmentsAllowed])
+            let data = try JSONSerialization.data(
+                withJSONObject: jsonObject,
                 options: [.prettyPrinted]
             )
             print("body: \(String(data: data, encoding: .utf8) ?? "nil")")
@@ -38,13 +40,6 @@ enum NetworkLogger {
         if let urlResponse = response.response {
             print("url: \(urlResponse.url?.absoluteString ?? "N/A"),")
             print("status code: \(urlResponse.statusCode),")
-            print("headers: ", terminator: "")
-            let headers = urlResponse.allHeaderFields as? [String: String]
-            print("[")
-            for header in headers ?? [:] {
-                print("  \(header.key): \(header.value),")
-            }
-            print("],")
         } else {
             print(String(describing: response.response))
         }
