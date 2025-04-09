@@ -11,3 +11,12 @@ struct ProfileResponse: Decodable {
     let nickname: String
     let type: String
 }
+
+extension ProfileResponse {
+    func toEntity() -> ProfileEntity {
+        return ProfileEntity(
+            nickname: self.nickname,
+            platform: ProfileEntity.Platform(rawValue: self.type)
+        )
+    }
+}

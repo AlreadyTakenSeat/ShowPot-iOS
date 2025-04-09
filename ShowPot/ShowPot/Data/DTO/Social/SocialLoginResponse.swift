@@ -28,7 +28,7 @@ extension SocialLoginResponse {
         return SocialLoginEntity(
             idToken: idToken,
             authorizationCode: authorizationCode,
-            socialType: socialType
+            socialType: SocialLoginEntity.SocialType(rawValue: socialType)
         )
     }
 }

@@ -16,6 +16,7 @@ import SwiftJWT
 final class SocialLoginManager: NSObject {
     private var continuation: CheckedContinuation<SocialLoginResponse, Error>?
     
+    @MainActor
     func googleLogin() async throws -> SocialLoginResponse {
         return try await withCheckedThrowingContinuation { [weak self] continuation in
             self?.continuation = continuation
@@ -23,6 +24,7 @@ final class SocialLoginManager: NSObject {
         }
     }
     
+    @MainActor
     func kakaoLogin() async throws -> SocialLoginResponse {
         return try await withCheckedThrowingContinuation { [weak self] continuation in
             self?.continuation = continuation
@@ -37,6 +39,7 @@ final class SocialLoginManager: NSObject {
         }
     }
     
+    @MainActor
     func requestGoogleLogin() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let window = windowScene?.keyWindow
@@ -46,25 +49,24 @@ final class SocialLoginManager: NSObject {
         GIDSignIn
             .sharedInstance
             .signIn(withPresenting: rootViewController) { [weak self] result, error in
-                guard let `self` else { return }
-                
                 if let error {
-                    self.continuation?.resume(throwing: error)
-                    self.continuation = nil
+                    self?.continuation?.resume(throwing: error)
+                    self?.continuation = nil
                 }
                 
                 guard let idToken = result?.user.idToken?.tokenString else { return }
                 
                 print("🌐 googleLogin idToken: \(idToken)")
                 
-                self.continuation?.resume(returning: SocialLoginResponse(
+                self?.continuation?.resume(returning: SocialLoginResponse(
                     idToken: idToken,
                     socialType: "GOOGLE"
                 ))
-                self.continuation = nil
+                self?.continuation = nil
             }
     }
     
+    @MainActor
     func requestKakaoLogin() {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk(completion: handleKakaoLogin)
@@ -167,6 +169,7 @@ extension SocialLoginManager: ASAuthorizationControllerDelegate, ASAuthorization
     
     func makeJWT() -> String {
         let header = Header(kid: Bundle.main.appleKeyId)
+        print(header)
         struct PokitClaims: Claims {
             let iss: String
             let iat: Int
@@ -178,6 +181,7 @@ extension SocialLoginManager: ASAuthorizationControllerDelegate, ASAuthorization
         let iat = Int(Date().timeIntervalSince1970)
         let exp = iat + 3600
         let iss = Bundle.main.teamId
+        print(iss)
         let claims = PokitClaims(
             iss: iss,
             iat: iat,

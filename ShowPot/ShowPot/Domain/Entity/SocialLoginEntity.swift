@@ -10,12 +10,12 @@ import Foundation
 struct SocialLoginEntity {
     let idToken: String
     let authorizationCode: String?
-    let socialType: String
+    let socialType: SocialType?
     
     init(
         idToken: String,
         authorizationCode: String? = nil,
-        socialType: String
+        socialType: SocialType?
     ) {
         self.idToken = idToken
         self.authorizationCode = authorizationCode
@@ -24,8 +24,16 @@ struct SocialLoginEntity {
 }
 
 extension SocialLoginEntity {
+    enum SocialType: String {
+        case apple = "APPLE"
+        case google = "GOOGLE"
+        case kakao = "KAKAO"
+    }
+}
+
+extension SocialLoginEntity {
     static let mock = SocialLoginEntity(
         idToken: "",
-        socialType: "GOOGLE"
+        socialType: .google
     )
 }
