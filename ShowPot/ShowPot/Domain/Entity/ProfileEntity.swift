@@ -9,7 +9,7 @@ import Foundation
 
 struct ProfileEntity: Hashable {
     let nickname: String
-    let platform: Platform
+    let platform: Platform?
 }
 
 extension ProfileEntity {
