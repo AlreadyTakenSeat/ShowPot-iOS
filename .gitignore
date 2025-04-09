@@ -151,3 +151,5 @@ ShowPot/ShowPot/Resource/Configuration/ShowPot-Release.xcconfig
 
 ### xcconfig ###
 *.xcconfig
+
+GID.plist
