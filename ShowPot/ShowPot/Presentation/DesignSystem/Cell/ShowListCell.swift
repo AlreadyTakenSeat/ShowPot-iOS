@@ -128,7 +128,7 @@ private extension ShowListCell {
 #Preview {
     let cell = ShowListCell()
     cell.backgroundColor = .gray700
-    cell.registration(showSearch: ShowResponse.mock.toEntity())
+    cell.registration(showSearch: .mock)
     cell.snp.makeConstraints { make in
         make.height.equalTo(80)
     }

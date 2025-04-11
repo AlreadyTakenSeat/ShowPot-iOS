@@ -45,7 +45,8 @@ extension ShowDetailEntity {
     
     // MARK: - TicketingTime
     struct TicketingTime: Hashable {
-        let ticketingAPIType, ticketingAt: String
+        let ticketingAPIType: TicketingTypeEntity
+        let ticketingAt: String
     }
 }
 
@@ -73,7 +74,7 @@ extension ShowDetailEntity {
         ],
         ticketingTimes: [
             ShowDetailEntity.TicketingTime(
-                ticketingAPIType: "NORMAL",
+                ticketingAPIType: .normal,
                 ticketingAt: "2025-3-4 10:04"
             )
         ],

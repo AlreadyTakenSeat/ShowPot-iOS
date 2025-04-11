@@ -103,7 +103,9 @@ extension ShowDetailResponse {
         
         func toEntity() -> ShowDetailEntity.TicketingTime {
             return ShowDetailEntity.TicketingTime(
-                ticketingAPIType: self.ticketingAPIType,
+                ticketingAPIType: TicketingTypeEntity(
+                    rawValue: self.ticketingAPIType
+                ) ?? .normal,
                 ticketingAt: self.ticketingAt
             )
         }

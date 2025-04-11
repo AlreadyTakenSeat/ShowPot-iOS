@@ -78,7 +78,7 @@ private extension ShowCardCell {
 @available(iOS 17.0, *)
 #Preview {
     let cell = ShowCardCell()
-    cell.registration(show: ShowResponse.mock.toEntity())
+    cell.registration(show: .mock)
     cell.snp.makeConstraints { make in
         make.width.equalTo(192)
         make.height.equalTo(309)

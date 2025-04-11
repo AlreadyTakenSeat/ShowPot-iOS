@@ -18,9 +18,9 @@ final class MyShowViewModel: Composer {
     
     struct State {
         var shows: [ShowAlarmEntity] = [
-            ShowAlarmResponse.mock.toEntity(),
-            ShowAlarmResponse.mock.toEntity().with(title: "Dua Lipa", ticketingAt: "2025-3-4 10:04"),
-            ShowAlarmResponse.mock.toEntity().with(title: "Coldplay", ticketingAt: "2025-3-4 10:04")
+            .mock,
+            .mock.with(title: "Dua Lipa", ticketingAt: "2025-3-4 10:04"),
+            .mock .with(title: "Coldplay", ticketingAt: "2025-3-4 10:04")
         ]
         var alertsCount = 0
         var interestCount = 0
@@ -34,20 +34,5 @@ final class MyShowViewModel: Composer {
     
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         return .none
-    }
-}
-
-// MARK: - ShowAlarmEntity Extension for Mock Data
-private extension ShowAlarmEntity {
-    func with(title: String, ticketingAt: String) -> ShowAlarmEntity {
-        return ShowAlarmEntity(
-            id: self.id,
-            title: title,
-            startAt: self.startAt,
-            endAt: self.endAt,
-            location: self.location,
-            imageURL: self.imageURL,
-            ticketingAt: ticketingAt
-        )
     }
 }

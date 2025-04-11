@@ -48,7 +48,7 @@ final class TicketingTimeCell: UICollectionViewCell {
     }
     
     func configure(with ticketingTime: ShowDetailEntity.TicketingTime) {
-        let title = ticketingTime.ticketingAPIType == "NORMAL" ? "일반예매 오픈" : "선예매 오픈"
+        let title = ticketingTime.ticketingAPIType == .normal ? "일반예매 오픈" : "선예매 오픈"
         titleLabel.text = "\(title)"
         let date = ticketingTime.ticketingAt.toDate(.default) ?? .now
         
