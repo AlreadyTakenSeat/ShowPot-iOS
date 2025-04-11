@@ -9,6 +9,7 @@ import Foundation
 
 struct CursorRequest: Encodable {
     let cursorId: String?
+    let cursorValue: String?
     let size: Int
 }
 
@@ -16,6 +17,7 @@ extension CursorEntity {
     func toData() -> CursorRequest {
         return CursorRequest(
             cursorId: self.cursorId,
+            cursorValue: self.cursorValue,
             size: self.size
         )
     }
