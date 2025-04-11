@@ -86,7 +86,7 @@ private extension HomeViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(18)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide) // 바닥 여백 수정: inset(80) -> safeAreaLayoutGuide
+            make.bottom.equalToSuperview().inset(80) // 바닥 여백 수정: inset(80) -> safeAreaLayoutGuide
         }
     }
     
@@ -379,13 +379,7 @@ private extension HomeViewController {
     }
     
     func configureDataSource() {
-        let searchBarCellRegistration = UICollectionView.CellRegistration<SearchBarSection, Void> { [weak self] cell, _, _ in
-            guard let `self` else { return }
-            cell.textField.textField.rx.controlEvent(.editingDidEndOnExit)
-                .withLatestFrom(cell.textField.textField.rx.text.orEmpty)
-                .map { Action.searchTextFieldEditingDidEndOnExit($0) }
-                .bind(to: composer.action)
-                .disposed(by: disposeBag)
+        let searchBarCellRegistration = UICollectionView.CellRegistration<SearchBarSection, Void> { cell, _, _ in
         }
         
         let genreCellRegistration = UICollectionView.CellRegistration<GenreCell, GenreEntity> { cell, _, genre in
