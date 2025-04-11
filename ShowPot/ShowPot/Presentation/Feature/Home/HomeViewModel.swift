@@ -15,7 +15,6 @@ import RxCocoa
 final class HomeViewModel: Composer {
     enum Action {
         case viewDidLoad
-        case searchTextFieldEditingDidEndOnExit(String)
         case mutatedGenres(Pageable<GenreEntity>)
         case mutatedArtists(Pageable<ArtistEntity>)
         case mutatedUpcomingShows(Pageable<ShowOpenEntity>)
@@ -47,8 +46,6 @@ final class HomeViewModel: Composer {
                 fetchUpcomingShows(upcomingShows: state.upcomingShows),
                 fetchRecommendedShows(recommendedShows: state.recommendedShows)
             )
-        case let .searchTextFieldEditingDidEndOnExit(text):
-            return .none
         case let .mutatedArtists(artists):
             state.artists.cursor = artists.cursor
             state.artists.hasNext = artists.hasNext
