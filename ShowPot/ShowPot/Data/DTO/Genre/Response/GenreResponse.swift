@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenreResponse: Codable {
+struct GenreResponse: Decodable, DTO {
     let id, name: String
     let isSubscribed: Bool?
 }
