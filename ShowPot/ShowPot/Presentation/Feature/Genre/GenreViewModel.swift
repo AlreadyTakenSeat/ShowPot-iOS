@@ -17,7 +17,7 @@ final class GenreViewModel: Composer {
     }
     
     struct State {
-        var genres: [GenreEntity] = GenreResponse.mockList.map { $0.toEntity() }
+        var genres: [GenreEntity] = GenreEntity.mockList
         @PresentState
         var showSubscribeButton: Bool = false
     }

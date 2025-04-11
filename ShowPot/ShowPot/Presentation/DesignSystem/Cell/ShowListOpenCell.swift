@@ -155,7 +155,7 @@ private extension ShowListOpenCell {
 @available(iOS 17.0, *)
 #Preview {
     let cell = ShowListOpenCell()
-    cell.registration(showOpen: ShowOpenResponse.mock.toEntity())
+    cell.registration(showOpen: .mock)
     cell.snp.makeConstraints { make in
         make.height.equalTo(100)
     }

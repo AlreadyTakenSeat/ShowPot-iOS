@@ -25,7 +25,7 @@ final class ShowOpenListViewController: UIViewController, Composable {
     private let searchButton = UIButton()
     
     private var dataSource: DataSource?
-    private var shows: [ShowOpenEntity] = ShowOpenEntity.mock // ShowOpenEntity는 외부에서 정의된다고 가정
+    private var shows: [ShowOpenEntity] = ShowOpenEntity.mockList // ShowOpenEntity는 외부에서 정의된다고 가정
     private var isFilterEnabled: Bool = true
     
     @Compose

@@ -17,9 +17,9 @@ final class HomeViewModel: Composer {
     }
     
     struct State {
-        var genres: [GenreEntity] = GenreResponse.mockList.map { $0.toEntity() }
-        var artists: [ArtistEntity] = ArtistResponse.mockList.map { $0.toEntity() }
-        var upcomingShows: [ShowOpenEntity] = [ShowOpenResponse.mock.toEntity()]
+        var genres: [GenreEntity] = GenreEntity.mockList
+        var artists: [ArtistEntity] = ArtistEntity.mockList
+        var upcomingShows: [ShowOpenEntity] = ShowOpenEntity.mockList
         var recommendedShows: [ShowEntity] = ShowEntity.mockList
     }
     

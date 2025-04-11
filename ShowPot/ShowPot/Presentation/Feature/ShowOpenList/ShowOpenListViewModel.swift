@@ -17,7 +17,7 @@ final class ShowOpenListViewModel: Composer {
     }
     
     struct State {
-        var showOpens: [ShowOpenEntity] = ShowOpenEntity.mock
+        var showOpens: [ShowOpenEntity] = ShowOpenEntity.mockList
         var isNotOpen = false
     }
     
@@ -32,9 +32,9 @@ final class ShowOpenListViewModel: Composer {
             state.isNotOpen.toggle()
             /// 임시
             if state.isNotOpen {
-                state.showOpens = ShowOpenEntity.mock.filter { !$0.isOpen }
+                state.showOpens = ShowOpenEntity.mockList.filter { !$0.isOpen }
             } else {
-                state.showOpens = ShowOpenEntity.mock.filter { $0.isOpen }
+                state.showOpens = ShowOpenEntity.mockList.filter { $0.isOpen }
             }
             return .none
         }

@@ -27,7 +27,7 @@ final class SearchViewModel: Composer {
         @Shared(.userDefaults(.recentQueries))
         var recentQueries = [String]()
         
-        var artists: [ArtistEntity] = ArtistResponse.mockList.map { $0.toEntity() }
+        var artists: [ArtistEntity] = ArtistEntity.mockList
         var shows: [ShowEntity] = ShowEntity.mockList
         @PresentState
         var showSearchResult: Bool = false

@@ -17,7 +17,7 @@ final class ArtistViewModel: Composer {
     }
     
     struct State {
-        var artists: [ArtistEntity] = ArtistResponse.mockList.map { $0.toEntity() }
+        var artists: [ArtistEntity] = ArtistEntity.mockList
         var selectedArtists = Set<ArtistEntity>()
         @PresentState
         var showSubscribeButton: Bool = false

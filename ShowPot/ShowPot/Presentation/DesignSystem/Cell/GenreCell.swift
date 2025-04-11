@@ -99,7 +99,7 @@ extension GenreEntity.Genre {
 @available(iOS 17.0, *)
 #Preview {
     let cell = GenreCell()
-    cell.registration(genre: GenreResponse.mock.toEntity(), isDelete: false)
+    cell.registration(genre: .mock, isDelete: false)
     cell.isSelected = true
     cell.snp.makeConstraints { make in
         make.width.equalTo(140)
