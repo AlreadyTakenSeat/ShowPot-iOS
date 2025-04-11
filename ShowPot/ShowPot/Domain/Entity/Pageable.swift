@@ -8,10 +8,22 @@
 import Foundation
 
 struct Pageable<T> {
-    let size: Int
-    let hasNext: Bool
-    let data: [T]
-    let cursor: Cursor?
+    var size: Int
+    var hasNext: Bool
+    var data: [T]
+    var cursor: Cursor?
+    
+    init(
+        size: Int = 30,
+        hasNext: Bool = false,
+        data: [T] = [],
+        cursor: Cursor? = nil
+    ) {
+        self.size = size
+        self.hasNext = hasNext
+        self.data = data
+        self.cursor = cursor
+    }
 }
 
 extension Pageable {

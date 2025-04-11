@@ -12,7 +12,6 @@ import Alamofire
 enum ArtistsEndPoint: EndPoint {
     case unsubscribe(ArtistSubscribeRequest)
     case subscribe(ArtistSubscribeRequest)
-    case artistList(CursorRequest)
     case unsubscriptionList(CursorRequest)
     case subscriptionList(CursorRequest)
     case subscriptionCount
@@ -24,8 +23,6 @@ enum ArtistsEndPoint: EndPoint {
             return "api/v1/artists/unsubscribe"
         case .subscribe:
             return "api/v1/artists/subscribe"
-        case .artistList:
-            return "api/v1/artists"
         case .unsubscriptionList:
             return "api/v1/artists/unsubscriptions"
         case .subscriptionList:
@@ -42,8 +39,7 @@ enum ArtistsEndPoint: EndPoint {
         case .unsubscribe,
              .subscribe:
             return .post
-        case .artistList,
-             .unsubscriptionList,
+        case .unsubscriptionList,
              .subscriptionList,
              .subscriptionCount,
              .search:
@@ -64,8 +60,7 @@ enum ArtistsEndPoint: EndPoint {
         case .unsubscribe,
              .subscribe:
             return .json
-        case .artistList,
-             .unsubscriptionList,
+        case .unsubscriptionList,
              .subscriptionList,
              .subscriptionCount,
              .search:
@@ -78,8 +73,6 @@ enum ArtistsEndPoint: EndPoint {
         case let .unsubscribe(model):
             return model
         case let .subscribe(model):
-            return model
-        case let .artistList(model):
             return model
         case let .unsubscriptionList(model):
             return model

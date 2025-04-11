@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowResponse: Decodable, DTO {
+struct ShowResponse: Decodable, Entitiable {
     let id, title, startAt, endAt: String
     let location, imageURL: String
 }

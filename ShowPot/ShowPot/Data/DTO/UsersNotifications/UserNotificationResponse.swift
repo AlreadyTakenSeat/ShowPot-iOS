@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserNotificationResponse: Decodable, DTO {
+struct UserNotificationResponse: Decodable, Entitiable {
     let title: String
     let message: String
     let notifiedAt: String

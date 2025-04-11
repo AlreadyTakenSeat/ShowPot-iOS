@@ -1,14 +1,14 @@
 //
-//  DTO.swift
+//  BaseDTO.swift
 //  ShowPot
 //
-//  Created by 김도형 on 4/11/25.
+//  Created by 김도형 on 3/31/25.
 //
 
 import Foundation
 
-protocol DTO {
-    associatedtype Entity
-    
-    func toEntity() -> Entity
+struct DTO<T: Decodable>: Decodable {
+    let code: Int
+    let message: String
+    let data: T
 }

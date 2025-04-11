@@ -16,14 +16,16 @@ extension UsersNotificationsRepository: DependencyKey {
         return UsersNotificationsRepository(
             notificationList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<UserNotificationResponse> = try await provider.request(
+                let response: DTO<PageResponse<UserNotificationResponse>>
+                response = try await provider.request(
                     .notificationList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             exist: {
-                let response: UserNotificationExistResponse = try await provider.request(.exist)
-                return response.isExist
+                let response: DTO<UserNotificationExistResponse>
+                response = try await provider.request(.exist)
+                return response.data.isExist
             }
         )
     }()

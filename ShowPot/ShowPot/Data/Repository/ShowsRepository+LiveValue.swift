@@ -32,45 +32,50 @@ extension ShowsRepository: DependencyKey {
             },
             shows: { model in
                 let request = model.toData()
-                let response: PageDTO<ShowOpenResponse> =  try await provider.requestNonToken(
+                let response: DTO<PageResponse<ShowOpenResponse>>
+                response = try await provider.requestNonToken(
                     .shows(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             showsDetail: { showId, deviceToken in
                 let request = ShowsDetailRequest(showId: showId, deviceToken: deviceToken)
-                let response: ShowDetailResponse = try await provider.requestNonToken(
+                let response: DTO<ShowDetailResponse> = try await provider.requestNonToken(
                     .showsDetail(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             alertReservations: { showId, ticketingApiType in
                 let request = ShowsReservationRequest(
                     showId: showId,
                     ticketingApiType: ticketingApiType.rawValue
                 )
-                let response: ShowReservationResponse = try await provider.request(
+                let response: DTO<ShowReservationResponse>
+                response = try await provider.request(
                     .alertReservations(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             terminatedTicketingCount: {
-                let response: CountResponse = try await provider.request(
+                let response: DTO<CountResponse>
+                response = try await provider.request(
                     .terminatedTicketingCount
                 )
-                return response.count
+                return response.data.count
             },
             interestsCount: {
-                let response: CountResponse = try await provider.request(
+                let response: DTO<CountResponse>
+                response = try await provider.request(
                     .interestsCount
                 )
-                return response.count
+                return response.data.count
             },
             alertsCount: {
-                let response: CountResponse = try await provider.request(
+                let response: DTO<CountResponse>
+                response = try await provider.request(
                     .alertsCount
                 )
-                return response.count
+                return response.data.count
             },
             alertList: { type, cursor, size in
                 let request = ShowsAlertListRequest(
@@ -79,10 +84,11 @@ extension ShowsRepository: DependencyKey {
                     cursorValue: cursor.value,
                     size: 30
                 )
-                let response: PageDTO<ShowResponse> = try await provider.request(
+                let response: DTO<PageResponse<ShowResponse>>
+                response = try await provider.request(
                     .alertList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             search: { search, cursorId, size in
                 let request = ShowsSearchRequest(
@@ -90,10 +96,11 @@ extension ShowsRepository: DependencyKey {
                     search: search,
                     size: size
                 )
-                let response: PageDTO<ShowResponse> = try await provider.request(
+                let response: DTO<PageResponse<ShowResponse>>
+                response = try await provider.request(
                     .search(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             }
         )
     }()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PageDTO<T: Decodable & DTO>: Decodable, DTO {
+struct PageResponse<T: Decodable & Entitiable>: Decodable, Entitiable {
     typealias Entity = Pageable<T.Entity>
     
     let size: Int
@@ -16,8 +16,8 @@ struct PageDTO<T: Decodable & DTO>: Decodable, DTO {
     let cursor: Cursor?
 }
 
-extension PageDTO {
-    struct Cursor: Decodable, DTO {
+extension PageResponse {
+    struct Cursor: Decodable, Entitiable {
         typealias Entity = Pageable<T.Entity>.Cursor
         
         let id: String
@@ -25,7 +25,7 @@ extension PageDTO {
     }
 }
 
-extension PageDTO.Cursor {
+extension PageResponse.Cursor {
     func toEntity() -> Pageable<T.Entity>.Cursor {
         return Pageable.Cursor(
             id: self.id,
@@ -34,7 +34,7 @@ extension PageDTO.Cursor {
     }
 }
 
-extension PageDTO {
+extension PageResponse {
     func toEntity() -> Entity {
         return Pageable(
             size: self.size,

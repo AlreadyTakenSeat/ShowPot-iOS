@@ -24,30 +24,34 @@ extension GenresRepository: DependencyKey {
             },
             genreList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<GenreResponse> = try await provider.requestNonToken(
+                let response: DTO<PageResponse<GenreResponse>>
+                response = try await provider.requestNonToken(
                     .genreList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             unsubscriptionList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<GenreResponse> = try await provider.request(
+                let response: DTO<PageResponse<GenreResponse>>
+                response = try await provider.request(
                     .unsubscriptionList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             subscriptionList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<GenreResponse> = try await provider.request(
+                let response: DTO<PageResponse<GenreResponse>>
+                response = try await provider.request(
                     .subscriptionList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             subscriptionCount: {
-                let response: CountResponse = try await provider.request(
+                let response: DTO<CountResponse>
+                response = try await provider.request(
                     .subscriptionCount
                 )
-                return response.count
+                return response.data.count
             }
         )
     }()

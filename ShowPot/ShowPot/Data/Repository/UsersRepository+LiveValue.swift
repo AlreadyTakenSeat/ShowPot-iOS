@@ -30,7 +30,7 @@ extension UsersRepository: DependencyKey {
             },
             reissue: {
                 let refreshToken = keychainRead(.refreshToken) ?? ""
-                let response: BaseDTO<TokenResponse> = try await provider.request(.reissue(refreshToken))
+                let response: DTO<TokenResponse> = try await provider.request(.reissue(refreshToken))
                 let reissue = response.data
                 keychainSave(reissue.accessToken, .accessToken)
                 keychainSave(reissue.refreshToken, .refreshToken)
@@ -41,14 +41,14 @@ extension UsersRepository: DependencyKey {
                 keychainDelete(.refreshToken)
             },
             login: { model in
-                let response: BaseDTO<TokenResponse> = try await provider.requestNonToken(.login(model.toData()))
+                let response: DTO<TokenResponse> = try await provider.requestNonToken(.login(model.toData()))
                 let reissue = response.data
                 keychainSave(reissue.accessToken, .accessToken)
                 keychainSave(reissue.refreshToken, .refreshToken)
                 loginPlatform = model.socialType.rawValue
             },
             profile: {
-                let response: BaseDTO<ProfileResponse> = try await provider.request(.profile)
+                let response: DTO<ProfileResponse> = try await provider.request(.profile)
                 return response.data.toEntity()
             }
         )

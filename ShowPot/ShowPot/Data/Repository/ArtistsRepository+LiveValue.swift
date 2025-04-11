@@ -7,6 +7,7 @@
 
 import Foundation
 
+import Alamofire
 import Dependencies
 
 extension ArtistsRepository: DependencyKey {
@@ -22,32 +23,35 @@ extension ArtistsRepository: DependencyKey {
                 let request = ArtistSubscribeRequest(artistIds: genreIds)
                 try await provider.request(.subscribe(request))
             },
-            artistList: { cursor in
-                let request = cursor.toData()
-                let response: PageDTO<ArtistResponse> = try await provider.requestNonToken(
-                    .artistList(request)
-                )
-                return response.toEntity()
-            },
             unsubscriptionList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<ArtistResponse> = try await provider.request(
-                    .unsubscriptionList(request)
-                )
-                return response.toEntity()
+                let response: DTO<PageResponse<ArtistResponse>>
+                do {
+                    response = try await provider.request(
+                        .unsubscriptionList(request)
+                    )
+                    return response.data.toEntity()
+                } catch {
+                    response = try await provider.requestNonToken(
+                        .unsubscriptionList(request)
+                    )
+                    return response.data.toEntity()
+                }
             },
             subscriptionList: { cursor in
                 let request = cursor.toData()
-                let response: PageDTO<ArtistResponse> = try await provider.request(
+                let response: DTO<PageResponse<ArtistResponse>>
+                response = try await provider.request(
                     .subscriptionList(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             },
             subscriptionCount: {
-                let response: CountResponse = try await provider.request(
+                let response: DTO<CountResponse>
+                response = try await provider.request(
                     .subscriptionCount
                 )
-                return response.count
+                return response.data.count
             },
             search: { cursor, search in
                 let request = ArtistSearchRequest(
@@ -55,10 +59,11 @@ extension ArtistsRepository: DependencyKey {
                     cursorId: cursor.cursorId,
                     size: cursor.size
                 )
-                let response: PageDTO<ArtistResponse> = try await provider.request(
+                let response: DTO<PageResponse<ArtistResponse>>
+                response = try await provider.request(
                     .search(request)
                 )
-                return response.toEntity()
+                return response.data.toEntity()
             }
         )
     }()

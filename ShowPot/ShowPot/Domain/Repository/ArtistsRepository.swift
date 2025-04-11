@@ -14,9 +14,6 @@ struct ArtistsRepository {
     var subscribe: (
         _ genreIds: [String]
     ) async throws -> Void
-    var artistList: (
-        _ cursor: CursorEntity
-    ) async throws -> Pageable<ArtistEntity>
     var unsubscriptionList: (
         _ cursor: CursorEntity
     ) async throws -> Pageable<ArtistEntity>

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Datum
-struct ShowOpenResponse: Decodable, DTO {
+struct ShowOpenResponse: Decodable, Entitiable {
     let id, title, location, posterImageURL, ticketingAt: String
     let isOpen: Bool
 }
