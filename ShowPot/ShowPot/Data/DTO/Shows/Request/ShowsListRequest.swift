@@ -10,14 +10,14 @@ import Foundation
 struct ShowsListRequest: Encodable {
     let sort: String
     let onlyOpenSchedule: Bool
-    let cursorId: String
+    let cursorId: String?
     let size: Int
 }
 
 extension ShowListEntity {
     func toData() -> ShowsListRequest {
         return ShowsListRequest(
-            sort: self.sort,
+            sort: self.sort.rawValue,
             onlyOpenSchedule: self.onlyOpenSchedule,
             cursorId: self.cursorId,
             size: self.size

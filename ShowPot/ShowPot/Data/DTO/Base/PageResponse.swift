@@ -20,7 +20,7 @@ extension PageResponse {
     struct Cursor: Decodable, Entitiable {
         typealias Entity = Pageable<T.Entity>.Cursor
         
-        let id: String
+        let id: String?
         let value: String?
     }
 }

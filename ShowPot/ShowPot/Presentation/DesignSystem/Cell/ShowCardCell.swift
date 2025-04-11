@@ -26,8 +26,8 @@ final class ShowCardCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(show: ShowEntity) {
-        let url = URL(string: show.imageURL)
+    func registration(show: ShowOpenEntity) {
+        let url = URL(string: show.posterImageURL)
         imageView.kf.setImage(
             with: url,
             options: [.transition(.fade(0.3))]
@@ -49,7 +49,7 @@ private extension ShowCardCell {
     
     func configureLayout() {
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(192)
+            make.width.equalTo(192).priority(.high)
             make.height.equalTo(260)
             make.top.horizontalEdges.equalToSuperview()
         }

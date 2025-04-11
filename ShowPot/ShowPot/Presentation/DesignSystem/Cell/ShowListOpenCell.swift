@@ -92,7 +92,7 @@ private extension ShowListOpenCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(openLabelContainer.snp.bottom).offset(3)
             make.leading.equalToSuperview()
-            make.width.lessThanOrEqualTo(210)
+            make.width.equalTo(210)
         }
         
         locationLabel.snp.makeConstraints { make in
@@ -128,6 +128,7 @@ private extension ShowListOpenCell {
     func configureTitleLabel() {
         titleLabel.font = ENFont.H3.font
         titleLabel.textColor = .gray000
+        titleLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(titleLabel)
     }
     

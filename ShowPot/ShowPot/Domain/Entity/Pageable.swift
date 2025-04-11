@@ -28,7 +28,7 @@ struct Pageable<T> {
 
 extension Pageable {
     struct Cursor {
-        let id: String
+        let id: String?
         let value: String?
     }
 }

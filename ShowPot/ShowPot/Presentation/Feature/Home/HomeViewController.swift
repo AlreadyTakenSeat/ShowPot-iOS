@@ -46,6 +46,8 @@ final class HomeViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
     
     @objc private func buttonTapped() {
@@ -66,8 +68,6 @@ private extension HomeViewController {
         configureCollectionView()
         
         configureDataSource()
-        
-        applySnapshot()
     }
     
     private func configureLayout() {
@@ -86,7 +86,7 @@ private extension HomeViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(18)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview().inset(80)
+            make.bottom.equalTo(view.safeAreaLayoutGuide) // 바닥 여백 수정: inset(80) -> safeAreaLayoutGuide
         }
     }
     
@@ -139,6 +139,8 @@ private extension HomeViewController {
                 )
             case .upcomingTicketing:
                 return self?.createUpcomingTicketingSection()
+            case .upcomingTicketingButton: // 새 섹션 추가
+                return self?.createUpcomingTicketingButtonSection()
             case .recommendedShows:
                 return self?.createHorizontalSection(
                     itemWidth: 192,
@@ -154,12 +156,12 @@ private extension HomeViewController {
     private func createSearchBarSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(50)
+            heightDimension: .absolute(50)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(50)
+            heightDimension: .absolute(50) // .estimated(50) -> .absolute(50)으로 수정
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -233,36 +235,24 @@ private extension HomeViewController {
         )
         let contentItem = NSCollectionLayoutItem(layoutSize: contentItemSize)
         
-        // 버튼 아이템
-        let buttonItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(50)
-        )
-        let buttonItem = NSCollectionLayoutItem(layoutSize: buttonItemSize)
-        buttonItem.contentInsets = NSDirectionalEdgeInsets(
-            top: 10,
-            leading: 0,
-            bottom: 0,
-            trailing: 0
-        )
-        
-        // 그룹 (헤더 + 콘텐츠 + 버튼)
+        // 그룹 (각 ShowListOpenCell을 개별 그룹으로 처리)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(204) // 헤더 44 + 콘텐츠 100 + 버튼 50
+            heightDimension: .absolute(100)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
-            subitems: [contentItem, buttonItem]
+            subitems: [contentItem]
         )
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 0,
             leading: 16,
-            bottom: 38,
+            bottom: 10, // 버튼 섹션과의 간격
             trailing: 16
         )
+        section.interGroupSpacing = 10 // 다중 셀 간 간격
         
         // 헤더 추가
         let headerSize = NSCollectionLayoutSize(
@@ -275,6 +265,41 @@ private extension HomeViewController {
             alignment: .top
         )
         section.boundarySupplementaryItems = [header]
+        
+        return section
+    }
+    
+    private func createUpcomingTicketingButtonSection() -> NSCollectionLayoutSection {
+        // 버튼 아이템
+        let buttonItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(50)
+        )
+        let buttonItem = NSCollectionLayoutItem(layoutSize: buttonItemSize)
+        buttonItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 10,
+            leading: 0,
+            bottom: 0,
+            trailing: 0
+        )
+        
+        // 그룹
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(50)
+        )
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: groupSize,
+            subitems: [buttonItem]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 38,
+            trailing: 16
+        )
         
         return section
     }
@@ -307,37 +332,26 @@ private extension HomeViewController {
     }
     
     func bindState() {
-        composer.$state.observable
-            .map(\.genres)
-            .distinctUntilChanged()
-            .drive(with: self) { this, genres in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
-        
-        composer.$state.observable
-            .map(\.artists)
-            .distinctUntilChanged()
-            .drive(with: self) { this, artists in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
-        
-        composer.$state.observable
-            .map(\.recommendedShows)
-            .distinctUntilChanged()
-            .drive(with: self) { this, artists in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
-        
-        composer.$state.observable
-            .map(\.upcomingShows)
-            .distinctUntilChanged()
-            .drive(with: self) { this, upcomingShows in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
+        Driver.combineLatest(
+            composer.$state.observable.map(\.genres.data)
+                .distinctUntilChanged(),
+            composer.$state.observable.map(\.artists.data)
+                .distinctUntilChanged(),
+            composer.$state.observable.map(\.recommendedShows.data)
+                .distinctUntilChanged(),
+            composer.$state.observable.map(\.upcomingShows.data)
+                .distinctUntilChanged()
+        )
+        .drive(with: self) { this, value in
+            let (genres, artists, recommendedShows, upcomingShows) = value
+            this.applySnapshot(
+                genres: genres,
+                artists: artists,
+                upcomingShows: upcomingShows,
+                recommendedShows: recommendedShows
+            )
+        }
+        .disposed(by: disposeBag)
     }
 }
 
@@ -351,6 +365,7 @@ private extension HomeViewController {
         case genreSubscription
         case artistSubscription
         case upcomingTicketing
+        case upcomingTicketingButton // 새 섹션 추가
         case recommendedShows
     }
     
@@ -359,11 +374,10 @@ private extension HomeViewController {
         case genre(GenreEntity)
         case artist(ArtistEntity)
         case upcomingShow(ShowOpenEntity)
-        case button // 버튼 아이템 추가
-        case recommendedShow(ShowEntity)
+        case button
+        case recommendedShow(ShowOpenEntity)
     }
     
-    // MARK: - DataSource
     func configureDataSource() {
         let searchBarCellRegistration = UICollectionView.CellRegistration<SearchBarSection, Void> { [weak self] cell, _, _ in
             guard let `self` else { return }
@@ -396,7 +410,7 @@ private extension HomeViewController {
                 .disposed(by: cell.disposeBag)
         }
         
-        let showCardCellRegistration = UICollectionView.CellRegistration<ShowCardCell, ShowEntity> { cell, _, show in
+        let showCardCellRegistration = UICollectionView.CellRegistration<ShowCardCell, ShowOpenEntity> { cell, _, show in
             cell.registration(show: show)
         }
         
@@ -483,7 +497,6 @@ private extension HomeViewController {
             }
         }
         
-        // 헤더 제공
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             let section = Section(rawValue: indexPath.section)
             switch section {
@@ -497,44 +510,26 @@ private extension HomeViewController {
                     using: titleHeaderRegistration,
                     for: indexPath
                 )
-            default: return nil
+            default: return nil // .upcomingTicketingButton 섹션은 헤더 없음
             }
         }
     }
     
-    func applySnapshot() {
+    func applySnapshot(
+        genres: [GenreEntity],
+        artists: [ArtistEntity],
+        upcomingShows: [ShowOpenEntity],
+        recommendedShows: [ShowOpenEntity]
+    ) {
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
-        // 검색 바 섹션
         snapshot.appendItems([.searchBar], toSection: .searchBar)
-        // 장르 구독하기 섹션
-        snapshot.appendItems(
-            composer.state.genres.map { .genre($0) },
-            toSection: .genreSubscription
-        )
-        // 아티스트 구독하기 섹션
-        snapshot.appendItems(
-            composer.state.artists.map { .artist($0) },
-            toSection: .artistSubscription
-        )
-        // 티켓팅이 얼마 남지 않은 공연 섹션
-        snapshot.appendItems(
-            composer.state.upcomingShows.map { .upcomingShow($0) },
-            toSection: .upcomingTicketing
-        )
-        snapshot.appendItems(
-            [.button],
-            toSection: .upcomingTicketing
-        ) // 버튼 추가
-        // 추천 공연 섹션
-        snapshot.appendItems(
-            composer.state.recommendedShows.map { .recommendedShow($0) },
-            toSection: .recommendedShows
-        )
-        dataSource?.apply(
-            snapshot,
-            animatingDifferences: false
-        )
+        snapshot.appendItems(genres.map { .genre($0) }, toSection: .genreSubscription)
+        snapshot.appendItems(artists.map { .artist($0) }, toSection: .artistSubscription)
+        snapshot.appendItems(upcomingShows.map { .upcomingShow($0) }, toSection: .upcomingTicketing)
+        snapshot.appendItems([.button], toSection: .upcomingTicketingButton) // 버튼을 새 섹션으로 이동
+        snapshot.appendItems(recommendedShows.map { .recommendedShow($0) }, toSection: .recommendedShows)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 

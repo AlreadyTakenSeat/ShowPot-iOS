@@ -8,8 +8,15 @@
 import Foundation
 
 struct ShowListEntity {
-    let sort: String
+    let sort: Sort
     let onlyOpenSchedule: Bool
-    let cursorId: String
+    let cursorId: String?
     let size: Int
+}
+
+extension ShowListEntity {
+    enum Sort: String {
+        case recent = "RECENT"
+        case popular = "POPULAR"
+    }
 }

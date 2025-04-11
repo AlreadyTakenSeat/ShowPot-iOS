@@ -9,7 +9,7 @@ import Foundation
 
 struct ShowsAlertListRequest: Encodable {
     let type: String
-    let cursorId: String
+    let cursorId: String?
     let cursorValue: String?
     let size: Int
 }
