@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArtistSearchReqeust: Encodable {
+struct ArtistSearchRequest: Encodable {
     let search: String
     let cursorId: String?
     let size: Int

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Datum
-struct ArtistResponse: Decodable {
+struct ArtistResponse: Decodable, DTO {
     let id, imageURL, name: String
     let isSubscribed: Bool?
 }
