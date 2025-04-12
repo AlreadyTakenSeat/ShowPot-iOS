@@ -38,6 +38,17 @@ final class TokenInterceptor: RequestInterceptor {
         dueTo error: any Error,
         completion: @escaping (RetryResult) -> Void
     ) {
+        if case let AFError.requestAdaptationFailed(adaptationError) = error {
+            completion(.doNotRetryWithError(adaptationError))
+            return
+        }
+        if case let AFError.requestRetryFailed(
+            retryError: retryError,
+            originalError: _
+        ) = error {
+            completion(.doNotRetryWithError(retryError))
+            return
+        }
         guard let response = request.task?.response as? HTTPURLResponse else {
             completion(.doNotRetryWithError(error))
             return

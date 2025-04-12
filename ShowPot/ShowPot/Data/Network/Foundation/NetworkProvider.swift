@@ -28,6 +28,13 @@ struct NetworkProvider<E: EndPoint>: Sendable {
         case .success(let value):
             return value
         case .failure(let error):
+            if case let AFError.requestRetryFailed(
+                    retryError: retryError,
+                    originalError: _
+            ) = error {
+                throw retryError
+            }
+            
             guard let data = response.data else {
                 throw error
             }
@@ -56,6 +63,13 @@ struct NetworkProvider<E: EndPoint>: Sendable {
         switch response.result {
         case .success: return
         case .failure(let error):
+            if case let AFError.requestRetryFailed(
+                    retryError: retryError,
+                    originalError: _
+            ) = error {
+                throw retryError
+            }
+            
             guard let data = response.data else {
                 throw error
             }
