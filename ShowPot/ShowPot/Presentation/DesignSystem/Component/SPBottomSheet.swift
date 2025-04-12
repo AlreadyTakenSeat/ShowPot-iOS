@@ -113,8 +113,11 @@ private extension SPBottomSheet {
     }
     
     func configureMessageLabel() {
-        let nsStr = NSAttributedString(message, fontType: KRFont.H1)
-            .setForegroundColor(color: .gray000)
+        let nsStr = NSAttributedString(
+            message,
+            fontType: KRFont.H1,
+            multiline: true
+        ).setForegroundColor(color: .gray000)
         messageLabel.attributedText = nsStr
         messageLabel.numberOfLines = 0
         view.addSubview(messageLabel)

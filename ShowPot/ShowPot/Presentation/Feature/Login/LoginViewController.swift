@@ -47,6 +47,8 @@ final class LoginViewController: UIViewController, Composable {
         
         configureLayout()
         
+        bindState()
+        
         bindAction()
     }
 }
@@ -245,6 +247,14 @@ private extension LoginViewController {
         appleLoginButton.rx.tap
             .map { Action.appleLoginButtonTapped }
             .bind(to: composer.action)
+            .disposed(by: disposeBag)
+    }
+    
+    func bindState() {
+        composer.$state.present(\.$loginDone)
+            .filter(\.self)
+            .map { _ in Void() }
+            .drive(rx.popViewController(animated: true))
             .disposed(by: disposeBag)
     }
 }

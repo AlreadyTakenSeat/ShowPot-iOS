@@ -24,21 +24,27 @@ extension UsersRepository: DependencyKey {
         
         return UsersRepository(
             withdrawal: {
-                try await provider.request(.withdrawal)
                 keychainDelete(.accessToken)
                 keychainDelete(.refreshToken)
+                try await provider.request(.withdrawal)
             },
             reissue: {
                 let refreshToken = keychainRead(.refreshToken) ?? ""
-                let response: DTO<TokenResponse> = try await provider.request(.reissue(refreshToken))
-                let reissue = response.data
-                keychainSave(reissue.accessToken, .accessToken)
-                keychainSave(reissue.refreshToken, .refreshToken)
+                do {
+                    let response: DTO<TokenResponse> = try await provider.requestNonToken(.reissue(refreshToken))
+                    let reissue = response.data
+                    keychainSave(reissue.accessToken, .accessToken)
+                    keychainSave(reissue.refreshToken, .refreshToken)
+                } catch {
+                    keychainDelete(.accessToken)
+                    keychainDelete(.refreshToken)
+                    throw SPError.reissueFail
+                }
             },
             logout: {
-                try await provider.request(.logout)
                 keychainDelete(.accessToken)
                 keychainDelete(.refreshToken)
+                try await provider.request(.logout)
             },
             login: { model in
                 let response: DTO<TokenResponse> = try await provider.requestNonToken(.login(model.toData()))

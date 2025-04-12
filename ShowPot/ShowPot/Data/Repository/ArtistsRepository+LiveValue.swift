@@ -36,6 +36,11 @@ extension ArtistsRepository: DependencyKey {
                         .unsubscriptionList(request)
                     )
                     return response.data.toEntity()
+                } catch SPError.reissueFail {
+                    response = try await provider.requestNonToken(
+                        .unsubscriptionList(request)
+                    )
+                    return response.data.toEntity()
                 }
             },
             subscriptionList: { cursor in

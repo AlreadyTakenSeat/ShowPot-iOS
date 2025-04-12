@@ -32,7 +32,7 @@ final class LoginViewModel: Composer {
     var disposeBag = DisposeBag()
     
     @Dependency(LoginUseCase.self)
-    var useCase
+    private var useCase
     
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {

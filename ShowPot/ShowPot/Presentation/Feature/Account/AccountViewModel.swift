@@ -7,6 +7,7 @@
 
 import Foundation
 
+import Dependencies
 import RxCompose
 import RxSwift
 import RxCocoa
@@ -27,6 +28,10 @@ final class AccountViewModel: Composer {
         var showWithdrawAlert = false
     }
     
+    /// 임시
+    @Dependency(\.usersRepository)
+    private var usersRepository
+    
     @ComposableState
     var state = State()
     var action = PublishRelay<Action>()
@@ -42,10 +47,14 @@ final class AccountViewModel: Composer {
             return .none
         case .logoutAlertButtonTapped:
             state.showLogoutAlert = false
-            return .none
+            return .run { [repository = self.usersRepository] effect in
+                try await repository.logout()
+            }
         case .withdrawAlertButtonTapped:
             state.showWithdrawAlert = false
-            return .none
+            return .run { [repository = self.usersRepository] effect in
+                try await repository.withdrawal()
+            }
         }
     }
 }

@@ -20,11 +20,12 @@ final class TokenInterceptor: RequestInterceptor {
         var keychainRead
         
         var request = urlRequest
-        
+         
         guard let accessToken = keychainRead(.accessToken) else {
             completion(.failure(SPError.tokenNotFound))
             return
         }
+        print("accessToken: \(accessToken)")
         request.setValue(
             "Bearer \(accessToken)",
             forHTTPHeaderField: "Authorization"
@@ -68,12 +69,16 @@ final class TokenInterceptor: RequestInterceptor {
             return
         }
         Task {
-            let response: TokenResponse = try await provider.requestNonToken(
-                .reissue(refreshToken)
-            )
-            keyChainSave(response.accessToken, .accessToken)
-            keyChainSave(response.refreshToken, .refreshToken)
-            completion(.retry)
+            do {
+                let response: TokenResponse = try await provider.requestNonToken(
+                    .reissue(refreshToken)
+                )
+                keyChainSave(response.accessToken, .accessToken)
+                keyChainSave(response.refreshToken, .refreshToken)
+                completion(.retry)
+            } catch {
+                completion(.doNotRetryWithError(SPError.reissueFail))
+            }
         }
     }
 }

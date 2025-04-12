@@ -67,37 +67,28 @@ final class AlarmCell: UICollectionViewCell {
         }
     }
     
-    func configure(with time: AlertTime, isSelected: Bool, isPassed: Bool) {
+    func configure(with time: ReservationTimeEntity) {
         titleLabel.attributedText = NSAttributedString(
-            timeToString(time),
+            "티켓팅 \(time.beforeMinutes)분 전",
             fontType: KRFont.H2
         )
-        .setForegroundColor(color: isPassed ? .gray400 : .gray000)
+        .setForegroundColor(color: !time.canReserve ? .gray400 : .gray000)
         
-        isUserInteractionEnabled = !isPassed
-        disableLabel.isHidden = !isPassed
+        isUserInteractionEnabled = time.canReserve
+        disableLabel.isHidden = time.canReserve
         
-        checkBox.isHidden = isPassed
+        checkBox.isHidden = !time.canReserve
         
-        guard !isPassed else { return }
+        guard time.canReserve else { return }
         
-        checkBox.isSelected = isSelected
+        checkBox.isSelected = time.isReserved
         
-        let borderColor = isSelected
+        let borderColor = time.isReserved
         ? UIColor.mainOrange.cgColor
         : UIColor.clear.cgColor
-        let borderWidth: CGFloat = isSelected ? 1 : 0
+        let borderWidth: CGFloat = time.isReserved ? 1 : 0
         
         self.contentView.layer.borderColor = borderColor
         self.contentView.layer.borderWidth = borderWidth
-    }
-    
-    private func timeToString(_ time: AlertTime) -> String {
-        switch time {
-        case .fiveMinutes: return "티켓팅 5분 전"
-        case .tenMinutes: return "티켓팅 10분 전"
-        case .thirtyMinutes: return "티켓팅 30분 전"
-        case .oneHour: return "티켓팅 1시간 전"
-        }
     }
 }

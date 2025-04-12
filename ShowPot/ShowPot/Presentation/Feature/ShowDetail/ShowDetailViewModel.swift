@@ -21,6 +21,8 @@ final class ShowDetailViewModel: Composer {
         case mutatedShow(ShowDetailEntity)
         case mutatedIsInterested(Bool)
         case mutatedLoginMessage(String)
+        case mutatedReservations([ReservationTimeEntity])
+        case mutatedToastMessage(String)
     }
     
     struct State {
@@ -30,6 +32,8 @@ final class ShowDetailViewModel: Composer {
         var alarmSelectionViewModel: AlarmSelectionViewModel?
         @PresentState
         var loginMessage: String?
+        @PresentState
+        var toasMessage: String?
     }
     
     @ComposableState
@@ -53,17 +57,11 @@ final class ShowDetailViewModel: Composer {
             : fetchInterested(id: show.id)
         case .alarmButtonTapped:
             guard let show = state.show else { return .none }
-            let viewModel = AlarmSelectionViewModel(
-                ticketingTimes: show.ticketingTimes
-            )
-            state.alarmSelectionViewModel = viewModel
-            return .run(viewModel.action.map {
-                .alarmSelectionViewModel($0)
-            })
+            return fetchAlertReservations(id: show.id)
         case let .alarmSelectionViewModel(.delegate(.bottomButtonTapped(alertTimes))):
             state.alarmSelectionViewModel = nil
             print(alertTimes)
-            return .none
+            return fetchAlert(id: state.showId, alertTimes: alertTimes.sorted())
         case .alarmSelectionViewModel:
             return .none
         case .viewDidLoad:
@@ -77,6 +75,25 @@ final class ShowDetailViewModel: Composer {
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
             return .none
+        case let .mutatedReservations(reservations):
+            guard let show = state.show else { return .none }
+            var times = ReservationTimeEntity.default
+            reservations.enumerated().forEach { index, reservation in
+                times[index].isReserved = reservation.isReserved
+            }
+            let viewModel = AlarmSelectionViewModel(
+                state: AlarmSelectionViewModel.State(
+                    show: show,
+                    times: times
+                )
+            )
+            state.alarmSelectionViewModel = viewModel
+            return .run(viewModel.action.map {
+                .alarmSelectionViewModel($0)
+            })
+        case let .mutatedToastMessage(message):
+            state.toasMessage = message
+            return .none
         }
     }
 }
@@ -88,6 +105,9 @@ private extension ShowDetailViewModel {
             let fcmToken = try await useCase.fetchFCMToken()
             let response = try await useCase.showsDetail(id, fcmToken)
             effect.onNext(.send(.mutatedShow(response)))
+        } catch: { error in
+            print(error)
+            return .none
         }
     }
     
@@ -96,9 +116,12 @@ private extension ShowDetailViewModel {
             try await useCase.uninterested(id)
             effect.onNext(.send(.mutatedIsInterested(false)))
         } catch: { error in
-            print(error)
-            guard case SPError.tokenNotFound = error else { return .none }
-            return .send(.mutatedLoginMessage("로그인 후 가고싶은 공연의\n관심 설정해보세요!"))
+            switch error {
+            case SPError.tokenNotFound,
+                 SPError.reissueFail:
+                return .send(.mutatedLoginMessage("로그인 후 가고싶은 공연의\n관심 설정해보세요!"))
+            default: return .none
+            }
         }
     }
     
@@ -107,9 +130,36 @@ private extension ShowDetailViewModel {
             try await useCase.interests(id)
             effect.onNext(.send(.mutatedIsInterested(true)))
         } catch: { error in
+            switch error {
+            case SPError.tokenNotFound,
+                 SPError.reissueFail:
+                return .send(.mutatedLoginMessage("로그인 후 가고싶은 공연의\n관심 설정해보세요!"))
+            default: return .none
+            }
+        }
+    }
+    
+    func fetchAlertReservations(id: String) -> Observable<Effect<Action>> {
+        return .run { [useCase = self.useCase] effect in
+            let response = try await useCase.alertReservations(id, .normal)
+            effect.onNext(.send(.mutatedReservations(response)))
+        } catch: { error in
+            switch error {
+            case SPError.tokenNotFound,
+                 SPError.reissueFail:
+                return .send(.mutatedLoginMessage("로그인 후 가고싶은 공연의\n티켓팅 알림을 설정해보세요!"))
+            default: return .none
+            }
+        }
+    }
+    
+    func fetchAlert(id: String, alertTimes: [String]) -> Observable<Effect<Action>> {
+        return .run { [useCase = self.useCase] effect in
+            try await useCase.alert(id, .normal, alertTimes)
+            effect.onNext(.send(.mutatedToastMessage("알림 설정이 완료되었습니다")))
+        } catch: { error in
             print(error)
-            guard case SPError.tokenNotFound = error else { return .none }
-            return .send(.mutatedLoginMessage("로그인 후 가고싶은 공연의\n관심 설정해보세요!"))
+            return .none
         }
     }
 }
