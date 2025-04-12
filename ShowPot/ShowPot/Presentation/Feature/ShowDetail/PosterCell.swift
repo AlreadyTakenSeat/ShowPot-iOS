@@ -72,5 +72,5 @@ final class PosterCell: UICollectionViewCell {
 
 @available(iOS 17.0, *)
 #Preview {
-    ShowDetailViewController()
+    ShowDetailViewController(viewModel: ShowDetailViewModel(state: ShowDetailViewModel.State(showId: "")))
 }

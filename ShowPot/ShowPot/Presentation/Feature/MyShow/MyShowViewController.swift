@@ -404,7 +404,9 @@ private extension MyShowViewController {
                 let item = this.dataSource?.itemIdentifier(for: indexPath)
                 switch item {
                 case let .show(showAlarm):
-                    return ShowDetailViewController()
+                    let state = ShowDetailViewModel.State(showId: showAlarm.id)
+                    let viewModel = ShowDetailViewModel(state: state)
+                    return ShowDetailViewController(viewModel: viewModel)
                 default: return nil
                 }
             }

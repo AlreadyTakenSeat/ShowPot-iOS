@@ -31,7 +31,7 @@ extension ArtistsRepository: DependencyKey {
                         .unsubscriptionList(request)
                     )
                     return response.data.toEntity()
-                } catch {
+                } catch SPError.tokenNotFound {
                     response = try await provider.requestNonToken(
                         .unsubscriptionList(request)
                     )

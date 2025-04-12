@@ -11,7 +11,7 @@ struct ShowDetailEntity: Identifiable, Hashable {
     let id, name, startDate, endDate: String
     let location: String
     let posterImageURL: String
-    let isInterested: Bool
+    var isInterested: Bool
     let artists: [Artist]
     let genres: [Genre]
     let ticketingTimes: [TicketingTime]

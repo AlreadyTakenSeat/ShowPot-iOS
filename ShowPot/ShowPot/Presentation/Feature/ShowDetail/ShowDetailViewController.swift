@@ -25,11 +25,12 @@ final class ShowDetailViewController: UIViewController, Composable {
     private var dataSource: DataSource?
     
     @Compose
-    var composer = ShowDetailViewModel()
+    var composer: ShowDetailViewModel
     var disposeBag = DisposeBag()
     
     // MARK: - Initialization
-    init() {
+    init(viewModel: ShowDetailViewModel) {
+        self.composer = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,6 +51,8 @@ final class ShowDetailViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -379,7 +382,7 @@ private extension ShowDetailViewController {
             elementKind: "seatPricesBackground"
         )
         backgroundDecoration.contentInsets = NSDirectionalEdgeInsets(
-            top: 48,
+            top: 44,
             leading: 16,
             bottom: 12,
             trailing: 16
@@ -639,14 +642,16 @@ private extension ShowDetailViewController {
     
     func bindState() {
         composer.$state.observable
-            .map(\.show)
+            .compactMap(\.show)
             .distinctUntilChanged()
             .drive(with: self) { this, show in
                 this.applySnapshot(show: show)
             }
             .disposed(by: disposeBag)
         
-        composer.$state.present(\.$isFavorite)
+        composer.$state.observable
+            .compactMap(\.show?.isInterested)
+            .distinctUntilChanged()
             .drive(favoriteButton.rx.isSelected)
             .disposed(by: disposeBag)
         
@@ -663,10 +668,25 @@ private extension ShowDetailViewController {
                 }
             }
             .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 @available(iOS 17.0, *)
 #Preview {
-    ShowDetailViewController()
+    ShowDetailViewController(viewModel: ShowDetailViewModel(state: ShowDetailViewModel.State(showId: "")))
 }

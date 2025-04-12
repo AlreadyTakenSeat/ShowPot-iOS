@@ -316,9 +316,13 @@ private extension HomeViewController {
                 case .searchBar:
                     return SearchViewController(viewModel: SearchViewModel(query: ""))
                 case let .upcomingShow(showOpen):
-                    return ShowDetailViewController()
-                case let .recommendedShow(show):
-                    return ShowDetailViewController()
+                    let state = ShowDetailViewModel.State(showId: showOpen.id)
+                    let viewModel = ShowDetailViewModel(state: state)
+                    return ShowDetailViewController(viewModel: viewModel)
+                case let .recommendedShow(showOpen):
+                    let state = ShowDetailViewModel.State(showId: showOpen.id)
+                    let viewModel = ShowDetailViewModel(state: state)
+                    return ShowDetailViewController(viewModel: viewModel)
                 default: return nil
                 }
             }
