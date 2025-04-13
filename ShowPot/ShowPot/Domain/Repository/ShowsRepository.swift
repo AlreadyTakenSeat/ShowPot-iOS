@@ -37,12 +37,17 @@ struct ShowsRepository {
     var alertsCount: () async throws -> Int
     var alertList: (
         _ type: TicketingStateEntity,
-        _ cursor: Pageable<ShowEntity>.Cursor,
+        _ cursor: Pageable<ShowAlarmEntity>.Cursor,
         _ size: Int
-    ) async throws -> Pageable<ShowEntity>
+    ) async throws -> Pageable<ShowAlarmEntity>
     var search: (
         _ search: String,
         _ cursorId: String?,
         _ size: Int
     ) async throws -> Pageable<ShowEntity>
+    var interestList: (
+        _ cursorId: String?,
+        _ cursorValue: String?,
+        _ size: Int
+    ) async throws -> Pageable<ShowOpenEntity>
 }

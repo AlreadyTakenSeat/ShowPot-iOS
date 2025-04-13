@@ -14,7 +14,7 @@ import RxCompose
 final class ShowListViewController: UIViewController, Composable {
     
     // MARK: - Properties
-    private let navigationBar = SPNavigationBar(title: "알림")
+    private let navigationBar: SPNavigationBar
     private let emptyView = UIView()
     private let emptyIconImageView = UIImageView()
     private let emptyLabel = UILabel()
@@ -30,7 +30,10 @@ final class ShowListViewController: UIViewController, Composable {
     var disposeBag = DisposeBag()
     
     // MARK: - Initialization
-    init() {
+    init(title: String, color: UIColor) {
+        self.navigationBar = SPNavigationBar(title: title)
+        self.navigationBar.setTitleColor(color)
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -213,5 +216,5 @@ private extension ShowListViewController {
 // MARK: - Preview
 @available(iOS 17.0, *)
 #Preview {
-    ShowListViewController()
+    ShowListViewController(title: "알림", color: .gray100)
 }

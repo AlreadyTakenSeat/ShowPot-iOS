@@ -69,6 +69,12 @@ final class MyShowViewController: UIViewController, Composable {
         
         bindAction()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        composer.action.accept(.viewDidAppear)
+    }
 }
 
 // MARK: - Configure View
@@ -203,7 +209,7 @@ private extension MyShowViewController {
             let safeIndex = max(0, min(index, items.count - 1))
             
             // 해당 인덱스의 ShowAlarmEntity로 헤더 업데이트
-            let show = composer.state.shows[safeIndex]
+            let show = composer.state.shows.data[safeIndex]
             updateHeader(with: show)
             
             // 스크롤에 따른 스케일 및 알파 효과 적용
@@ -270,32 +276,32 @@ private extension MyShowViewController {
     }
     
     enum MenuItem: Hashable {
-        case showAlarm(Int)
-        case showFavorite(Int)
-        case showEnded(Int)
+//        case showAlarm(Int)
+//        case showFavorite(Int)
+//        case showEnded(Int)
         
         var title: String {
             switch self {
-            case .showAlarm: return "알림 설정한 공연"
-            case .showFavorite: return "관심 공연"
-            case .showEnded: return "티켓팅 종료 공연"
+//            case .showAlarm: return "알림 설정한 공연"
+//            case .showFavorite: return "관심 공연"
+//            case .showEnded: return "티켓팅 종료 공연"
             }
         }
         
         var icon: UIImage? {
             switch self {
-            case .showAlarm: return .icAlarm
-            case .showFavorite: return .icHeartSmall
-            case .showEnded: return .icTicketFinish
+//            case .showAlarm: return .icAlarm
+//            case .showFavorite: return .icHeartSmall
+//            case .showEnded: return .icTicketFinish
             }
         }
         
         var count: Int {
             switch self {
-            case .showAlarm(let count),
-                 .showFavorite(let count),
-                 .showEnded(let count):
-                return count
+//            case .showAlarm(let count),
+//            case .showFavorite(let count):
+//                 .showEnded(let count):
+//                return count
             }
         }
     }
@@ -416,7 +422,7 @@ private extension MyShowViewController {
     
     func bindState() {
         Driver.combineLatest(
-            composer.$state.observable.map(\.shows),
+            composer.$state.observable.map(\.shows.data),
             composer.$state.observable.map(\.alertsCount),
             composer.$state.observable.map(\.interestCount),
             composer.$state.observable.map(\.ticketingCount)
@@ -425,9 +431,9 @@ private extension MyShowViewController {
             let (shows, alertsCount, interestsCount, ticketingCount) = value
             this.applySnapshot(
                 menus: [
-                    .showAlarm(alertsCount),
-                    .showFavorite(interestsCount),
-                    .showEnded(ticketingCount)
+//                    .showAlarm(alertsCount),
+//                    .showFavorite(interestsCount)
+//                    .showEnded(ticketingCount)
                 ],
                 shows: shows
             )

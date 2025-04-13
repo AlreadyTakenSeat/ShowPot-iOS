@@ -330,7 +330,7 @@ private extension HomeViewController {
             .disposed(by: disposeBag)
         
         alarmButton.rx.tap
-            .map { ShowListViewController() }
+            .map { ShowListViewController(title: "알림", color: .gray100) }
             .bind(to: rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShowAlarmResponse: Decodable {
+struct ShowAlarmResponse: Decodable, Entitiable {
     let id: String
     let title: String
     let startAt: String

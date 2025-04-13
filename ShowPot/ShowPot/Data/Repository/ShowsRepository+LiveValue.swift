@@ -39,7 +39,10 @@ extension ShowsRepository: DependencyKey {
                 return response.data.toEntity()
             },
             showsDetail: { showId, deviceToken in
-                let request = ShowsDetailRequest(showId: showId, deviceToken: deviceToken)
+                let request = ShowsDetailRequest(
+                    showId: showId,
+                    deviceToken: deviceToken
+                )
                 let response: DTO<ShowDetailResponse>
                 do {
                     response = try await provider.request(
@@ -95,7 +98,7 @@ extension ShowsRepository: DependencyKey {
                     cursorValue: cursor.value,
                     size: 30
                 )
-                let response: DTO<PageResponse<ShowResponse>>
+                let response: DTO<PageResponse<ShowAlarmResponse>>
                 response = try await provider.request(
                     .alertList(request)
                 )
@@ -110,6 +113,18 @@ extension ShowsRepository: DependencyKey {
                 let response: DTO<PageResponse<ShowResponse>>
                 response = try await provider.requestNonToken(
                     .search(request)
+                )
+                return response.data.toEntity()
+            },
+            interestList: { cursorId, cursorValue, size in
+                let request = ShowsInterestListRequest(
+                    cursorId: cursorId,
+                    cursorValue: cursorValue,
+                    size: size
+                )
+                let response: DTO<PageResponse<ShowOpenResponse>>
+                response = try await provider.request(
+                    .interestList(request)
                 )
                 return response.data.toEntity()
             }
