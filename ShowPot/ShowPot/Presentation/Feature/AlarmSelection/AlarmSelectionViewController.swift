@@ -56,6 +56,8 @@ final class AlarmSelectionViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 

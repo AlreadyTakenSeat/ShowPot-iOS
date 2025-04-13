@@ -63,13 +63,13 @@ final class AlarmSelectionViewModel: Composer {
                 where: { $0.ticketingAPIType == .normal }
             )?.ticketingAt
             for (index, time) in state.times.enumerated() {
-                guard time.isReserved else { continue }
                 let date = ticketingAt?.toDate(.default)?.addMinutes(
                     minutes: -Double(time.beforeMinutes)
                 )
                 guard let date else { continue }
-                state.times[index].canReserve = date < .now
+                state.times[index].canReserve = date > .now
                 guard date < .now else { continue }
+                guard time.isReserved else { continue }
                 state.ticketingTimes.insert(date.toString(.default))
             }
             return .none

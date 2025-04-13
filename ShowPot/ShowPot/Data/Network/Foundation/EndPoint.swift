@@ -46,4 +46,5 @@ extension EndPoint {
 
 enum SPError: Error {
     case tokenNotFound
+    case reissueFail
 }

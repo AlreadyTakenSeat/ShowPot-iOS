@@ -30,7 +30,7 @@ enum ShowsEndPoint: EndPoint {
         case let .interests(model):
             return "/api/v1/shows/\(model.showId)/interests"
         case let .alert(model):
-            return "/api/v1/shows/\(model.showId)/alert/?ticketingApiType=\(model.ticketingApiType)"
+            return "/api/v1/shows/\(model.showId)/alert?ticketingApiType=\(model.ticketingApiType)"
         case .shows:
             return "/api/v1/shows"
         case let .showsDetail(model):
