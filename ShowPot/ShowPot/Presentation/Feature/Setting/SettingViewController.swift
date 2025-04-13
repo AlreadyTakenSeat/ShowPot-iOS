@@ -6,6 +6,8 @@
 //
 
 import UIKit
+
+import Dependencies
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -18,6 +20,8 @@ final class SettingViewController: UIViewController {
         collectionViewLayout: createCompositionalLayout()
     )
     private var dataSource: DataSource?
+    @Dependency(\.openURL)
+    private var openURL
     
     var disposeBag = DisposeBag()
     
@@ -91,6 +95,34 @@ private extension SettingViewController {
                 }
             }
             .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
+        collectionView.rx.itemSelected
+            .bind(with: self) { this, indexPath in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case .termsOfService:
+                    guard
+                        let url = URL(string: "https://yapp-workspace.notion.site/582c7c2a041945f383962ab3495ad14a")
+                    else { return }
+                    Task { await this.openURL(url) }
+                case .privacyPolicy:
+                    guard
+                        let url = URL(string: "https://yapp-workspace.notion.site/582c7c2a041945f383962ab3495ad14a")
+                    else { return }
+                    Task { await this.openURL(url) }
+                case .contactKakao:
+                    guard
+                        let url = URL(string: "https://www.instagram.com/showpot_official/")
+                    else { return }
+                    Task { await this.openURL(url) }
+                case .notificationSettings:
+                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+                        return
+                    }
+                    UIApplication.shared.open(settingsURL) { _ in }
+                default: return
+                }
+            }
             .disposed(by: disposeBag)
         
         view.addSubview(collectionView)
@@ -169,7 +201,7 @@ private extension SettingViewController {
                 )
             case .contactKakao:
                 cell.registration(
-                    title: "카카오 문의하기",
+                    title: "인스타그램 문의하기",
                     icon: .icHeadphone,
                     style: .h2
                 )
