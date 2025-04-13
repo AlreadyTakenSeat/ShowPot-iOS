@@ -54,6 +54,8 @@ final class ShowListViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -198,11 +200,32 @@ private extension ShowListViewController {
         navigationBar.rx.backButtonTap
             .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
+        
+        collectionView.rx.prefetchItems
+            .map { Action.prefetchItems($0.map(\.item)) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.willDisplayCell
+            .map { Action.willDisplayCell($0.at.item) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                let state = ShowDetailViewModel.State(showId: item?.id ?? "")
+                let viewModel = ShowDetailViewModel(state: state)
+                return ShowDetailViewController(viewModel: viewModel)
+            }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
         composer.$state.observable
-            .map(\.notifications)
+            .map(\.notifications.data)
             .distinctUntilChanged()
             .drive(with: self) { this, notifications in
                 this.applySnapshot(notifications: notifications)

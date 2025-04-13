@@ -30,3 +30,10 @@ extension UsersNotificationsRepository: DependencyKey {
         )
     }()
 }
+
+extension DependencyValues {
+    var usersNotificationsRepository: UsersNotificationsRepository {
+        get { self[UsersNotificationsRepository.self] }
+        set { self[UsersNotificationsRepository.self] = newValue }
+    }
+}
