@@ -12,5 +12,19 @@ import DependenciesMacros
 
 @DependencyClient
 struct ArtistUseCase {
-    
+    var subscribe: (
+        _ artistIds: [String]
+    ) async throws -> Void
+    var unsubscriptionList: (
+        _ cursor: CursorEntity
+    ) async throws -> Pageable<ArtistEntity>
+}
+
+extension ArtistUseCase: TestDependencyKey {
+    static let testValue: ArtistUseCase = {
+        return ArtistUseCase(
+            subscribe: { _ in },
+            unsubscriptionList: { _ in .mock(ArtistEntity.mockList) }
+        )
+    }()
 }

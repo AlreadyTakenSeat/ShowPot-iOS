@@ -486,21 +486,6 @@ private extension SearchViewController {
                 }
             }
             .disposed(by: disposeBag)
-        
-        composer.$state.present(\.$loginMessage)
-            .compactMap(\.self)
-            .drive(with: self) { this, message in
-                let bottomSheet = SPBottomSheet(
-                    message: message,
-                    buttonTitle: "3초만에 로그인하기"
-                )
-                bottomSheet.button.rx.tap
-                    .map { LoginViewController() }
-                    .bind(to: this.rx.pushViewController(animated: true))
-                    .disposed(by: bottomSheet.disposeBag)
-                this.present(bottomSheet, animated: true)
-            }
-            .disposed(by: disposeBag)
     }
     
     func bindState() {
@@ -536,6 +521,21 @@ private extension SearchViewController {
                     !query.isEmpty ? .icCancel : .icMagnifier
                 )
                 this.searchTextField.textField.text = query
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
             }
             .disposed(by: disposeBag)
     }

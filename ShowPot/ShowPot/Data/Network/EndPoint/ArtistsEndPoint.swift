@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 enum ArtistsEndPoint: EndPoint {
-    case unsubscribe(ArtistSubscribeRequest)
+    case unsubscribe(ArtistUnsubscribeRequest)
     case subscribe(ArtistSubscribeRequest)
     case unsubscriptionList(CursorRequest)
     case subscriptionList(CursorRequest)
