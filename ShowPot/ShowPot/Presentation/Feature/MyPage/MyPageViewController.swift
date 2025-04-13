@@ -210,29 +210,23 @@ private extension MyPageViewController {
     func bindState() {
         composer.$state.observable.map(\.nickname)
             .drive(with: self) { this, nickname in
-                var nsStr: NSAttributedString
-                
                 if let nickname {
-                    nsStr = NSAttributedString(
+                    this.titleLabel.attributedText = NSAttributedString(
                         "\(nickname)님,\n안녕하세요!",
                         fontType: KRFont.H0,
                         multiline: true
                     )
-                    nsStr = nsStr.setForegroundColor(color: .gray100)
+                    .setForegroundColor(color: .gray100)
                 } else {
-                    nsStr = NSAttributedString(
+                    this.titleLabel.attributedText = NSAttributedString(
                         "로그인 후 다채로운\n내한공연을 만나보세요.",
                         fontType: KRFont.H0,
                         multiline: true
                     )
-                    
-                    nsStr = nsStr
-                        .setForegroundColor(color: .gray100) // 전체 텍스트 색상 설정
-                        .setUnderline(to: "로그인")
-                        .addAttributes([.foregroundColor: UIColor.gray000], at: "로그인") // "로그인" 텍스트 색상 설정
+                    .setForegroundColor(color: .gray100) // 전체 텍스트 색상 설정
+                    .setUnderline(to: "로그인")
+                    .addAttributes([.foregroundColor: UIColor.gray000], at: "로그인") // "로그인" 텍스트 색상 설정
                 }
-                
-                this.titleLabel.attributedText = nsStr
             }
             .disposed(by: disposeBag)
         
