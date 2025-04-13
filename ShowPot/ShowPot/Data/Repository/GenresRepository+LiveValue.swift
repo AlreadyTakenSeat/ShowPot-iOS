@@ -25,9 +25,19 @@ extension GenresRepository: DependencyKey {
             genreList: { cursor in
                 let request = cursor.toData()
                 let response: DTO<PageResponse<GenreResponse>>
-                response = try await provider.requestNonToken(
-                    .genreList(request)
-                )
+                do {
+                    response = try await provider.request(
+                        .genreList(request)
+                    )
+                } catch SPError.tokenNotFound {
+                    response = try await provider.requestNonToken(
+                        .genreList(request)
+                    )
+                } catch SPError.reissueFail {
+                    response = try await provider.requestNonToken(
+                        .genreList(request)
+                    )
+                }
                 return response.data.toEntity()
             },
             unsubscriptionList: { cursor in

@@ -34,14 +34,6 @@ struct NetworkProvider<E: EndPoint>: Sendable {
             ) = error {
                 throw retryError
             }
-            
-            guard let data = response.data else {
-                throw error
-            }
-            //            throw endPoint.error(
-            //                response.response?.statusCode,
-            //                data: data
-            //            )
             throw error
         }
     }
@@ -69,14 +61,6 @@ struct NetworkProvider<E: EndPoint>: Sendable {
             ) = error {
                 throw retryError
             }
-            
-            guard let data = response.data else {
-                throw error
-            }
-            //            throw endPoint.error(
-            //                response.response?.statusCode,
-            //                data: data
-            //            )
             throw error
         }
     }
@@ -96,13 +80,6 @@ struct NetworkProvider<E: EndPoint>: Sendable {
         case .success(let value):
             return value
         case .failure(let error):
-            guard let data = response.data else {
-                throw error
-            }
-            //            throw endPoint.error(
-            //                response.response?.statusCode,
-            //                data: data
-            //            )
             throw error
         }
     }
@@ -121,13 +98,6 @@ struct NetworkProvider<E: EndPoint>: Sendable {
         switch response.result {
         case .success: return
         case .failure(let error):
-            guard let data = response.data else {
-                throw error
-            }
-            //            throw endPoint.error(
-            //                response.response?.statusCode,
-            //                data: data
-            //            )
             throw error
         }
     }

@@ -61,6 +61,8 @@ final class GenreViewController: UIViewController, Composable {
         bindAction()
         
         bottomGradientView.layoutIfNeeded()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -157,6 +159,25 @@ private extension GenreViewController {
         // 전체 아이템 개수 (동적으로 변한다고 가정)
         let totalItemCount = self.dataSource?.snapshot().numberOfItems(inSection: .genres) ?? 0
 
+        guard totalItemCount > 0 else {
+            let section = NSCollectionLayoutSection(
+                group: NSCollectionLayoutGroup.horizontal(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(140)
+                    ),
+                    subitems: [item]
+                )
+            )
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 16 + 140,
+                trailing: 16
+            )
+            return section
+        }
+        
         // 왼쪽 열 그룹
         let leftItemCount = totalItemCount / 2 + totalItemCount % 2 // 홀수일 때 하나 더
         let leftGroupHeight = CGFloat(leftItemCount) * 140 + CGFloat(leftItemCount - 1) * 40 // 아이템 높이 + 간격
@@ -251,34 +272,36 @@ private extension GenreViewController {
     }
     
     enum Item: Hashable {
-        case genre(GenreEntity)
+        case genre(GenreEntity, Set<GenreEntity>)
     }
     
     func configureDataSource() {
         let genreCellRegistration = UICollectionView.CellRegistration<GenreCell, GenreEntity> { cell, _, genre in
-            cell.registration(genre: genre, isDelete: false)
         }
         
         dataSource = DataSource(
             collectionView: collectionView
         ) { collectionView, indexPath, item in
             switch item {
-            case .genre(let genre):
+            case let .genre(genre, selectedGenres):
                 let cell = collectionView.dequeueConfiguredReusableCell(
                     using: genreCellRegistration,
                     for: indexPath,
                     item: genre
                 )
+                let isSelected = selectedGenres.contains(genre)
+                cell.registration(genre: genre, isSelected: isSelected)
                 return cell
             }
         }
     }
     
-    func applySnapshot(genres: [GenreEntity]) {
+    func applySnapshot(genres: [GenreEntity], selectedGenres: Set<GenreEntity>) {
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(genres.map { .genre($0) }, toSection: .genres)
+        snapshot.appendItems(genres.map { .genre($0, selectedGenres) }, toSection: .genres)
         dataSource?.apply(snapshot, animatingDifferences: true)
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
@@ -293,21 +316,60 @@ private extension GenreViewController {
         navigationBar.rx.backButtonTap
             .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
+        
+        bottomButton.ctaButton.rx.tap
+            .map { Action.bottomButtonTapped }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
-        composer.$state.observable
-            .map(\.genres)
-            .drive(with: self) { this, genres in
-                this.applySnapshot(genres: genres)
-            }
-            .disposed(by: disposeBag)
+        Driver.combineLatest(
+            composer.$state.observable.map(\.genres.data),
+            composer.$state.observable.map(\.selectedGenres)
+        )
+        .drive(with: self) { this, value in
+            let (genres, selectedGenres) = value
+            this.applySnapshot(genres: genres, selectedGenres: selectedGenres)
+        }
+        .disposed(by: disposeBag)
         
         composer.$state.present(\.$showSubscribeButton)
             .drive(with: self) { this, showSubscribeButton in
                 this.updateBottomButtonVisibility(
                     showSubscribeButton: showSubscribeButton
                 )
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$selectedGenre)
+            .compactMap(\.self)
+            .drive(with: self) { this, genre in
+                let bottomSheet = SPBottomSheet(
+                    titleKey: genre.name?.title,
+                    message: "구독을 취소하시겠습니까?",
+                    buttonTitle: "구독 취소하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { Action.unsubscribeAlertButtonTapped }
+                    .bind(to: this.composer.action)
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
             }
             .disposed(by: disposeBag)
     }

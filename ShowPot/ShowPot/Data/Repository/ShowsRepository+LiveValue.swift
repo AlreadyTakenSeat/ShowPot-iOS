@@ -40,22 +40,21 @@ extension ShowsRepository: DependencyKey {
             },
             showsDetail: { showId, deviceToken in
                 let request = ShowsDetailRequest(showId: showId, deviceToken: deviceToken)
+                let response: DTO<ShowDetailResponse>
                 do {
-                    let response: DTO<ShowDetailResponse> = try await provider.request(
+                    response = try await provider.request(
                         .showsDetail(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.tokenNotFound {
-                    let response: DTO<ShowDetailResponse> = try await provider.requestNonToken(
+                    response = try await provider.requestNonToken(
                         .showsDetail(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.reissueFail {
-                    let response: DTO<ShowDetailResponse> = try await provider.requestNonToken(
+                    response = try await provider.requestNonToken(
                         .showsDetail(request)
                     )
-                    return response.data.toEntity()
                 }
+                return response.data.toEntity()
             },
             alertReservations: { showId, ticketingApiType in
                 let request = ShowsReservationRequest(

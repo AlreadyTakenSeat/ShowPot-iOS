@@ -387,7 +387,7 @@ private extension HomeViewController {
         }
         
         let genreCellRegistration = UICollectionView.CellRegistration<GenreCell, GenreEntity> { cell, _, genre in
-            cell.registration(genre: genre, isDelete: false)
+            cell.registration(genre: genre, isSelected: false)
         }
         
         let artistCellRegistration = UICollectionView.CellRegistration<ArtistCell, ArtistEntity> { cell, _, artist in

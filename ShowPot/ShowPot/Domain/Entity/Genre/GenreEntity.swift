@@ -10,7 +10,7 @@ import Foundation
 struct GenreEntity: Identifiable, Hashable {
     let id: String
     let name: Genre?
-    var isSubscribed: Bool?
+    var isSubscribed: Bool
 }
 
 extension GenreEntity {
@@ -28,6 +28,24 @@ extension GenreEntity {
         case metal
         case classic
         case jazz
+        
+        var title: String {
+            switch self {
+            case .rock: return "Rock"
+            case .hiphop: return "Hiphop"
+            case .band: return "Band"
+            case .jpop: return "Jpop"
+            case .pop: return "Pop"
+            case .house: return "House"
+            case .edm: return "EDM"
+            case .musical: return "Musical"
+            case .rnb: return "Rnb"
+            case .opera: return "Opera"
+            case .metal: return "Metal"
+            case .classic: return "Classic"
+            case .jazz: return "Jazz"
+            }
+        }
     }
 }
 
@@ -35,7 +53,7 @@ extension GenreEntity {
     static let mock = GenreEntity(
         id: "017f20d0-4f3c-8f4d-9e15-7ff0c3a876d1",
         name: .rock,
-        isSubscribed: nil
+        isSubscribed: false
     )
     
     static let mockAlarm = GenreEntity(

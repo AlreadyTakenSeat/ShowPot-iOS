@@ -30,18 +30,16 @@ extension ArtistsRepository: DependencyKey {
                     response = try await provider.request(
                         .unsubscriptionList(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.tokenNotFound {
                     response = try await provider.requestNonToken(
                         .unsubscriptionList(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.reissueFail {
                     response = try await provider.requestNonToken(
                         .unsubscriptionList(request)
                     )
-                    return response.data.toEntity()
                 }
+                return response.data.toEntity()
             },
             subscriptionList: { cursor in
                 let request = cursor.toData()
@@ -69,18 +67,16 @@ extension ArtistsRepository: DependencyKey {
                     response = try await provider.request(
                         .search(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.tokenNotFound {
                     response = try await provider.requestNonToken(
                         .search(request)
                     )
-                    return response.data.toEntity()
                 } catch SPError.reissueFail {
                     response = try await provider.requestNonToken(
                         .search(request)
                     )
-                    return response.data.toEntity()
                 }
+                return response.data.toEntity()
             }
         )
     }()

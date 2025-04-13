@@ -9,7 +9,7 @@ import Foundation
 
 struct GenreResponse: Decodable, Entitiable {
     let id, name: String
-    let isSubscribed: Bool?
+    let isSubscribed: Bool
 }
 
 extension GenreResponse {

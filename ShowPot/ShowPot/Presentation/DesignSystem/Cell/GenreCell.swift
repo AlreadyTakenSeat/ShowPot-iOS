@@ -28,13 +28,10 @@ final class GenreCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func registration(genre: GenreEntity, isDelete: Bool) {
-        if let isSubscribed = genre.isSubscribed {
-            isSelected = isSubscribed
-            imageView.image = isSubscribed
-            ? genre.name?.subscribedImage
-            : genre.name?.image
-        }
+    func registration(genre: GenreEntity, isSelected: Bool, isDelete: Bool = false) {
+        imageView.image = genre.isSubscribed
+        ? genre.name?.subscribedImage
+        : isSelected ? genre.name?.selectedImage : genre.name?.image
         
         deleteButton.isHidden = !isDelete
     }
@@ -99,7 +96,7 @@ extension GenreEntity.Genre {
 @available(iOS 17.0, *)
 #Preview {
     let cell = GenreCell()
-    cell.registration(genre: .mock, isDelete: false)
+    cell.registration(genre: .mock, isSelected: false)
     cell.isSelected = true
     cell.snp.makeConstraints { make in
         make.width.equalTo(140)
