@@ -16,7 +16,7 @@ extension ArtistsRepository: DependencyKey {
         
         return ArtistsRepository(
             unsubscribe: { genreIds in
-                let request = ArtistUnsubwscribeRequest(artistIds: genreIds)
+                let request = ArtistUnsubscribeRequest(artistIds: genreIds)
                 try await provider.request(.unsubscribe(request))
             },
             subscribe: { genreIds in

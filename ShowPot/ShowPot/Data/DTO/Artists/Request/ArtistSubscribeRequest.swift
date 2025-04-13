@@ -11,6 +11,6 @@ struct ArtistSubscribeRequest: Encodable {
     let spotifyArtistIds: [String]
 }
 
-struct ArtistUnsubwscribeRequest: Encodable {
+struct ArtistUnsubscribeRequest: Encodable {
     let artistIds: [String]
 }
