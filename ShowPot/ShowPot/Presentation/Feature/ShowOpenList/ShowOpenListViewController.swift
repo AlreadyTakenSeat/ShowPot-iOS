@@ -54,6 +54,8 @@ final class ShowOpenListViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -119,7 +121,7 @@ private extension ShowOpenListViewController {
     
     
     private func configureFilterCheckBox() {
-        filterCheckBox.isSelected = true // 초기 상태: 체크됨
+        filterCheckBox.isSelected = false // 초기 상태: 체크됨
         view.addSubview(filterCheckBox)
     }
     
@@ -232,11 +234,36 @@ private extension ShowOpenListViewController {
             .map { SearchViewController(viewModel: SearchViewModel(query: "")) }
             .bind(to: rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
+        
+        collectionView.rx.prefetchItems
+            .map { Action.prefetchItems($0.map(\.item)) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.willDisplayCell
+            .map { Action.willDisplayCell($0.at.item) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { this, indexPath in
+                let item = this.dataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case let .show(showOpen):
+                    let state = ShowDetailViewModel.State(showId: showOpen.id)
+                    let viewModel = ShowDetailViewModel(state: state)
+                    return ShowDetailViewController(viewModel: viewModel)
+                default: return nil
+                }
+            }
+            .bind(to: rx.pushViewController(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
         composer.$state.observable
-            .map(\.showOpens)
+            .map(\.showOpens.data)
             .distinctUntilChanged()
             .drive(with: self) { this, showOpens in
                 this.applySnapshot(showOpens: showOpens)
@@ -244,7 +271,7 @@ private extension ShowOpenListViewController {
             .disposed(by: disposeBag)
         
         composer.$state.observable
-            .map(\.isNotOpen)
+            .map(\.onlyOpenSchedule)
             .distinctUntilChanged()
             .drive(filterCheckBox.rx.isSelected)
             .disposed(by: disposeBag)
