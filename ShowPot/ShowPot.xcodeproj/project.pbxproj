@@ -10,8 +10,6 @@
 		70107B592C21693E00F32042 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B582C21693E00F32042 /* GoogleSignIn */; };
 		70107B5B2C21693E00F32042 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 70107B5A2C21693E00F32042 /* GoogleSignInSwift */; };
 		701467402C401C0C00750A54 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7014673F2C401C0C00750A54 /* Kingfisher */; };
-		70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C1162C6BA19700786738 /* ScalingCarousel */; };
-		70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 70F3C14D2C706A6A00786738 /* iOSDropDown */; };
 		7D2DCAB92C269BF700389FBF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2DCAB82C269BF700389FBF /* Alamofire */; };
 		7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2DCABB2C269C2100389FBF /* RxCocoa */; };
 		7D2DCABE2C269C2100389FBF /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2DCABD2C269C2100389FBF /* RxRelay */; };
@@ -73,9 +71,7 @@
 				7D2DCABC2C269C2100389FBF /* RxCocoa in Frameworks */,
 				C9D9F7A92DA2548B00A9A0E2 /* RxGesture in Frameworks */,
 				7D2DCAB92C269BF700389FBF /* Alamofire in Frameworks */,
-				70F3C1172C6BA19700786738 /* ScalingCarousel in Frameworks */,
 				C92D86562D97B277001A6557 /* Dependencies in Frameworks */,
-				70F3C14E2C706A6A00786738 /* iOSDropDown in Frameworks */,
 				C9F9085D2D97B12D00E1611D /* KakaoSDKUser in Frameworks */,
 				701467402C401C0C00750A54 /* Kingfisher in Frameworks */,
 				C9F908592D97B12D00E1611D /* KakaoSDKCertCore in Frameworks */,
@@ -131,8 +127,6 @@
 				7D2DCABF2C269C2100389FBF /* RxSwift */,
 				7D2DCAC22C269C2E00389FBF /* SnapKit */,
 				7014673F2C401C0C00750A54 /* Kingfisher */,
-				70F3C1162C6BA19700786738 /* ScalingCarousel */,
-				70F3C14D2C706A6A00786738 /* iOSDropDown */,
 				C9BE83C32D97A3B6003B53E9 /* RxCompose */,
 				C9BD1F292D97B0A200839FD7 /* FirebaseMessaging */,
 				C9F908522D97B12D00E1611D /* KakaoSDK */,
@@ -180,8 +174,6 @@
 				7D2DCABA2C269C2100389FBF /* XCRemoteSwiftPackageReference "RxSwift" */,
 				7D2DCAC12C269C2E00389FBF /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */,
-				70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 				C9BE83C22D97A3B6003B53E9 /* XCRemoteSwiftPackageReference "RxCompose" */,
 				C9BD1F282D97B0A200839FD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C9F908512D97B12D00E1611D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
@@ -459,22 +451,6 @@
 				minimumVersion = 7.12.0;
 			};
 		};
-		70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/superpeteblaze/ScalingCarousel.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.0;
-			};
-		};
-		70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jriosdev/iOSDropDown";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
 		7D2DCAB72C269BF700389FBF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -564,16 +540,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7014673E2C401C0C00750A54 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		70F3C1162C6BA19700786738 /* ScalingCarousel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 70F3C1152C6BA19700786738 /* XCRemoteSwiftPackageReference "ScalingCarousel" */;
-			productName = ScalingCarousel;
-		};
-		70F3C14D2C706A6A00786738 /* iOSDropDown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 70F3C14C2C706A6A00786738 /* XCRemoteSwiftPackageReference "iOSDropDown" */;
-			productName = iOSDropDown;
 		};
 		7D2DCAB82C269BF700389FBF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
