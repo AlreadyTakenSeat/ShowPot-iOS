@@ -24,9 +24,9 @@ extension UsersRepository: DependencyKey {
         
         return UsersRepository(
             withdrawal: {
+                try await provider.request(.withdrawal)
                 keychainDelete(.accessToken)
                 keychainDelete(.refreshToken)
-                try await provider.request(.withdrawal)
             },
             reissue: {
                 let refreshToken = keychainRead(.refreshToken) ?? ""
@@ -42,9 +42,9 @@ extension UsersRepository: DependencyKey {
                 }
             },
             logout: {
+                try await provider.request(.logout)
                 keychainDelete(.accessToken)
                 keychainDelete(.refreshToken)
-                try await provider.request(.logout)
             },
             login: { model in
                 let response: DTO<TokenResponse> = try await provider.requestNonToken(.login(model.toData()))

@@ -61,6 +61,11 @@ struct NetworkProvider<E: EndPoint>: Sendable {
             ) = error {
                 throw retryError
             }
+            if case .responseSerializationFailed(.inputDataNilOrZeroLength) = error,
+               response.response?.statusCode == 200 {
+                // 빈 응답을 성공으로 처리
+                return
+            }
             throw error
         }
     }
@@ -98,6 +103,11 @@ struct NetworkProvider<E: EndPoint>: Sendable {
         switch response.result {
         case .success: return
         case .failure(let error):
+            if case .responseSerializationFailed(.inputDataNilOrZeroLength) = error,
+               response.response?.statusCode == 200 {
+                // 빈 응답을 성공으로 처리
+                return
+            }
             throw error
         }
     }

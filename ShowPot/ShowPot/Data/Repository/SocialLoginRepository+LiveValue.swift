@@ -40,7 +40,10 @@ extension SocialLoginRepository: DependencyKey {
                     clientSecret: manager.makeJWT(),
                     code: code
                 )
-                try await provider.requestNonToken(.appleToken(request))
+                let response: AppleTokenResponse = try await provider.requestNonToken(
+                    .appleToken(request)
+                )
+                keychainSave(response.refresh_token, .appleRefreshToken)
             },
             appleRevoke: {
                 let token = keychainRead(.appleRefreshToken) ?? ""

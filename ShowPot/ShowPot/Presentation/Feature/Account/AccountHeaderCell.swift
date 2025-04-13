@@ -37,11 +37,17 @@ final class SPAccountHeaderCell: UICollectionViewCell {
         
         switch platform {
         case .kakao:
-            platformIcon.image = .icKakao.withTintColor(.gray100)
+            platformIcon.image = .icKakao
+                .withTintColor(.gray100)
+                .resized(to: CGSize(width: 24, height: 24))
         case .google:
-            platformIcon.image = .icApple.withTintColor(.gray100)
+            platformIcon.image = .icGoogle
+                .withRenderingMode(.alwaysOriginal)
+                .resized(to: CGSize(width: 24, height: 24))
         case .apple:
-            platformIcon.image = .icGoogle.withTintColor(.gray100)
+            platformIcon.image = .icApple
+                .withTintColor(.gray100)
+                .resized(to: CGSize(width: 24, height: 24))
         }
         
         platformLabel.attributedText = NSAttributedString(

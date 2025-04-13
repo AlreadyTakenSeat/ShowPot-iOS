@@ -46,6 +46,12 @@ final class AccountViewController: UIViewController, Composable {
         
         bindAction()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        composer.action.accept(.viewDidAppear)
+    }
 }
 
 // MARK: - Configure View
@@ -127,7 +133,7 @@ private extension AccountViewController {
     
     func bindState() {
         composer.$state.observable
-            .map(\.profile)
+            .compactMap(\.profile)
             .distinctUntilChanged()
             .drive(with: self) { this, profile in
                 this.applySnapshot(profile: profile)
@@ -166,6 +172,27 @@ private extension AccountViewController {
                     this.dismiss(animated: true)
                 }
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$dismiss)
+            .filter(\.self)
+            .map { _ in () }
+            .drive(rx.popViewController(animated: true))
             .disposed(by: disposeBag)
     }
 }
