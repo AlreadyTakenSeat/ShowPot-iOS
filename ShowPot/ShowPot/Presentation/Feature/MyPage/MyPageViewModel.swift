@@ -7,19 +7,22 @@
 
 import Foundation
 
+import Dependencies
 import RxCompose
 import RxSwift
 import RxCocoa
 
 final class MyPageViewModel: Composer {
     enum Action {
-        case loginButtonTapped
-        case settingButtonTapped
+        case viewDidAppear
+        case mutatedProfile(ProfileEntity)
+        case mutatedSubscribedArtistsCount(Int)
+        case mutatedSubscribedGenresCount(Int)
+        case fetchProfileError
     }
     
     struct State {
-        var isLoggedIn: Bool = true
-        var nickname: String = "춤추는 고래"
+        var nickname: String?
         var subscribedArtistsCount: Int = 0
         var subscribedGenresCount: Int = 0
     }
@@ -29,7 +32,63 @@ final class MyPageViewModel: Composer {
     var action = PublishRelay<Action>()
     var disposeBag = DisposeBag()
     
+    @Dependency(MyPageUseCase.self)
+    private var useCase
+    
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
-        return .none
+        switch action {
+        case .viewDidAppear:
+            return fetchProfile()
+        case let .mutatedProfile(profile):
+            state.nickname = profile.nickname
+            return .merge(
+                fetchGenresSubscriptionCount(),
+                fetchArtistsSubscriptionCount()
+            )
+        case let .mutatedSubscribedArtistsCount(count):
+            state.subscribedArtistsCount = count
+            return .none
+        case let .mutatedSubscribedGenresCount(count):
+            state.subscribedGenresCount = count
+            return .none
+        case .fetchProfileError:
+            state.nickname = nil
+            state.subscribedArtistsCount = 0
+            state.subscribedGenresCount = 0
+            return .none
+        }
+    }
+}
+
+// MARK: - functions
+private extension MyPageViewModel {
+    func fetchArtistsSubscriptionCount() -> Observable<Effect<Action>> {
+        return .run { [useCase = self.useCase] effect in
+            let response = try await useCase.artistsSubscriptionCount()
+            effect.onNext(.send(.mutatedSubscribedArtistsCount(response)))
+        } catch: { error in
+            print(error)
+            return .none
+        }
+    }
+    
+    func fetchGenresSubscriptionCount() -> Observable<Effect<Action>> {
+        return .run { [useCase = self.useCase] effect in
+            let response = try await useCase.genresSubscriptionCount()
+            effect.onNext(.send(.mutatedSubscribedGenresCount(response)))
+        } catch: { error in
+            print(error)
+            return .none
+        }
+    }
+    
+    func fetchProfile() -> Observable<Effect<Action>> {
+        return .run { [useCase = self.useCase] effect in
+            let response = try await useCase.profile()
+            effect.onNext(.send(.mutatedProfile(response)))
+        } catch: { error in
+            print(error)
+            return .send(.fetchProfileError)
+        }
     }
 }

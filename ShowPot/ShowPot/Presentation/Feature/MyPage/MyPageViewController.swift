@@ -39,10 +39,20 @@ final class MyPageViewController: UIViewController, Composable {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureUI()
+        
         configureLayout()
+        
         bindState()
+        
         bindAction()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        composer.action.accept(.viewDidAppear)
     }
 }
 
@@ -52,11 +62,14 @@ private extension MyPageViewController {
         view.backgroundColor = .gray700
         
         configurePageTitleLabel() // "마이" 타이틀 라벨 설정
+        
         configureTitleLabel()
+        
         configureSettingButton()
+        
         configureCollectionView()
+        
         configureDataSource()
-        applySnapshot()
     }
     
     private func configureLayout() {
@@ -156,11 +169,6 @@ private extension MyPageViewController {
 // MARK: - Bind
 private extension MyPageViewController {
     func bindAction() {
-//        settingButton.rx.tap
-//            .map { Action.settingButtonTapped }
-//            .bind(to: composer.action)
-//            .disposed(by: disposeBag)
-        
         settingButton.rx.tap
             .map { SettingViewController() }
             .bind(to: rx.pushViewController(animated: true))
@@ -181,8 +189,8 @@ private extension MyPageViewController {
                 return .just(false)
             }
             .filter { $0 } // "로그인" 텍스트가 탭된 경우만 처리
-            .map { _ in Action.loginButtonTapped }
-            .bind(to: composer.action)
+            .map { _ in LoginViewController() }
+            .bind(to: rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
         
         collectionView.rx.itemSelected
@@ -200,48 +208,46 @@ private extension MyPageViewController {
     }
     
     func bindState() {
-        Driver.combineLatest(
-            composer.$state.observable.map(\.isLoggedIn),
-            composer.$state.observable.map(\.nickname)
+        composer.$state.observable.map(\.nickname)
+            .drive(with: self) { this, nickname in
+                var nsStr: NSAttributedString
+                
+                if let nickname {
+                    nsStr = NSAttributedString(
+                        "\(nickname)님,\n안녕하세요!",
+                        fontType: KRFont.H0,
+                        multiline: true
+                    )
+                    nsStr = nsStr.setForegroundColor(color: .gray100)
+                } else {
+                    nsStr = NSAttributedString(
+                        "로그인 후 다채로운\n내한공연을 만나보세요.",
+                        fontType: KRFont.H0,
+                        multiline: true
+                    )
+                    
+                    nsStr = nsStr
+                        .setForegroundColor(color: .gray100) // 전체 텍스트 색상 설정
+                        .setUnderline(to: "로그인")
+                        .addAttributes([.foregroundColor: UIColor.gray000], at: "로그인") // "로그인" 텍스트 색상 설정
+                }
+                
+                this.titleLabel.attributedText = nsStr
+            }
+            .disposed(by: disposeBag)
+        
+        Driver.zip(
+            composer.$state.observable.map(\.subscribedArtistsCount),
+            composer.$state.observable.map(\.subscribedGenresCount)
         )
         .drive(with: self) { this, value in
-            let (isLoggedIn, nickname) = value
-            var nsStr = NSAttributedString(
-                isLoggedIn
-                ? "\(nickname)님,\n안녕하세요!"
-                : "로그인 후 다채로운\n내한공연을 만나보세요.",
-                fontType: KRFont.H0,
-                multiline: true
+            let (artistsCount, genresCount) = value
+            this.applySnapshot(
+                artistsCount: artistsCount,
+                genresCount: genresCount
             )
-            
-            if !isLoggedIn {
-                nsStr = nsStr
-                    .setForegroundColor(color: .gray100) // 전체 텍스트 색상 설정
-                    .setUnderline(to: "로그인")
-                    .addAttributes([.foregroundColor: UIColor.gray000], at: "로그인") // "로그인" 텍스트 색상 설정
-            } else {
-                nsStr = nsStr.setForegroundColor(color: .gray100)
-            }
-            this.titleLabel.attributedText = nsStr
         }
         .disposed(by: disposeBag)
-        
-        // 구독 데이터 업데이트
-        composer.$state.observable
-            .map(\.subscribedArtistsCount)
-            .distinctUntilChanged()
-            .drive(with: self) { this, _ in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
-        
-        composer.$state.observable
-            .map(\.subscribedGenresCount)
-            .distinctUntilChanged()
-            .drive(with: self) { this, _ in
-                this.applySnapshot()
-            }
-            .disposed(by: disposeBag)
     }
 }
 
@@ -301,13 +307,13 @@ private extension MyPageViewController {
         }
     }
     
-    func applySnapshot() {
+    func applySnapshot(artistsCount: Int, genresCount: Int) {
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
         
         snapshot.appendItems([
-            .subscribedArtists(composer.state.subscribedArtistsCount),
-            .subscribedGenres(composer.state.subscribedGenresCount)
+            .subscribedArtists(artistsCount),
+            .subscribedGenres(genresCount)
         ], toSection: .subscription)
         
         dataSource?.apply(snapshot, animatingDifferences: false)
