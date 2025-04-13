@@ -17,11 +17,11 @@ extension Bundle {
     }
     
     var baseURL: String {
-//#if DEBUG
-//        infoDictionary?["BASE_URL"] as? String ?? ""
-//#elseif RELEASE
+#if DEBUG
+        infoDictionary?["BASE_URL"] as? String ?? ""
+#elseif RELEASE
         infoDictionary?["BASE_URL_PROD"] as? String ?? ""
-//#endif
+#endif
     }
     
     var kakaoNativeAppKey: String {
