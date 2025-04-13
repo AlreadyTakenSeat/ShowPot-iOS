@@ -16,11 +16,11 @@ extension ArtistsRepository: DependencyKey {
         
         return ArtistsRepository(
             unsubscribe: { genreIds in
-                let request = ArtistSubscribeRequest(artistIds: genreIds)
+                let request = ArtistUnsubwscribeRequest(artistIds: genreIds)
                 try await provider.request(.unsubscribe(request))
             },
             subscribe: { genreIds in
-                let request = ArtistSubscribeRequest(artistIds: genreIds)
+                let request = ArtistSubscribeRequest(spotifyArtistIds: genreIds)
                 try await provider.request(.subscribe(request))
             },
             unsubscriptionList: { cursor in
@@ -65,10 +65,22 @@ extension ArtistsRepository: DependencyKey {
                     size: cursor.size
                 )
                 let response: DTO<PageResponse<ArtistResponse>>
-                response = try await provider.request(
-                    .search(request)
-                )
-                return response.data.toEntity()
+                do {
+                    response = try await provider.request(
+                        .search(request)
+                    )
+                    return response.data.toEntity()
+                } catch SPError.tokenNotFound {
+                    response = try await provider.requestNonToken(
+                        .search(request)
+                    )
+                    return response.data.toEntity()
+                } catch SPError.reissueFail {
+                    response = try await provider.requestNonToken(
+                        .search(request)
+                    )
+                    return response.data.toEntity()
+                }
             }
         )
     }()

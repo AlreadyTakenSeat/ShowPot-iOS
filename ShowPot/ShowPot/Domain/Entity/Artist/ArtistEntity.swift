@@ -8,55 +8,231 @@
 import Foundation
 
 struct ArtistEntity: Identifiable, Hashable {
-    let id, imageURL, name: String
+    let id: String?
+    let imageURL, name, spotifyId: String
     var isSubscribed: Bool?
 }
 
 extension ArtistEntity {
     static let mock = ArtistEntity(
-        id: "01937cf1-1ddf-9bea-0437-6e1238cf5809",
-        imageURL: "https://i.scdn.co/image/ab6761610000f178e17c0aa1714a03d62b5ce4e0",
-        name: "Post Malone",
-        isSubscribed: nil
+        id: "01940663-c2c3-528d-6e05-674786a9cfbe",
+        imageURL: "https://i.scdn.co/image/ab6761610000f178f8349dfb619a7f842242de77",
+        name: "Maroon 5",
+        spotifyId: "04gDigrS5kc9YWfZHwBETP",
+        isSubscribed: false
     )
     
     static let mockAlarm = ArtistEntity(
-        id: "01937cf1-1ddf-9bea-0437-6e1238cf5809",
-        imageURL: "https://i.scdn.co/image/ab6761610000f178e17c0aa1714a03d62b5ce4e0",
-        name: "Post Malone",
-        isSubscribed: true
+        id: "01940663-c2c3-528d-6e05-674786a9cfbe",
+        imageURL: "https://i.scdn.co/image/ab6761610000f178f8349dfb619a7f842242de77",
+        name: "Maroon 5",
+        spotifyId: "04gDigrS5kc9YWfZHwBETP",
+        isSubscribed: false
     )
     
-    static let mockList = [
-        ArtistEntity(id: "01937cf1-1ddf-9bea-0437-6e1238cf5809", imageURL: "https://i.scdn.co/image/ab6761610000f178e17c0aa1714a03d62b5ce4e0", name: "Post Malone", isSubscribed: nil),
-        ArtistEntity(id: "01937cf1-1ddf-9bea-0437-6e1238cf580a", imageURL: "https://i.scdn.co/image/ab6761610000f1781ba8fc5f5c73e7e9313cc6eb", name: "Coldplay", isSubscribed: nil),
-        ArtistEntity(id: "01937cf1-1ddf-9bea-0437-6e1238cf580b", imageURL: "https://i.scdn.co/image/ab6761610000f178e03a98785f3658f0b6461ec4", name: "Olivia Rodrigo", isSubscribed: nil),
-        ArtistEntity(id: "01937cf1-1ddf-9bea-0437-6e1238cf580c", imageURL: "https://i.scdn.co/image/ab6761610000f178c36dd9eb55fb0db4911f25dd", name: "Bruno Mars", isSubscribed: nil),
-        ArtistEntity(id: "01937cf1-1ddf-9bea-0437-6e1238cf580d", imageURL: "https://i.scdn.co/image/ab6761610000f178e65fa0329c232ac6f5040f80", name: "AJR", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394ad", imageURL: "https://i.scdn.co/image/ab67616d000048516907d59bb8774957fdcaca5c", name: "The Evergreen Trio", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394ae", imageURL: "https://i.scdn.co/image/ab6761610000f17805f666b46dfb8a7a37390283", name: "SPYAIR", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394af", imageURL: "https://i.scdn.co/image/ab6761610000f17874eee2af6bd02df43e9595cc", name: "ELLEGARDEN", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b0", imageURL: "https://i.scdn.co/image/ab6761610000f178ae21e90221e814c50033133a", name: "King Gizzard & The Lizard Wizard", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b1", imageURL: "https://i.scdn.co/image/ab6761610000f178d5594e3ae145bbb2c096366d", name: "Charlie Puth", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b2", imageURL: "https://i.scdn.co/image/ab6761610000f178e672b5f553298dcdccb0e676", name: "Taylor Swift", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b3", imageURL: "https://i.scdn.co/image/ab6761610000f1789e528993a2820267b97f6aae", name: "The Weeknd", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b4", imageURL: "https://i.scdn.co/image/ab6761610000f1788ae7f2aaa9817a704a87ea36", name: "Justin Bieber", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b5", imageURL: "https://i.scdn.co/image/ab6761610000f178f2f4aa5e873acfe27b190915", name: "Olivia Dean", isSubscribed: nil),
-        ArtistEntity(id: "01940660-40db-689b-8b47-a6e706d394b6", imageURL: "https://i.scdn.co/image/ab6761610000f17843c436dd4582521e601f8099", name: "Sammy Virji", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfb7", imageURL: "https://i.scdn.co/image/ab6761610000f1783faf416d3be99d63fec18baa", name: "Disclosure", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfb8", imageURL: "https://i.scdn.co/image/ab6761610000f178a03696716c9ee605006047fd", name: "Radiohead", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfb9", imageURL: "https://i.scdn.co/image/ab6761610000f178bac5615022cefc2ac72caec4", name: "Christopher", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfba", imageURL: "https://i.scdn.co/image/ab6761610000f178c3b137793230f4043feb0089", name: "The Strokes", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfbb", imageURL: "https://i.scdn.co/image/ab6761610000f178d2b2a1cea3b6b44f4bae14b2", name: "Benson Boone", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfbc", imageURL: "https://i.scdn.co/image/ab6761610000f17840b5c07ab77b6b1a9075fdc0", name: "Ariana Grande", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfbd", imageURL: "https://i.scdn.co/image/ab6761610000f178cc2d67917c6dc6cdfd009964", name: "Conan Gray", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfbe", imageURL: "https://i.scdn.co/image/ab6761610000f178f8349dfb619a7f842242de77", name: "Maroon 5", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfbf", imageURL: "https://i.scdn.co/image/ab6761610000f178ab47d8dae2b24f5afe7f9d38", name: "Imagine Dragons", isSubscribed: nil),
-        ArtistEntity(id: "01940663-c2c3-528d-6e05-674786a9cfc0", imageURL: "https://i.scdn.co/image/ab6761610000f178bfdd8a29d0c6bc6950055234", name: "YOASOBI", isSubscribed: nil),
-        ArtistEntity(id: "01940668-aed7-a313-feb9-4d47a6d1aa2a", imageURL: "https://i.scdn.co/image/ab6761610000f178b173d69f77530d77a991984f", name: "Lauv", isSubscribed: nil),
-        ArtistEntity(id: "01940668-aed7-a313-feb9-4d47a6d1aa2b", imageURL: "https://i.scdn.co/image/ab6761610000f17890c77d2ffb0fe10130f03230", name: "LANY", isSubscribed: nil),
-        ArtistEntity(id: "01940668-aed7-a313-feb9-4d47a6d1aa2c", imageURL: "https://i.scdn.co/image/ab6761610000f178c19adef627892ffdee631d1a", name: "HONNE", isSubscribed: nil),
-        ArtistEntity(id: "01940668-aed7-a313-feb9-4d47a6d1aa2d", imageURL: "https://i.scdn.co/image/ab6761610000f17821544d3b4e0a00d209f56743", name: "Noel Gallagher's High Flying Birds", isSubscribed: nil),
-        ArtistEntity(id: "01940668-aed7-a313-feb9-4d47a6d1aa2e", imageURL: "https://i.scdn.co/image/ab6761610000f1786ff0cd5ef2ecf733804984bb", name: "Green Day", isSubscribed: nil)
+    static let mockList: [ArtistEntity] = [
+        ArtistEntity(
+            id: "0194256b-625b-ace3-e8c3-fbdf0f84a752",
+            imageURL: "https://i.scdn.co/image/ab6761610000f1787dcc891849ed130649176966",
+            name: "coldrain",
+            spotifyId: "4pCVGaLWxDe4d8bsjsnmUM",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: "01940663-c2c3-528d-6e05-674786a9cfbe",
+            imageURL: "https://i.scdn.co/image/ab6761610000f178f8349dfb619a7f842242de77",
+            name: "Maroon 5",
+            spotifyId: "04gDigrS5kc9YWfZHwBETP",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: "019424ce-785a-a6ef-a466-d2bb16d28272",
+            imageURL: "https://i.scdn.co/image/ab6761610000f1780522e98a6f0cf1ddbee9a74f",
+            name: "Oasis",
+            spotifyId: "2DaxqgrOhkeH0fpeiQq2f4",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: "019424ce-7660-bc3f-6ca1-defc9c56cff7",
+            imageURL: "https://i.scdn.co/image/ab6761610000f17827ea8d74714b23fa9e116f91",
+            name: "Cold War Kids",
+            spotifyId: "6VDdCwrBM4qQaGxoAyxyJC",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1786cdb0d32feaeb22f9b2d64b8",
+            name: "Cold Hart",
+            spotifyId: "1fsCfvdiomqjKJFR6xI8e4",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178cad2a98065e13720ce622c6c",
+            name: "Cold",
+            spotifyId: "0Gw3a3BkWLwsMLFbOBmo6Q",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f17809b03b5ae3ea139f92114e25",
+            name: "Coldabank",
+            spotifyId: "3JOvRLynmP4mA6dvlWARoA",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178172dd518fabe8298259baab8",
+            name: "Coldzy",
+            spotifyId: "401ikVSob52311M6Fwnunt",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f17841da5ea9f1f138678335beed",
+            name: "Cold",
+            spotifyId: "3bxfOfSCLwqgMM5ThWJ5vu",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178d022f1020f0fef2401066b8b",
+            name: "Cold",
+            spotifyId: "6wmWpRv8Pw9NYk5aE6xWIE",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178c3ea6c13a3edf6df136b4a0f",
+            name: "Cold Diamond & Mink",
+            spotifyId: "47eOrmm0M2qY5atzSNNt2b",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178c206123c7dcf328df8bf4d6d",
+            name: "coldbrew",
+            spotifyId: "7r3gH36F9O5GtmYPYymtLK",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1789f8d5cb9948a536c04e1d8ab",
+            name: "Coldiac",
+            spotifyId: "42BY4cYu4ZSj37CbSYjDgA",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1784b053c29fd4b317ff825f0dc",
+            name: "J. Cole",
+            spotifyId: "6l3HvQ5sa6mXTsMTB19rO5",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178d4e38c4e3e5c82774740e28d",
+            name: "Phil Collins",
+            spotifyId: "4lxfqrEsLX6N1N4OCSkILp",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab67616d0000485184dc7bee9a39afe851827cdf",
+            name: "cold heart",
+            spotifyId: "0Cp1mVNaY8UqxSxzwNSxpW",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178b83a29555ec43d9bf78d1b62",
+            name: "The Cold Stares",
+            spotifyId: "0hLLs7dOw0Z1XBFFrLSDln",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab67616d000048516741c97870eed6db31a8e63c",
+            name: "Cold Water Worship",
+            spotifyId: "0br91ss6BdMgZCfaX1gX7D",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f17873c7f7505c1af82929ec41df",
+            name: "John Coltrane",
+            spotifyId: "2hGh5VOeeqimQFxqXvfCUf",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178eaaa12a0fdaa403a10099728",
+            name: "Cold Cave",
+            spotifyId: "1ssulsHf3JrWakLxa8yFad",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178a636b0b244253f602a629796",
+            name: "Ludwig van Beethoven",
+            spotifyId: "2wOqMjp9TyABvtHdOSOTUS",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178a3bc978bea1dc16de72cbe2f",
+            name: "Cold Busted",
+            spotifyId: "0uhd4ZyLS61oODSwmyhPfV",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178217198d000d16d08d9b76da4",
+            name: "Coldcut",
+            spotifyId: "5wnhqlZzXIq8aO9awQO2ND",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f178ca5ac5e8da4e64f7d7f75720",
+            name: "Cold Suhou",
+            spotifyId: "1QXhYc6MzTjzg8Tq2TBceq",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1784fcdbd1166f8598dd236c101",
+            name: "coldlakes",
+            spotifyId: "3jxJQ1JkYdqHNGnvIoW0nI",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1781223464273767d64760a0a88",
+            name: "Colter Wall",
+            spotifyId: "3xYXYzm9H3RzyQgBrYwIcx",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1780ec0ea710ed8ce9e490d9c7b",
+            name: "Nat King Cole",
+            spotifyId: "7v4imS0moSyGdXyLgVTIV7",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1787aa4a1906e9c52118f0235b3",
+            name: "coldoutlay",
+            spotifyId: "6iVZjzQSsPC4iuI1JUV2Zs",
+            isSubscribed: false
+        ),
+        ArtistEntity(
+            id: nil,
+            imageURL: "https://i.scdn.co/image/ab6761610000f1781ab13fdacbb8017ec4087ca9",
+            name: "Keyshia Cole",
+            spotifyId: "1vfezMIyCr4XUdYRaKIKi3",
+            isSubscribed: false
+        )
     ]
 }

@@ -22,6 +22,25 @@ extension PageResponse {
         
         let id: String?
         let value: String?
+        
+        enum CodingKeys: CodingKey {
+            case id
+            case value
+        }
+        
+        init(from decoder: any Decoder) throws {
+            let container: KeyedDecodingContainer<PageResponse<T>.Cursor.CodingKeys> = try decoder.container(
+                keyedBy: PageResponse<T>.Cursor.CodingKeys.self
+            )
+            self.id = try? container.decodeIfPresent(
+                String.self,
+                forKey: PageResponse<T>.Cursor.CodingKeys.id
+            )
+            self.value = try container.decodeIfPresent(
+                String.self,
+                forKey: PageResponse<T>.Cursor.CodingKeys.value
+            )
+        }
     }
 }
 

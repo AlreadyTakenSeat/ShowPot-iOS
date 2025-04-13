@@ -109,7 +109,7 @@ extension ShowsRepository: DependencyKey {
                     size: size
                 )
                 let response: DTO<PageResponse<ShowResponse>>
-                response = try await provider.request(
+                response = try await provider.requestNonToken(
                     .search(request)
                 )
                 return response.data.toEntity()

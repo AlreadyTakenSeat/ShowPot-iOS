@@ -8,5 +8,9 @@
 import Foundation
 
 struct ArtistSubscribeRequest: Encodable {
+    let spotifyArtistIds: [String]
+}
+
+struct ArtistUnsubwscribeRequest: Encodable {
     let artistIds: [String]
 }

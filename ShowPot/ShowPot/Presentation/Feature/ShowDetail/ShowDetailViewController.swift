@@ -491,7 +491,8 @@ private extension ShowDetailViewController {
                 artist: ArtistEntity(
                     id: artist.id,
                     imageURL: artist.imageURL,
-                    name: artist.name
+                    name: artist.name,
+                    spotifyId: ""
                 ),
                 isDelete: false
             )
