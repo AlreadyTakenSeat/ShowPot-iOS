@@ -170,7 +170,7 @@ private extension ArtistCell {
 @available(iOS 17.0, *)
 #Preview {
     let cell = ArtistCell()
-    cell.registration(artist: ArtistResponse.mock.toEntity(), isDelete: true)
+    cell.registration(artist: .mock, isDelete: true)
     cell.isSelected = true
     cell.snp.makeConstraints { make in
         make.width.equalTo(100)

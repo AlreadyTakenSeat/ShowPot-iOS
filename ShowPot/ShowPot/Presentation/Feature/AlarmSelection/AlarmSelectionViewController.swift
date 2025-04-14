@@ -47,15 +47,21 @@ final class AlarmSelectionViewController: UIViewController, Composable {
         
         configureDataSource()
         
-        sheetPresentationController?.detents = [
-            .custom { _ in return 460 }
-        ]
+        if #available(iOS 16.0, *) {
+            sheetPresentationController?.detents = [
+                .custom { _ in return 426 }
+            ]
+        } else {
+            sheetPresentationController?.detents = [.medium()]
+        }
         sheetPresentationController?.preferredCornerRadius = 0
         sheetPresentationController?.prefersGrabberVisible = true
         
         bindState()
         
         bindAction()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -105,7 +111,7 @@ private extension AlarmSelectionViewController {
     }
     
     private func configureBottomButton() {
-        bottomButton.ctaButton.isEnabled = !composer.state.selectedTime.isEmpty
+        bottomButton.ctaButton.isEnabled = !composer.state.ticketingTimes.isEmpty
     }
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -129,14 +135,14 @@ private extension AlarmSelectionViewController {
 private extension AlarmSelectionViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
-    typealias Registration = UICollectionView.CellRegistration<AlarmCell, AlertTime>
+    typealias Registration = UICollectionView.CellRegistration<AlarmCell, ReservationTimeEntity>
     
     enum Section: Int, CaseIterable {
         case alertTimes
     }
     
     enum Item: Hashable {
-        case alertTime(AlertTime, Bool, Bool)
+        case alertTime(ReservationTimeEntity)
     }
     
     func configureDataSource() {
@@ -146,42 +152,24 @@ private extension AlarmSelectionViewController {
             collectionView: collectionView
         ) { collectionView, indexPath, item in
             switch item {
-            case let .alertTime(time, isSelected, isPassed):
+            case let .alertTime(time):
                 let cell = collectionView.dequeueConfiguredReusableCell(
                     using: cellRegistration,
                     for: indexPath,
                     item: time
                 )
-                cell.configure(
-                    with: time,
-                    isSelected: isSelected,
-                    isPassed: isPassed
-                )
+                cell.configure(with: time)
                 return cell
             }
         }
     }
     
     func applySnapshot(
-        times: [AlertTime],
-        selectedTime: Set<AlertTime>,
-        ticketingTimes: [ShowDetailEntity.TicketingTime]
+        times: [ReservationTimeEntity]
     ) {
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(
-            times.map { time in
-                let isPassed = ticketingTimes.contains(where: {
-                    let date = $0.ticketingAt.toDate(.default) ?? .now
-                    let alarmDate = date.addMinutes(
-                        minutes: -Double(time.minutes)
-                    )
-                    return Date.now >= alarmDate
-                })
-                return .alertTime(time, selectedTime.contains(time), isPassed)
-            },
-            toSection: .alertTimes
-        )
+        snapshot.appendItems(times.map { Item.alertTime($0) }, toSection: .alertTimes)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -202,21 +190,21 @@ private extension AlarmSelectionViewController {
     }
     
     func bindState() {
-        Driver.combineLatest(
-            composer.$state.observable.map(\.alarms),
-            composer.$state.observable.map(\.selectedTime),
-            composer.$state.observable.map(\.ticketingTimes)
-        )
-        .drive(with: self) { this, value in
-            let (times, selectedTime, ticketingTimes) = value
-            this.applySnapshot(
-                times: times,
-                selectedTime: selectedTime,
-                ticketingTimes: ticketingTimes
-            )
-            this.bottomButton.ctaButton.isEnabled = !selectedTime.isEmpty
-        }
-        .disposed(by: disposeBag)
+        composer.$state.observable
+            .map(\.times)
+            .distinctUntilChanged()
+            .drive(with: self) { this, times in
+                this.applySnapshot(times: times)
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.observable
+            .map(\.ticketingTimes)
+            .distinctUntilChanged()
+            .drive(with: self) { this, ticketingTimes in
+                this.bottomButton.ctaButton.isEnabled = !ticketingTimes.isEmpty
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -239,5 +227,5 @@ enum AlertTime: Int, CaseIterable {
 
 @available(iOS 17.0, *)
 #Preview {
-    AlarmSelectionViewController(composer: AlarmSelectionViewModel(ticketingTimes: ShowDetailEntity.mock.ticketingTimes))
+    AlarmSelectionViewController(composer: AlarmSelectionViewModel(state: .init(show: .mock, times: ReservationTimeEntity.mockList)))
 }

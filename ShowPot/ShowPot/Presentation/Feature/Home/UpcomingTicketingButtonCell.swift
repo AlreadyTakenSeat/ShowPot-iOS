@@ -45,7 +45,8 @@ final class UpcomingTicketingButtonCell: UICollectionViewCell {
         button.configuration = configuration
         
         button.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(50)
         }
     }
     

@@ -62,6 +62,8 @@ final class ArtistViewController: UIViewController, Composable {
         bindAction()
         
         bottomGradientView.layoutIfNeeded()
+        
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -265,11 +267,26 @@ private extension ArtistViewController {
         navigationBar.rx.backButtonTap
             .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
+        
+        bottomButton.ctaButton.rx.tap
+            .map { Action.bottomButtonTapped }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.prefetchItems
+            .map { Action.prefetchItems($0.map(\.item)) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.willDisplayCell
+            .map { Action.willDisplayCell($0.at.item) }
+            .bind(to: composer.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
         Driver.combineLatest(
-            composer.$state.observable.map(\.artists),
+            composer.$state.observable.map(\.artists.data),
             composer.$state.observable.map(\.selectedArtists)
         )
         .drive(with: self) { this, value in
@@ -286,6 +303,21 @@ private extension ArtistViewController {
                 this.updateBottomButtonVisibility(
                     showSubscribeButton: showSubscribeButton
                 )
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
             }
             .disposed(by: disposeBag)
     }

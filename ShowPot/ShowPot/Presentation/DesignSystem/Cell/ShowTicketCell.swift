@@ -153,7 +153,7 @@ private extension ShowTicketCell {
 @available(iOS 17.0, *)
 #Preview {
     let cell = ShowTicketCell()
-    cell.registration(showAlarm: ShowAlarmResponse.mock.toEntity())
+    cell.registration(showAlarm: .mock)
     cell.snp.makeConstraints { make in
         make.width.equalTo(258)
         make.height.equalTo(368)

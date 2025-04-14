@@ -7,12 +7,16 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class SPBottomSheet: UIViewController {
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
     lazy var button = SPCTAButton(title: buttonTitle)
+    
+    let disposeBag = DisposeBag()
     
     private let titleKey: String?
     private let message: String
@@ -57,6 +61,10 @@ private extension SPBottomSheet {
         view.addSubview(button)
         
         configurePresentation()
+        
+        button.rx.tap
+            .bind(to: rx.dismiss(animated: true))
+            .disposed(by: disposeBag)
     }
     
     func configureLayout() {
@@ -88,10 +96,7 @@ private extension SPBottomSheet {
         sheetPresentationController?.preferredCornerRadius = 0
         if #available(iOS 16.0, *) {
             sheetPresentationController?.detents = [
-                .custom { [weak self] _ in
-                    guard let `self` else { return 0 }
-                    return view.bounds.height
-                }
+                .custom { _ in return 217 }
             ]
         } else {
             sheetPresentationController?.detents = [.medium()]
@@ -108,8 +113,11 @@ private extension SPBottomSheet {
     }
     
     func configureMessageLabel() {
-        let nsStr = NSAttributedString(message, fontType: KRFont.H1)
-            .setForegroundColor(color: .gray000)
+        let nsStr = NSAttributedString(
+            message,
+            fontType: KRFont.H1,
+            multiline: true
+        ).setForegroundColor(color: .gray000)
         messageLabel.attributedText = nsStr
         messageLabel.numberOfLines = 0
         view.addSubview(messageLabel)

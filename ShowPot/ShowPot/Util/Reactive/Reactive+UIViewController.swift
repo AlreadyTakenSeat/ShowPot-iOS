@@ -45,4 +45,10 @@ extension Reactive where Base: UIViewController {
             base.navigationController?.popViewController(animated: animated)
         }
     }
+    
+    func dismiss(animated: Bool) -> Binder<Void> {
+        Binder(base) { base, _ in
+            base.dismiss(animated: animated)
+        }
+    }
 }

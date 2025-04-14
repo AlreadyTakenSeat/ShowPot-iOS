@@ -42,6 +42,7 @@ final class PlaceholderCell: UICollectionViewCell {
         placeholderLabel.numberOfLines = 0
         contentView.addSubview(placeholderLabel)
         
+        exploreButton.isHidden = true
         contentView.addSubview(exploreButton)
     }
     

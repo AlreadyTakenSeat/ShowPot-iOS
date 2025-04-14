@@ -57,6 +57,12 @@ final class SearchViewController: UIViewController, Composable {
         
         bindAction()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchTextField.textField.becomeFirstResponder()
+    }
 }
 
 // MARK: - Configure View
@@ -209,7 +215,7 @@ private extension SearchViewController {
         )
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
+            widthDimension: .absolute(100),
             heightDimension: .absolute(129)
         )
         let group = NSCollectionLayoutGroup.horizontal(
@@ -243,7 +249,7 @@ private extension SearchViewController {
     func configureShowsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(80)
+            heightDimension: .absolute(80)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
@@ -255,7 +261,7 @@ private extension SearchViewController {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(80)
+            heightDimension: .absolute(80)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -462,6 +468,24 @@ private extension SearchViewController {
             .bind(to: rx.popViewController(animated: true))
             .disposed(by: disposeBag)
         
+        searchResultsCollectionView.rx.itemSelected
+            .bind(with: self) { this, indexPath in
+                let item = this.searchResultsDataSource?.itemIdentifier(for: indexPath)
+                switch item {
+                case let .show(show):
+                    let state = ShowDetailViewModel.State(showId: show.id)
+                    let viewModel = ShowDetailViewModel(state: state)
+                    let viewController = ShowDetailViewController(viewModel: viewModel)
+                    this.navigationController?.pushViewController(
+                        viewController,
+                        animated: true
+                    )
+                case let .artist(artist):
+                    this.composer.action.accept(.artistCellItemSelected(indexPath.item))
+                default: return
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func bindState() {
@@ -475,8 +499,8 @@ private extension SearchViewController {
             .disposed(by: disposeBag)
         
         Driver.combineLatest(
-            composer.$state.observable.map(\.artists),
-            composer.$state.observable.map(\.shows)
+            composer.$state.observable.map(\.artists.data),
+            composer.$state.observable.map(\.shows.data)
         )
         .drive(with: self) { this, value in
             let (artists, shows) = value
@@ -497,6 +521,21 @@ private extension SearchViewController {
                     !query.isEmpty ? .icCancel : .icMagnifier
                 )
                 this.searchTextField.textField.text = query
+            }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginMessage)
+            .compactMap(\.self)
+            .drive(with: self) { this, message in
+                let bottomSheet = SPBottomSheet(
+                    message: message,
+                    buttonTitle: "3초만에 로그인하기"
+                )
+                bottomSheet.button.rx.tap
+                    .map { LoginViewController() }
+                    .bind(to: this.rx.pushViewController(animated: true))
+                    .disposed(by: bottomSheet.disposeBag)
+                this.present(bottomSheet, animated: true)
             }
             .disposed(by: disposeBag)
     }

@@ -1,0 +1,65 @@
+//
+//  SocialEndPoint.swift
+//  ShowPot
+//
+//  Created by 김도형 on 4/9/25.
+//
+
+import Foundation
+
+import Alamofire
+
+enum SocialEndPoint: EndPoint {
+    case appleToken(AppleTokenRequest)
+    case appleRevoke(AppleRevokeRequest)
+    
+    var baseURL: URL? {
+        return URL(string: "https://appleid.apple.com")
+    }
+    
+    var path: String {
+        switch self {
+        case .appleToken:
+            return "/auth/token"
+        case .appleRevoke:
+            return "/auth/revoke"
+        }
+    }
+    
+    var method: HTTPMethod {
+        switch self {
+        case .appleToken,
+             .appleRevoke:
+            return .post
+        }
+    }
+    
+    var headers: HTTPHeaders {
+        switch self {
+        case .appleToken,
+             .appleRevoke:
+            return ["Content-Type": "application/x-www-form-urlencoded"]
+        }
+    }
+    
+    var decoder: JSONDecoder {
+        return JSONDecoder()
+    }
+    
+    var encoder: (any ParameterEncoder)? {
+        switch self {
+        case .appleToken,
+             .appleRevoke:
+            return .urlEncodedForm
+        }
+    }
+    
+    var parameters: (any Encodable)? {
+        switch self {
+        case let .appleToken(model):
+            return model
+        case let .appleRevoke(model):
+            return model
+        }
+    }
+}

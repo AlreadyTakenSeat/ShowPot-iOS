@@ -55,11 +55,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
      - Note: 카카오 로그인 iOS 공식문서 - [카카오톡으로 로그인을 위한 설정](https://developers.kakao.com/docs/latest/ko/kakaologin/ios#before-you-begin-setting-for-kakaotalk)
      */
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-//        if let url = URLContexts.first?.url {
-//            if AuthApi.isKakaoTalkLoginUrl(url) {
-//                _ = AuthController.handleOpenUrl(url: url)
-//            }
-//        }
+        if let url = URLContexts.first?.url {
+            if AuthApi.isKakaoTalkLoginUrl(url) {
+                _ = AuthController.handleOpenUrl(url: url)
+            }
+        }
     }
     
 }

@@ -7,21 +7,22 @@
 
 import Foundation
 
+import Dependencies
 import RxCompose
 import RxSwift
 import RxCocoa
 
 final class ShowListViewModel: Composer {
     enum Action {
-        
+        case viewDidLoad
+        case prefetchItems([Int])
+        case willDisplayCell(Int)
+        case mutatedShows(Pageable<ShowEntity>)
     }
     
     struct State {
-        var notifications: [ShowEntity] = [
-            ShowEntity(id: "1", title: "티켓팅이 1시간 남았어요!", startAt: "1시간 후, 0,000 티켓팅이 오픈됩니다.😍", endAt: "", location: "1분전", imageURL: "https://example.com/show1.jpg"),
-            ShowEntity(id: "2", title: "티켓팅이 6시간 남았어요!", startAt: "6시간 후, 0,000 예매가 오픈됩니다.😍", endAt: "", location: "5시간 전", imageURL: "https://example.com/show2.jpg"),
-            ShowEntity(id: "3", title: "구독장르 공연이 오픈 되었어요!", startAt: "EDM 장르의 공연이 업데이트 되었습니다.", endAt: "", location: "6시간 전", imageURL: "https://example.com/show3.jpg")
-        ]
+        var notifications = Pageable<ShowEntity>()
+        var isPaging = false
     }
     
     @ComposableState
@@ -29,7 +30,57 @@ final class ShowListViewModel: Composer {
     var action = PublishRelay<Action>()
     var disposeBag = DisposeBag()
     
+    @Dependency(UserNotificationUseCase.self)
+    private var userNotificationUseCase
+    
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
-        return .none
+        switch action {
+        case .viewDidLoad:
+            return fetchNotificationList(shows: state.notifications)
+        case let .prefetchItems(indexes):
+            guard
+                !state.isPaging && state.notifications.hasNext,
+                indexes.contains(where: { state.notifications.size - 2 <= $0 })
+            else { return .none }
+            state.isPaging = true
+            return fetchNotificationList(shows: state.notifications)
+        case let .willDisplayCell(index):
+            guard
+                !state.isPaging && state.notifications.hasNext,
+                index >= state.notifications.size - 2
+            else { return .none }
+            state.isPaging = true
+            return fetchNotificationList(shows: state.notifications)
+        case let .mutatedShows(shows):
+            state.notifications.cursor = shows.cursor
+            state.notifications.hasNext = shows.hasNext
+            state.notifications.data.append(contentsOf: shows.data)
+            state.notifications.size += shows.size
+            state.isPaging = false
+            return .none
+        }
+    }
+}
+
+// MARK: - Functions
+private extension ShowListViewModel {
+    func fetchNotificationList(shows: Pageable<ShowEntity>) -> Observable<Effect<Action>> {
+        return .run { [useCase = self.userNotificationUseCase] effect in
+            let cursor = CursorEntity(
+                cursorId: shows.data.last?.id,
+                size: 30
+            )
+            var response = try await useCase.notificationList(cursor)
+            let shows: Pageable<ShowEntity> = Pageable(
+                size: response.size,
+                hasNext: response.hasNext,
+                data: response.data.map { $0.toShowEntity() },
+                cursor: Pageable.Cursor(
+                    id: response.cursor?.id,
+                    value: response.cursor?.value
+                )
+            )
+            effect.onNext(.send(.mutatedShows(shows)))
+        }
     }
 }
