@@ -7,33 +7,28 @@
 
 import UIKit
 
+import Dependencies
 import GoogleSignIn
 import KakaoSDKCommon
 import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  
+    @Dependency(\.firebaseRepository)
+    var firebaseRepository
+    @Dependency(\.notificationRepository)
+    private var notificationRepository
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        firebaseRepository.configureFirebase()
+
+        notificationRepository.requestAuthorization(application)
         
-        FirebaseApp.configure()
-        
-        UNUserNotificationCenter.current().delegate = self
-        
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: { _, _ in }
-        )
-        
-        application.registerForRemoteNotifications()
-        Messaging.messaging().delegate = self
-        
-        KakaoSDK.initSDK(appKey: Environment.kakaoClientID)
-        
-        TokenManager.shared.reissueToken()
-        
-        Thread.sleep(forTimeInterval: 1.0)  // 스플래시 화면 최소 표출 시간
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String {
+            print("카카오 네이티브 앱 키: \(kakaoAppKey)")
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
+
         return true
     }
     
@@ -57,33 +52,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 참고하면 좋은 사이트 : https://firebase.google.com/docs/auth/ios/google-signin?hl=ko
         return GIDSignIn.sharedInstance.handle(url)
     }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    // 백그라운드에서 푸시 알림을 탭했을 때 실행
-    func application(_ application: UIApplication,
-                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        LogHelper.info("APNS token: \(deviceToken)")
-        Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    // Foreground(앱 켜진 상태)에서도 알림 오는 설정
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner])
-    }
-}
-
-extension AppDelegate: MessagingDelegate {
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        LogHelper.info("Firebase registration token: \(String(describing: fcmToken))")
-        
-        if let pushToken = fcmToken {
-            TokenManager.shared.createPushTokens(pushToken: pushToken)
-        } else {
-            LogHelper.error("Error: No FCM Token")
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        let tokenParts = deviceToken.map { data in
+            String(format: "%02.2hhx", data)
         }
+        let token = tokenParts.joined()
+        print("APNs Device Token: \(token)")
+        firebaseRepository.updateAPNSToken(deviceToken)
     }
-    
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
+        print("fail: \(#function) -> \(error)")
+    }
 }

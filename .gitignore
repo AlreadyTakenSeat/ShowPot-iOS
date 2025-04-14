@@ -145,3 +145,11 @@ ShowPot/ShowPot/GoogleService-Info.plist
 ShowPot/ShowPot/GoogleService-Info.plist
 ShowPot/ShowPot/Resource/Configuration/ShowPot-Debug.xcconfig
 ShowPot/ShowPot/Resource/Configuration/ShowPot-Release.xcconfig
+
+### Auth Key
+*.p8
+
+### xcconfig ###
+*.xcconfig
+
+GID.plist

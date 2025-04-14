@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APPLE_KEY_ID</key>
+	<string>$(APPLE_KEY_ID)</string>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
+	<key>BASE_URL_PROD</key>
+	<string>$(BASE_URL_PROD)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -11,16 +15,30 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao11e18f86fa3892cb4be70ca7588284f1</string>
+				<string>kakao$(KAKAO_NATIVE_APP_KEY)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(GIDClientID_reversed)</string>
 			</array>
 		</dict>
 	</array>
-	<key>GOOGLE_CLIENT_ID</key>
-	<string>$(GOOGLE_CLIENT_ID)</string>
-	<key>GOOGLE_URL_SCHEMES</key>
-	<string>$(GOOGLE_URL_SCHEMES)</string>
-	<key>KAKAO_CLIENT_ID</key>
-	<string>$(KAKAO_CLIENT_ID)</string>
+	<key>GIDClientID</key>
+	<string>$(GIDClientID)</string>
+	<key>GIDClientID_reversed</key>
+	<string>$(GIDClientID_reversed)</string>
+	<key>KAKAO_NATIVE_APP_KEY</key>
+	<string>$(KAKAO_NATIVE_APP_KEY)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+	</array>
+	<key>TEAM_ID</key>
+	<string>$(TEAM_ID)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
