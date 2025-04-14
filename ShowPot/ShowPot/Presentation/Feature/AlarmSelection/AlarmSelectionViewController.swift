@@ -47,9 +47,13 @@ final class AlarmSelectionViewController: UIViewController, Composable {
         
         configureDataSource()
         
-        sheetPresentationController?.detents = [
-            .custom { _ in return 426 }
-        ]
+        if #available(iOS 16.0, *) {
+            sheetPresentationController?.detents = [
+                .custom { _ in return 426 }
+            ]
+        } else {
+            sheetPresentationController?.detents = [.medium()]
+        }
         sheetPresentationController?.preferredCornerRadius = 0
         sheetPresentationController?.prefersGrabberVisible = true
         
