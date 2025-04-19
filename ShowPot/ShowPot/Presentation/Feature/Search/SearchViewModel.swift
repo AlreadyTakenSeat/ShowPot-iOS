@@ -109,12 +109,13 @@ final class SearchViewModel: Composer {
                     artistId: state.artists.data[item].id ?? "",
                     item: item
                 )
-            } else {
+            } else if let spotifyId = state.artists.data[item].spotifyId {
                 return fetchArtistSubscribe(
-                    artistId: state.artists.data[item].spotifyId,
+                    artistId: spotifyId,
                     item: item
                 )
             }
+            return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
             return .none
