@@ -22,6 +22,7 @@ final class SubscribedArtistViewModel: Composer {
         case subscribeButtonTapped
         case artistViewModel(ArtistViewModel.Action)
         case mutatedLoginMessage(String)
+        case viewDidAppear
     }
     
     struct State {
@@ -86,6 +87,9 @@ final class SubscribedArtistViewModel: Composer {
             return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
+            return .none
+        case .viewDidAppear:
+            state.artistViewModel = nil
             return .none
         }
     }
