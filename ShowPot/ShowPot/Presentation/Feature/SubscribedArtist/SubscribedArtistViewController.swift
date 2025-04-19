@@ -26,6 +26,7 @@ final class SubscribedArtistViewController: UIViewController, Composable {
         frame: .zero,
         collectionViewLayout: createCompositionalLayout()
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -76,6 +77,8 @@ private extension SubscribedArtistViewController {
         configureCollectionView()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     func configureLayout() {
@@ -107,6 +110,11 @@ private extension SubscribedArtistViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(navigationBar.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -284,6 +292,11 @@ private extension SubscribedArtistViewController {
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

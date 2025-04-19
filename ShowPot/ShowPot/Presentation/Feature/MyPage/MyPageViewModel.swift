@@ -25,6 +25,12 @@ final class MyPageViewModel: Composer {
         var nickname: String?
         var subscribedArtistsCount: Int = 0
         var subscribedGenresCount: Int = 0
+        @PresentState
+        var isProfileLoading: Bool = true
+        @PresentState
+        var isGenresCountLoading: Bool = true
+        @PresentState
+        var isArtistsCountLoading: Bool = true
     }
     
     @ComposableState
@@ -38,18 +44,24 @@ final class MyPageViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidAppear:
+            state.isProfileLoading = true
+            state.isGenresCountLoading = true
+            state.isArtistsCountLoading = true
             return fetchProfile()
         case let .mutatedProfile(profile):
             state.nickname = profile.nickname
+            state.isProfileLoading = false
             return .merge(
                 fetchGenresSubscriptionCount(),
                 fetchArtistsSubscriptionCount()
             )
         case let .mutatedSubscribedArtistsCount(count):
             state.subscribedArtistsCount = count
+            state.isArtistsCountLoading = false
             return .none
         case let .mutatedSubscribedGenresCount(count):
             state.subscribedGenresCount = count
+            state.isGenresCountLoading = false
             return .none
         case .fetchProfileError:
             state.nickname = nil

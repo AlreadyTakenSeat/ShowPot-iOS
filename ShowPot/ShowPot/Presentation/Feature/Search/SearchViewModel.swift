@@ -39,6 +39,10 @@ final class SearchViewModel: Composer {
         var showSearchResult: Bool = false
         @PresentState
         var loginMessage: String?
+        @PresentState
+        var isShowsLoading = false
+        @PresentState
+        var isArtistsLoading = false
     }
     
     @ComposableState
@@ -64,6 +68,8 @@ final class SearchViewModel: Composer {
             state.recentQueries?.append(query)
             state.shows = Pageable<ShowEntity>()
             state.artists = Pageable<ArtistEntity>()
+            state.isShowsLoading = true
+            state.isArtistsLoading = true
             return .merge(
                 .send(.mutatedRecents),
                 fetchShowsSearch(shows: state.shows, search: query),
@@ -96,12 +102,14 @@ final class SearchViewModel: Composer {
             state.artists.hasNext = artists.hasNext
             state.artists.size = artists.size
             state.artists.data.append(contentsOf: artists.data)
+            state.isArtistsLoading = false
             return .none
         case let .mutatedShows(shows):
             state.shows.cursor = shows.cursor
             state.shows.hasNext = shows.hasNext
             state.shows.size = shows.size
             state.shows.data.append(contentsOf: shows.data)
+            state.isShowsLoading = false
             return .none
         case let .artistCellItemSelected(item):
             if let isSubcribed = state.artists.data[item].isSubscribed, isSubcribed {

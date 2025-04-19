@@ -34,6 +34,7 @@ final class MyShowViewController: UIViewController, Composable {
         frame: .zero,
         collectionViewLayout: createCompositionalLayout()
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -85,6 +86,8 @@ private extension MyShowViewController {
         configureHeaderView()
         
         configureCollectionView()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -113,6 +116,11 @@ private extension MyShowViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(dDayTitleLabel.snp.bottom).offset(24)
             make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -440,6 +448,15 @@ private extension MyShowViewController {
             this.showsIsEmpty = shows.isEmpty
             this.collectionView.collectionViewLayout = this.createCompositionalLayout()
         }
+        .disposed(by: disposeBag)
+        
+        Driver.combineLatest(
+            composer.$state.present(\.$isAlertListLoading),
+            composer.$state.present(\.$isInterestCountLoading)
+        )
+        .map { $0 || $1 }
+        .distinctUntilChanged()
+        .drive(loadingIndicator.rx.animating)
         .disposed(by: disposeBag)
     }
 }

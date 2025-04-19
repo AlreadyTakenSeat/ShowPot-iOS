@@ -43,6 +43,8 @@ final class AccountViewModel: Composer {
         var dismiss = false
         @PresentState
         var loginViewModel: LoginViewModel?
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @Dependency(AccountUseCase.self)
@@ -78,9 +80,11 @@ final class AccountViewModel: Composer {
                 return .none
             }
         case .viewDidLoad:
+            state.isLoading = true
             return fetchProfile()
         case let .mutatedProfile(profile):
             state.profile = profile
+            state.isLoading = false
             return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message

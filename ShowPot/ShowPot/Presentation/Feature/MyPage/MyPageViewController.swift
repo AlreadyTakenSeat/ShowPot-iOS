@@ -22,6 +22,7 @@ final class MyPageViewController: UIViewController, Composable {
         collectionViewLayout: createCompositionalLayout()
     )
     private var dataSource: DataSource?
+    private let loadingIndicator = SPLoadingIndicator()
     
     @Compose
     var composer = MyPageViewModel()
@@ -70,6 +71,8 @@ private extension MyPageViewController {
         configureCollectionView()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -92,6 +95,11 @@ private extension MyPageViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -241,6 +249,16 @@ private extension MyPageViewController {
                 genresCount: genresCount
             )
         }
+        .disposed(by: disposeBag)
+        
+        Driver.combineLatest(
+            composer.$state.present(\.$isProfileLoading),
+            composer.$state.present(\.$isArtistsCountLoading),
+            composer.$state.present(\.$isGenresCountLoading)
+        )
+        .map { $0 || $1 || $2 }
+        .distinctUntilChanged()
+        .drive(loadingIndicator.rx.animating)
         .disposed(by: disposeBag)
     }
 }

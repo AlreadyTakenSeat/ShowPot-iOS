@@ -32,6 +32,8 @@ final class GenreViewModel: Composer {
         var selectedGenre: GenreEntity?
         @PresentState
         var loginMessage: String?
+        @PresentState
+        var isLoading: Bool = false
     }
     
     var disposeBag = DisposeBag()
@@ -64,11 +66,13 @@ final class GenreViewModel: Composer {
             state.genres.data.append(contentsOf: genres.data)
             state.selectedGenre = nil
             state.showSubscribeButton = false
+            state.isLoading = false
             return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
             return .none
         case .viewDidLoad:
+            state.isLoading = true
             return fetchGenreList(genres: state.genres)
         case .unsubscribeAlertButtonTapped:
             return fetchGenreUnsubscribe(

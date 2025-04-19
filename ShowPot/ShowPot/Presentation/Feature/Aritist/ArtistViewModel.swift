@@ -37,6 +37,8 @@ final class ArtistViewModel: Composer {
         @PresentState
         var loginMessage: String?
         var isPaging = false
+        @PresentState
+        var isLoading: Bool = false
     }
     
     var disposeBag = DisposeBag()
@@ -79,8 +81,10 @@ final class ArtistViewModel: Composer {
             state.artists.data.append(contentsOf: artists.data)
             state.artists.size += artists.size
             state.isPaging = false
+            state.isLoading = false
             return .none
         case .viewDidLoad:
+            state.isLoading = true
             return fetchArtistsUnsubscriptionList(artists: state.artists)
         case let .prefetchItems(indexes):
             guard

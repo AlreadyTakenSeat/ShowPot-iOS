@@ -24,6 +24,10 @@ final class MyShowViewModel: Composer {
         var alertsCount = 0
         var interestCount = 0
         var ticketingCount = 0
+        @PresentState
+        var isAlertListLoading = true
+        @PresentState
+        var isInterestCountLoading = true
     }
     
     @ComposableState
@@ -37,6 +41,8 @@ final class MyShowViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidAppear:
+            state.isAlertListLoading = true
+            state.isInterestCountLoading = true
             return .merge(
                 fetchAlertList(shows: state.shows),
                 fetchInterestCount()
@@ -46,8 +52,10 @@ final class MyShowViewModel: Composer {
             state.shows.hasNext = shows.hasNext
             state.shows.data.append(contentsOf: shows.data)
             state.shows.size += shows.size
+            state.isAlertListLoading = false
             return .none
         case let .mutatedInterestCount(count):
+            state.isInterestCountLoading = false
             state.interestCount = count
             return .none
         }

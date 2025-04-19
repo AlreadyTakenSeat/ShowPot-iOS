@@ -34,6 +34,8 @@ final class ShowDetailViewModel: Composer {
         var loginMessage: String?
         @PresentState
         var toasMessage: String?
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @ComposableState
@@ -65,9 +67,11 @@ final class ShowDetailViewModel: Composer {
         case .alarmSelectionViewModel:
             return .none
         case .viewDidLoad:
+            state.isLoading = true
             return fetchShowDetail(id: state.showId)
         case let .mutatedShow(showDetail):
             state.show = showDetail
+            state.isLoading = false
             return .none
         case let .mutatedIsInterested(isInterested):
             state.show?.isInterested = isInterested

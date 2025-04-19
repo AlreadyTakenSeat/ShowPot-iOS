@@ -30,6 +30,7 @@ final class ArtistViewController: UIViewController, Composable {
         endPoint: CGPoint(x: 0, y: 1),
         locations: [0, 1]
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -88,6 +89,8 @@ private extension ArtistViewController {
         configureBottomButton()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     func configureLayout() {
@@ -117,6 +120,11 @@ private extension ArtistViewController {
             make.horizontalEdges.equalToSuperview()
             // 동적으로 변경할 제약 조건 저장
             bottomButtonBottomConstraint = make.bottom.equalToSuperview().offset(100).constraint
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -324,6 +332,11 @@ private extension ArtistViewController {
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

@@ -32,6 +32,8 @@ final class SubscribedArtistViewModel: Composer {
         var artistViewModel: ArtistViewModel?
         @PresentState
         var loginMessage: String?
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @ComposableState
@@ -52,6 +54,7 @@ final class SubscribedArtistViewModel: Composer {
             let artistIds = [artist.id ?? ""]
             return fetchArtistUnsubscribe(artistIds: artistIds)
         case .viewDidLoad:
+            state.isLoading = true
             return fetchSubscriptionList(artists: state.artists)
         case let .prefetchItems(indexes):
             guard
@@ -73,6 +76,7 @@ final class SubscribedArtistViewModel: Composer {
             state.artists.data.append(contentsOf: artists.data)
             state.artists.size += artists.size
             state.isPaging = false
+            state.isLoading = false
             return .none
         case .subscribeButtonTapped:
             let viewModel = ArtistViewModel()

@@ -22,6 +22,7 @@ final class ShowListViewController: UIViewController, Composable {
         frame: .zero,
         collectionViewLayout: createFlowLayout()
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -63,9 +64,14 @@ final class ShowListViewController: UIViewController, Composable {
 private extension ShowListViewController {
     private func configureUI() {
         view.backgroundColor = .gray700
+        
         configureNavigationBar()
+        
         configureEmptyView()
+        
         configureCollectionView()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -93,6 +99,11 @@ private extension ShowListViewController {
             make.top.equalTo(navigationBar.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -232,6 +243,11 @@ private extension ShowListViewController {
                 this.emptyView.isHidden = !notifications.isEmpty
                 this.collectionView.isHidden = notifications.isEmpty
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }
