@@ -45,12 +45,8 @@ final class AccountViewController: UIViewController, Composable {
         bindState()
         
         bindAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        composer.action.accept(.viewDidAppear)
+        composer.action.accept(.viewDidLoad)
     }
 }
 
@@ -182,8 +178,8 @@ private extension AccountViewController {
                     buttonTitle: "3초만에 로그인하기"
                 )
                 bottomSheet.button.rx.tap
-                    .map { LoginViewController() }
-                    .bind(to: this.rx.pushViewController(animated: true))
+                    .map { Action.bottomSheetButtonTapped }
+                    .bind(to: this.composer.action)
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
@@ -193,6 +189,12 @@ private extension AccountViewController {
             .filter(\.self)
             .map { _ in () }
             .drive(rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$loginViewModel)
+            .compactMap(\.self)
+            .map { LoginViewController(viewModel: $0) }
+            .drive(rx.pushViewController(animated: true))
             .disposed(by: disposeBag)
     }
 }

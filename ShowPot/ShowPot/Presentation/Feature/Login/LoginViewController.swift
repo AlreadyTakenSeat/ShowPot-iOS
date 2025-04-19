@@ -31,7 +31,13 @@ final class LoginViewController: UIViewController, Composable {
     var disposeBag = DisposeBag()
 
     // MARK: - Initialization
-    init() {
+    init(viewModel: LoginViewModel? = nil) {
+        if let viewModel {
+            self.composer = viewModel
+        } else {
+            self.composer = LoginViewModel()
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -253,7 +259,7 @@ private extension LoginViewController {
     func bindState() {
         composer.$state.present(\.$loginDone)
             .filter(\.self)
-            .map { _ in Void() }
+            .map { _ in () }
             .drive(rx.popViewController(animated: true))
             .disposed(by: disposeBag)
     }

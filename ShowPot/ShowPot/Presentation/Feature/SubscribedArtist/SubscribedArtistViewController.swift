@@ -56,6 +56,12 @@ final class SubscribedArtistViewController: UIViewController, Composable {
         
         composer.action.accept(.viewDidLoad)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        composer.action.accept(.viewDidAppear)
+    }
 }
 
 // MARK: - Configure View

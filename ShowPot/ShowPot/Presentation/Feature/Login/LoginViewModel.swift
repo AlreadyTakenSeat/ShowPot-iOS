@@ -18,7 +18,12 @@ final class LoginViewModel: Composer {
         case googleLoginButtonTapped
         case appleLoginButtonTapped
         case login(LoginEntity)
+        case delegate(Delegate)
         case loginDone
+        
+        enum Delegate {
+            case loginDone
+        }
     }
     
     struct State {
@@ -81,6 +86,8 @@ final class LoginViewModel: Composer {
             }
         case .loginDone:
             state.loginDone = true
+            return .send(.delegate(.loginDone))
+        case .delegate:
             return .none
         }
     }
