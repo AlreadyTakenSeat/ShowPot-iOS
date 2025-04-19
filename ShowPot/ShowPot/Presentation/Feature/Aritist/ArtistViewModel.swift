@@ -22,6 +22,11 @@ final class ArtistViewModel: Composer {
         case viewDidLoad
         case prefetchItems([Int])
         case willDisplayCell(Int)
+        case delegate(Delegate)
+        
+        enum Delegate {
+            case resetSelection
+        }
     }
     
     struct State {
@@ -45,6 +50,7 @@ final class ArtistViewModel: Composer {
     
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
+        case .delegate: return .none
         case let .collectionViewItemSelected(item):
             let artist = state.artists.data[item]
             if state.selectedArtists.contains(artist) {
@@ -60,12 +66,12 @@ final class ArtistViewModel: Composer {
             }
             state.selectedArtists.removeAll()
             state.showSubscribeButton = false
-            return .none
+            return .send(.delegate(.resetSelection))
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
             return .none
         case .bottomButtonTapped:
-            let spotifyIds = state.selectedArtists.map(\.spotifyId)
+            let spotifyIds = state.selectedArtists.compactMap(\.spotifyId)
             return fetchArtistSubscribe(spotifiyIds: spotifyIds)
         case let .mutatedArtists(artists):
             state.artists.cursor = artists.cursor

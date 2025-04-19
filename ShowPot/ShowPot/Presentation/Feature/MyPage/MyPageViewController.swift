@@ -198,7 +198,7 @@ private extension MyPageViewController {
             .compactMap { this, indexPath -> UIViewController? in
                 let item = this.dataSource?.itemIdentifier(for: indexPath)
                 switch item {
-                case .subscribedArtists: return ArtistViewController()
+                case .subscribedArtists: return SubscribedArtistViewController()
                 case .subscribedGenres: return GenreViewController()
                 default: return nil
                 }

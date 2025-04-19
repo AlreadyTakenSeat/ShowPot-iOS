@@ -34,14 +34,19 @@ final class ArtistViewController: UIViewController, Composable {
     private var dataSource: DataSource?
     
     @Compose
-    var composer = ArtistViewModel()
+    var composer: ArtistViewModel
     var disposeBag = DisposeBag()
     
     // 버튼의 제약 조건을 동적으로 변경하기 위해 저장
     private var bottomButtonBottomConstraint: Constraint?
     
     // MARK: - Initialization
-    init() {
+    init(viewModel: ArtistViewModel? = nil) {
+        if let viewModel {
+            self.composer = viewModel
+        } else {
+            self.composer = ArtistViewModel()
+        }
         super.init(nibName: nil, bundle: nil)
     }
     

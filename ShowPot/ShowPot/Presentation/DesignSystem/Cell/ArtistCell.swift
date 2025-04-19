@@ -8,6 +8,7 @@
 import UIKit
 
 import Kingfisher
+import RxSwift
 import SnapKit
 
 final class ArtistCell: UICollectionViewCell {
@@ -15,7 +16,9 @@ final class ArtistCell: UICollectionViewCell {
     private let dimmedView = UIView()
     private let nameLabel = UILabel()
     private let iconView = UIImageView()
-    private let deleteButton = UIButton()
+    let deleteButton = UIButton()
+    
+    var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +30,12 @@ final class ArtistCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
     }
     
     override func layoutIfNeeded() {
@@ -47,7 +56,7 @@ final class ArtistCell: UICollectionViewCell {
         
         nameLabel.text = artist.name
         
-        if let isSubscribed = artist.isSubscribed {
+        if let isSubscribed = artist.isSubscribed, !isDelete {
             configureAlarmState(isSubscribed: isSubscribed)
         } else if let isSelected {
             configureDefaultState(isSelected: isSelected)
