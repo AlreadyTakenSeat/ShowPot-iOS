@@ -23,6 +23,7 @@ final class SubscribedArtistViewModel: Composer {
         case artistViewModel(ArtistViewModel.Action)
         case mutatedLoginMessage(String)
         case viewDidAppear
+        case fetchArtistsError
     }
     
     struct State {
@@ -95,6 +96,9 @@ final class SubscribedArtistViewModel: Composer {
         case .viewDidAppear:
             state.artistViewModel = nil
             return .none
+        case .fetchArtistsError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -120,11 +124,11 @@ private extension SubscribedArtistViewModel {
                 cursorId: artists.data.last?.id,
                 size: 30
             )
-            let response = try await useCase.subscriptionList(cursor: cursor)
+            let response = try await useCase.subscriptionList(cursor)
             effect.onNext(.send(.mutatedArtists(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistsError)
         }
     }
 }

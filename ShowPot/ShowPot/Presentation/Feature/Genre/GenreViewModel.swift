@@ -21,6 +21,7 @@ final class GenreViewModel: Composer {
         case viewDidLoad
         case bottomButtonTapped
         case resetGenreList
+        case fetchGenreListError
     }
     
     struct State {
@@ -84,6 +85,9 @@ final class GenreViewModel: Composer {
         case .resetGenreList:
             state.genres = Pageable<GenreEntity>()
             return fetchGenreList(genres: state.genres)
+        case .fetchGenreListError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -96,11 +100,11 @@ private extension GenreViewModel {
                 cursorId: genres.data.last?.id,
                 size: 30
             )
-            let response = try await useCase.genreList(cursor: cursor)
+            let response = try await useCase.genreList(cursor)
             effect.onNext(.send(.mutatedGenres(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchGenreListError)
         }
     }
     

@@ -19,6 +19,8 @@ final class MyPageViewModel: Composer {
         case mutatedSubscribedArtistsCount(Int)
         case mutatedSubscribedGenresCount(Int)
         case fetchProfileError
+        case fetchArtistSubscriptionCountError
+        case fetchGenreSubscriptionCountError
     }
     
     struct State {
@@ -67,6 +69,15 @@ final class MyPageViewModel: Composer {
             state.nickname = nil
             state.subscribedArtistsCount = 0
             state.subscribedGenresCount = 0
+            state.isProfileLoading = false
+            state.isArtistsCountLoading = false
+            state.isGenresCountLoading = false
+            return .none
+        case .fetchArtistSubscriptionCountError:
+            state.isArtistsCountLoading = false
+            return .none
+        case .fetchGenreSubscriptionCountError:
+            state.isGenresCountLoading = false
             return .none
         }
     }
@@ -80,7 +91,7 @@ private extension MyPageViewModel {
             effect.onNext(.send(.mutatedSubscribedArtistsCount(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistSubscriptionCountError)
         }
     }
     
@@ -90,7 +101,7 @@ private extension MyPageViewModel {
             effect.onNext(.send(.mutatedSubscribedGenresCount(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchGenreSubscriptionCountError)
         }
     }
     

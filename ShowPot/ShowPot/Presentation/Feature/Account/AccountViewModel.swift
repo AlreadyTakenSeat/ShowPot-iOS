@@ -25,6 +25,7 @@ final class AccountViewModel: Composer {
         case bottomSheetButtonTapped
         case loginViewModel(LoginViewModel.Action)
         case delegate(Delegate)
+        case fetchProfileError
         
         enum Delegate {
             case loginDone
@@ -88,6 +89,7 @@ final class AccountViewModel: Composer {
             return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
+            state.isLoading = false
             return .none
         case .mutatedDismiss:
             state.dismiss = true
@@ -105,6 +107,9 @@ final class AccountViewModel: Composer {
             )
         case .loginViewModel: return .none
         case .delegate: return .none
+        case .fetchProfileError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -120,7 +125,7 @@ private extension AccountViewModel {
             case SPError.tokenNotFound,
                  SPError.reissueFail:
                 return .send(.mutatedLoginMessage("로그인 후 다채로운\n내한공연을 만나보세요."))
-            default: return .none
+            default: return .send(.fetchProfileError)
             }
         }
     }

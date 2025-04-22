@@ -23,6 +23,7 @@ final class ArtistViewModel: Composer {
         case prefetchItems([Int])
         case willDisplayCell(Int)
         case delegate(Delegate)
+        case fetchArtistsUnsubscriptionListError
         
         enum Delegate {
             case resetSelection
@@ -71,6 +72,7 @@ final class ArtistViewModel: Composer {
             return .send(.delegate(.resetSelection))
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
+            state.isLoading = false
             return .none
         case .bottomButtonTapped:
             let spotifyIds = state.selectedArtists.compactMap(\.spotifyId)
@@ -100,6 +102,9 @@ final class ArtistViewModel: Composer {
             else { return .none }
             state.isPaging = true
             return fetchArtistsUnsubscriptionList(artists: state.artists)
+        case .fetchArtistsUnsubscriptionListError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -126,11 +131,11 @@ private extension ArtistViewModel {
                 cursorId: artists.data.last?.id,
                 size: 30
             )
-            let response = try await useCase.unsubscriptionList(cursor: cursor)
+            let response = try await useCase.unsubscriptionList(cursor)
             effect.onNext(.send(.mutatedArtists(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistsUnsubscriptionListError)
         }
     }
 }

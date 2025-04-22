@@ -23,6 +23,7 @@ final class ShowDetailViewModel: Composer {
         case mutatedLoginMessage(String)
         case mutatedReservations([ReservationTimeEntity])
         case mutatedToastMessage(String)
+        case fetchShowDetailError
     }
     
     struct State {
@@ -98,6 +99,9 @@ final class ShowDetailViewModel: Composer {
         case let .mutatedToastMessage(message):
             state.toasMessage = message
             return .none
+        case .fetchShowDetailError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -111,7 +115,7 @@ private extension ShowDetailViewModel {
             effect.onNext(.send(.mutatedShow(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchShowDetailError)
         }
     }
     

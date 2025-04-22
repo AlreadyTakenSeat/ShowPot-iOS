@@ -18,6 +18,7 @@ final class ShowListViewModel: Composer {
         case prefetchItems([Int])
         case willDisplayCell(Int)
         case mutatedShows(Pageable<ShowEntity>)
+        case fetchShowsError
     }
     
     struct State {
@@ -62,6 +63,9 @@ final class ShowListViewModel: Composer {
             state.isPaging = false
             state.isLoading = false
             return .none
+        case .fetchShowsError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -85,6 +89,8 @@ private extension ShowListViewModel {
                 )
             )
             effect.onNext(.send(.mutatedShows(shows)))
+        } catch: { error in
+            return .send(.fetchShowsError)
         }
     }
 }
