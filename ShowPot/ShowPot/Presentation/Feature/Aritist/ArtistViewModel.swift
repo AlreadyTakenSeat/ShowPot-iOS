@@ -22,6 +22,12 @@ final class ArtistViewModel: Composer {
         case viewDidLoad
         case prefetchItems([Int])
         case willDisplayCell(Int)
+        case delegate(Delegate)
+        case fetchArtistsUnsubscriptionListError
+        
+        enum Delegate {
+            case resetSelection
+        }
     }
     
     struct State {
@@ -32,6 +38,8 @@ final class ArtistViewModel: Composer {
         @PresentState
         var loginMessage: String?
         var isPaging = false
+        @PresentState
+        var isLoading: Bool = false
     }
     
     var disposeBag = DisposeBag()
@@ -45,6 +53,7 @@ final class ArtistViewModel: Composer {
     
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
+        case .delegate: return .none
         case let .collectionViewItemSelected(item):
             let artist = state.artists.data[item]
             if state.selectedArtists.contains(artist) {
@@ -60,12 +69,13 @@ final class ArtistViewModel: Composer {
             }
             state.selectedArtists.removeAll()
             state.showSubscribeButton = false
-            return .none
+            return .send(.delegate(.resetSelection))
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
+            state.isLoading = false
             return .none
         case .bottomButtonTapped:
-            let spotifyIds = state.selectedArtists.map(\.spotifyId)
+            let spotifyIds = state.selectedArtists.compactMap(\.spotifyId)
             return fetchArtistSubscribe(spotifiyIds: spotifyIds)
         case let .mutatedArtists(artists):
             state.artists.cursor = artists.cursor
@@ -73,8 +83,10 @@ final class ArtistViewModel: Composer {
             state.artists.data.append(contentsOf: artists.data)
             state.artists.size += artists.size
             state.isPaging = false
+            state.isLoading = false
             return .none
         case .viewDidLoad:
+            state.isLoading = true
             return fetchArtistsUnsubscriptionList(artists: state.artists)
         case let .prefetchItems(indexes):
             guard
@@ -90,6 +102,9 @@ final class ArtistViewModel: Composer {
             else { return .none }
             state.isPaging = true
             return fetchArtistsUnsubscriptionList(artists: state.artists)
+        case .fetchArtistsUnsubscriptionListError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -116,11 +131,11 @@ private extension ArtistViewModel {
                 cursorId: artists.data.last?.id,
                 size: 30
             )
-            let response = try await useCase.unsubscriptionList(cursor: cursor)
+            let response = try await useCase.unsubscriptionList(cursor)
             effect.onNext(.send(.mutatedArtists(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistsUnsubscriptionListError)
         }
     }
 }

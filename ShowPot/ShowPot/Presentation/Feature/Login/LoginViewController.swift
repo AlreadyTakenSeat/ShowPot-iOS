@@ -25,13 +25,20 @@ final class LoginViewController: UIViewController, Composable {
     private let kakaoLoginButton = UIButton()
     private let googleLoginButton = UIButton()
     private let appleLoginButton = UIButton()
+    private let loadingIndicator = SPLoadingIndicator()
     
     @Compose
     var composer = LoginViewModel()
     var disposeBag = DisposeBag()
 
     // MARK: - Initialization
-    init() {
+    init(viewModel: LoginViewModel? = nil) {
+        if let viewModel {
+            self.composer = viewModel
+        } else {
+            self.composer = LoginViewModel()
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,6 +74,8 @@ private extension LoginViewController {
         configureDrumImageView()
         
         configureButtonStackView()
+        
+        view.addSubview(loadingIndicator)
     }
     
     func configureLayout() {
@@ -96,6 +105,11 @@ private extension LoginViewController {
         buttonStackView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(56)
             make.horizontalEdges.equalToSuperview().inset(16)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -253,8 +267,13 @@ private extension LoginViewController {
     func bindState() {
         composer.$state.present(\.$loginDone)
             .filter(\.self)
-            .map { _ in Void() }
+            .map { _ in () }
             .drive(rx.popViewController(animated: true))
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

@@ -19,12 +19,20 @@ final class MyPageViewModel: Composer {
         case mutatedSubscribedArtistsCount(Int)
         case mutatedSubscribedGenresCount(Int)
         case fetchProfileError
+        case fetchArtistSubscriptionCountError
+        case fetchGenreSubscriptionCountError
     }
     
     struct State {
         var nickname: String?
         var subscribedArtistsCount: Int = 0
         var subscribedGenresCount: Int = 0
+        @PresentState
+        var isProfileLoading: Bool = true
+        @PresentState
+        var isGenresCountLoading: Bool = true
+        @PresentState
+        var isArtistsCountLoading: Bool = true
     }
     
     @ComposableState
@@ -38,23 +46,38 @@ final class MyPageViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidAppear:
+            state.isProfileLoading = true
+            state.isGenresCountLoading = true
+            state.isArtistsCountLoading = true
             return fetchProfile()
         case let .mutatedProfile(profile):
             state.nickname = profile.nickname
+            state.isProfileLoading = false
             return .merge(
                 fetchGenresSubscriptionCount(),
                 fetchArtistsSubscriptionCount()
             )
         case let .mutatedSubscribedArtistsCount(count):
             state.subscribedArtistsCount = count
+            state.isArtistsCountLoading = false
             return .none
         case let .mutatedSubscribedGenresCount(count):
             state.subscribedGenresCount = count
+            state.isGenresCountLoading = false
             return .none
         case .fetchProfileError:
             state.nickname = nil
             state.subscribedArtistsCount = 0
             state.subscribedGenresCount = 0
+            state.isProfileLoading = false
+            state.isArtistsCountLoading = false
+            state.isGenresCountLoading = false
+            return .none
+        case .fetchArtistSubscriptionCountError:
+            state.isArtistsCountLoading = false
+            return .none
+        case .fetchGenreSubscriptionCountError:
+            state.isGenresCountLoading = false
             return .none
         }
     }
@@ -68,7 +91,7 @@ private extension MyPageViewModel {
             effect.onNext(.send(.mutatedSubscribedArtistsCount(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistSubscriptionCountError)
         }
     }
     
@@ -78,7 +101,7 @@ private extension MyPageViewModel {
             effect.onNext(.send(.mutatedSubscribedGenresCount(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchGenreSubscriptionCountError)
         }
     }
     

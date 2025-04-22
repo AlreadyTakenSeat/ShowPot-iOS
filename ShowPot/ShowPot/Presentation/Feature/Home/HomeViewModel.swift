@@ -19,6 +19,10 @@ final class HomeViewModel: Composer {
         case mutatedArtists(Pageable<ArtistEntity>)
         case mutatedUpcomingShows(Pageable<ShowOpenEntity>)
         case mutatedRecommendedShows(Pageable<ShowOpenEntity>)
+        case fetchGenresError
+        case fetchArtistsError
+        case fetchUpcomingShowsError
+        case fetchRecommendedShowsError
     }
     
     struct State {
@@ -26,6 +30,14 @@ final class HomeViewModel: Composer {
         var artists = Pageable<ArtistEntity>(size: 10)
         var upcomingShows = Pageable<ShowOpenEntity>()
         var recommendedShows = Pageable<ShowOpenEntity>()
+        @PresentState
+        var isGenresLoading: Bool = true
+        @PresentState
+        var isArtistsLoading: Bool = true
+        @PresentState
+        var isUpcomingShowsLoading: Bool = true
+        @PresentState
+        var isRecommendedShowsLoading: Bool = true
     }
     
     var disposeBag = DisposeBag()
@@ -51,24 +63,40 @@ final class HomeViewModel: Composer {
             state.artists.hasNext = artists.hasNext
             state.artists.size = artists.size
             state.artists.data.append(contentsOf: artists.data)
+            state.isArtistsLoading = false
             return .none
         case let .mutatedGenres(genres):
             state.genres.cursor = genres.cursor
             state.genres.hasNext = genres.hasNext
             state.genres.size = genres.size
             state.genres.data.append(contentsOf: genres.data)
+            state.isGenresLoading = false
             return .none
         case let .mutatedUpcomingShows(upcomingShows):
             state.upcomingShows.cursor = upcomingShows.cursor
             state.upcomingShows.hasNext = upcomingShows.hasNext
             state.upcomingShows.size = upcomingShows.size
             state.upcomingShows.data.append(contentsOf: upcomingShows.data)
+            state.isUpcomingShowsLoading = false
             return .none
         case let .mutatedRecommendedShows(recommendedShows):
             state.recommendedShows.cursor = recommendedShows.cursor
             state.recommendedShows.hasNext = recommendedShows.hasNext
             state.recommendedShows.size = recommendedShows.size
             state.recommendedShows.data.append(contentsOf: recommendedShows.data)
+            state.isRecommendedShowsLoading = false
+            return .none
+        case .fetchGenresError:
+            state.isGenresLoading = false
+            return .none
+        case .fetchArtistsError:
+            state.isArtistsLoading = false
+            return .none
+        case .fetchUpcomingShowsError:
+            state.isUpcomingShowsLoading = false
+            return .none
+        case .fetchRecommendedShowsError:
+            state.isRecommendedShowsLoading = false
             return .none
         }
     }
@@ -86,7 +114,7 @@ private extension HomeViewModel {
             effect.onNext(.send(.mutatedGenres(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchGenresError)
         }
     }
     
@@ -96,11 +124,11 @@ private extension HomeViewModel {
                 cursorId: artists.data.last?.id,
                 size: artists.size
             )
-            let response = try await useCase.artistList(cursor: cursor)
+            let response = try await useCase.artistList(cursor)
             effect.onNext(.send(.mutatedArtists(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchArtistsError)
         }
     }
     
@@ -112,11 +140,11 @@ private extension HomeViewModel {
                 cursorId: upcomingShows.data.last?.id,
                 size: 2
             )
-            let response = try await useCase.shows(model: model)
+            let response = try await useCase.shows(model)
             effect.onNext(.send(.mutatedUpcomingShows(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchUpcomingShowsError)
         }
     }
     
@@ -128,11 +156,11 @@ private extension HomeViewModel {
                 cursorId: recommendedShows.data.last?.id,
                 size: 10
             )
-            let response = try await useCase.shows(model: model)
+            let response = try await useCase.shows(model)
             effect.onNext(.send(.mutatedRecommendedShows(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchRecommendedShowsError)
         }
     }
 }

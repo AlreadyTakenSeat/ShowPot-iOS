@@ -30,6 +30,7 @@ final class GenreViewController: UIViewController, Composable {
         endPoint: CGPoint(x: 0, y: 1),
         locations: [0, 1]
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -82,6 +83,8 @@ private extension GenreViewController {
         configureBottomButton()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -112,6 +115,11 @@ private extension GenreViewController {
             make.horizontalEdges.equalToSuperview()
             // safeAreaLayoutGuide 기준으로 설정, 초기에는 숨김 위치
             bottomButtonBottomConstraint = make.bottom.equalToSuperview().offset(100).constraint
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -371,6 +379,11 @@ private extension GenreViewController {
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

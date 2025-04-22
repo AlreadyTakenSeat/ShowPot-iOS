@@ -46,11 +46,12 @@ final class SPTabBar: UIView {
             button.rx.tap.map { index }
         }
         Observable.merge(tapObservables)
-            .subscribe(onNext: { [weak self] index in
-                self?.selectedIndex.onNext(index)
+            .bind(with: self) { this, index in
+                this.selectedIndex.onNext(index)
                 // 버튼 탭 시 레이아웃과 인디케이터를 애니메이션으로 업데이트
-                self?.animateLayoutAndIndicator(to: index)
-            }).disposed(by: disposeBag)
+                this.animateLayoutAndIndicator(to: index)
+            }
+            .disposed(by: disposeBag)
         
         for (index, button) in tabButtons.enumerated() {
             selectedIndex.map { $0 == index }
@@ -89,9 +90,9 @@ private extension SPTabBar {
     
     func configureStackView() {
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 68
+        stackView.spacing = 0
         addSubview(stackView)
     }
     
@@ -115,6 +116,12 @@ private extension SPTabBar {
             config.imagePadding = 6 // 이미지와 텍스트 간격
             config.baseBackgroundColor = .clear
             config.contentInsets = .zero
+            config.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 28,
+                bottom: 8,
+                trailing: 28
+            )
             
             // 선택 상태
             var selectedConfig = config
