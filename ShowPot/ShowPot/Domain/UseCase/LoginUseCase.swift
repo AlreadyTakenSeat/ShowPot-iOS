@@ -31,4 +31,6 @@ extension LoginUseCase: TestDependencyKey {
             fetchFCMToken: { "" }
         )
     }()
+    
+    static var previewValue: LoginUseCase = testValue
 }

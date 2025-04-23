@@ -38,4 +38,6 @@ extension SearchUseCase: TestDependencyKey {
             subscribe: { _ in }
         )
     }()
+    
+    static var previewValue: SearchUseCase = testValue
 }

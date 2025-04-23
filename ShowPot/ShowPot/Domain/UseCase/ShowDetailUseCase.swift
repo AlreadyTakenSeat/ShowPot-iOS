@@ -45,4 +45,6 @@ extension ShowDetailUseCase: TestDependencyKey {
             fetchFCMToken: { "" }
         )
     }()
+    
+    static var previewValue: ShowDetailUseCase = testValue
 }

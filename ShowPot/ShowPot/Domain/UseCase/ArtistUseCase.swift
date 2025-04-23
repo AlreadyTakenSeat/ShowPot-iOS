@@ -27,4 +27,6 @@ extension ArtistUseCase: TestDependencyKey {
             unsubscriptionList: { _ in .mock(ArtistEntity.mockList) }
         )
     }()
+    
+    static var previewValue: ArtistUseCase = testValue
 }

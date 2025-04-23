@@ -25,4 +25,6 @@ extension MyPageUseCase: TestDependencyKey {
             genresSubscriptionCount: { 0 }
         )
     }()
+    
+    static var previewValue: MyPageUseCase = testValue
 }

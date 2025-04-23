@@ -25,4 +25,6 @@ extension UserNotificationUseCase: TestDependencyKey {
             exist: { true }
         )
     }()
+    
+    static var previewValue: UserNotificationUseCase = testValue
 }

@@ -28,7 +28,9 @@ extension MyShowUseCase: TestDependencyKey {
             terminatedTicketingCount: { 0 },
             interestsCount: { 0 },
             alertsCount: { 0 },
-            alertList: { _, _, _ in .mock([ShowAlarmEntity.mock]) }
+            alertList: { _, _, _ in .mock(ShowAlarmEntity.mockList) }
         )
     }()
+    
+    static var previewValue: MyShowUseCase = testValue
 }

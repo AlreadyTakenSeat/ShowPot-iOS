@@ -23,4 +23,6 @@ extension ShowOpenListUseCase: TestDependencyKey {
             shows: { _ in .mock(ShowOpenEntity.mockList) }
         )
     }()
+    
+    static var previewValue: ShowOpenListUseCase = testValue
 }

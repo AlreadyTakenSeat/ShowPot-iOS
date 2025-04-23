@@ -93,7 +93,7 @@ private extension ShowOpenListViewModel {
     func fetchShows(showOpens: Pageable<ShowOpenEntity>, onlyOpenSchedule: Bool) -> Observable<Effect<Action>> {
         return .run { [useCase = self.useCase] effect in
             let model = ShowListEntity(
-                sort: .recent,
+                sort: .popular,
                 onlyOpenSchedule: onlyOpenSchedule,
                 cursorId: showOpens.data.last?.id,
                 size: 30

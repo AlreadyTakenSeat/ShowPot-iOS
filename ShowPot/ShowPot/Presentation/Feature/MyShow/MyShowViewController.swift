@@ -94,12 +94,12 @@ private extension MyShowViewController {
         view.addSubview(collectionView)
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(8)
         }
         
         showTitleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(titleLabel.snp.bottom)
         }
         
@@ -127,8 +127,11 @@ private extension MyShowViewController {
     private func configureHeaderView() {
         titleLabel.attributedText = NSAttributedString(
             "티켓팅이 임박한 공연",
-            style: .init(fontType: KRFont.H1)
-        ).setForegroundColor(color: .gray300)
+            fontType: KRFont.H1,
+            multiline: true
+        )
+        .setForegroundColor(color: .gray300)
+        
         view.addSubview(titleLabel)
         
         showTitleLabel.isHidden = true
@@ -217,7 +220,9 @@ private extension MyShowViewController {
             let safeIndex = max(0, min(index, items.count - 1))
             
             // 해당 인덱스의 ShowAlarmEntity로 헤더 업데이트
-            let show = composer.state.shows.data[safeIndex]
+            let indexPath = IndexPath(item: safeIndex, section: 0)
+            let item = dataSource?.itemIdentifier(for: indexPath)
+            guard case let .show(show) = item else { return }
             updateHeader(with: show)
             
             // 스크롤에 따른 스케일 및 알파 효과 적용
@@ -388,7 +393,6 @@ private extension MyShowViewController {
         // 디데이 계산 (ticketingAt을 기준으로 D-Day 계산)
         let ticketingAt = show.ticketingAt.toDate(.default)
         guard let ticketingAt  else {
-            print(show.ticketingAt)
             return
         }
         dDayLabel.isHidden = false

@@ -72,7 +72,6 @@ final class AlarmSelectionViewModel: Composer {
                 guard time.isReserved else { continue }
                 state.ticketingTimes.insert(date.toString(.default))
             }
-            print(state.ticketingTimes)
             return .none
         }
     }

@@ -31,4 +31,6 @@ extension HomeUseCase: TestDependencyKey {
             artistList: { _ in .mock(ArtistEntity.mockList) }
         )
     }()
+    
+    static var previewValue: HomeUseCase = testValue
 }

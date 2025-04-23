@@ -31,4 +31,6 @@ extension GenreUseCase: TestDependencyKey {
             genreList: { _ in .mock(GenreEntity.mockList) }
         )
     }()
+    
+    static var previewValue: GenreUseCase = testValue
 }

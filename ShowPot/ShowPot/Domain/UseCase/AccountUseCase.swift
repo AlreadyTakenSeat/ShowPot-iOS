@@ -27,4 +27,6 @@ extension AccountUseCase: TestDependencyKey {
             appleRevoke: { }
         )
     }()
+    
+    static var previewValue: AccountUseCase = testValue
 }
