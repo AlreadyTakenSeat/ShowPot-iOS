@@ -20,17 +20,17 @@ enum GenresEndPoint: EndPoint {
     var path: String {
         switch self {
         case .unsubscribe:
-            return "api/v1/genres/unsubscribe"
+            return "/api/v1/genres/unsubscribe"
         case .subscribe:
-            return "api/v1/genres/subscribe"
+            return "/api/v1/genres/subscribe"
         case .genreList:
-            return "api/v1/genres"
+            return "/api/v1/genres"
         case .unsubscriptionList:
-            return "api/v1/genres/unsubscriptions"
+            return "/api/v1/genres/unsubscriptions"
         case .subscriptionList:
-            return "api/v1/genres/subscriptions"
+            return "/api/v1/genres/subscriptions"
         case .subscriptionCount:
-            return "api/v1/genres/subscriptions/count"
+            return "/api/v1/genres/subscriptions/count"
         }
     }
     

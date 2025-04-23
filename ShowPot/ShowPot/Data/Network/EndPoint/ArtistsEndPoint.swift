@@ -20,17 +20,17 @@ enum ArtistsEndPoint: EndPoint {
     var path: String {
         switch self {
         case .unsubscribe:
-            return "api/v1/artists/unsubscribe"
+            return "/api/v1/artists/unsubscribe"
         case .subscribe:
-            return "api/v1/artists/subscribe"
+            return "/api/v1/artists/subscribe"
         case .unsubscriptionList:
-            return "api/v1/artists/unsubscriptions"
+            return "/api/v1/artists/unsubscriptions"
         case .subscriptionList:
-            return "api/v1/artists/subscriptions"
+            return "/api/v1/artists/subscriptions"
         case .subscriptionCount:
-            return "api/v1/artists/subscriptions/count"
+            return "/api/v1/artists/subscriptions/count"
         case .search:
-            return "api/v1/artists/search"
+            return "/api/v1/artists/search"
         }
     }
     
