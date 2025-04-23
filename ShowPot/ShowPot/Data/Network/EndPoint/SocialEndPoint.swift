@@ -13,8 +13,8 @@ enum SocialEndPoint: EndPoint {
     case appleToken(AppleTokenRequest)
     case appleRevoke(AppleRevokeRequest)
     
-    var baseURL: URL? {
-        return URL(string: "https://appleid.apple.com")
+    var baseURL: String {
+        return "https://appleid.apple.com"
     }
     
     var path: String {

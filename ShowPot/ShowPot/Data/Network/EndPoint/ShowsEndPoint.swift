@@ -121,7 +121,7 @@ enum ShowsEndPoint: EndPoint {
         case let .alertList(model):
             return model
         case let .alert(model):
-            return model.alertTimes
+            return ["alertTimes": model.alertTimes]
         case let .interestList(model):
             return model
         }

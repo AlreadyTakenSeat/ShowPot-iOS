@@ -83,7 +83,10 @@ final class ShowDetailViewModel: Composer {
         case let .mutatedReservations(reservations):
             guard let show = state.show else { return .none }
             var times = ReservationTimeEntity.default
-            reservations.enumerated().forEach { index, reservation in
+            for index in times.indices {
+                guard let reservation = reservations.first(where: {
+                    $0.beforeMinutes == times[index].beforeMinutes
+                }) else { continue }
                 times[index].isReserved = reservation.isReserved
             }
             let viewModel = AlarmSelectionViewModel(

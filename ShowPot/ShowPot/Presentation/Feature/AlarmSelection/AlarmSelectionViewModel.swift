@@ -68,10 +68,11 @@ final class AlarmSelectionViewModel: Composer {
                 )
                 guard let date else { continue }
                 state.times[index].canReserve = date > .now
-                guard date < .now else { continue }
+                guard date > .now else { continue }
                 guard time.isReserved else { continue }
                 state.ticketingTimes.insert(date.toString(.default))
             }
+            print(state.ticketingTimes)
             return .none
         }
     }

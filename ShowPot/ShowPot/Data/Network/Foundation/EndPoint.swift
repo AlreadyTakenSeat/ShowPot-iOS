@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 protocol EndPoint: URLRequestConvertible {
-    var baseURL: URL? { get }
+    var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
     var headers: HTTPHeaders { get }
@@ -21,14 +21,14 @@ protocol EndPoint: URLRequestConvertible {
 }
 
 extension EndPoint {
-    var baseURL: URL? {
-        return URL(string: Bundle.main.baseURL)
+    var baseURL: String {
+        return Bundle.main.baseURL
     }
     
     func asURLRequest() throws -> URLRequest {
-        let url = try baseURL?.asURL().appendingPathComponent(path)
+        let url = URL(string: baseURL + path)
         guard let url else {
-            throw AFError.invalidURL(url: (baseURL?.absoluteString ?? "") + "/\(path)")
+            throw AFError.invalidURL(url: baseURL + path)
         }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
