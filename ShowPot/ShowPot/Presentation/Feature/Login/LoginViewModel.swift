@@ -18,12 +18,20 @@ final class LoginViewModel: Composer {
         case googleLoginButtonTapped
         case appleLoginButtonTapped
         case login(LoginEntity)
+        case delegate(Delegate)
         case loginDone
+        case fetchLoginError
+        
+        enum Delegate {
+            case loginDone
+        }
     }
     
     struct State {
         @PresentState
         var loginDone = false
+        @PresentState
+        var isLoading = false
     }
     
     @ComposableState
@@ -37,6 +45,7 @@ final class LoginViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .kakaoLoginButtonTapped:
+            state.isLoading = true
             return .run { [useCase = self.useCase] effect in
                 let fcmToken = try await useCase.fetchFCMToken()
                 let response = try await useCase.kakaoLogin()
@@ -48,6 +57,7 @@ final class LoginViewModel: Composer {
                 effect.onNext(.send(.login(loginEntity)))
             }
         case .googleLoginButtonTapped:
+            state.isLoading = true
             return .run { [useCase = self.useCase] effect in
                 let fcmToken = try await useCase.fetchFCMToken()
                 let response = try await useCase.googleLogin()
@@ -59,6 +69,7 @@ final class LoginViewModel: Composer {
                 effect.onNext(.send(.login(loginEntity)))
             }
         case .appleLoginButtonTapped:
+            state.isLoading = true
             return .run { [useCase = self.useCase] effect in
                 let fcmToken = try await useCase.fetchFCMToken()
                 let response = try await useCase.appleLogin()
@@ -81,6 +92,12 @@ final class LoginViewModel: Composer {
             }
         case .loginDone:
             state.loginDone = true
+            state.isLoading = false
+            return .send(.delegate(.loginDone))
+        case .delegate:
+            return .none
+        case .fetchLoginError:
+            state.isLoading = false
             return .none
         }
     }

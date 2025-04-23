@@ -10,7 +10,8 @@ import Foundation
 // MARK: - Datum
 struct ArtistResponse: Decodable, Entitiable {
     let id: String?
-    let imageURL, name, spotifyId: String
+    let imageURL, name: String
+    let spotifyId: String?
     let isSubscribed: Bool?
 }
 

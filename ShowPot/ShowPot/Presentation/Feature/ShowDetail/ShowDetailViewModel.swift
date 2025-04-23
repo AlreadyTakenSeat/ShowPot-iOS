@@ -23,6 +23,7 @@ final class ShowDetailViewModel: Composer {
         case mutatedLoginMessage(String)
         case mutatedReservations([ReservationTimeEntity])
         case mutatedToastMessage(String)
+        case fetchShowDetailError
     }
     
     struct State {
@@ -34,6 +35,8 @@ final class ShowDetailViewModel: Composer {
         var loginMessage: String?
         @PresentState
         var toasMessage: String?
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @ComposableState
@@ -65,9 +68,11 @@ final class ShowDetailViewModel: Composer {
         case .alarmSelectionViewModel:
             return .none
         case .viewDidLoad:
+            state.isLoading = true
             return fetchShowDetail(id: state.showId)
         case let .mutatedShow(showDetail):
             state.show = showDetail
+            state.isLoading = false
             return .none
         case let .mutatedIsInterested(isInterested):
             state.show?.isInterested = isInterested
@@ -94,6 +99,9 @@ final class ShowDetailViewModel: Composer {
         case let .mutatedToastMessage(message):
             state.toasMessage = message
             return .none
+        case .fetchShowDetailError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -107,7 +115,7 @@ private extension ShowDetailViewModel {
             effect.onNext(.send(.mutatedShow(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchShowDetailError)
         }
     }
     

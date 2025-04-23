@@ -24,6 +24,8 @@ final class SearchViewModel: Composer {
         case artistCellItemSelected(Int)
         case mutatedLoginMessage(String)
         case mutatedArtistsSubscribe(Int, Bool)
+        case fetchShowsError
+        case fetchArtistsError
         /// 임시
         case mutatedRecents
     }
@@ -39,6 +41,10 @@ final class SearchViewModel: Composer {
         var showSearchResult: Bool = false
         @PresentState
         var loginMessage: String?
+        @PresentState
+        var isShowsLoading = false
+        @PresentState
+        var isArtistsLoading = false
     }
     
     @ComposableState
@@ -64,6 +70,8 @@ final class SearchViewModel: Composer {
             state.recentQueries?.append(query)
             state.shows = Pageable<ShowEntity>()
             state.artists = Pageable<ArtistEntity>()
+            state.isShowsLoading = true
+            state.isArtistsLoading = true
             return .merge(
                 .send(.mutatedRecents),
                 fetchShowsSearch(shows: state.shows, search: query),
@@ -96,12 +104,14 @@ final class SearchViewModel: Composer {
             state.artists.hasNext = artists.hasNext
             state.artists.size = artists.size
             state.artists.data.append(contentsOf: artists.data)
+            state.isArtistsLoading = false
             return .none
         case let .mutatedShows(shows):
             state.shows.cursor = shows.cursor
             state.shows.hasNext = shows.hasNext
             state.shows.size = shows.size
             state.shows.data.append(contentsOf: shows.data)
+            state.isShowsLoading = false
             return .none
         case let .artistCellItemSelected(item):
             if let isSubcribed = state.artists.data[item].isSubscribed, isSubcribed {
@@ -109,17 +119,24 @@ final class SearchViewModel: Composer {
                     artistId: state.artists.data[item].id ?? "",
                     item: item
                 )
-            } else {
+            } else if let spotifyId = state.artists.data[item].spotifyId {
                 return fetchArtistSubscribe(
-                    artistId: state.artists.data[item].spotifyId,
+                    artistId: spotifyId,
                     item: item
                 )
             }
+            return .none
         case let .mutatedLoginMessage(message):
             state.loginMessage = message
             return .none
         case let .mutatedArtistsSubscribe(item, isSubscribed):
             state.artists.data[item].isSubscribed = isSubscribed
+            return .none
+        case .fetchShowsError:
+            state.isShowsLoading = false
+            return .none
+        case .fetchArtistsError:
+            state.isArtistsLoading = false
             return .none
         }
     }
@@ -137,7 +154,7 @@ private extension SearchViewModel {
             effect.onNext(.send(.mutatedArtists(response)))
         } catch: { error in
             print(#function, error)
-            return .none
+            return .send(.fetchArtistsError)
         }
     }
     
@@ -151,13 +168,13 @@ private extension SearchViewModel {
             effect.onNext(.send(.mutatedShows(response)))
         } catch: { error in
             print(#function, error)
-            return .none
+            return .send(.fetchShowsError)
         }
     }
     
     func fetchArtistSubscribe(artistId: String, item: Int) -> Observable<Effect<Action>> {
         return .run { [useCase = self.useCase] effect in
-            try await useCase.subscribe(genreIds: [artistId])
+            try await useCase.subscribe([artistId])
             effect.onNext(.send(.mutatedArtistsSubscribe(item, true)))
         } catch: { error in
             switch error {
@@ -171,7 +188,7 @@ private extension SearchViewModel {
     
     func fetchArtistUnsubscribe(artistId: String, item: Int) -> Observable<Effect<Action>> {
         return .run { [useCase = self.useCase] effect in
-            try await useCase.unsubscribe(genreIds: [artistId])
+            try await useCase.unsubscribe([artistId])
             effect.onNext(.send(.mutatedArtistsSubscribe(item, false)))
         } catch: { error in
             switch error {

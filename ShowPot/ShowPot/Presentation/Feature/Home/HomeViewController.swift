@@ -22,6 +22,7 @@ final class HomeViewController: UIViewController, Composable {
     private let logoImageView = UIImageView(image: .logoTitle)
     private let alarmButton = UIButton()
     private var dataSource: DataSource?
+    private let loadingIndicator = SPLoadingIndicator()
     
     @Compose
     var composer = HomeViewModel()
@@ -68,6 +69,8 @@ private extension HomeViewController {
         configureCollectionView()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -87,6 +90,11 @@ private extension HomeViewController {
             make.top.equalTo(logoImageView.snp.bottom).offset(18)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(80) // 바닥 여백 수정: inset(80) -> safeAreaLayoutGuide
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -355,6 +363,17 @@ private extension HomeViewController {
                 recommendedShows: recommendedShows
             )
         }
+        .disposed(by: disposeBag)
+        
+        Driver.combineLatest(
+            composer.$state.present(\.$isArtistsLoading),
+            composer.$state.present(\.$isGenresLoading),
+            composer.$state.present(\.$isRecommendedShowsLoading),
+            composer.$state.present(\.$isUpcomingShowsLoading)
+        )
+        .map { $0 || $1 || $2 || $3 }
+        .distinctUntilChanged()
+        .drive(loadingIndicator.rx.animating)
         .disposed(by: disposeBag)
     }
 }

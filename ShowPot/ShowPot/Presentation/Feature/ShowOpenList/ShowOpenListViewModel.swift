@@ -19,12 +19,15 @@ final class ShowOpenListViewModel: Composer {
         case mutatedShowOpens(Pageable<ShowOpenEntity>)
         case prefetchItems([Int])
         case willDisplayCell(Int)
+        case fetchShowOpensError
     }
     
     struct State {
         var showOpens = Pageable<ShowOpenEntity>()
         var onlyOpenSchedule = false
         var isPaging = false
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @ComposableState
@@ -45,6 +48,7 @@ final class ShowOpenListViewModel: Composer {
                 onlyOpenSchedule: state.onlyOpenSchedule
             )
         case .viewDidLoad:
+            state.isLoading = true
             return fetchShows(
                 showOpens: state.showOpens,
                 onlyOpenSchedule: state.onlyOpenSchedule
@@ -55,6 +59,7 @@ final class ShowOpenListViewModel: Composer {
             state.showOpens.data.append(contentsOf: showOpens.data)
             state.showOpens.size += showOpens.size
             state.isPaging = false
+            state.isLoading = false
             return .none
         case let .prefetchItems(indexes):
             guard
@@ -76,6 +81,9 @@ final class ShowOpenListViewModel: Composer {
                 showOpens: state.showOpens,
                 onlyOpenSchedule: state.onlyOpenSchedule
             )
+        case .fetchShowOpensError:
+            state.isLoading = false
+            return .none
         }
     }
 }
@@ -90,11 +98,11 @@ private extension ShowOpenListViewModel {
                 cursorId: showOpens.data.last?.id,
                 size: 30
             )
-            let response = try await useCase.shows(model: model)
+            let response = try await useCase.shows(model)
             effect.onNext(.send(.mutatedShowOpens(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchShowOpensError)
         }
     }
 }

@@ -25,6 +25,7 @@ final class SearchViewController: UIViewController, Composable {
     private let searchTextField = SPTextField(placeholder: "관심 있는 공연과 가수를 검색해보세요")
     private let clearAllButton = UIButton()
     private let backButton = UIButton()
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var recentSearchesDataSource: RecentSearchesDataSource?
     private var searchResultsDataSource: SearchResultsDataSource?
@@ -77,6 +78,8 @@ private extension SearchViewController {
         configureCollectionViews()
         
         configureClearAllButton()
+        
+        view.addSubview(loadingIndicator)
     }
     
     func configureLayout() {
@@ -105,6 +108,11 @@ private extension SearchViewController {
         searchResultsCollectionView.snp.makeConstraints { make in
             make.top.equalTo(searchTextField.snp.bottom).offset(12)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -538,6 +546,15 @@ private extension SearchViewController {
                 this.present(bottomSheet, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        Driver.combineLatest(
+            composer.$state.present(\.$isShowsLoading),
+            composer.$state.present(\.$isArtistsLoading)
+        )
+        .map { $0 || $1 }
+        .distinctUntilChanged()
+        .drive(loadingIndicator.rx.animating)
+        .disposed(by: disposeBag)
     }
 }
 

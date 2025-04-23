@@ -21,6 +21,7 @@ final class ShowDetailViewController: UIViewController, Composable {
     )
     private let ctaButton = SPCTAButton(title: "알림 설정하기", style: .primary)
     private let favoriteButton = UIButton()
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
@@ -68,6 +69,8 @@ private extension ShowDetailViewController {
         configureFavoriteButton()
         
         configureNavigationBar()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -91,6 +94,11 @@ private extension ShowDetailViewController {
             make.leading.equalTo(favoriteButton.snp.trailing).offset(15)
             make.trailing.equalToSuperview().inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -683,6 +691,11 @@ private extension ShowDetailViewController {
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

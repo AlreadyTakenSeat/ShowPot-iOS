@@ -18,11 +18,14 @@ final class ShowListViewModel: Composer {
         case prefetchItems([Int])
         case willDisplayCell(Int)
         case mutatedShows(Pageable<ShowEntity>)
+        case fetchShowsError
     }
     
     struct State {
         var notifications = Pageable<ShowEntity>()
         var isPaging = false
+        @PresentState
+        var isLoading: Bool = false
     }
     
     @ComposableState
@@ -36,6 +39,7 @@ final class ShowListViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidLoad:
+            state.isLoading = true
             return fetchNotificationList(shows: state.notifications)
         case let .prefetchItems(indexes):
             guard
@@ -57,6 +61,10 @@ final class ShowListViewModel: Composer {
             state.notifications.data.append(contentsOf: shows.data)
             state.notifications.size += shows.size
             state.isPaging = false
+            state.isLoading = false
+            return .none
+        case .fetchShowsError:
+            state.isLoading = false
             return .none
         }
     }
@@ -70,7 +78,7 @@ private extension ShowListViewModel {
                 cursorId: shows.data.last?.id,
                 size: 30
             )
-            var response = try await useCase.notificationList(cursor)
+            let response = try await useCase.notificationList(cursor)
             let shows: Pageable<ShowEntity> = Pageable(
                 size: response.size,
                 hasNext: response.hasNext,
@@ -81,6 +89,8 @@ private extension ShowListViewModel {
                 )
             )
             effect.onNext(.send(.mutatedShows(shows)))
+        } catch: { error in
+            return .send(.fetchShowsError)
         }
     }
 }

@@ -23,6 +23,7 @@ final class ShowOpenListViewController: UIViewController, Composable {
         collectionViewLayout: createFlowLayout()
     )
     private let searchButton = UIButton()
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     private var shows: [ShowOpenEntity] = ShowOpenEntity.mockList // ShowOpenEntity는 외부에서 정의된다고 가정
@@ -73,6 +74,8 @@ private extension ShowOpenListViewController {
         configureFilterLabel()
         
         configureCollectionView()
+        
+        view.addSubview(loadingIndicator)
     }
     
     private func configureLayout() {
@@ -100,6 +103,11 @@ private extension ShowOpenListViewController {
             make.top.equalTo(filterCheckBox.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -274,6 +282,11 @@ private extension ShowOpenListViewController {
             .map(\.onlyOpenSchedule)
             .distinctUntilChanged()
             .drive(filterCheckBox.rx.isSelected)
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }

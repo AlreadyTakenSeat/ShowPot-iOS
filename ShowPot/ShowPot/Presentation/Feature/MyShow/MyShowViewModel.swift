@@ -17,6 +17,8 @@ final class MyShowViewModel: Composer {
         case viewDidAppear
         case mutatedInterestCount(Int)
         case mutatedShows(Pageable<ShowAlarmEntity>)
+        case fetchInterestCountError
+        case fetchAlertListError
     }
     
     struct State {
@@ -24,6 +26,10 @@ final class MyShowViewModel: Composer {
         var alertsCount = 0
         var interestCount = 0
         var ticketingCount = 0
+        @PresentState
+        var isAlertListLoading = true
+        @PresentState
+        var isInterestCountLoading = true
     }
     
     @ComposableState
@@ -37,6 +43,8 @@ final class MyShowViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidAppear:
+            state.isAlertListLoading = true
+            state.isInterestCountLoading = true
             return .merge(
                 fetchAlertList(shows: state.shows),
                 fetchInterestCount()
@@ -46,9 +54,17 @@ final class MyShowViewModel: Composer {
             state.shows.hasNext = shows.hasNext
             state.shows.data.append(contentsOf: shows.data)
             state.shows.size += shows.size
+            state.isAlertListLoading = false
             return .none
         case let .mutatedInterestCount(count):
+            state.isInterestCountLoading = false
             state.interestCount = count
+            return .none
+        case .fetchInterestCountError:
+            state.isInterestCountLoading = false
+            return .none
+        case .fetchAlertListError:
+            state.isAlertListLoading = false
             return .none
         }
     }
@@ -62,24 +78,24 @@ private extension MyShowViewModel {
             effect.onNext(.send(.mutatedInterestCount(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchInterestCountError)
         }
     }
     
     func fetchAlertList(shows: Pageable<ShowAlarmEntity>) -> Observable<Effect<Action>> {
         return .run { [useCase = self.useCase] effect in
             let response = try await useCase.alertList(
-                type: .continued,
-                cursor: Pageable<ShowAlarmEntity>.Cursor(
+                .continued,
+                Pageable<ShowAlarmEntity>.Cursor(
                     id: shows.data.last?.id,
                     value: nil
                 ),
-                size: 30
+                30
             )
             effect.onNext(.send(.mutatedShows(response)))
         } catch: { error in
             print(error)
-            return .none
+            return .send(.fetchAlertListError)
         }
     }
 }

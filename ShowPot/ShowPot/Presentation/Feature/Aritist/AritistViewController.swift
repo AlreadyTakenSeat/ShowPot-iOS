@@ -30,18 +30,24 @@ final class ArtistViewController: UIViewController, Composable {
         endPoint: CGPoint(x: 0, y: 1),
         locations: [0, 1]
     )
+    private let loadingIndicator = SPLoadingIndicator()
     
     private var dataSource: DataSource?
     
     @Compose
-    var composer = ArtistViewModel()
+    var composer: ArtistViewModel
     var disposeBag = DisposeBag()
     
     // 버튼의 제약 조건을 동적으로 변경하기 위해 저장
     private var bottomButtonBottomConstraint: Constraint?
     
     // MARK: - Initialization
-    init() {
+    init(viewModel: ArtistViewModel? = nil) {
+        if let viewModel {
+            self.composer = viewModel
+        } else {
+            self.composer = ArtistViewModel()
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -83,6 +89,8 @@ private extension ArtistViewController {
         configureBottomButton()
         
         configureDataSource()
+        
+        view.addSubview(loadingIndicator)
     }
     
     func configureLayout() {
@@ -112,6 +120,11 @@ private extension ArtistViewController {
             make.horizontalEdges.equalToSuperview()
             // 동적으로 변경할 제약 조건 저장
             bottomButtonBottomConstraint = make.bottom.equalToSuperview().offset(100).constraint
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
     }
     
@@ -319,6 +332,11 @@ private extension ArtistViewController {
                     .disposed(by: bottomSheet.disposeBag)
                 this.present(bottomSheet, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        composer.$state.present(\.$isLoading)
+            .distinctUntilChanged()
+            .drive(loadingIndicator.rx.animating)
             .disposed(by: disposeBag)
     }
 }
