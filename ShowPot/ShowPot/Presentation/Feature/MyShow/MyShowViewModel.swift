@@ -43,6 +43,7 @@ final class MyShowViewModel: Composer {
     func reducer(_ state: inout State, _ action: Action) -> Observable<Effect<Action>> {
         switch action {
         case .viewDidAppear:
+            state.shows = Pageable<ShowAlarmEntity>()
             state.isAlertListLoading = true
             state.isInterestCountLoading = true
             return .merge(
