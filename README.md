@@ -29,11 +29,13 @@
 > `UIKit`, `MVVM`, `SnapKit`, `Kingfisher`, `Alamofire`, `Swift Concurrency`, `RxSwift`, `Unidirectional Architecture`, `Swift Dependencies`, `Clean Architecture`, `KakaoSDK`
 - 직접 설계해 오픈소스로 배포한 단방향 아키텍처([RxCompse](https://github.com/ShapeKim98/RxCompose))를 이번 프로젝트에 적용하여 라이브러리의 적용 가능성과 실효성을 검증했습니다.
 - 탭바의 클릭 이벤트를 `BehaviorSubject`로 방출하고, 이를 `UITabBarController`의 `selectedIndex`에 바인딩하여 커스텀 탭바를 구현했습니다.
-- `DTO`를 활용해 외부 데이터를 클라이언트 기능에 적합한 형태로 가공하고, 외부 변경 사항에 유연하게 대응했습니다.
+- `DTO`에 `Generic`을 도입하여 외부 데이터를 클라이언트 기능에 적합한 형태로 가공하고, 외부 변경 사항에 유연하게 대응했습니다.
 - `Data` 단의 주요 기능을 `Repository`로 추상화하여 비즈니스 로직과의 결합도를 낮추고, 재사용성을 높였습니다.
 - `Feature` 단에 필요한 로직을 `UseCase`로 명시하여 `Feature` 계층과 `Data` 계층 간 의존성을 분리했습니다.
 - `Swift Dependencies`의 `testValue`를 활용해 테스트 가능한 환경을 구성하고, `previewValue`를 통해 프리뷰 환경에서 목업 데이터를 제공하여 불필요한 API 호출을 줄였습니다.
-- `Repository`를 `Protocol`이 아니라 메서드들을 클로저 형태로 인스턴스에 주입받는 구조체로 추상화하여, `Repository`의 인스턴스 접근을 통해 `UseCase`가 불필요한 의존 없이 꼭 필요한 메서드만 활용할 수 있도록 구성했습니다.
+- `Repository`를 `Protocol`이 아니라 메서드들을 클로저 형태로 인스턴스에 주입받는 구조체로 추상화하여, 추상화된 `Repository`의 인스턴스 접근을 통해 `UseCase`가 불필요한 의존 없이 꼭 필요한 메서드만 활용할 수 있도록 구성했습니다.
 - `Router Pattern`과 `Generic`을 활용하여 네트워크 코드 추상화함으로써 `Alamofire` 기반 코드의 재사용성을 높였습니다.
-- `Compositional Layout`을 활용해 하나의 화면에서 다양한 섹션과 각기 다른 셀 구성을 유연하게 지원했습니다.
+- `Alamofire`의 `RequestInterceptor`를 활용해 요청 헤더에 토큰을 자동으로 적용하고, 액세스 토큰 오류 발생 시 토큰 재발급을 수행하는 로직을 구현했습니다.
+- `DataSource`의 섹션과 데이터를 열거형으로 정의하고, 이를 기반으로 `Compositional Layout`을 구성하여 하나의 화면에서 다양한 섹션과 셀 구성을 유연하게 지원했습니다.
 - `visibleItemsInvalidationHandler`를 사용해 셀의 위치를 동적으로 계산하고, 위치에 따라 투명도 및 크기가 변하는 캐러셀(Carousel) 뷰를 구현했습니다.
+- `SwiftJWT`를 활용해 애플 리프레시 토큰 발급과 회원 탈퇴 요청에 필요한 `Payload`를 생성하여 애플 로그인 탈퇴 기능을 구현했습니다.
